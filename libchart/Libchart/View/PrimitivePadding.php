@@ -17,48 +17,55 @@
  *
  */
 
-namespace Libchart\Model;
+namespace Libchart\View;
 
 /**
- * Point of coordinates (X,Y).
- * The value of X isn't really of interest, but X is used as a label to display on the horizontal axis.
+ * Primitive geometric object representing a padding.
  *
  * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
+ * @Created on 27 july 2007
  */
-class Point
+class PrimitivePadding
 {
-    private $x;
-    private $y;
+    /**
+     * Top padding.
+     */
+    public $top;
 
     /**
-     * Creates a new sampling point of coordinates (x, y)
-     *
-     * @param integer x coordinate (label)
-     * @param integer y coordinate (value)
+     * Right padding.
      */
-    public function __construct($x, $y)
-    {
-        $this->x = $x;
-        $this->y = $y;
-    }
+    public $right;
 
     /**
-     * Gets the x coordinate (label).
-     *
-     * @return integer x coordinate (label)
+     * Bottom padding.
      */
-    public function getX()
-    {
-        return $this->x;
-    }
+    public $bottom;
 
     /**
-     * Gets the y coordinate (value).
-     *
-     * @return integer y coordinate (value)
+     * Left padding.
      */
-    public function getY()
+    public $left;
+
+    /**
+     * Creates a new padding.
+     *
+     * @param integer Top padding
+     * @param integer Right padding
+     * @param integer Bottom padding
+     * @param integer Left padding
+     */
+    public function __construct($top, $right = null, $bottom = null, $left = null)
     {
-        return $this->y;
+        $this->top = $top;
+        if ($right == null) {
+            $this->right = $top;
+            $this->bottom = $top;
+            $this->left = $top;
+        } else {
+            $this->right = $right;
+            $this->bottom = $bottom;
+            $this->left = $left;
+        }
     }
 }

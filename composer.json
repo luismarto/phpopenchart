@@ -1,5 +1,5 @@
 {
-	"name": "libchart/libchart",
+	"name": "luismarto/libchart",
 	"type": "library",
 	"description": "Simple PHP chart drawing library",
 	"keywords": ["chart","charts","bar charts","line charts","pie charts"],
@@ -14,9 +14,16 @@
 		{
 			"name": "Alexander Stehlik",
 			"role": "Developer"
+		},
+		{
+			"name": "Luis Cruz",
+			"role": "Developer"
 		}
 	],
 	"autoload": {
-		"psr-0": { "Libchart\\": "libchart/"}
+		"psr-0": {
+			"Libchart\\":
+			"libchart/"
+		}
 	}
 }
