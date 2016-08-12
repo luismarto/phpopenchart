@@ -139,7 +139,7 @@ class ColorPalette
      */
     public function setBarColor($colors)
     {
-        $this->barColorSet = new ColorSet($colors, 0.75);
+        $this->barColorSet = new ColorSet($colors, 1);
     }
 
     /**
