@@ -35,10 +35,10 @@ class Color
     /**
      * Creates a new color
      *
-     * @param integer red [0..255]
-     * @param integer green [0..255]
-     * @param integer blue [0..255]
-     * @param integer alpha [0..255]
+     * @param integer $red [0..255]
+     * @param integer $green [0..255]
+     * @param integer $blue [0..255]
+     * @param integer $alpha [0..255]
      */
     public function __construct($red, $green, $blue, $alpha = 0)
     {
@@ -52,7 +52,6 @@ class Color
 
     /**
      * Get GD color.
-     *
      * @param $img GD image resource
      */
     public function getColor($img)
@@ -73,8 +72,8 @@ class Color
     /**
      * Clip a color component in the interval [0..255]
      *
-     * @param integer Component
-     * @return Clipped component
+     * @param int $component
+     * @return int $component Clipped component
      */
     public function clip($component)
     {

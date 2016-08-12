@@ -20,19 +20,15 @@
 namespace Libchart\View;
 
 /**
- * Chart composed of vertical bars.
+ * Line chart.
  *
  * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
  */
-class ChartVerticalBarChart extends ChartBar
+class ChartLine extends ChartBar
 {
     /**
-     * Ratio of empty space beside the bars.
-     */
-    private $emptyToFullRatio;
-
-    /**
-     * Creates a new vertical bar chart
+     * Creates a new line chart.
+     * Line charts allow for XYDataSet and XYSeriesDataSet in order to plot several lines.
      *
      * @param integer width of the image
      * @param integer height of the image
@@ -41,7 +37,6 @@ class ChartVerticalBarChart extends ChartBar
     {
         parent::__construct($width, $height);
 
-        $this->emptyToFullRatio = 1 / 5;
         $this->plot->setGraphPadding(new PrimitivePadding(5, 30, 50, 50));
     }
 
@@ -57,7 +52,7 @@ class ChartVerticalBarChart extends ChartBar
     }
 
     /**
-     * Print the horizontal and vertical axis.
+     * Print the axis.
      */
     protected function printAxis()
     {
@@ -94,33 +89,34 @@ class ChartVerticalBarChart extends ChartBar
         // Horizontal Axis
         $pointCount = count($pointList);
         reset($pointList);
-        $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+        $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
         imagerectangle($img, $graphArea->x1 - 1, $horizOriginY, $graphArea->x2, $horizOriginY + 1, $palette->axisColor[0]->getColor($img));
 
-        for ($i = 0; $i <= $pointCount; $i++) {
+        for ($i = 0; $i < $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
-            imagerectangle($img, $x - 1, $horizOriginY + 2, $x, $horizOriginY + 3, $palette->axisColor[0]->getColor($img));
-            imagerectangle($img, $x - 1, $horizOriginY, $x, $horizOriginY + 1, $palette->axisColor[1]->getColor($img));
+            imagerectangle($img, $x - 1, $graphArea->y2 + 2, $x, $graphArea->y2 + 3, $palette->axisColor[0]->getColor($img));
+            imagerectangle($img, $x - 1, $graphArea->y2, $x, $graphArea->y2 + 1, $palette->axisColor[1]->getColor($img));
 
-            if ($i < $pointCount) {
-                $point = current($pointList);
-                next($pointList);
+            $point = current($pointList);
+            next($pointList);
 
-                $label = $point->getX();
+            $label = $point->getX();
 
-                $text->printDiagonal($img, $x + $columnWidth * 1 / 3, $graphArea->y2 + 10, $this->plot->getTextColor(), $label);
-            }
+            $text->printDiagonal($img, $x - 5, $graphArea->y2 + 10, $this->plot->getTextColor(), $label);
         }
     }
 
     /**
-     * Print the bars.
+     * Print the lines.
      */
-    protected function printBar()
+    protected function printLine()
     {
+        $minValue = $this->axis->getLowerBoundary();
+        $maxValue = $this->axis->getUpperBoundary();
+
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();
 
@@ -128,75 +124,44 @@ class ChartVerticalBarChart extends ChartBar
         $img = $this->plot->getImg();
         $palette = $this->plot->getPalette();
         $text = $this->plot->getText();
+        $primitive = $this->plot->getPrimitive();
 
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
-
-        // Start from the first color for the first serie
-        $barColorSet = $palette->barColorSet;
-        $barColorSet->reset();
-
-        $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
-
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
-
-        $serieCount = count($serieList);
-        for ($j = 0; $j < $serieCount; $j++) {
+        $lineColorSet = $palette->lineColorSet;
+        $lineColorSet->reset();
+        for ($j = 0; $j < count($serieList); $j++) {
             $serie = $serieList[$j];
             $pointList = $serie->getPointList();
             $pointCount = count($pointList);
             reset($pointList);
 
-            // Select the next color for the next serie
-            if (!$this->config->getUseMultipleColor()) {
-                $color = $barColorSet->currentColor();
-                $shadowColor = $barColorSet->currentShadowColor();
-                $barColorSet->next();
-            }
+            $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
 
-            $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+            $lineColor = $lineColorSet->currentColor();
+            $lineColorShadow = $lineColorSet->currentShadowColor();
+            $lineColorSet->next();
+            $x1 = null;
+            $y1 = null;
             for ($i = 0; $i < $pointCount; $i++) {
-                $x = $graphArea->x1 + $i * $columnWidth;
+                $x2 = $graphArea->x1 + $i * $columnWidth;
 
                 $point = current($pointList);
                 next($pointList);
 
                 $value = $point->getY();
 
-                $ymin = $graphArea->y2 - ($value - $minValue) * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+                $y2 = $graphArea->y2 - ($value - $minValue) * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-                // Bar dimensions
-                $xWithMargin = $x + $columnWidth * $this->emptyToFullRatio;
-                $columnWidthWithMargin = $columnWidth * (1 - $this->emptyToFullRatio * 2);
-                $barWidth = $columnWidthWithMargin / $serieCount;
-                $barOffset = $barWidth * $j;
-                $x1 = $xWithMargin + $barOffset;
-                $x2 = $xWithMargin + $barWidth + $barOffset - 1;
-
-                // Select the next color for the next item in the serie
-                if ($this->config->getUseMultipleColor()) {
-                    $color = $barColorSet->currentColor();
-                    $shadowColor = $barColorSet->currentShadowColor();
-                    $barColorSet->next();
+                // Draw line
+                if ($x1) {
+                    $primitive->line($x1, $y1, $x2, $y2, $lineColor, 4);
+                    $primitive->line($x1, $y1 - 1, $x2, $y2 - 1, $lineColorShadow, 2);
                 }
 
-                // Draw the vertical bar
-                imagefilledrectangle($img, $x1, $ymin, $x2, $horizOriginY + ($value >= 0 ? -1 : 2), $shadowColor->getColor($img));
-
-                // Prevents drawing a small box when y = 0
-                if ($value != 0) {
-                    imagefilledrectangle($img, $x1 + 1, $ymin + ($value > 0 ? 1 : 0), $x2 - 4, $horizOriginY + ($value >= 0 ? -1 : 2), $color->getColor($img));
-                }
-
-                // Draw caption text on bar
-                if ($this->config->getShowPointCaption()) {
-                    $label = $labelGenerator->generateLabel($value);
-                    $text->printText($img, $x1 + $barWidth / 2, ($value > 0 ? $ymin - 5 : $ymin + 15), $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_BOTTOM_ALIGN);
-                }
+                $x1 = $x2;
+                $y1 = $y2;
             }
         }
     }
@@ -215,8 +180,8 @@ class ChartVerticalBarChart extends ChartBar
         $caption->setLabelList($labelList);
 
         $palette = $this->plot->getPalette();
-        $barColorSet = $palette->barColorSet;
-        $caption->setColorSet($barColorSet);
+        $lineColorSet = $palette->lineColorSet;
+        $caption->setColorSet($lineColorSet);
 
         // Render the caption
         $caption->render();
@@ -238,9 +203,9 @@ class ChartVerticalBarChart extends ChartBar
         $this->createImage();
         $this->plot->printLogo();
         $this->plot->printTitle();
-        if (!$this->isEmptyDataSet(1)) {
+        if (!$this->isEmptyDataSet(2)) {
             $this->printAxis();
-            $this->printBar();
+            $this->printLine();
             if ($this->hasSeveralSerie) {
                 $this->printCaption();
             }

@@ -106,6 +106,7 @@ class Plot
 
     /**
      * Coordinates of the graph area.
+     * @var PrimitiveRectangle
      */
     protected $graphArea;
 
@@ -149,6 +150,11 @@ class Plot
     protected $textColor;
 
     /**
+     * @var Color
+     */
+    public $titleColor;
+
+    /**
      * Constructor of Plot.
      *
      * @param integer $width of the image
@@ -172,6 +178,8 @@ class Plot
         $this->graphCaptionRatio = 0.50;
         $this->graphPadding = new PrimitivePadding(50);
         $this->captionPadding = new PrimitivePadding(15);
+
+        $this->titleColor = new Color(0, 0, 0);
     }
 
     /**
@@ -268,8 +276,6 @@ class Plot
 
         // White background
         imagefilledrectangle($this->img, 0, 0, $this->width - 1, $this->height - 1, $this->backGroundColor->getColor($this->img));
-
-        //imagerectangle($this->img, $this->imageArea->x1, $this->imageArea->y1, $this->imageArea->x2, $this->imageArea->y2, $this->palette->red->getColor($this->img));
     }
 
     /**
@@ -278,7 +284,13 @@ class Plot
     public function printTitle()
     {
         $yCenter = $this->titleArea->y1 + ($this->titleArea->y2 - $this->titleArea->y1) / 2;
-        $this->text->printCentered($this->img, $yCenter, $this->textColor, $this->title, $this->text->fontCondensedBold);
+        $this->text->printCentered(
+            $this->img,
+            $yCenter,
+            $this->titleColor,
+            $this->title,
+            $this->text->fontCondensedBold
+        );
     }
 
     /**
@@ -310,11 +322,23 @@ class Plot
     /**
      * Sets the title.
      *
-     * @param string New title
+     * @param string $title New title
      */
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Change the color used for the title
+     * @param $red
+     * @param $green
+     * @param $blue
+     * @param int $alpha
+     */
+    public function setTitleColor($red, $green, $blue, $alpha = 0)
+    {
+        $this->titleColor = new Color($red, $green, $blue, $alpha);
     }
 
     /**
@@ -370,7 +394,7 @@ class Plot
     /**
      * Return the outer padding.
      *
-     * @param integer Outer padding value in pixels
+     * @return integer Outer padding value in pixels
      */
     public function getOuterPadding()
     {
@@ -390,7 +414,7 @@ class Plot
     /**
      * Return the title height.
      *
-     * @param integer title height
+     * @param integer $titleHeight title height
      */
     public function setTitleHeight($titleHeight)
     {
@@ -400,7 +424,7 @@ class Plot
     /**
      * Return the title padding.
      *
-     * @param integer title padding
+     * @param integer $titlePadding title padding
      */
     public function setTitlePadding($titlePadding)
     {
@@ -410,7 +434,7 @@ class Plot
     /**
      * Return the graph padding.
      *
-     * @param integer graph padding
+     * @param integer $graphPadding graph padding
      */
     public function setGraphPadding($graphPadding)
     {
@@ -420,7 +444,7 @@ class Plot
     /**
      * Set if the graph has a caption.
      *
-     * @param boolean graph has a caption
+     * @param boolean $hasCaption graph has a caption
      */
     public function setHasCaption($hasCaption)
     {
@@ -450,7 +474,7 @@ class Plot
     /**
      * Return the label generator.
      *
-     * @return Label generator
+     * @return DefaultLabelGenerator Label generator
      */
     public function getLabelGenerator()
     {
@@ -460,7 +484,7 @@ class Plot
     /**
      * Set the label generator.
      *
-     * @param LabelGenerator Label generator
+     * @param DefaultLabelGenerator $labelGenerator Label generator
      */
     public function setLabelGenerator($labelGenerator)
     {
@@ -470,7 +494,7 @@ class Plot
     /**
      * Return the graph area.
      *
-     * @return graph area
+     * @return PrimitiveRectangle graph area
      */
     public function getGraphArea()
     {

@@ -27,6 +27,7 @@
 namespace Libchart\View;
 
 use Libchart\Model\ChartConfig;
+use Libchart\Model\XYDataSet;
 
 /**
  * Base chart class.
@@ -93,7 +94,7 @@ abstract class Chart
     /**
      * Sets the data set.
      *
-     * @param dataSet The data set
+     * @param XYDataSet $dataSet The data set
      */
     public function setDataSet($dataSet)
     {
@@ -128,5 +129,33 @@ abstract class Chart
     public function setTitle($title)
     {
         $this->plot->setTitle($title);
+    }
+
+    /**
+     * Specifies a color for the chart title
+     * @author Luis Cruz
+     * @date 20160812
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     * @param float|int $alpha
+     */
+    public function setTitleColor($red, $green, $blue, $alpha = 0)
+    {
+        $this->plot->setTitleColor($red, $green, $blue, $alpha);
+    }
+
+    /**
+     * Specifies a color for the chart title
+     * @author Luis Cruz
+     * @date 20160812
+     * @param string $hexColor
+     * @param float|int $alpha
+     */
+    public function setTitleColorHex($hexColor, $alpha = 0)
+    {
+        list($red, $green, $blue) = sscanf($hexColor, "#%02x%02x%02x");
+
+        $this->plot->setTitleColor($red, $green, $blue, $alpha);
     }
 }

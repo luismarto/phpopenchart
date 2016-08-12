@@ -24,7 +24,7 @@ namespace Libchart\View;
  *
  * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
  */
-class ChartPieChart extends Chart
+class ChartPie extends Chart
 {
     protected $pieCenterX;
     protected $pieCenterY;

@@ -50,10 +50,10 @@ class PrimitiveRectangle
     /**
      * Constructor of Rectangle.
      *
-     * @param x1 Left edge coordinate
-     * @param y1 Upper edge coordinate
-     * @param x2 Right edge coordinate
-     * @param y2 Bottom edge coordinate
+     * @param int $x1 Left edge coordinate
+     * @param int $y1 Upper edge coordinate
+     * @param int $x2 Right edge coordinate
+     * @param int $y2 Bottom edge coordinate
      */
     public function __construct($x1, $y1, $x2, $y2)
     {

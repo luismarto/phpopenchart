@@ -26,10 +26,29 @@ namespace Libchart\View;
  */
 class Axis
 {
+    /**
+     * @var int
+     */
     private $min;
+
+    /**
+     * @var int
+     */
     private $max;
+
+    /**
+     * @var int
+     */
     private $guide;
+
+    /**
+     * @var int
+     */
     private $delta;
+
+    /**
+     * @var number
+     */
     private $magnitude;
     private $displayMin;
     private $displayMax;

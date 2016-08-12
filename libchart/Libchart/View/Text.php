@@ -19,6 +19,8 @@
 
 namespace Libchart\View;
 
+const DS = DIRECTORY_SEPARATOR;
+
 /**
  * Text drawing helper
  *
@@ -26,6 +28,7 @@ namespace Libchart\View;
  */
 class Text
 {
+
     public $HORIZONTAL_LEFT_ALIGN = 1;
     public $HORIZONTAL_CENTER_ALIGN = 2;
     public $HORIZONTAL_RIGHT_ALIGN = 4;
@@ -33,16 +36,20 @@ class Text
     public $VERTICAL_CENTER_ALIGN = 16;
     public $VERTICAL_BOTTOM_ALIGN = 32;
 
+    // @todo: set this on a config file
+    private $fontsDirectory;
+
     /**
      * Creates a new text drawing helper.
      */
     public function __construct()
     {
-        $baseDir = dirname(__FILE__) . "/../../";
+        // @todo: set this with DIRECTORY_SEPARATOR
+        $this->fontsDirectory = dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'fonts' . DS;
 
         // Free low-res fonts based on Bitstream Vera <http://dejavu.sourceforge.net/wiki/>
-        $this->fontCondensed = $baseDir . "fonts/DejaVuSansCondensed.ttf";
-        $this->fontCondensedBold = $baseDir . "fonts/DejaVuSansCondensed-Bold.ttf";
+        $this->fontCondensed = $this->fontsDirectory . "DejaVuSansCondensed.ttf";
+        $this->fontCondensedBold = $this->fontsDirectory . "DejaVuSansCondensed-Bold.ttf";
     }
 
     /**
@@ -51,7 +58,7 @@ class Text
      * @param $img Image GD image
      * @param integer text coordinate (x)
      * @param integer text coordinate (y)
-     * @param \Libchart\View\Color\Color text color
+     * @param Color text color
      * @param string text value
      * @param string font file name
      * @param bitfield text alignment
@@ -100,7 +107,7 @@ class Text
      *
      * @param Image GD image
      * @param integer text coordinate (y)
-     * @param \Libchart\View\Color\Color text color
+     * @param Color text color
      * @param string text value
      * @param string font file name
      */
@@ -115,7 +122,7 @@ class Text
      * @param Image GD image
      * @param integer text coordinate (x)
      * @param integer text coordinate (y)
-     * @param \Libchart\View\Color\Color text color
+     * @param Color text color
      * @param string text value
      */
     public function printDiagonal($img, $px, $py, $color, $text)
@@ -135,11 +142,11 @@ class Text
 
     public function setFontCondensed($fontName)
     {
-        $this->fontCondensed = $fontName;
+        $this->fontCondensed = $this->fontsDirectory . $fontName;
     }
 
     public function setFontCondensedBold($fontName)
     {
-        $this->fontCondensedBold = $fontName;
+        $this->fontCondensedBold = $this->fontsDirectory . $fontName;
     }
 }

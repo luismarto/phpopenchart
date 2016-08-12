@@ -114,7 +114,6 @@ class Caption
         $this->labelList = $labelList;
     }
 
-
     /**
      * Sets the color set.
      *
