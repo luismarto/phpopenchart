@@ -45,71 +45,40 @@ class ColorPalette
         $this->red = new Color(255, 0, 0);
 
         // Set the colors for the horizontal and vertical axis
-        $this->setAxisColor(array(
-            new Color(201, 201, 201),
-            new Color(158, 158, 158)
-        ));
+        $this->setAxisColor([
+            new ColorHex('#C0D0E0'),
+            new ColorHex('#C0D0E0')
+        ]);
 
         // Set the colors for the background
-        $this->setBackgroundColor(array(
-            new Color(242, 242, 242),
-            new Color(231, 231, 231),
-            new Color(239, 239, 239),
-            new Color(253, 253, 253)
-        ));
+        $this->setBackgroundColor([
+            new ColorHex('#D8D8D8')
+        ]);
 
         // Set the colors for the bars
-        $this->setBarColor(array(
-            new Color(42, 71, 181),
-            new Color(243, 198, 118),
-            new Color(128, 63, 35),
-            new Color(195, 45, 28),
-            new Color(224, 198, 165),
-            new Color(239, 238, 218),
-            new Color(40, 72, 59),
-            new Color(71, 112, 132),
-            new Color(167, 192, 199),
-            new Color(218, 233, 202)
-        ));
+        $colors = [
+            new ColorHex('#7CB5EC'),
+            new ColorHex('#F7A35C'),
+            new ColorHex('#2C5D63'),
+            new ColorHex('#13829B'),
+            new ColorHex('#29D2E4'),
+            new ColorHex('#F38181'),
+            new ColorHex('#95E1D3'),
+            new ColorHex('#EAFFD0'),
+            new ColorHex('#E9F679'),
+            new ColorHex('#25A55F'),
+            new ColorHex('#346473'),
+            new ColorHex('#2D767F'),
+            new ColorHex('#D9AF5D'),
+            new ColorHex('#8DC6FF')
+        ];
+        $this->setBarColor($colors);
 
         // Set the colors for the lines
-        $this->setLineColor(array(
-            new Color(172, 172, 210),
-            new Color(2, 78, 0),
-            new Color(148, 170, 36),
-            new Color(233, 191, 49),
-            new Color(240, 127, 41),
-            new Color(243, 63, 34),
-            new Color(190, 71, 47),
-            new Color(135, 81, 60),
-            new Color(128, 78, 162),
-            new Color(121, 75, 255),
-            new Color(142, 165, 250),
-            new Color(162, 254, 239),
-            new Color(137, 240, 166),
-            new Color(104, 221, 71),
-            new Color(98, 174, 35),
-            new Color(93, 129, 1)
-        ));
+        $this->setLineColor($colors);
 
         // Set the colors for the pie
-        $this->setPieColor(array(
-            new Color(2, 78, 0),
-            new Color(148, 170, 36),
-            new Color(233, 191, 49),
-            new Color(240, 127, 41),
-            new Color(243, 63, 34),
-            new Color(190, 71, 47),
-            new Color(135, 81, 60),
-            new Color(128, 78, 162),
-            new Color(121, 75, 255),
-            new Color(142, 165, 250),
-            new Color(162, 254, 239),
-            new Color(137, 240, 166),
-            new Color(104, 221, 71),
-            new Color(98, 174, 35),
-            new Color(93, 129, 1)
-        ));
+        $this->setPieColor($colors);
     }
 
     /**

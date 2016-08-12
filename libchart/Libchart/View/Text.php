@@ -44,12 +44,11 @@ class Text
      */
     public function __construct()
     {
-        // @todo: set this with DIRECTORY_SEPARATOR
         $this->fontsDirectory = dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'fonts' . DS;
 
         // Free low-res fonts based on Bitstream Vera <http://dejavu.sourceforge.net/wiki/>
-        $this->fontCondensed = $this->fontsDirectory . "DejaVuSansCondensed.ttf";
-        $this->fontCondensedBold = $this->fontsDirectory . "DejaVuSansCondensed-Bold.ttf";
+        $this->fontCondensed = $this->fontsDirectory . "SourceSansPro-Light.otf";
+        $this->fontCondensedBold = $this->fontsDirectory . "SourceSansPro-Regular.otf";
     }
 
     /**
@@ -62,8 +61,9 @@ class Text
      * @param string text value
      * @param string font file name
      * @param bitfield text alignment
+     * @param int $fontSize
      */
-    public function printText($img, $px, $py, $color, $text, $fontFileName, $align = 0)
+    public function printText($img, $px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
     {
         if (!($align & $this->HORIZONTAL_CENTER_ALIGN) && !($align & $this->HORIZONTAL_RIGHT_ALIGN)) {
             $align |= $this->HORIZONTAL_LEFT_ALIGN;
@@ -73,7 +73,6 @@ class Text
             $align |= $this->VERTICAL_TOP_ALIGN;
         }
 
-        $fontSize = 8;
         $lineSpacing = 1;
 
         list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly) = imageftbbox($fontSize, 0, $fontFileName, $text, array("linespacing" => $lineSpacing));
@@ -127,7 +126,8 @@ class Text
      */
     public function printDiagonal($img, $px, $py, $color, $text)
     {
-        $fontSize = 8;
+        // @todo: Make this configurable
+        $fontSize = 11;
         $fontFileName = $this->fontCondensed;
 
         $lineSpacing = 1;
@@ -135,8 +135,11 @@ class Text
         list ($lx, $ly, $rx, $ry) = imageftbbox($fontSize, 0, $fontFileName, $text, array("linespacing" => $lineSpacing));
         $textWidth = $rx - $lx;
 
-        $angle = -45;
+        // @todo: Make this configurable
+        $angle = 0;
 
+        // @todo: Make the $py value configurable
+        $py = $py + 15;
         imagettftext($img, $fontSize, $angle, $px, $py, $color->getColor($img), $fontFileName, $text);
     }
 

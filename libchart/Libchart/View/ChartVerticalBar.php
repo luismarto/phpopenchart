@@ -76,16 +76,16 @@ class ChartVerticalBar extends ChartBar
         $labelGenerator = $this->plot->getLabelGenerator();
 
         // Vertical axis
-        imagerectangle($img, $graphArea->x1 - 1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $palette->axisColor[0]->getColor($img));
+        imageline($img, $graphArea->x1-1, $graphArea->y1, $graphArea->x1-1, $graphArea->y2, $palette->axisColor[0]->getColor($img));
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2 - ($value - $minValue) * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-            imagerectangle($img, $graphArea->x1 - 3, $y, $graphArea->x1 - 2, $y + 1, $palette->axisColor[0]->getColor($img));
+            imagerectangle($img, $graphArea->x1 - 2, $y, $graphArea->x1 - 2, $y + 1, $palette->axisColor[0]->getColor($img));
             imagerectangle($img, $graphArea->x1 - 1, $y, $graphArea->x1, $y + 1, $palette->axisColor[1]->getColor($img));
 
             $label = $labelGenerator->generateLabel($value);
-            $text->printText($img, $graphArea->x1 - 5, $y, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN);
+            $text->printText($img, $graphArea->x1 - 10, $y, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN);
         }
 
         // Get first serie of a list
@@ -97,7 +97,7 @@ class ChartVerticalBar extends ChartBar
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-        imagerectangle($img, $graphArea->x1 - 1, $horizOriginY, $graphArea->x2, $horizOriginY + 1, $palette->axisColor[0]->getColor($img));
+        imageline($img, $graphArea->x1-1, $horizOriginY, $graphArea->x2, $horizOriginY, $palette->axisColor[0]->getColor($img));
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;

@@ -26,11 +26,11 @@ namespace Libchart\View;
  */
 class Color
 {
-    private $red;
-    private $green;
-    private $blue;
-    private $alpha;
-    private $gdColor;
+    protected $red;
+    protected $green;
+    protected $blue;
+    protected $alpha;
+    protected $gdColor;
 
     /**
      * Creates a new color

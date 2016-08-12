@@ -154,6 +154,7 @@ abstract class Chart
      */
     public function setTitleColorHex($hexColor, $alpha = 0)
     {
+        // @todo: use this with the ColorHex class, to avoid code duplication
         list($red, $green, $blue) = sscanf($hexColor, "#%02x%02x%02x");
 
         $this->plot->setTitleColor($red, $green, $blue, $alpha);
