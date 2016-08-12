@@ -238,7 +238,9 @@ class ChartHorizontalBar extends ChartBar
         $this->computeAxis();
         $this->computeLayout();
         $this->createImage();
-        $this->plot->printLogo();
+        if ($this->plot->hasLogo()) {
+            $this->plot->printLogo();
+        }
         $this->plot->printTitle();
         if (!$this->isEmptyDataSet(1)) {
             $this->printAxis();

@@ -269,7 +269,9 @@ class ChartPie extends Chart
         $this->computePercent();
         $this->computeLayout();
         $this->createImage();
-        $this->plot->printLogo();
+        if ($this->plot->hasLogo()) {
+            $this->plot->printLogo();
+        }
         $this->plot->printTitle();
         $this->printPie();
         $this->printCaption();

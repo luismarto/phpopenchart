@@ -155,6 +155,11 @@ class Plot
     public $titleColor;
 
     /**
+     * @var bool
+     */
+    protected $hasLogo;
+
+    /**
      * Constructor of Plot.
      *
      * @param integer $width of the image
@@ -180,6 +185,9 @@ class Plot
         $this->captionPadding = new PrimitivePadding(15);
 
         $this->titleColor = new Color(0, 0, 0);
+
+        // By default, don't display the logo
+        $this->hasLogo = false;
     }
 
     /**
@@ -349,6 +357,16 @@ class Plot
     public function setLogoFileName($logoFileName)
     {
         $this->logoFileName = $logoFileName;
+    }
+
+    public function setHasLogo($hasLogo)
+    {
+        $this->hasLogo = $hasLogo;
+    }
+
+    public function hasLogo()
+    {
+        return $this->hasLogo;
     }
 
     /**

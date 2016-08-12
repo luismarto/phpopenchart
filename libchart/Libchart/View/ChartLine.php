@@ -201,7 +201,9 @@ class ChartLine extends ChartBar
         $this->computeAxis();
         $this->computeLayout();
         $this->createImage();
-        $this->plot->printLogo();
+        if ($this->plot->hasLogo()) {
+            $this->plot->printLogo();
+        }
         $this->plot->printTitle();
         if (!$this->isEmptyDataSet(2)) {
             $this->printAxis();

@@ -77,9 +77,10 @@ abstract class ChartBar extends Chart
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        // Aqua-like background
-        for ($i = $graphArea->y1; $i < $graphArea->y2; $i++) {
-            $color = $palette->backgroundColor[($i + 3) % 4];
+        // Print the lines on the background of the chart bars
+        $inc = ($graphArea->y2 - $graphArea->y1) / 5;
+        for ($i = $graphArea->y1; $i < $graphArea->y2; $i+=$inc) {
+            $color = $palette->backgroundColor[0];
             $primitive->line($graphArea->x1, $i, $graphArea->x2, $i, $color);
         }
     }

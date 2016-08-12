@@ -67,7 +67,7 @@ abstract class Chart
         // Creates the plot
         $this->plot = new Plot($width, $height);
         $this->plot->setTitle("Untitled chart");
-        $this->plot->setLogoFileName(dirname(__FILE__) . "/../../../images/PoweredBy.png");
+        $this->plot->setLogoFileName(dirname(__FILE__) . "/../../images/PoweredBy.png");
     }
 
     /**
