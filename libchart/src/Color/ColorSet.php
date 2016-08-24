@@ -17,7 +17,7 @@
  *
  */
 
-namespace Libchart\View;
+namespace Libchart\Color;
 
 /**
  * A set of colors, used for drawing series of data.

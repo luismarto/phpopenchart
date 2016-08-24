@@ -96,7 +96,7 @@ class Text
      * @param resource $img Image GD image
      * @param integer $px text coordinate (x)
      * @param integer $py text coordinate (y)
-     * @param Color $color text color
+     * @param \Libchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
      * @param int $align text alignment
@@ -151,7 +151,7 @@ class Text
      *
      * @param resource $img Image GD image
      * @param integer $py text coordinate (y)
-     * @param Color $color text color
+     * @param \Libchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
      */
@@ -174,7 +174,7 @@ class Text
      * @param resource $img Image GD image
      * @param int $px text coordinate (x)
      * @param int $py text coordinate (y)
-     * @param Color $color text color
+     * @param \Libchart\Color\Color $color text color
      * @param string $text value
      */
     public function printDiagonal($img, $px, $py, $color, $text)

@@ -19,6 +19,10 @@
 
 namespace Libchart\View;
 
+use Libchart\Color\Color;
+use Libchart\Color\ColorHex;
+use Libchart\Color\ColorPalette;
+
 /**
  * The plot holds graphical attributes, and is responsible for computing the layout of the graph.
  * The layout is quite simple right now, with 4 areas laid out like that:

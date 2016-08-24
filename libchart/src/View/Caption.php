@@ -130,7 +130,7 @@ class Caption
     /**
      * Sets the color set.
      *
-     * @param ColorSet $colorSet Color set
+     * @param \Libchart\Color\ColorSet $colorSet Color set
      */
     public function setColorSet($colorSet)
     {

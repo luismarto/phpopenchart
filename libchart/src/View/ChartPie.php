@@ -19,6 +19,8 @@
 
 namespace Libchart\View;
 
+use Libchart\Color\ColorHex;
+
 /**
  * Pie chart.
  *

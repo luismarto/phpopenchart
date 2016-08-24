@@ -19,7 +19,7 @@
 
 namespace Libchart\Model;
 
-use Libchart\View\ColorHex;
+use Libchart\Color\ColorHex;
 
 /**
  * Point of coordinates (X,Y).

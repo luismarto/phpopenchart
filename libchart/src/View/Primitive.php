@@ -45,7 +45,7 @@ class Primitive
      * @param int $y1 line start (Y)
      * @param int $x2 line end (X)
      * @param int $y2 line end (Y)
-     * @param Color $color
+     * @param \Libchart\Color\Color $color
      * @param int $width line color
      */
     public function line($x1, $y1, $x2, $y2, $color, $width = 1)
@@ -74,8 +74,8 @@ class Primitive
      * @param int $y1 top left coordinate (y)
      * @param int $x2 bottom right coordinate (x)
      * @param int $y2 bottom right coordinate (y)
-     * @param Color $color0 edge color
-     * @param Color $color1 corner color
+     * @param \Libchart\Color\Color $color0 edge color
+     * @param \Libchart\Color\Color $color1 corner color
      */
     public function outlinedBox($x1, $y1, $x2, $y2, $color0, $color1)
     {

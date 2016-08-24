@@ -17,7 +17,7 @@
  * 
  */
 
-namespace Libchart\View;
+namespace Libchart\Color;
 
 /**
  * Color palette shared by all chart types.
