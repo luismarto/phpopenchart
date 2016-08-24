@@ -133,7 +133,7 @@ class ChartPie extends Chart
 
         // Sort data points
         if ($this->config->get('sortDataPoint')) {
-            usort($this->percent, array("\\Libchart\\View\\Chart\\PieChart", "sortPie"));
+            usort($this->percent, array("\\Libchart\\View\\ChartPie", "sortPie"));
         }
     }
 
@@ -165,8 +165,7 @@ class ChartPie extends Chart
 
         // Aqua-like background
         for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
-            $color = $palette->backgroundColor[($i + 3) % 4];
-            $primitive->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, $color);
+            $primitive->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
         }
     }
 

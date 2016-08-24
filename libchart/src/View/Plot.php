@@ -622,7 +622,7 @@ class Plot
     /**
      * Return the text color.
      *
-     * @return text color
+     * @return Color text color
      */
     public function getTextColor()
     {

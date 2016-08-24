@@ -65,7 +65,7 @@ class ChartVerticalBar extends ChartBar
         $maxValue = $this->axis->getUpperBoundary();
         $stepValue = $this->axis->getTics();
 
-        // Get graphical obects
+        // Get graphical objects
         $img = $this->plot->getImg();
         $palette = $this->plot->getPalette();
         $text = $this->plot->getText();
@@ -73,9 +73,9 @@ class ChartVerticalBar extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getAxisLabelGenerator();
-
-        // Vertical axis
+        /**
+         * Deal with the Vertical Axis
+         */
         imageline(
             $img,
             $graphArea->x1-1,
@@ -91,6 +91,8 @@ class ChartVerticalBar extends ChartBar
                 * ($graphArea->y2 - $graphArea->y1)
                 / ($this->axis->displayDelta);
 
+            // This two imagerectangle create a little blue marker, next to the label of the Y axis, that match
+            // each chart step.
             imagerectangle(
                 $img,
                 $graphArea->x1 - 2,
@@ -108,7 +110,12 @@ class ChartVerticalBar extends ChartBar
                 $palette->axisColor[1]->getColor($img)
             );
 
-            $label = $labelGenerator->generateLabel($value);
+            // For each marker, create the "guiding line"
+            $color = $palette->backgroundColor[0];
+            $this->plot->getPrimitive()->line($graphArea->x1, $y, $graphArea->x2, $y, $color);
+
+            // Now print the label for the y axis
+            $label = $this->plot->getAxisLabelGenerator()->generateLabel($value);
 
             $text->printText(
                 $img,
@@ -124,7 +131,9 @@ class ChartVerticalBar extends ChartBar
         // Get first serie of a list
         $pointList = $this->getFirstSerieOfList();
 
-        // Horizontal Axis
+        /**
+         * Deal with the Horizontal Axis
+         */
         $pointCount = count($pointList);
         reset($pointList);
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;

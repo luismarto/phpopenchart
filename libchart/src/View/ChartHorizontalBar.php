@@ -75,7 +75,9 @@ class ChartHorizontalBar extends ChartBar
 
         $labelGenerator = $this->plot->getAxisLabelGenerator();
 
-        // Horizontal axis
+        /**
+         * Deal with the Horizontal Axis
+         */
         imagerectangle(
             $img,
             $graphArea->x1 - 1,
@@ -108,6 +110,11 @@ class ChartHorizontalBar extends ChartBar
                 $palette->axisColor[1]->getColor($img)
             );
 
+
+            // Add the horizontal guide lines for each marker
+            $color = $palette->backgroundColor[0];
+            $this->plot->getPrimitive()->line($x - 1, $graphArea->y1, $x, $graphArea->y2, $color);
+
             $label = $labelGenerator->generateLabel($value);
             $text->printText(
                 $img,
@@ -123,7 +130,9 @@ class ChartHorizontalBar extends ChartBar
         // Get first serie of a list
         $pointList = $this->getFirstSerieOfList();
 
-        // Vertical Axis
+        /**
+         * Deal with the Vertical Axis
+         */
         $pointCount = count($pointList);
         reset($pointList);
         $rowHeight = ($graphArea->y2 - $graphArea->y1) / $pointCount;
@@ -143,6 +152,7 @@ class ChartHorizontalBar extends ChartBar
         for ($i = 0; $i <= $pointCount; $i++) {
             $y = $graphArea->y2 - $i * $rowHeight;
 
+            // Prints the small blue markers that separate each point
             imagerectangle(
                 $img,
                 $verticalOriginX - 3,

@@ -70,31 +70,6 @@ abstract class ChartBar extends Chart
     }
 
     /**
-     * Create the image.
-     */
-    protected function createImage()
-    {
-        parent::createImage();
-
-        // Get graphical obects
-        // @todo: $img and $text might not be necessary here. Check this
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-        $primitive = $this->plot->getPrimitive();
-
-        // Get the graph area
-        $graphArea = $this->plot->getGraphArea();
-
-        // Print the lines on the background of the chart bars
-        $inc = ($graphArea->y2 - $graphArea->y1) / 5;
-        for ($i = $graphArea->y1; $i < $graphArea->y2; $i+=$inc) {
-            $color = $palette->backgroundColor[0];
-            $primitive->line($graphArea->x1, $i, $graphArea->x2, $i, $color);
-        }
-    }
-
-    /**
      * Returns true if the data set has some data.
      * @param int $minNumberOfPoint Minimum number of points (1 for bars, 2 for lines).
      * @return bool true if data set empty
