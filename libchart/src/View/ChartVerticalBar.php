@@ -109,6 +109,7 @@ class ChartVerticalBar extends ChartBar
             );
 
             $label = $labelGenerator->generateLabel($value);
+
             $text->printText(
                 $img,
                 $graphArea->x1 - 10,

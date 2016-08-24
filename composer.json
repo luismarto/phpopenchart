@@ -20,10 +20,13 @@
 			"role": "Developer"
 		}
 	],
+	"require": {
+		"hassankhan/config" : "0.10.*"
+	},
 	"autoload": {
 		"psr-0": {
 			"Libchart\\":
-			"libchart/"
+			"libchart/src"
 		}
 	}
 }
