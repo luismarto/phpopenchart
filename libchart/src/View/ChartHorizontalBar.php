@@ -73,7 +73,7 @@ class ChartHorizontalBar extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
+        $labelGenerator = $this->plot->getAxisLabelGenerator();
 
         // Horizontal axis
         imagerectangle(
@@ -195,7 +195,7 @@ class ChartHorizontalBar extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
+        $labelGenerator = $this->plot->getBarLabelGenerator();
 
         $minValue = $this->axis->getLowerBoundary();
         // @todo: check this unused variables...

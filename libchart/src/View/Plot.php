@@ -132,9 +132,14 @@ class Plot
     protected $palette;
 
     /**
-     * Label generator.
+     * Label generator for axis values
      */
-    protected $labelGenerator;
+    protected $axisLabelGenerator;
+
+    /**
+     * Label generator for bar values
+     */
+    protected $barLabelGenerator;
 
     /**
      * GD image
@@ -168,19 +173,35 @@ class Plot
     protected $hasLogo;
 
     /**
+     * @var \Noodlehaus\Config
+     */
+    private $config;
+
+    /**
      * Constructor of Plot.
      *
      * @param integer $width of the image
      * @param integer $height of the image
+     * @param \Noodlehaus\Config $config
      */
-    public function __construct($width, $height)
+    public function __construct($width, $height, $config)
     {
         $this->width = $width;
         $this->height = $height;
+        $this->config = $config;
 
         $this->text = new Text();
         $this->palette = new ColorPalette();
-        $this->labelGenerator = new DefaultLabelGenerator();
+        $axisLabelGeneratorClass = $this->config->get(
+            'axisLabelGenerator',
+            '\Libchart\LabelGenerators\DefaultLabelGenerator'
+        );
+        $this->axisLabelGenerator = new $axisLabelGeneratorClass;
+        $barLabelGeneratorClass = $this->config->get(
+            'barLabelGenerator',
+            '\Libchart\LabelGenerators\DefaultLabelGenerator'
+        );
+        $this->barLabelGenerator = new $barLabelGeneratorClass;
 
         // Default layout
         $this->outputArea = new PrimitiveRectangle(0, 0, $width - 1, $height - 1);
@@ -539,23 +560,43 @@ class Plot
     }
 
     /**
-     * Return the label generator.
+     * Return the label generator used on the Axis
      *
-     * @return DefaultLabelGenerator Label generator
+     * @return \Libchart\LabelGenerators\DefaultLabelGenerator Label generator
      */
-    public function getLabelGenerator()
+    public function getAxisLabelGenerator()
     {
-        return $this->labelGenerator;
+        return $this->axisLabelGenerator;
     }
 
     /**
-     * Set the label generator.
+     * Set the label generator for the Axis.
      *
-     * @param DefaultLabelGenerator $labelGenerator Label generator
+     * @param \Libchart\LabelGenerators\DefaultLabelGenerator $labelGenerator Label generator
      */
-    public function setLabelGenerator($labelGenerator)
+    public function setAxisLabelGenerator($labelGenerator)
     {
-        $this->labelGenerator = $labelGenerator;
+        $this->axisLabelGenerator = $labelGenerator;
+    }
+
+    /**
+     * Return the label generator used on the Bar
+     *
+     * @return \Libchart\LabelGenerators\DefaultLabelGenerator Label generator
+     */
+    public function getBarLabelGenerator()
+    {
+        return $this->barLabelGenerator;
+    }
+
+    /**
+     * Set the label generator for the Bar.
+     *
+     * @param \Libchart\LabelGenerators\DefaultLabelGenerator $labelGenerator Label generator
+     */
+    public function setBarLabelGenerator($labelGenerator)
+    {
+        $this->barLabelGenerator = $labelGenerator;
     }
 
     /**

@@ -19,13 +19,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Label Generator Class
+    | Label Generator Class for Axis
     |--------------------------------------------------------------------------
     |
-    | Determines the class used to generate the labels for Axis and Caption
-    | Feel free to implement your own LabelGenerator Class that implements \Libchart\View\LabelGeneratorInterface
-    | and use that here
+    | Determines the class used to generate the labels for Axis
+    | Feel free to implement your own LabelGenerator Class that implements
+    | \Libchart\LabelGenerators\LabelGeneratorInterface and use that here
     |
     */
-    'labelGeneratorClass' => '\Libchart\View\LabelGenerator'
+    'axisLabelGenerator' => '\Libchart\LabelGenerators\ShortLabelGenerator',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Label Generator Class for Bar values
+    |--------------------------------------------------------------------------
+    |
+    | Determines the class used to generate the labels for bar values (that is, for each dataset point)
+    | Feel free to implement your own LabelGenerator Class that implements
+    | \Libchart\LabelGenerators\LabelGeneratorInterface and use that here
+    |
+    */
+    'barLabelGenerator' => '\Libchart\LabelGenerators\NumberFormattedLabelGenerator'
 ];

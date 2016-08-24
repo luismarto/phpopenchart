@@ -72,7 +72,7 @@ abstract class Chart
         $this->config = Config::load($configPath);
 
         // Creates the plot
-        $this->plot = new Plot($width, $height);
+        $this->plot = new Plot($width, $height, $this->config);
         $this->plot->setTitle("Untitled chart");
         $this->plot->setLogoFileName(dirname(__FILE__) . "/../../images/PoweredBy.png");
     }

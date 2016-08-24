@@ -73,7 +73,7 @@ class ChartVerticalBar extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
+        $labelGenerator = $this->plot->getAxisLabelGenerator();
 
         // Vertical axis
         imageline(
@@ -192,7 +192,7 @@ class ChartVerticalBar extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
+        $labelGenerator = $this->plot->getBarLabelGenerator();
 
         // Start from the first color for the first serie
         $barColorSet = $palette->barColorSet;

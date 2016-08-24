@@ -17,17 +17,20 @@
  *
  */
 
-namespace Libchart\View;
+namespace Libchart\LabelGenerators;
 
 /**
- * The default label generator simply uses strval() to convert the value.
+ * An interface to generate labels from numeric values.
  *
  * @author Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
  */
-class DefaultLabelGenerator implements LabelGeneratorInterface
+interface LabelGeneratorInterface
 {
-    public function generateLabel($value)
-    {
-        return strval($value);
-    }
+    /**
+     * Generate the label.
+     *
+     * @param double $value The value to generate the label from
+     * @return string Text label
+     */
+    public function generateLabel($value);
 }

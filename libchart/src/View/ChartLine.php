@@ -68,7 +68,7 @@ class ChartLine extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $labelGenerator = $this->plot->getLabelGenerator();
+        $labelGenerator = $this->plot->getAxisLabelGenerator();
 
         // Vertical axis
         imagerectangle(
