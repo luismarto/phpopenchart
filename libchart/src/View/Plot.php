@@ -218,6 +218,7 @@ class Plot
         $this->captionPadding = new PrimitivePadding(15);
 
         $this->titleColor = new Color(0, 0, 0);
+        $this->textColor = new ColorHex('#555555');
 
         // By default, don't display the logo
         $this->hasLogo = false;
@@ -328,7 +329,6 @@ class Plot
         $this->primitive = new Primitive($this->img);
 
         $this->backGroundColor = new Color(255, 255, 255);
-        $this->textColor = new Color(0, 0, 0);
 
         // White background
         imagefilledrectangle(
@@ -631,5 +631,14 @@ class Plot
     public function getTextColor()
     {
         return $this->textColor;
+    }
+
+    /**
+     * Sets a new text color for the chart
+     * @param string $hexColor
+     */
+    public function setTextColorHex($hexColor)
+    {
+        $this->textColor = new ColorHex($hexColor);
     }
 }
