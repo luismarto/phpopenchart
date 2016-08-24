@@ -1,10 +1,10 @@
-<?php namespace Libchart\LabelGenerators;
+<?php namespace Libchart\Label;
 
 /**
- * Class ShortLabelGenerator
+ * Class Short
  * @package Libchart\View
  */
-class ShortLabelGenerator implements LabelGeneratorInterface
+class Short implements LabelInterface
 {
     /**
      * Returns a shorten value.

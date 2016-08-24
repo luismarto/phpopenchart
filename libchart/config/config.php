@@ -55,7 +55,7 @@ return [
         | Can be overridden at runtime through Text->setTitleFont('otherfont.ttf')
         |
         */
-        'title' => 'SourceSansPro-SemiboldIt.otf',
+        'title' => 'SourceSansPro-Semibold.otf',
 
     ],
 
@@ -107,10 +107,10 @@ return [
     |
     | Determines the class used to generate the labels for Axis
     | Feel free to implement your own LabelGenerator Class that implements
-    | \Libchart\LabelGenerators\LabelGeneratorInterface and use that here
+    | \Libchart\Label\LabelInterface and use that here
     |
     */
-    'axisLabelGenerator' => '\Libchart\LabelGenerators\ShortLabelGenerator',
+    'axisLabelGenerator' => '\Libchart\Label\Short',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,8 +119,8 @@ return [
     |
     | Determines the class used to generate the labels for bar values (that is, for each dataset point)
     | Feel free to implement your own LabelGenerator Class that implements
-    | \Libchart\LabelGenerators\LabelGeneratorInterface and use that here
+    | \Libchart\Label\LabelInterface and use that here
     |
     */
-    'barLabelGenerator' => '\Libchart\LabelGenerators\NumberFormattedLabelGenerator'
+    'barLabelGenerator' => '\Libchart\Label\NumberFormatted'
 ];

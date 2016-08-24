@@ -194,12 +194,12 @@ class Plot
         $this->palette = new ColorPalette();
         $axisLabelGeneratorClass = $this->config->get(
             'axisLabelGenerator',
-            '\Libchart\LabelGenerators\DefaultLabelGenerator'
+            '\Libchart\Label\DefaultLabel'
         );
         $this->axisLabelGenerator = new $axisLabelGeneratorClass;
         $barLabelGeneratorClass = $this->config->get(
             'barLabelGenerator',
-            '\Libchart\LabelGenerators\DefaultLabelGenerator'
+            '\Libchart\Label\DefaultLabel'
         );
         $this->barLabelGenerator = new $barLabelGeneratorClass;
 
@@ -562,7 +562,7 @@ class Plot
     /**
      * Return the label generator used on the Axis
      *
-     * @return \Libchart\LabelGenerators\DefaultLabelGenerator Label generator
+     * @return \Libchart\Label\DefaultLabel Label generator
      */
     public function getAxisLabelGenerator()
     {
@@ -572,7 +572,7 @@ class Plot
     /**
      * Set the label generator for the Axis.
      *
-     * @param \Libchart\LabelGenerators\DefaultLabelGenerator $labelGenerator Label generator
+     * @param \Libchart\Label\DefaultLabel $labelGenerator Label generator
      */
     public function setAxisLabelGenerator($labelGenerator)
     {
@@ -582,7 +582,7 @@ class Plot
     /**
      * Return the label generator used on the Bar
      *
-     * @return \Libchart\LabelGenerators\DefaultLabelGenerator Label generator
+     * @return \Libchart\Label\DefaultLabel Label generator
      */
     public function getBarLabelGenerator()
     {
@@ -592,7 +592,7 @@ class Plot
     /**
      * Set the label generator for the Bar.
      *
-     * @param \Libchart\LabelGenerators\DefaultLabelGenerator $labelGenerator Label generator
+     * @param \Libchart\Label\DefaultLabel $labelGenerator Label generator
      */
     public function setBarLabelGenerator($labelGenerator)
     {

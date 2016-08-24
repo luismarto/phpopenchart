@@ -1,14 +1,14 @@
-<?php namespace Libchart\LabelGenerators;
+<?php namespace Libchart\Label;
 
 /**
- * Class NumberFormattedLabelGenerator
+ * Class NumberFormatted
  * Returns the value formatted as a number. That means:
  *  1829    turns into  1 829
  *  192048  turns into  192 048
  *  7521962 turns into  7 521 962
- * @package Libchart\LabelGenerators
+ * @package Libchart\Label
  */
-class NumberFormattedLabelGenerator implements LabelGeneratorInterface
+class NumberFormatted implements LabelInterface
 {
     public function generateLabel($value)
     {
