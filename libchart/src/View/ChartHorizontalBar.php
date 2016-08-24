@@ -226,9 +226,10 @@ class ChartHorizontalBar extends ChartBar
             reset($pointList);
 
             // Select the next color for the next serie
+            $bColor = $bShadowColor = '';
             if (!$this->config->get('useMultipleColor')) {
-                $color = $barColorSet->currentColor();
-                $shadowColor = $barColorSet->currentShadowColor();
+                $bColor = $barColorSet->currentColor();
+                $bShadowColor = $barColorSet->currentShadowColor();
                 $barColorSet->next();
             }
 
@@ -236,6 +237,9 @@ class ChartHorizontalBar extends ChartBar
             for ($i = 0; $i < $pointCount; $i++) {
                 $y = $graphArea->y2 - $i * $rowHeight;
 
+                /**
+                 * @var \Libchart\Model\Point $point
+                 */
                 $point = current($pointList);
                 next($pointList);
 
@@ -255,10 +259,16 @@ class ChartHorizontalBar extends ChartBar
                 $y2 = $yWithMargin - $barOffset - 1;
 
                 // Select the next color for the next item in the serie
-                if ($this->config->get('useMultipleColor')) {
+                if (!is_null($point->getColor())) {
+                    $color = $point->getColor();
+                    $shadowColor = $color->getShadowColor(1);
+                } elseif ($this->config->get('useMultipleColor')) {
                     $color = $barColorSet->currentColor();
                     $shadowColor = $barColorSet->currentShadowColor();
                     $barColorSet->next();
+                } else {
+                    $color = $bColor;
+                    $shadowColor = $bShadowColor;
                 }
 
                 // Draw the horizontal bar

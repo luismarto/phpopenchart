@@ -221,9 +221,10 @@ class ChartVerticalBar extends ChartBar
             reset($pointList);
 
             // Select the next color for the next serie
+            $bColor = $bShadowColor = '';
             if (!$this->config->get('useMultipleColor')) {
-                $color = $barColorSet->currentColor();
-                $shadowColor = $barColorSet->currentShadowColor();
+                $bColor = $barColorSet->currentColor();
+                $bShadowColor = $barColorSet->currentShadowColor();
                 $barColorSet->next();
             }
 
@@ -231,6 +232,9 @@ class ChartVerticalBar extends ChartBar
             for ($i = 0; $i < $pointCount; $i++) {
                 $x = $graphArea->x1 + $i * $columnWidth;
 
+                /**
+                 * @var \Libchart\Model\Point $point
+                 */
                 $point = current($pointList);
                 next($pointList);
 
@@ -250,10 +254,18 @@ class ChartVerticalBar extends ChartBar
                 $x2 = $xWithMargin + $barWidth + $barOffset - 1;
 
                 // Select the next color for the next item in the serie
-                if ($this->config->get('useMultipleColor')) {
+
+                // Check if the point has a specific color. If so, this overrides anything else
+                if (!is_null($point->getColor())) {
+                    $color = $point->getColor();
+                    $shadowColor = $color->getShadowColor(1);
+                } elseif ($this->config->get('useMultipleColor')) {
                     $color = $barColorSet->currentColor();
                     $shadowColor = $barColorSet->currentShadowColor();
                     $barColorSet->next();
+                } else {
+                    $color = $bColor;
+                    $shadowColor = $bShadowColor;
                 }
 
                 // Draw the vertical bar
