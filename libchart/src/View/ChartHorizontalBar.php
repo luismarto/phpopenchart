@@ -216,7 +216,7 @@ class ChartHorizontalBar extends ChartBar
             reset($pointList);
 
             // Select the next color for the next serie
-            if (!$this->config->getUseMultipleColor()) {
+            if (!$this->config->get('useMultipleColor')) {
                 $color = $barColorSet->currentColor();
                 $shadowColor = $barColorSet->currentShadowColor();
                 $barColorSet->next();
@@ -245,7 +245,7 @@ class ChartHorizontalBar extends ChartBar
                 $y2 = $yWithMargin - $barOffset - 1;
 
                 // Select the next color for the next item in the serie
-                if ($this->config->getUseMultipleColor()) {
+                if ($this->config->get('useMultipleColor')) {
                     $color = $barColorSet->currentColor();
                     $shadowColor = $barColorSet->currentShadowColor();
                     $barColorSet->next();
@@ -274,7 +274,7 @@ class ChartHorizontalBar extends ChartBar
                 }
 
                 // Draw caption text on bar
-                if ($this->config->getShowPointCaption()) {
+                if ($this->config->get('showPointCaption')) {
                     $label = $labelGenerator->generateLabel($value);
                     $textAlign = $text->VERTICAL_CENTER_ALIGN
                         | ($value > 0 ? $text->HORIZONTAL_LEFT_ALIGN : $text->HORIZONTAL_RIGHT_ALIGN);

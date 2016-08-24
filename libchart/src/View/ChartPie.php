@@ -132,7 +132,7 @@ class ChartPie extends Chart
         }
 
         // Sort data points
-        if ($this->config->getSortDataPoint()) {
+        if ($this->config->get('sortDataPoint')) {
             usort($this->percent, array("\\Libchart\\View\\Chart\\PieChart", "sortPie"));
         }
     }
@@ -322,7 +322,7 @@ class ChartPie extends Chart
         $this->drawDisc($this->pieCenterY - $this->pieDepth / 2, $palette->pieColorSet->colorList, IMG_ARC_PIE);
 
         // Top Outline
-        if ($this->config->getShowPointCaption()) {
+        if ($this->config->get('showPointCaption')) {
             $this->drawPercent();
         }
     }

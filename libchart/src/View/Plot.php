@@ -138,6 +138,7 @@ class Plot
 
     /**
      * GD image
+     * @var resource
      */
     protected $img;
 
@@ -146,7 +147,14 @@ class Plot
      */
     protected $primitive;
 
+    /**
+     * @var Color
+     */
     protected $backGroundColor;
+
+    /**
+     * @var Color
+     */
     protected $textColor;
 
     /**

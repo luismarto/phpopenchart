@@ -27,9 +27,9 @@
 namespace Libchart\View;
 
 use Libchart\Exceptions\DatasetNotDefinedException;
-use Libchart\Model\ChartConfig;
 use Libchart\Model\XYDataSet;
 use Libchart\Model\XYSeriesDataSet;
+use Noodlehaus\Config;
 
 /**
  * Base chart class.
@@ -40,7 +40,7 @@ abstract class Chart
 {
     /**
      * The chart configuration.
-     * @var ChartConfig
+     * @var Config
      */
     protected $config;
 
@@ -65,7 +65,11 @@ abstract class Chart
     protected function __construct($width, $height)
     {
         // Initialize the configuration
-        $this->config = new ChartConfig();
+        $configPath = __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+        $this->config = Config::load($configPath);
 
         // Creates the plot
         $this->plot = new Plot($width, $height);
@@ -107,7 +111,7 @@ abstract class Chart
     /**
      * Return the chart configuration.
      *
-     * @return ChartConfig configuration : ChartConfig
+     * @return Config configuration
      */
     public function getConfig()
     {
