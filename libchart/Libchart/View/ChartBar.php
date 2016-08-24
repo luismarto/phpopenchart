@@ -19,6 +19,10 @@
 
 namespace Libchart\View;
 
+use Libchart\Exceptions\DatasetNotDefinedException;
+use Libchart\Exceptions\InvalidDatasetException;
+use Libchart\Exceptions\PointsInSeriesDontMatchException;
+use Libchart\Exceptions\UnknownDatasetTypeException;
 use Libchart\Model\XYDataSet;
 use Libchart\Model\XYSeriesDataSet;
 
@@ -35,6 +39,10 @@ abstract class ChartBar extends Chart
      * @var Axis
      */
     protected $axis;
+
+    /**
+     * @var bool
+     */
     protected $hasSeveralSerie;
 
     /**
@@ -69,6 +77,7 @@ abstract class ChartBar extends Chart
         parent::createImage();
 
         // Get graphical obects
+        // @todo: $img and $text might not be necessary here. Check this
         $img = $this->plot->getImg();
         $palette = $this->plot->getPalette();
         $text = $this->plot->getText();
@@ -87,15 +96,16 @@ abstract class ChartBar extends Chart
 
     /**
      * Returns true if the data set has some data.
-     * @param minNumberOfPoint Minimum number of points (1 for bars, 2 for lines).
-     *
-     * @return true if data set empty
+     * @param int $minNumberOfPoint Minimum number of points (1 for bars, 2 for lines).
+     * @return bool true if data set empty
+     * @throws UnknownDatasetTypeException
      */
     protected function isEmptyDataSet($minNumberOfPoint)
     {
         if ($this->dataSet instanceof XYDataSet) {
             $pointList = $this->dataSet->getPointList();
             $pointCount = count($pointList);
+
             return $pointCount < $minNumberOfPoint;
         } elseif ($this->dataSet instanceof XYSeriesDataSet) {
             $serieList = $this->dataSet->getSerieList();
@@ -104,11 +114,14 @@ abstract class ChartBar extends Chart
                 $serie = current($serieList);
                 $pointList = $serie->getPointList();
                 $pointCount = count($pointList);
+
                 return $pointCount < $minNumberOfPoint;
             }
         } else {
-            die("Error: unknown dataset type");
+            throw new UnknownDatasetTypeException();
         }
+
+        return false;
     }
 
     /**
@@ -118,7 +131,7 @@ abstract class ChartBar extends Chart
     {
         // Check if a dataset was defined
         if (!$this->dataSet) {
-            die("Error: No dataset defined.");
+            throw new DatasetNotDefinedException();
         }
 
         // Bar charts accept both XYDataSet and XYSeriesDataSet
@@ -130,15 +143,13 @@ abstract class ChartBar extends Chart
             unset($lastPointCount);
             $serieList = $this->dataSet->getSerieList();
             for ($i = 0; $i < count($serieList); $i++) {
+                /**
+                 * @var $serie \Libchart\Model\XYDataSet
+                 */
                 $serie = $serieList[$i];
                 $pointCount = count($serie->getPointList());
                 if (isset($lastPointCount) && $pointCount != $lastPointCount) {
-                    die("Error: serie <"
-                        . $i
-                        . "> doesn't have the same number of points as last serie (last one: <"
-                        . $lastPointCount
-                        . ">, this one: <"
-                        . $pointCount . ">).");
+                    throw new PointsInSeriesDontMatchException($i, $pointCount, $lastPointCount);
                 }
                 $lastPointCount = $pointCount;
             }
@@ -146,14 +157,14 @@ abstract class ChartBar extends Chart
             // The dataset contains several series
             $this->hasSeveralSerie = true;
         } else {
-            die("Error: Bar chart accept only XYDataSet and XYSeriesDataSet");
+            throw new InvalidDatasetException();
         }
     }
 
     /**
      * Return the data as a series list (for consistency).
      *
-     * @return array List of series
+     * @return array|\Libchart\Model\XYDataSet[] List of series
      */
     protected function getDataAsSerieList()
     {
@@ -172,7 +183,7 @@ abstract class ChartBar extends Chart
     /**
      * Return the first serie of the list, or the dataSet itself if there is no serie.
      *
-     * @return XYDataSet
+     * @return XYDataSet[]|XYSeriesDataSet[]
      */
     protected function getFirstSerieOfList()
     {

@@ -54,13 +54,13 @@ class Text
     /**
      * Print text.
      *
-     * @param $img Image GD image
-     * @param integer text coordinate (x)
-     * @param integer text coordinate (y)
-     * @param Color text color
-     * @param string text value
-     * @param string font file name
-     * @param bitfield text alignment
+     * @param resource $img Image GD image
+     * @param integer $px text coordinate (x)
+     * @param integer $py text coordinate (y)
+     * @param Color $color text color
+     * @param string $text text value
+     * @param string $fontFileName font file name
+     * @param int $align text alignment
      * @param int $fontSize
      */
     public function printText($img, $px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
@@ -75,7 +75,13 @@ class Text
 
         $lineSpacing = 1;
 
-        list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly) = imageftbbox($fontSize, 0, $fontFileName, $text, array("linespacing" => $lineSpacing));
+        list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly)= imageftbbox(
+            $fontSize,
+            0,
+            $fontFileName,
+            $text,
+            array("linespacing" => $lineSpacing)
+        );
 
         $textWidth = $lrx - $llx;
         $textHeight = $lry - $ury;
@@ -104,25 +110,33 @@ class Text
     /**
      * Print text centered horizontally on the image.
      *
-     * @param Image GD image
-     * @param integer text coordinate (y)
-     * @param Color text color
-     * @param string text value
-     * @param string font file name
+     * @param resource $img Image GD image
+     * @param integer $py text coordinate (y)
+     * @param Color $color text color
+     * @param string $text text value
+     * @param string $fontFileName font file name
      */
     public function printCentered($img, $py, $color, $text, $fontFileName)
     {
-        $this->printText($img, imagesx($img) / 2, $py, $color, $text, $fontFileName, $this->HORIZONTAL_CENTER_ALIGN | $this->VERTICAL_CENTER_ALIGN);
+        $this->printText(
+            $img,
+            imagesx($img) / 2,
+            $py,
+            $color,
+            $text,
+            $fontFileName,
+            $this->HORIZONTAL_CENTER_ALIGN | $this->VERTICAL_CENTER_ALIGN
+        );
     }
 
     /**
      * Print text in diagonal.
      *
-     * @param Image GD image
-     * @param integer text coordinate (x)
-     * @param integer text coordinate (y)
-     * @param Color text color
-     * @param string text value
+     * @param resource $img Image GD image
+     * @param int $px text coordinate (x)
+     * @param int $py text coordinate (y)
+     * @param Color $color text color
+     * @param string $text value
      */
     public function printDiagonal($img, $px, $py, $color, $text)
     {
@@ -132,7 +146,13 @@ class Text
 
         $lineSpacing = 1;
 
-        list ($lx, $ly, $rx, $ry) = imageftbbox($fontSize, 0, $fontFileName, $text, array("linespacing" => $lineSpacing));
+        list ($lx, $ly, $rx, $ry) = imageftbbox(
+            $fontSize,
+            0,
+            $fontFileName,
+            $text,
+            array("linespacing" => $lineSpacing)
+        );
         $textWidth = $rx - $lx;
 
         // @todo: Make this configurable

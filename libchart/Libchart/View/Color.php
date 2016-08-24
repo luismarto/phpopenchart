@@ -52,7 +52,8 @@ class Color
 
     /**
      * Get GD color.
-     * @param $img GD image resource
+     * @param resource $img GD image resource
+     * @return int
      */
     public function getColor($img)
     {
@@ -89,8 +90,8 @@ class Color
     /**
      * Return a new color, which is a shadow of this one.
      *
-     * @param double Multiplication factor
-     * @return Shadow color
+     * @param double $shadowFactor Multiplication factor
+     * @return Color Shadow color
      */
     public function getShadowColor($shadowFactor)
     {

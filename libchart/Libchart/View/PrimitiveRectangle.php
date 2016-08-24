@@ -67,7 +67,7 @@ class PrimitiveRectangle
      * Apply a padding and returns the resulting rectangle.
      * The result is an enlarged rectangle.
      *
-     * @return Padded rectangle
+     * @return PrimitiveRectangle $padding Padded rectangle
      */
     public function getPaddedRectangle($padding)
     {

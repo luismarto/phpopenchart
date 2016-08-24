@@ -19,6 +19,7 @@
 
 namespace Libchart\View;
 
+use Libchart\Exceptions\UnknownDatasetTypeException;
 use Libchart\Model\XYDataSet;
 use Libchart\Model\XYSeriesDataSet;
 
@@ -55,7 +56,8 @@ class AxisBound
     /**
      * Compute the boundaries on the axis.
      *
-     * @param dataSet The data set
+     * @param \Libchart\Model\XYDataSet|\Libchart\Model\XYSeriesDataSet $dataSet The data set
+     * @throws UnknownDatasetTypeException
      */
     public function computeBound($dataSet)
     {
@@ -78,7 +80,7 @@ class AxisBound
                 $dataSetEmpty = count($serie) == 0;
             }
         } else {
-            die("Error: unknown dataset type");
+            throw new UnknownDatasetTypeException();
         }
 
         // If the dataset is empty, default some bounds

@@ -26,14 +26,46 @@ namespace Libchart\View;
  */
 class ChartPie extends Chart
 {
+    /**
+     * @var float
+     */
     protected $pieCenterX;
+
+    /**
+     * @var float
+     */
     protected $pieCenterY;
+
+    /**
+     * @var int
+     */
+    private $pieWidth;
+
+    /**
+     * @var int
+     */
+    private $pieHeight;
+
+    /**
+     * @var int
+     */
+    private $pieDepth;
+
+    /**
+     * @var int
+     */
+    private $total;
+
+    /**
+     * @var array
+     */
+    private $percent;
 
     /**
      * Constructor of a pie chart.
      *
-     * @param integer width of the image
-     * @param integer height of the image
+     * @param integer $width of the image
+     * @param integer $height of the image
      */
     public function __construct($width = 600, $height = 250)
     {
@@ -64,15 +96,18 @@ class ChartPie extends Chart
     /**
      * Compare two sampling point values, order from biggest to lowest value.
      *
-     * @param double first value
-     * @param double second value
+     * @param double $v1 first value
+     * @param double $v2 second value
      * @return integer result of the comparison
      */
     protected function sortPie($v1, $v2)
     {
-        return $v1[0] == $v2[0] ? 0 :
-            $v1[0] > $v2[0] ? -1 :
-                1;
+        return $v1[0] == $v2[0]
+            ? 0
+            : ($v1[0] > $v2[0]
+                ? -1
+                : 1
+            );
     }
 
     /**
@@ -89,7 +124,9 @@ class ChartPie extends Chart
         }
 
         foreach ($pointList as $point) {
-            $percent = $this->total == 0 ? 0 : 100 * $point->getY() / $this->total;
+            $percent = $this->total == 0
+                ? 0
+                : 100 * $point->getY() / $this->total;
 
             array_push($this->percent, array($percent, $point));
         }
@@ -106,6 +143,7 @@ class ChartPie extends Chart
     protected function createImage()
     {
         parent::createImage();
+        // @todo check unused variables
 
         // Get graphical obects
         $img = $this->plot->getImg();
@@ -116,7 +154,14 @@ class ChartPie extends Chart
         $graphArea = $this->plot->getGraphArea();
 
         // Legend box
-        $primitive->outlinedBox($graphArea->x1, $graphArea->y1, $graphArea->x2, $graphArea->y2, $palette->axisColor[0], $palette->axisColor[1]);
+        $primitive->outlinedBox(
+            $graphArea->x1,
+            $graphArea->y1,
+            $graphArea->x2,
+            $graphArea->y2,
+            $palette->axisColor[0],
+            $palette->axisColor[1]
+        );
 
         // Aqua-like background
         for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
@@ -133,7 +178,10 @@ class ChartPie extends Chart
         // Create a list of labels
         $labelList = array();
         foreach ($this->percent as $percent) {
-            list($percent, $point) = $percent;
+            /**
+             * @var \Libchart\Model\Point $point
+             */
+            list(, $point) = $percent;
             $label = $point->getX();
 
             array_push($labelList, $label);
@@ -155,9 +203,9 @@ class ChartPie extends Chart
     /**
      * Draw a 2D disc.
      *
-     * @param integer Center coordinate (y)
-     * @param array Colors for each portion
-     * @param bitfield Drawing mode
+     * @param integer $cy Center coordinate (y)
+     * @param array $colorArray Colors for each portion
+     * @param int $mode Drawing mode
      */
     protected function drawDisc($cy, $colorArray, $mode)
     {
@@ -169,7 +217,7 @@ class ChartPie extends Chart
         $percentTotal = 0;
 
         foreach ($this->percent as $a) {
-            list ($percent, $point) = $a;
+            list ($percent, ) = $a;
 
             // If value is null, don't draw this arc
             if ($percent <= 0) {
@@ -184,7 +232,17 @@ class ChartPie extends Chart
 
             // imagefilledarc doesn't like null values (#1)
             if ($newAngle - $oldAngle >= 1) {
-                imagefilledarc($img, $this->pieCenterX, $cy, $this->pieWidth, $this->pieHeight, $oldAngle, $newAngle, $color->getColor($img), $mode);
+                imagefilledarc(
+                    $img,
+                    $this->pieCenterX,
+                    $cy,
+                    $this->pieWidth,
+                    $this->pieHeight,
+                    $oldAngle,
+                    $newAngle,
+                    $color->getColor($img),
+                    $mode
+                );
             }
 
             $oldAngle = $newAngle;
@@ -198,6 +256,7 @@ class ChartPie extends Chart
      */
     protected function drawPercent()
     {
+        // @todo check unused variables
         // Get graphical obects
         $img = $this->plot->getImg();
         $palette = $this->plot->getPalette();
@@ -208,7 +267,7 @@ class ChartPie extends Chart
         $percentTotal = 0;
 
         foreach ($this->percent as $a) {
-            list ($percent, $point) = $a;
+            list ($percent,) = $a;
 
             // If value is null, the arc isn't drawn, no need to display percent
             if ($percent <= 0) {
@@ -224,7 +283,15 @@ class ChartPie extends Chart
             $x = cos($angle) * ($this->pieWidth + 35) / 2 + $this->pieCenterX;
             $y = sin($angle) * ($this->pieHeight + 35) / 2 + $this->pieCenterY;
 
-            $text->printText($img, $x, $y, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_CENTER_ALIGN);
+            $text->printText(
+                $img,
+                $x,
+                $y,
+                $this->plot->getTextColor(),
+                $label,
+                $text->fontCondensed,
+                $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_CENTER_ALIGN
+            );
 
             $angle1 = $angle2;
         }
@@ -235,6 +302,7 @@ class ChartPie extends Chart
      */
     protected function printPie()
     {
+        // @todo: check unused variables
         // Get graphical obects
         $img = $this->plot->getImg();
         $palette = $this->plot->getPalette();
@@ -262,7 +330,7 @@ class ChartPie extends Chart
     /**
      * Render the chart image.
      *
-     * @param string name of the file to render the image to (optional)
+     * @param string $fileName name of the file to render the image to (optional)
      */
     public function render($fileName = null)
     {

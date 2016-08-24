@@ -27,14 +27,29 @@ namespace Libchart\View;
  */
 class ColorPalette
 {
-    // Plot attributes
-    public $red;
+    /**
+     * @var Color[]
+     */
     public $axisColor;
+
+    /**
+     * @var Color[]
+     */
     public $backgroundColor;
 
-    // Specific chart attributes
+    /**
+     * @var ColorSet
+     */
     public $barColorSet;
+
+    /**
+     * @var ColorSet
+     */
     public $lineColorSet;
+
+    /**
+     * @var ColorSet
+     */
     public $pieColorSet;
 
     /**
@@ -42,8 +57,6 @@ class ColorPalette
      */
     public function __construct()
     {
-        $this->red = new Color(255, 0, 0);
-
         // Set the colors for the horizontal and vertical axis
         $this->setAxisColor([
             new ColorHex('#C0D0E0'),
@@ -84,7 +97,7 @@ class ColorPalette
     /**
      * Set the colors for the axis.
      *
-     * @param colors array of Color
+     * @param array $colors array of Color
      */
     public function setAxisColor($colors)
     {
@@ -94,7 +107,7 @@ class ColorPalette
     /**
      * Set the colors for the background.
      *
-     * @param colors array of Color
+     * @param array $colors array of Color
      */
     public function setBackgroundColor($colors)
     {
@@ -104,7 +117,7 @@ class ColorPalette
     /**
      * Set the colors for the bar charts.
      *
-     * @param colors array of Color
+     * @param array $colors array of Color
      */
     public function setBarColor($colors)
     {
@@ -114,7 +127,7 @@ class ColorPalette
     /**
      * Set the colors for the line charts.
      *
-     * @param colors array of Color
+     * @param array $colors array of Color
      */
     public function setLineColor($colors)
     {
@@ -124,7 +137,7 @@ class ColorPalette
     /**
      * Set the colors for the pie charts.
      *
-     * @param colors array of Color
+     * @param array $colors array of Color
      */
     public function setPieColor($colors)
     {

@@ -34,8 +34,8 @@ class ChartVerticalBar extends ChartBar
     /**
      * Creates a new vertical bar chart
      *
-     * @param integer width of the image
-     * @param integer height of the image
+     * @param integer $width of the image
+     * @param integer $height of the image
      */
     public function __construct($width = 600, $height = 250)
     {
@@ -76,16 +76,48 @@ class ChartVerticalBar extends ChartBar
         $labelGenerator = $this->plot->getLabelGenerator();
 
         // Vertical axis
-        imageline($img, $graphArea->x1-1, $graphArea->y1, $graphArea->x1-1, $graphArea->y2, $palette->axisColor[0]->getColor($img));
+        imageline(
+            $img,
+            $graphArea->x1-1,
+            $graphArea->y1,
+            $graphArea->x1-1,
+            $graphArea->y2,
+            $palette->axisColor[0]->getColor($img)
+        );
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
-            $y = $graphArea->y2 - ($value - $minValue) * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+            $y = $graphArea->y2
+                - ($value - $minValue)
+                * ($graphArea->y2 - $graphArea->y1)
+                / ($this->axis->displayDelta);
 
-            imagerectangle($img, $graphArea->x1 - 2, $y, $graphArea->x1 - 2, $y + 1, $palette->axisColor[0]->getColor($img));
-            imagerectangle($img, $graphArea->x1 - 1, $y, $graphArea->x1, $y + 1, $palette->axisColor[1]->getColor($img));
+            imagerectangle(
+                $img,
+                $graphArea->x1 - 2,
+                $y,
+                $graphArea->x1 - 2,
+                $y + 1,
+                $palette->axisColor[0]->getColor($img)
+            );
+            imagerectangle(
+                $img,
+                $graphArea->x1 - 1,
+                $y,
+                $graphArea->x1,
+                $y + 1,
+                $palette->axisColor[1]->getColor($img)
+            );
 
             $label = $labelGenerator->generateLabel($value);
-            $text->printText($img, $graphArea->x1 - 10, $y, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN);
+            $text->printText(
+                $img,
+                $graphArea->x1 - 10,
+                $y,
+                $this->plot->getTextColor(),
+                $label,
+                $text->fontCondensed,
+                $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
+            );
         }
 
         // Get first serie of a list
@@ -97,13 +129,34 @@ class ChartVerticalBar extends ChartBar
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-        imageline($img, $graphArea->x1-1, $horizOriginY, $graphArea->x2, $horizOriginY, $palette->axisColor[0]->getColor($img));
+        imageline(
+            $img,
+            $graphArea->x1-1,
+            $horizOriginY,
+            $graphArea->x2,
+            $horizOriginY,
+            $palette->axisColor[0]->getColor($img)
+        );
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
-            imagerectangle($img, $x - 1, $horizOriginY + 2, $x, $horizOriginY + 3, $palette->axisColor[0]->getColor($img));
-            imagerectangle($img, $x - 1, $horizOriginY, $x, $horizOriginY + 1, $palette->axisColor[1]->getColor($img));
+            imagerectangle(
+                $img,
+                $x - 1,
+                $horizOriginY + 2,
+                $x,
+                $horizOriginY + 3,
+                $palette->axisColor[0]->getColor($img)
+            );
+            imagerectangle(
+                $img,
+                $x - 1,
+                $horizOriginY,
+                $x,
+                $horizOriginY + 1,
+                $palette->axisColor[1]->getColor($img)
+            );
 
             if ($i < $pointCount) {
                 $point = current($pointList);
@@ -111,7 +164,13 @@ class ChartVerticalBar extends ChartBar
 
                 $label = $point->getX();
 
-                $text->printDiagonal($img, $x + $columnWidth * 1 / 3, $graphArea->y2 + 10, $this->plot->getTextColor(), $label);
+                $text->printDiagonal(
+                    $img,
+                    $x + $columnWidth * 1 / 3,
+                    $graphArea->y2 + 10,
+                    $this->plot->getTextColor(),
+                    $label
+                );
             }
         }
     }
@@ -167,7 +226,10 @@ class ChartVerticalBar extends ChartBar
 
                 $value = $point->getY();
 
-                $ymin = $graphArea->y2 - ($value - $minValue) * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+                $ymin = $graphArea->y2
+                    - ($value - $minValue)
+                    * ($graphArea->y2 - $graphArea->y1)
+                    / ($this->axis->displayDelta);
 
                 // Bar dimensions
                 $xWithMargin = $x + $columnWidth * $this->emptyToFullRatio;
@@ -185,17 +247,39 @@ class ChartVerticalBar extends ChartBar
                 }
 
                 // Draw the vertical bar
-                imagefilledrectangle($img, $x1, $ymin, $x2, $horizOriginY + ($value >= 0 ? -1 : 2), $shadowColor->getColor($img));
+                imagefilledrectangle(
+                    $img,
+                    $x1,
+                    $ymin,
+                    $x2,
+                    $horizOriginY + ($value >= 0 ? -1 : 2),
+                    $shadowColor->getColor($img)
+                );
 
                 // Prevents drawing a small box when y = 0
                 if ($value != 0) {
-                    imagefilledrectangle($img, $x1 + 1, $ymin + ($value > 0 ? 1 : 0), $x2 - 4, $horizOriginY + ($value >= 0 ? -1 : 2), $color->getColor($img));
+                    imagefilledrectangle(
+                        $img,
+                        $x1 + 1,
+                        $ymin + ($value > 0 ? 1 : 0),
+                        $x2 - 4,
+                        $horizOriginY + ($value >= 0 ? -1 : 2),
+                        $color->getColor($img)
+                    );
                 }
 
                 // Draw caption text on bar
                 if ($this->config->getShowPointCaption()) {
                     $label = $labelGenerator->generateLabel($value);
-                    $text->printText($img, $x1 + $barWidth / 2, ($value > 0 ? $ymin - 5 : $ymin + 15), $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_BOTTOM_ALIGN);
+                    $text->printText(
+                        $img,
+                        $x1 + $barWidth / 2,
+                        ($value > 0 ? $ymin - 5 : $ymin + 15),
+                        $this->plot->getTextColor(),
+                        $label,
+                        $text->fontCondensed,
+                        $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_BOTTOM_ALIGN
+                    );
                 }
             }
         }
@@ -225,7 +309,7 @@ class ChartVerticalBar extends ChartBar
     /**
      * Render the chart image.
      *
-     * @param string name of the file to render the image to (optional)
+     * @param string $fileName name of the file to render the image to (optional)
      */
     public function render($fileName = null)
     {

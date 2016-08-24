@@ -117,7 +117,7 @@ class Caption
     /**
      * Sets the color set.
      *
-     * @param array $colorSet Color set
+     * @param ColorSet $colorSet Color set
      */
     public function setColorSet($colorSet)
     {

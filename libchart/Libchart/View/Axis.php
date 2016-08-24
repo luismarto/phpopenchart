@@ -65,7 +65,6 @@ class Axis
     {
         $this->min = $min;
         $this->max = $max;
-
         $this->guide = 10;
     }
 

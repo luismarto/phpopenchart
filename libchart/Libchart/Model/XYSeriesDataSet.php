@@ -30,11 +30,13 @@ class XYSeriesDataSet extends DataSet
 {
     /**
      * List of titles
+     * @var array
      */
     private $titleList;
 
     /**
      * List of XYDataSet.
+     * @var array
      */
     private $serieList;
 
@@ -51,7 +53,7 @@ class XYSeriesDataSet extends DataSet
     /**
      * Add a new serie to the dataset.
      *
-     * @param string Title (label) of the serie.
+     * @param string $title (label) of the serie.
      * @param \Libchart\Model\XYDataSet Serie of points to add
      */
     public function addSerie($title, $serie)
@@ -63,7 +65,7 @@ class XYSeriesDataSet extends DataSet
     /**
      * Getter of titleList.
      *
-     * @return List of titles.
+     * @return array List of titles.
      */
     public function getTitleList()
     {
@@ -73,7 +75,7 @@ class XYSeriesDataSet extends DataSet
     /**
      * Getter of serieList.
      *
-     * @return array List of series.
+     * @return \Libchart\Model\XYDataSet[] List of series.
      */
     public function getSerieList()
     {

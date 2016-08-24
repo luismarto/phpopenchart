@@ -26,8 +26,10 @@
 
 namespace Libchart\View;
 
+use Libchart\Exceptions\DatasetNotDefinedException;
 use Libchart\Model\ChartConfig;
 use Libchart\Model\XYDataSet;
+use Libchart\Model\XYSeriesDataSet;
 
 /**
  * Base chart class.
@@ -44,6 +46,7 @@ abstract class Chart
 
     /**
      * The data set.
+     * @var XYDataSet|XYSeriesDataSet
      */
     protected $dataSet;
 
@@ -77,7 +80,7 @@ abstract class Chart
     {
         // Check if a dataset was defined
         if (!$this->dataSet) {
-            die("Error: No dataset defined.");
+            throw new DatasetNotDefinedException();
         }
 
         // Maybe no points are defined, but that's ok. This will yield and empty graph with default boundaries.
@@ -94,7 +97,7 @@ abstract class Chart
     /**
      * Sets the data set.
      *
-     * @param XYDataSet $dataSet The data set
+     * @param XYDataSet|XYSeriesDataSet $dataSet The data set
      */
     public function setDataSet($dataSet)
     {
@@ -154,9 +157,6 @@ abstract class Chart
      */
     public function setTitleColorHex($hexColor, $alpha = 0)
     {
-        // @todo: use this with the ColorHex class, to avoid code duplication
-        list($red, $green, $blue) = sscanf($hexColor, "#%02x%02x%02x");
-
-        $this->plot->setTitleColor($red, $green, $blue, $alpha);
+        $this->plot->setTitleColorHex($hexColor, $alpha);
     }
 }

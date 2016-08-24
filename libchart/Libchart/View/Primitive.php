@@ -31,7 +31,7 @@ class Primitive
     /**
      * Creates a new primitive object
      *
-     * @param    resource    GD image resource
+     * @param resource $img GD image resource
      */
     public function __construct($img)
     {
@@ -41,11 +41,12 @@ class Primitive
     /**
      * Draws a straight line.
      *
-     * @param integer line start (X)
-     * @param integer line start (Y)
-     * @param integer line end (X)
-     * @param integer line end (Y)
-     * @param \Libchart\View\Color\Color line color
+     * @param int $x1 line start (X)
+     * @param int $y1 line start (Y)
+     * @param int $x2 line end (X)
+     * @param int $y2 line end (Y)
+     * @param Color $color
+     * @param int $width line color
      */
     public function line($x1, $y1, $x2, $y2, $color, $width = 1)
     {
@@ -69,12 +70,12 @@ class Primitive
     /**
      * Draw a filled gray box with thick borders and darker corners.
      *
-     * @param integer top left coordinate (x)
-     * @param integer top left coordinate (y)
-     * @param integer bottom right coordinate (x)
-     * @param integer bottom right coordinate (y)
-     * @param \Libchart\View\Color\Color edge color
-     * @param \Libchart\View\Color\Color corner color
+     * @param int $x1 top left coordinate (x)
+     * @param int $y1 top left coordinate (y)
+     * @param int $x2 bottom right coordinate (x)
+     * @param int $y2 bottom right coordinate (y)
+     * @param Color $color0 edge color
+     * @param Color $color1 corner color
      */
     public function outlinedBox($x1, $y1, $x2, $y2, $color0, $color1)
     {

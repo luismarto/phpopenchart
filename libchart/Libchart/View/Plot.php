@@ -203,7 +203,10 @@ class Plot
      */
     private function computeTitleArea()
     {
-        $titleUnpaddedBottom = $this->imageArea->y1 + $this->titleHeight + $this->titlePadding->top + $this->titlePadding->bottom;
+        $titleUnpaddedBottom = $this->imageArea->y1
+            + $this->titleHeight
+            + $this->titlePadding->top
+            + $this->titlePadding->bottom;
         $titleArea = new PrimitiveRectangle(
             $this->imageArea->x1,
             $this->imageArea->y1,
@@ -218,11 +221,17 @@ class Plot
      */
     private function computeGraphArea()
     {
-        $titleUnpaddedBottom = $this->imageArea->y1 + $this->titleHeight + $this->titlePadding->top + $this->titlePadding->bottom;
+        $titleUnpaddedBottom = $this->imageArea->y1
+            + $this->titleHeight
+            + $this->titlePadding->top
+            + $this->titlePadding->bottom;
         $graphArea = null;
         if ($this->hasCaption) {
-            $graphUnpaddedRight = $this->imageArea->x1 + ($this->imageArea->x2 - $this->imageArea->x1) * $this->graphCaptionRatio
-                + $this->graphPadding->left + $this->graphPadding->right;
+            $graphUnpaddedRight = $this->imageArea->x1
+                + ($this->imageArea->x2 - $this->imageArea->x1)
+                * $this->graphCaptionRatio
+                + $this->graphPadding->left
+                + $this->graphPadding->right;
             $graphArea = new PrimitiveRectangle(
                 $this->imageArea->x1,
                 $titleUnpaddedBottom,
@@ -245,9 +254,15 @@ class Plot
      */
     private function computeCaptionArea()
     {
-        $graphUnpaddedRight = $this->imageArea->x1 + ($this->imageArea->x2 - $this->imageArea->x1) * $this->graphCaptionRatio
-            + $this->graphPadding->left + $this->graphPadding->right;
-        $titleUnpaddedBottom = $this->imageArea->y1 + $this->titleHeight + $this->titlePadding->top + $this->titlePadding->bottom;
+        $graphUnpaddedRight = $this->imageArea->x1
+            + ($this->imageArea->x2 - $this->imageArea->x1)
+            * $this->graphCaptionRatio
+            + $this->graphPadding->left
+            + $this->graphPadding->right;
+        $titleUnpaddedBottom = $this->imageArea->y1
+            + $this->titleHeight
+            + $this->titlePadding->top
+            + $this->titlePadding->bottom;
         $captionArea = new PrimitiveRectangle(
             $graphUnpaddedRight,
             $titleUnpaddedBottom,
@@ -283,7 +298,14 @@ class Plot
         $this->textColor = new Color(0, 0, 0);
 
         // White background
-        imagefilledrectangle($this->img, 0, 0, $this->width - 1, $this->height - 1, $this->backGroundColor->getColor($this->img));
+        imagefilledrectangle(
+            $this->img,
+            0,
+            0,
+            $this->width - 1,
+            $this->height - 1,
+            $this->backGroundColor->getColor($this->img)
+        );
     }
 
     /**
@@ -309,14 +331,24 @@ class Plot
         @$logoImage = imagecreatefrompng($this->logoFileName);
 
         if ($logoImage) {
-            imagecopymerge($this->img, $logoImage, 2 * $this->outerPadding->left, $this->outerPadding->top, 0, 0, imagesx($logoImage), imagesy($logoImage), 100);
+            imagecopymerge(
+                $this->img,
+                $logoImage,
+                2 * $this->outerPadding->left,
+                $this->outerPadding->top,
+                0,
+                0,
+                imagesx($logoImage),
+                imagesy($logoImage),
+                100
+            );
         }
     }
 
     /**
      * Renders to a file or to standard output.
      *
-     * @param fileName File name (optional)
+     * @param string $fileName File name (optional)
      */
     public function render($fileName)
     {
@@ -339,10 +371,19 @@ class Plot
 
     /**
      * Change the color used for the title
-     * @param $red
-     * @param $green
-     * @param $blue
+     * @param string $hexColor
      * @param int $alpha
+     */
+    public function setTitleColorHex($hexColor, $alpha = 0)
+    {
+        $this->titleColor = new ColorHex($hexColor, $alpha);
+    }
+
+    /**
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     * @param int|float $alpha
      */
     public function setTitleColor($red, $green, $blue, $alpha = 0)
     {
@@ -352,7 +393,7 @@ class Plot
     /**
      * Sets the logo image file name.
      *
-     * @param string New logo image file name
+     * @param string $logoFileName New logo image file name
      */
     public function setLogoFileName($logoFileName)
     {
@@ -372,7 +413,7 @@ class Plot
     /**
      * Return the GD image.
      *
-     * @return GD Image
+     * @return resource GD Image
      */
     public function getImg()
     {
@@ -412,7 +453,7 @@ class Plot
     /**
      * Return the outer padding.
      *
-     * @return integer Outer padding value in pixels
+     * @return PrimitivePadding Outer padding value in pixels
      */
     public function getOuterPadding()
     {
@@ -422,7 +463,7 @@ class Plot
     /**
      * Set the outer padding.
      *
-     * @param integer Outer padding value in pixels
+     * @param PrimitivePadding $outerPadding Outer padding value in pixels
      */
     public function setOuterPadding($outerPadding)
     {
@@ -452,7 +493,7 @@ class Plot
     /**
      * Return the graph padding.
      *
-     * @param integer $graphPadding graph padding
+     * @param PrimitivePadding $graphPadding graph padding
      */
     public function setGraphPadding($graphPadding)
     {

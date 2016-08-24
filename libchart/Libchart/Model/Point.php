@@ -27,14 +27,21 @@ namespace Libchart\Model;
  */
 class Point
 {
+    /**
+     * @var int
+     */
     private $x;
+
+    /**
+     * @var int
+     */
     private $y;
 
     /**
      * Creates a new sampling point of coordinates (x, y)
      *
-     * @param integer x coordinate (label)
-     * @param integer y coordinate (value)
+     * @param integer $x coordinate (label)
+     * @param integer $y coordinate (value)
      */
     public function __construct($x, $y)
     {

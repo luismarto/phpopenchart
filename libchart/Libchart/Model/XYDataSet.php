@@ -27,6 +27,9 @@ namespace Libchart\Model;
  */
 class XYDataSet extends DataSet
 {
+    /**
+     * @var array
+     */
     private $pointList;
 
     /**
@@ -52,7 +55,7 @@ class XYDataSet extends DataSet
     /**
      * Getter of pointList.
      *
-     * @return List of points.
+     * @return \Libchart\Model\Point[] List of points.
      */
     public function getPointList()
     {

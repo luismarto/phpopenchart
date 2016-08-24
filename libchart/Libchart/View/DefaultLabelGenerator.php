@@ -26,7 +26,6 @@ namespace Libchart\View;
  */
 class DefaultLabelGenerator implements LabelGeneratorInterface
 {
-
     public function generateLabel($value)
     {
         return strval($value);

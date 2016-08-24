@@ -22,7 +22,7 @@ namespace Libchart\View;
 /**
  * Primitive geometric object representing a padding.
  *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
+ * @author Jean-Marc Tremeaux (jm.tremeaux at gmail.com)
  * @Created on 27 july 2007
  */
 class PrimitivePadding
@@ -50,10 +50,10 @@ class PrimitivePadding
     /**
      * Creates a new padding.
      *
-     * @param integer Top padding
-     * @param integer Right padding
-     * @param integer Bottom padding
-     * @param integer Left padding
+     * @param integer $top padding
+     * @param integer|null $right padding
+     * @param integer|null $bottom padding
+     * @param integer|null $left padding
      */
     public function __construct($top, $right = null, $bottom = null, $left = null)
     {

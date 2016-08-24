@@ -22,7 +22,7 @@ namespace Libchart\View;
 /**
  * Horizontal bar chart
  *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
+ * @author Jean-Marc Tremeaux (jm.tremeaux at gmail.com)
  */
 class ChartHorizontalBar extends ChartBar
 {
@@ -76,16 +76,48 @@ class ChartHorizontalBar extends ChartBar
         $labelGenerator = $this->plot->getLabelGenerator();
 
         // Horizontal axis
-        imagerectangle($img, $graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2 + 1, $palette->axisColor[0]->getColor($img));
+        imagerectangle(
+            $img,
+            $graphArea->x1 - 1,
+            $graphArea->y2,
+            $graphArea->x2,
+            $graphArea->y2 + 1,
+            $palette->axisColor[0]->getColor($img)
+        );
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
-            $x = $graphArea->x1 + ($value - $minValue) * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
+            $x = $graphArea->x1
+                + ($value - $minValue)
+                * ($graphArea->x2 - $graphArea->x1)
+                / ($this->axis->displayDelta);
 
-            imagerectangle($img, $x - 1, $graphArea->y2 + 2, $x, $graphArea->y2 + 3, $palette->axisColor[0]->getColor($img));
-            imagerectangle($img, $x - 1, $graphArea->y2, $x, $graphArea->y2 + 1, $palette->axisColor[1]->getColor($img));
+            imagerectangle(
+                $img,
+                $x - 1,
+                $graphArea->y2 + 2,
+                $x,
+                $graphArea->y2 + 3,
+                $palette->axisColor[0]->getColor($img)
+            );
+            imagerectangle(
+                $img,
+                $x - 1,
+                $graphArea->y2,
+                $x,
+                $graphArea->y2 + 1,
+                $palette->axisColor[1]->getColor($img)
+            );
 
             $label = $labelGenerator->generateLabel($value);
-            $text->printText($img, $x, $graphArea->y2 + 5, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_CENTER_ALIGN);
+            $text->printText(
+                $img,
+                $x,
+                $graphArea->y2 + 5,
+                $this->plot->getTextColor(),
+                $label,
+                $text->fontCondensed,
+                $text->HORIZONTAL_CENTER_ALIGN
+            );
         }
 
         // Get first serie of a list
@@ -99,13 +131,34 @@ class ChartHorizontalBar extends ChartBar
 
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
-        imagerectangle($img, $verticalOriginX - 1, $graphArea->y1, $verticalOriginX, $graphArea->y2, $palette->axisColor[0]->getColor($img));
+        imagerectangle(
+            $img,
+            $verticalOriginX - 1,
+            $graphArea->y1,
+            $verticalOriginX,
+            $graphArea->y2,
+            $palette->axisColor[0]->getColor($img)
+        );
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $y = $graphArea->y2 - $i * $rowHeight;
 
-            imagerectangle($img, $verticalOriginX - 3, $y, $verticalOriginX - 2, $y + 1, $palette->axisColor[0]->getColor($img));
-            imagerectangle($img, $verticalOriginX - 1, $y, $verticalOriginX, $y + 1, $palette->axisColor[1]->getColor($img));
+            imagerectangle(
+                $img,
+                $verticalOriginX - 3,
+                $y,
+                $verticalOriginX - 2,
+                $y + 1,
+                $palette->axisColor[0]->getColor($img)
+            );
+            imagerectangle(
+                $img,
+                $verticalOriginX - 1,
+                $y,
+                $verticalOriginX,
+                $y + 1,
+                $palette->axisColor[1]->getColor($img)
+            );
 
             if ($i < $pointCount) {
                 $point = current($pointList);
@@ -113,7 +166,15 @@ class ChartHorizontalBar extends ChartBar
 
                 $label = $point->getX();
 
-                $text->printText($img, $graphArea->x1 - 5, $y - $rowHeight / 2, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN);
+                $text->printText(
+                    $img,
+                    $graphArea->x1 - 5,
+                    $y - $rowHeight / 2,
+                    $this->plot->getTextColor(),
+                    $label,
+                    $text->fontCondensed,
+                    $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
+                );
             }
         }
     }
@@ -137,6 +198,7 @@ class ChartHorizontalBar extends ChartBar
         $labelGenerator = $this->plot->getLabelGenerator();
 
         $minValue = $this->axis->getLowerBoundary();
+        // @todo: check this unused variables...
         $maxValue = $this->axis->getUpperBoundary();
         $stepValue = $this->axis->getTics();
 
@@ -169,7 +231,10 @@ class ChartHorizontalBar extends ChartBar
 
                 $value = $point->getY();
 
-                $xmax = $graphArea->x1 + ($value - $minValue) * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
+                $xmax = $graphArea->x1
+                    + ($value - $minValue)
+                    * ($graphArea->x2 - $graphArea->x1)
+                    / ($this->axis->displayDelta);
 
                 // Bar dimensions
                 $yWithMargin = $y - $rowHeight * $this->emptyToFullRatio;
@@ -187,17 +252,41 @@ class ChartHorizontalBar extends ChartBar
                 }
 
                 // Draw the horizontal bar
-                imagefilledrectangle($img, $verticalOriginX + ($value >= 0 ? 1 : -2), $y1, $xmax, $y2, $shadowColor->getColor($img));
+                imagefilledrectangle(
+                    $img,
+                    $verticalOriginX + ($value >= 0 ? 1 : -2),
+                    $y1,
+                    $xmax,
+                    $y2,
+                    $shadowColor->getColor($img)
+                );
 
                 // Prevents drawing a small box when x = 0
                 if ($value != 0) {
-                    imagefilledrectangle($img, $verticalOriginX + ($value >= 0 ? 2 : -2), $y1 + 1, $xmax + ($value >= 0 ? -4 : -0), $y2, $color->getColor($img));
+                    imagefilledrectangle(
+                        $img,
+                        $verticalOriginX + ($value >= 0 ? 2 : -2),
+                        $y1 + 1,
+                        $xmax + ($value >= 0 ? -4 : -0),
+                        $y2,
+                        $color->getColor($img)
+                    );
                 }
 
                 // Draw caption text on bar
                 if ($this->config->getShowPointCaption()) {
                     $label = $labelGenerator->generateLabel($value);
-                    $text->printText($img, $xmax + ($value > 0 ? 5 : -10), $y2 - $barWidth / 2, $this->plot->getTextColor(), $label, $text->fontCondensed, $text->VERTICAL_CENTER_ALIGN | ($value > 0 ? $text->HORIZONTAL_LEFT_ALIGN : $text->HORIZONTAL_RIGHT_ALIGN));
+                    $textAlign = $text->VERTICAL_CENTER_ALIGN
+                        | ($value > 0 ? $text->HORIZONTAL_LEFT_ALIGN : $text->HORIZONTAL_RIGHT_ALIGN);
+                    $text->printText(
+                        $img,
+                        $xmax + ($value > 0 ? 5 : -10),
+                        $y2 - $barWidth / 2,
+                        $this->plot->getTextColor(),
+                        $label,
+                        $text->fontCondensed,
+                        $textAlign
+                    );
                 }
             }
         }
@@ -227,7 +316,7 @@ class ChartHorizontalBar extends ChartBar
     /**
      * Render the chart image.
      *
-     * @param string name of the file to render the image to (optional)
+     * @param string $fileName name of the file to render the image to (optional)
      */
     public function render($fileName = null)
     {

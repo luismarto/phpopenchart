@@ -29,21 +29,21 @@ class ChartConfig
     /**
      * Use several colors for a single data set chart (as if it was a multiple data set).
      *
-     * @var Boolean
+     * @var bool
      */
     private $useMultipleColor;
 
     /**
      * Show caption on individual data points.
      *
-     * @var Boolean
+     * @var bool
      */
     private $showPointCaption;
 
     /**
      * Sort data points (only pie charts).
      *
-     * @var Boolean
+     * @var bool
      */
     private $sortDataPoint;
 
@@ -102,7 +102,7 @@ class ChartConfig
     /**
      * Set the option to sort data points (only pie charts).
      *
-     * @param $sortDataPoint Sort data points : boolean
+     * @param bool $sortDataPoint Sort data points : boolean
      */
     public function setSortDataPoint($sortDataPoint)
     {
@@ -112,7 +112,7 @@ class ChartConfig
     /**
      * Get the option to sort data points (only pie charts).
      *
-     * @return Sort data points : boolean
+     * @return bool Sort data points : boolean
      */
     public function getSortDataPoint()
     {

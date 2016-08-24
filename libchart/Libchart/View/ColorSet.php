@@ -33,8 +33,8 @@ class ColorSet
     /**
      * ColorSet constructor.
      *
-     * @param $shadowFactor Shadow factor
-     * @param $colorArray Colors as an array
+     * @param array $colorList Colors as an array
+     * @param int|float $shadowFactor Shadow factor
      */
     public function __construct($colorList, $shadowFactor)
     {
@@ -76,7 +76,7 @@ class ColorSet
     /**
      * Returns the current color.
      *
-     * @return Current color
+     * @return Color color
      */
     public function currentColor()
     {
@@ -86,12 +86,10 @@ class ColorSet
     /**
      * Returns the current shadow color.
      *
-     * @return Current shadow color
+     * @return Color shadow color
      */
     public function currentShadowColor()
     {
         return current($this->shadowColorList);
     }
 }
-
-?>
