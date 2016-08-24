@@ -122,7 +122,7 @@ class ChartHorizontalBar extends ChartBar
                 $graphArea->y2 + 5,
                 $this->plot->getTextColor(),
                 $label,
-                $text->fontCondensed,
+                $text->getTextFont(),
                 $text->HORIZONTAL_CENTER_ALIGN
             );
         }
@@ -182,7 +182,7 @@ class ChartHorizontalBar extends ChartBar
                     $y - $rowHeight / 2,
                     $this->plot->getTextColor(),
                     $label,
-                    $text->fontCondensed,
+                    $text->getTextFont(),
                     $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
                 );
             }
@@ -294,7 +294,7 @@ class ChartHorizontalBar extends ChartBar
                         $y2 - $barWidth / 2,
                         $this->plot->getTextColor(),
                         $label,
-                        $text->fontCondensed,
+                        $text->getTextFont(),
                         $textAlign
                     );
                 }

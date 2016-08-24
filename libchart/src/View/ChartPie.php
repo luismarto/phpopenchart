@@ -288,7 +288,7 @@ class ChartPie extends Chart
                 $y,
                 $this->plot->getTextColor(),
                 $label,
-                $text->fontCondensed,
+                $text->getTextFont(),
                 $text->HORIZONTAL_CENTER_ALIGN | $text->VERTICAL_CENTER_ALIGN
             );
 

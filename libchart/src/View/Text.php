@@ -19,6 +19,8 @@
 
 namespace Libchart\View;
 
+use Noodlehaus\Config;
+
 const DS = DIRECTORY_SEPARATOR;
 
 /**
@@ -36,19 +38,56 @@ class Text
     public $VERTICAL_CENTER_ALIGN = 16;
     public $VERTICAL_BOTTOM_ALIGN = 32;
 
-    // @todo: set this on a config file
+    /**
+     * @var Config
+     */
+    private $config;
+
+    /**
+     * @var string
+     */
     private $fontsDirectory;
+
+    /**
+     * @var string
+     */
+    private $textFont;
+
+    /**
+     * @var string
+     */
+    private $titleFont;
+
+    /**
+     * @var int
+     */
+    private $angle;
 
     /**
      * Creates a new text drawing helper.
      */
     public function __construct()
     {
-        $this->fontsDirectory = dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'fonts' . DS;
+        $configPath = __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+        $this->config = Config::load($configPath);
 
-        // Free low-res fonts based on Bitstream Vera <http://dejavu.sourceforge.net/wiki/>
-        $this->fontCondensed = $this->fontsDirectory . "SourceSansPro-Light.otf";
-        $this->fontCondensedBold = $this->fontsDirectory . "SourceSansPro-Regular.otf";
+        $this->fontsDirectory = $this->config->get(
+            'fonts.path',
+            dirname(__FILE__)
+            . DIRECTORY_SEPARATOR. '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
+        );
+
+        $this->textFont = $this->fontsDirectory
+            . $this->config->get('fonts.text', 'SourceSansPro-Light.otf');
+        $this->titleFont = $this->fontsDirectory
+            . $this->config->get('fonts.title', 'SourceSansPro-Regular.otf');
+
+        $this->angle = $this->config->get('label.angle', 0);
     }
 
     /**
@@ -140,36 +179,55 @@ class Text
      */
     public function printDiagonal($img, $px, $py, $color, $text)
     {
-        // @todo: Make this configurable
-        $fontSize = 11;
-        $fontFileName = $this->fontCondensed;
+        $fontSize = $this->config->get('label.size', 11);
+        $fontFileName = $this->textFont;
 
-        $lineSpacing = 1;
-
-        list ($lx, $ly, $rx, $ry) = imageftbbox(
-            $fontSize,
-            0,
-            $fontFileName,
-            $text,
-            array("linespacing" => $lineSpacing)
-        );
-        $textWidth = $rx - $lx;
-
-        // @todo: Make this configurable
-        $angle = 0;
-
-        // @todo: Make the $py value configurable
-        $py = $py + 15;
-        imagettftext($img, $fontSize, $angle, $px, $py, $color->getColor($img), $fontFileName, $text);
+        $py = $py + $this->config->get('label.margin-top', 15);
+        imagettftext($img, $fontSize, $this->angle, $px, $py, $color->getColor($img), $fontFileName, $text);
     }
 
-    public function setFontCondensed($fontName)
+    /**
+     * Sets a new font to be used for the text
+     * @param string $fontName
+     */
+    public function setTextFont($fontName)
     {
-        $this->fontCondensed = $this->fontsDirectory . $fontName;
+        $this->textFont = $this->fontsDirectory . $fontName;
     }
 
-    public function setFontCondensedBold($fontName)
+    /**
+     * Returns the font used for the chart texts
+     * @return string
+     */
+    public function getTextFont()
     {
-        $this->fontCondensedBold = $this->fontsDirectory . $fontName;
+        return $this->textFont;
+    }
+
+    /**
+     * Sets a new font to be used for the chart title
+     * @param string $fontName
+     */
+    public function setTitleFont($fontName)
+    {
+        $this->titleFont = $this->fontsDirectory . $fontName;
+    }
+
+    /**
+     * Returns the font used for the chart's title
+     * @return string
+     */
+    public function getTitleFont()
+    {
+        return $this->titleFont;
+    }
+
+    /**
+     * Allows you to change the point's label angle on runtime
+     * @param int $angle
+     */
+    public function setAngle($angle)
+    {
+        $this->angle = $angle;
     }
 }

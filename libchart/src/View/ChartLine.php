@@ -110,7 +110,7 @@ class ChartLine extends ChartBar
                 $y,
                 $this->plot->getTextColor(),
                 $label,
-                $text->fontCondensed,
+                $text->getTextFont(),
                 $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
             );
         }

@@ -27,16 +27,29 @@ namespace Libchart\View;
  */
 class Caption
 {
+    /**
+     * @var int
+     */
     protected $labelBoxWidth;
+
+    /**
+     * @var int
+     */
     protected $labelBoxHeight;
 
-    // Plot
+    /**
+     * @var Plot
+     */
     protected $plot;
 
-    // Label list
+    /**
+     * @var array
+     */
     protected $labelList;
 
-    // Color set
+    /**
+     * @var ColorSet
+     */
     protected $colorSet;
 
     /**
@@ -86,7 +99,7 @@ class Caption
                 $boxY1 + $this->labelBoxHeight / 2,
                 $this->plot->getTextColor(),
                 $label,
-                $text->fontCondensed,
+                $text->getTextFont(),
                 $text->VERTICAL_CENTER_ALIGN
             );
 

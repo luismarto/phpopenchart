@@ -348,7 +348,7 @@ class Plot
             $yCenter,
             $this->titleColor,
             $this->title,
-            $this->text->fontCondensedBold
+            $this->text->getTitleFont()
         );
     }
 
@@ -612,7 +612,7 @@ class Plot
     /**
      * Return the caption area.
      *
-     * @return caption area
+     * @return PrimitiveRectangle caption area
      */
     public function getCaptionArea()
     {
