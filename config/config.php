@@ -122,5 +122,5 @@ return [
     | \Libchart\Label\LabelInterface and use that here
     |
     */
-    'barLabelGenerator' => '\Libchart\Label\NumberFormatted'
+    'barLabelGenerator' => '\Libchart\Label\NumberFormatter'
 ];

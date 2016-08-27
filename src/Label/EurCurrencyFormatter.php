@@ -7,7 +7,7 @@
  *
  * @package Libchart\Label
  */
-class EurCurrencyFormatter extends NumberFormatted implements LabelInterface
+class EurCurrencyFormatter extends NumberFormatter implements LabelInterface
 {
     public function generateLabel($value)
     {
