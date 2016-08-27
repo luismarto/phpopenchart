@@ -3,7 +3,8 @@
 This library allows you to create images of charts using PHP. It's specially useful when you need to create charts on the server-side 
 and so you can't use a front-end library such as Highcharts.
 
-***image here***
+<img src="https://geekalicious.pt/github/libchart/libchart-sample.png"/>
+
 
 This library is is based on the original work of [Jean-Marc Trémeaux](http://naku.dohcrew.com/) (check the [original website](https://naku.dohcrew.com/libchart/pages/introduction/)).
 Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
