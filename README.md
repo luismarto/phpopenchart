@@ -15,7 +15,11 @@ $chart = new ChartVerticalBar(600, 300);
 
 $dataSet = new XYDataSet();
 $dataSet->addPoint(new Point("Feb", 3296));
-$dataSet->addPoint(new Point("Mar", -1816, '#44aa99'));
+$dataSet->addPoint(new Point("Mar", -1816));
+$dataSet->addPoint(new Point("Apr", 687));
+$dataSet->addPoint(new Point("May", 10987));
+$dataSet->addPoint(new Point("Jun", 8014));
+$dataSet->addPoint(new Point("Jul", 7695));
 
 $chart->setDataSet($dataSet);
 $chart->setTitle("Values");
@@ -40,11 +44,12 @@ It's my intention to fully document the package and it's options, but first I wa
 
 # Roadmap
 
-In a forseable future (v 1.5).
+In a forseable future (v 1.5 / 1.6).
 - Make the package more "configurable"
 - Fix bugs on Pie and Line charts
 - Rename some classes and review the package's structure
 - Refactor the bootstrap code, so you don't need to include so many classes
+- Fix tests and demo
 
 In a near future (v 2.0)
 - Refactor the core (Plot and Chart) and remove duplicate code
