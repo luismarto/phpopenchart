@@ -78,12 +78,12 @@ class ChartHorizontalBar extends ChartBar
         /**
          * Deal with the Horizontal Axis
          */
-        imagerectangle(
+        imageline(
             $img,
             $graphArea->x1 - 1,
             $graphArea->y2,
             $graphArea->x2,
-            $graphArea->y2 + 1,
+            $graphArea->y2,
             $palette->axisColor[0]->getColor($img)
         );
 
@@ -93,27 +93,18 @@ class ChartHorizontalBar extends ChartBar
                 * ($graphArea->x2 - $graphArea->x1)
                 / ($this->axis->displayDelta);
 
-            imagerectangle(
+            imageline(
                 $img,
-                $x - 1,
-                $graphArea->y2 + 2,
                 $x,
-                $graphArea->y2 + 3,
-                $palette->axisColor[0]->getColor($img)
-            );
-            imagerectangle(
-                $img,
-                $x - 1,
                 $graphArea->y2,
                 $x,
-                $graphArea->y2 + 1,
-                $palette->axisColor[1]->getColor($img)
+                $graphArea->y2 + 2,
+                $palette->axisColor[0]->getColor($img)
             );
-
 
             // Add the horizontal guide lines for each marker
             $color = $palette->backgroundColor[0];
-            $this->plot->getPrimitive()->line($x - 1, $graphArea->y1, $x, $graphArea->y2, $color);
+            $this->plot->getPrimitive()->line($x, $graphArea->y1, $x, $graphArea->y2, $color);
 
             $label = $labelGenerator->generateLabel($value);
             $text->printText(
@@ -140,9 +131,9 @@ class ChartHorizontalBar extends ChartBar
 
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
-        imagerectangle(
+        imageline(
             $img,
-            $verticalOriginX - 1,
+            $verticalOriginX,
             $graphArea->y1,
             $verticalOriginX,
             $graphArea->y2,
@@ -153,21 +144,13 @@ class ChartHorizontalBar extends ChartBar
             $y = $graphArea->y2 - $i * $rowHeight;
 
             // Prints the small blue markers that separate each point
-            imagerectangle(
+            imageline(
                 $img,
                 $verticalOriginX - 3,
                 $y,
-                $verticalOriginX - 2,
-                $y + 1,
-                $palette->axisColor[0]->getColor($img)
-            );
-            imagerectangle(
-                $img,
-                $verticalOriginX - 1,
-                $y,
                 $verticalOriginX,
-                $y + 1,
-                $palette->axisColor[1]->getColor($img)
+                $y,
+                $palette->axisColor[0]->getColor($img)
             );
 
             if ($i < $pointCount) {
@@ -274,7 +257,7 @@ class ChartHorizontalBar extends ChartBar
                 // Draw the horizontal bar
                 imagefilledrectangle(
                     $img,
-                    $verticalOriginX + ($value >= 0 ? 1 : -2),
+                    $verticalOriginX + ($value >= 0 ? 1 : -1),
                     $y1,
                     $xmax,
                     $y2,
