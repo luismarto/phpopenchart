@@ -50,21 +50,19 @@ class Primitive
      */
     public function line($x1, $y1, $x2, $y2, $color, $width = 1)
     {
-//        imagefilledpolygon(
-//            $this->img,
-//            [
-//                $x1,
-//                $y1 - $width / 2,
-//                $x1,
-//                $y1 + $width / 2,
-//                $x2,
-//                $y2 + $width / 2,
-//                $x2, $y2 - $width / 2
-//            ],
-//            4,
-//            $color->getColor($this->img)
-//        );
         imageline($this->img, $x1, $y1, $x2, $y2, $color->getColor($this->img));
+    }
+
+    /**
+     * @param int $x1
+     * @param int $y1
+     * @param int $x2
+     * @param int $y2
+     * @param \Libchart\Color\Color $color
+     */
+    public function rectangle($x1, $y1, $x2, $y2, $color)
+    {
+        imagefilledrectangle($this->img, $x1, $y1, $x2, $y2, $color->getColor($this->img));
     }
 
     /**

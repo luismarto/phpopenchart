@@ -53,8 +53,6 @@ abstract class ChartBar extends Chart
      */
     protected function __construct($width, $height)
     {
-        parent::__construct($width, $height);
-
         // Initialize the bounds
         $this->bound = new AxisBound();
         $this->bound->setLowerBound(0);
@@ -177,11 +175,23 @@ abstract class ChartBar extends Chart
     }
 
     /**
-     * Returns the bound.
-     * @return AxisBound bound
+     * Renders the caption.
      */
-    public function getBound()
+    protected function printCaption()
     {
-        return $this->bound;
+        // Get the list of labels
+        $labelList = $this->dataSet->getTitleList();
+
+        // Create the caption
+        $caption = new Caption();
+        $caption->setPlot($this->plot);
+        $caption->setLabelList($labelList);
+
+        $palette = $this->plot->getPalette();
+        $barColorSet = $palette->barColorSet;
+        $caption->setColorSet($barColorSet);
+
+        // Render the caption
+        $caption->render();
     }
 }

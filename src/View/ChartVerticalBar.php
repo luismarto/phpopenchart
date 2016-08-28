@@ -46,17 +46,6 @@ class ChartVerticalBar extends ChartBar
     }
 
     /**
-     * Computes the layout.
-     */
-    protected function computeLayout()
-    {
-        if ($this->hasSeveralSerie) {
-            $this->plot->setHasCaption(true);
-        }
-        $this->plot->computeLayout();
-    }
-
-    /**
      * Print the horizontal and vertical axis.
      */
     protected function printAxis()
@@ -103,7 +92,7 @@ class ChartVerticalBar extends ChartBar
             );
 
             // For each marker, create the "guiding line"
-            $color = $palette->backgroundColor[0];
+            $color = $palette->backgroundColor;
             $this->plot->getPrimitive()->line($graphArea->x1, $y, $graphArea->x2, $y, $color);
 
             // Now print the label for the y axis
@@ -289,27 +278,6 @@ class ChartVerticalBar extends ChartBar
                 }
             }
         }
-    }
-
-    /**
-     * Renders the caption.
-     */
-    protected function printCaption()
-    {
-        // Get the list of labels
-        $labelList = $this->dataSet->getTitleList();
-
-        // Create the caption
-        $caption = new Caption();
-        $caption->setPlot($this->plot);
-        $caption->setLabelList($labelList);
-
-        $palette = $this->plot->getPalette();
-        $barColorSet = $palette->barColorSet;
-        $caption->setColorSet($barColorSet);
-
-        // Render the caption
-        $caption->render();
     }
 
     /**

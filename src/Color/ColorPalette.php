@@ -33,7 +33,7 @@ class ColorPalette
     public $axisColor;
 
     /**
-     * @var Color[]
+     * @var Color
      */
     public $backgroundColor;
 
@@ -41,11 +41,6 @@ class ColorPalette
      * @var ColorSet
      */
     public $barColorSet;
-
-    /**
-     * @var ColorSet
-     */
-    public $lineColorSet;
 
     /**
      * @var ColorSet
@@ -59,14 +54,12 @@ class ColorPalette
     {
         // Set the colors for the horizontal and vertical axis
         $this->setAxisColor([
-            new ColorHex('#C0D0E0'),
+            new ColorHex('#8BC5E0'),
             new ColorHex('#C0D0E0')
         ]);
 
         // Set the colors for the background
-        $this->setBackgroundColor([
-            new ColorHex('#D8D8D8')
-        ]);
+        $this->setBackgroundColor(new ColorHex('#D8D8D8'));
 
         // Set the colors for the bars
         $colors = [
@@ -87,9 +80,6 @@ class ColorPalette
         ];
         $this->setBarColor($colors);
 
-        // Set the colors for the lines
-        $this->setLineColor($colors);
-
         // Set the colors for the pie
         $this->setPieColor($colors);
     }
@@ -107,11 +97,11 @@ class ColorPalette
     /**
      * Set the colors for the background.
      *
-     * @param array $colors array of Color
+     * @param Color $color array of Color
      */
-    public function setBackgroundColor($colors)
+    public function setBackgroundColor($color)
     {
-        $this->backgroundColor = $colors;
+        $this->backgroundColor = $color;
     }
 
     /**
@@ -122,16 +112,6 @@ class ColorPalette
     public function setBarColor($colors)
     {
         $this->barColorSet = new ColorSet($colors, 1);
-    }
-
-    /**
-     * Set the colors for the line charts.
-     *
-     * @param array $colors array of Color
-     */
-    public function setLineColor($colors)
-    {
-        $this->lineColorSet = new ColorSet($colors, 0.75);
     }
 
     /**

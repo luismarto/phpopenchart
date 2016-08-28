@@ -26,6 +26,8 @@ namespace Libchart\View;
  */
 class ChartHorizontalBar extends ChartBar
 {
+    use PlotTrait;
+
     /**
      * Ratio of empty space beside the bars.
      */
@@ -40,20 +42,10 @@ class ChartHorizontalBar extends ChartBar
     public function __construct($width = 600, $height = 250)
     {
         parent::__construct($width, $height);
-
         $this->emptyToFullRatio = 1 / 5;
-        $this->plot->setGraphPadding(new PrimitivePadding(5, 30, 30, 50));
-    }
-
-    /**
-     * Computes the layout.
-     */
-    protected function computeLayout()
-    {
-        if ($this->hasSeveralSerie) {
-            $this->plot->setHasCaption(true);
-        }
-        $this->plot->computeLayout();
+        // Set the traits properties
+        $this->init($width, $height, $this->hasSeveralSerie);
+        $this->setGraphPadding(new PrimitivePadding(5, 30, 30, 50));
     }
 
     /**
@@ -65,27 +57,16 @@ class ChartHorizontalBar extends ChartBar
         $maxValue = $this->axis->getUpperBoundary();
         $stepValue = $this->axis->getTics();
 
-        // Get graphical obects
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-
         // Get the graph area
-        $graphArea = $this->plot->getGraphArea();
+        $graphArea = $this->graphArea;
 
-        $labelGenerator = $this->plot->getAxisLabelGenerator();
+        $axisColor0 = $this->palette->axisColor[0];
 
         /**
          * Deal with the Horizontal Axis
          */
-        imageline(
-            $img,
-            $graphArea->x1 - 1,
-            $graphArea->y2,
-            $graphArea->x2,
-            $graphArea->y2,
-            $palette->axisColor[0]->getColor($img)
-        );
+        // Draw the line for the X axis
+        $this->primitive->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $x = $graphArea->x1
@@ -93,28 +74,18 @@ class ChartHorizontalBar extends ChartBar
                 * ($graphArea->x2 - $graphArea->x1)
                 / ($this->axis->displayDelta);
 
-            imageline(
-                $img,
-                $x,
-                $graphArea->y2,
-                $x,
-                $graphArea->y2 + 2,
-                $palette->axisColor[0]->getColor($img)
-            );
+            // Draw the guiding line and marker for each step value
+            $this->primitive->line($x, $graphArea->y1, $x, $graphArea->y2 + 2, $this->palette->backgroundColor);
 
-            // Add the horizontal guide lines for each marker
-            $color = $palette->backgroundColor[0];
-            $this->plot->getPrimitive()->line($x, $graphArea->y1, $x, $graphArea->y2, $color);
-
-            $label = $labelGenerator->generateLabel($value);
-            $text->printText(
-                $img,
+            // Draw the text for each step value (guiding marker)
+            $label = $this->axisLabelGenerator->generateLabel($value);
+            $this->text->printText(
                 $x,
                 $graphArea->y2 + 5,
-                $this->plot->getTextColor(),
+                $this->textColor,
                 $label,
-                $text->getTextFont(),
-                $text->HORIZONTAL_CENTER_ALIGN
+                $this->text->getTextFont(),
+                $this->text->HORIZONTAL_CENTER_ALIGN
             );
         }
 
@@ -131,27 +102,14 @@ class ChartHorizontalBar extends ChartBar
 
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
-        imageline(
-            $img,
-            $verticalOriginX,
-            $graphArea->y1,
-            $verticalOriginX,
-            $graphArea->y2,
-            $palette->axisColor[0]->getColor($img)
-        );
+        // Draw the Y axis
+        $this->primitive->line($verticalOriginX, $graphArea->y1, $verticalOriginX, $graphArea->y2, $axisColor0);
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $y = $graphArea->y2 - $i * $rowHeight;
 
-            // Prints the small blue markers that separate each point
-            imageline(
-                $img,
-                $verticalOriginX - 3,
-                $y,
-                $verticalOriginX,
-                $y,
-                $palette->axisColor[0]->getColor($img)
-            );
+            // Prints the small blue markers that separate each point / bar
+            $this->primitive->line($verticalOriginX - 3, $y, $verticalOriginX, $y, $axisColor0);
 
             if ($i < $pointCount) {
                 $point = current($pointList);
@@ -159,14 +117,13 @@ class ChartHorizontalBar extends ChartBar
 
                 $label = $point->getX();
 
-                $text->printText(
-                    $img,
+                $this->text->printText(
                     $graphArea->x1 - 5,
                     $y - $rowHeight / 2,
-                    $this->plot->getTextColor(),
+                    $this->textColor,
                     $label,
-                    $text->getTextFont(),
-                    $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
+                    $this->text->getTextFont(),
+                    $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
                 );
             }
         }
@@ -180,15 +137,8 @@ class ChartHorizontalBar extends ChartBar
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();
 
-        // Get graphical obects
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-
         // Get the graph area
-        $graphArea = $this->plot->getGraphArea();
-
-        $labelGenerator = $this->plot->getBarLabelGenerator();
+        $graphArea = $this->graphArea;
 
         $minValue = $this->axis->getLowerBoundary();
         // @todo: check this unused variables...
@@ -198,7 +148,7 @@ class ChartHorizontalBar extends ChartBar
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
         // Start from the first color for the first serie
-        $barColorSet = $palette->barColorSet;
+        $barColorSet = $this->palette->barColorSet;
         $barColorSet->reset();
 
         $serieCount = count($serieList);
@@ -256,64 +206,43 @@ class ChartHorizontalBar extends ChartBar
 
                 // Draw the horizontal bar
                 imagefilledrectangle(
-                    $img,
+                    $this->img,
                     $verticalOriginX + ($value >= 0 ? 1 : -1),
                     $y1,
                     $xmax,
                     $y2,
-                    $shadowColor->getColor($img)
+                    $shadowColor->getColor($this->img)
                 );
 
                 // Prevents drawing a small box when x = 0
                 if ($value != 0) {
                     imagefilledrectangle(
-                        $img,
+                        $this->img,
                         $verticalOriginX + ($value >= 0 ? 2 : -2),
                         $y1 + 1,
                         $xmax + ($value >= 0 ? -4 : -0),
                         $y2,
-                        $color->getColor($img)
+                        $color->getColor($this->img)
                     );
                 }
 
                 // Draw caption text on bar
                 if ($this->config->get('showPointCaption')) {
-                    $label = $labelGenerator->generateLabel($value);
-                    $textAlign = $text->VERTICAL_CENTER_ALIGN
-                        | ($value > 0 ? $text->HORIZONTAL_LEFT_ALIGN : $text->HORIZONTAL_RIGHT_ALIGN);
-                    $text->printText(
-                        $img,
+                    $label = $this->barLabelGenerator->generateLabel($value);
+                    $textAlign = $this->text->VERTICAL_CENTER_ALIGN
+                        | ($value > 0 ? $this->text->HORIZONTAL_LEFT_ALIGN : $this->text->HORIZONTAL_RIGHT_ALIGN);
+
+                    $this->text->printText(
                         $xmax + ($value > 0 ? 5 : -10),
                         $y2 - $barWidth / 2,
-                        $this->plot->getTextColor(),
+                        $this->textColor,
                         $label,
-                        $text->getTextFont(),
+                        $this->text->getTextFont(),
                         $textAlign
                     );
                 }
             }
         }
-    }
-
-    /**
-     * Renders the caption.
-     */
-    protected function printCaption()
-    {
-        // Get the list of labels
-        $labelList = $this->dataSet->getTitleList();
-
-        // Create the caption
-        $caption = new Caption();
-        $caption->setPlot($this->plot);
-        $caption->setLabelList($labelList);
-
-        $palette = $this->plot->getPalette();
-        $barColorSet = $palette->barColorSet;
-        $caption->setColorSet($barColorSet);
-
-        // Render the caption
-        $caption->render();
     }
 
     /**
@@ -329,11 +258,10 @@ class ChartHorizontalBar extends ChartBar
         $this->bound->computeBound($this->dataSet);
         $this->computeAxis();
         $this->computeLayout();
-        $this->createImage();
-        if ($this->plot->hasLogo()) {
-            $this->plot->printLogo();
+        if ($this->hasLogo()) {
+            $this->printLogo();
         }
-        $this->plot->printTitle();
+        $this->printTitle();
         if (!$this->isEmptyDataSet(1)) {
             $this->printAxis();
             $this->printBar();
@@ -342,6 +270,10 @@ class ChartHorizontalBar extends ChartBar
             }
         }
 
-        $this->plot->render($fileName);
+        if (isset($fileName)) {
+            imagepng($this->img, $fileName);
+        } else {
+            imagepng($this->img);
+        }
     }
 }

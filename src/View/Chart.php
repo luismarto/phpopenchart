@@ -29,7 +29,6 @@ namespace Libchart\View;
 use Libchart\Exceptions\DatasetNotDefinedException;
 use Libchart\Model\XYDataSet;
 use Libchart\Model\XYSeriesDataSet;
-use Noodlehaus\Config;
 
 /**
  * Base chart class.
@@ -38,44 +37,12 @@ use Noodlehaus\Config;
  */
 abstract class Chart
 {
-    /**
-     * The chart configuration.
-     * @var Config
-     */
-    protected $config;
 
     /**
      * The data set.
      * @var XYDataSet|XYSeriesDataSet
      */
     protected $dataSet;
-
-    /**
-     * Plot (holds graphical attributes).
-     * @var \Libchart\View\Plot
-     */
-    protected $plot;
-
-    /**
-     * Abstract constructor of Chart.
-     *
-     * @param integer $width Width of the image
-     * @param integer $height Height of the image
-     */
-    protected function __construct($width, $height)
-    {
-        // Initialize the configuration
-        $configPath = __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
-        $this->config = Config::load($configPath);
-
-        // Creates the plot
-        $this->plot = new Plot($width, $height, $this->config);
-        $this->plot->setTitle("Untitled chart");
-        $this->plot->setLogoFileName(dirname(__FILE__) . "/../../images/PoweredBy.png");
-    }
 
     /**
      * Checks the data model before rendering the graph.
@@ -91,14 +58,6 @@ abstract class Chart
     }
 
     /**
-     * Create the image.
-     */
-    protected function createImage()
-    {
-        $this->plot->createImage();
-    }
-
-    /**
      * Sets the data set.
      *
      * @param XYDataSet|XYSeriesDataSet $dataSet The data set
@@ -106,61 +65,5 @@ abstract class Chart
     public function setDataSet($dataSet)
     {
         $this->dataSet = $dataSet;
-    }
-
-    /**
-     * Return the chart configuration.
-     *
-     * @return Config configuration
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * Return the plot.
-     *
-     * @return plot
-     */
-    public function getPlot()
-    {
-        return $this->plot;
-    }
-
-    /**
-     * Sets the title.
-     *
-     * @param string $title New title
-     */
-    public function setTitle($title)
-    {
-        $this->plot->setTitle($title);
-    }
-
-    /**
-     * Specifies a color for the chart title
-     * @author Luis Cruz
-     * @date 20160812
-     * @param int $red
-     * @param int $green
-     * @param int $blue
-     * @param float|int $alpha
-     */
-    public function setTitleColor($red, $green, $blue, $alpha = 0)
-    {
-        $this->plot->setTitleColor($red, $green, $blue, $alpha);
-    }
-
-    /**
-     * Specifies a color for the chart title
-     * @author Luis Cruz
-     * @date 20160812
-     * @param string $hexColor
-     * @param float|int $alpha
-     */
-    public function setTitleColorHex($hexColor, $alpha = 0)
-    {
-        $this->plot->setTitleColorHex($hexColor, $alpha);
     }
 }

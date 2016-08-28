@@ -94,7 +94,6 @@ class Caption
             imagefilledrectangle($img, $boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color->getColor($img));
 
             $text->printText(
-                $img,
                 $boxX2 + 5,
                 $boxY1 + $this->labelBoxHeight / 2,
                 $this->plot->getTextColor(),

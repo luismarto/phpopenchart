@@ -64,17 +64,19 @@ class Text
     private $angle;
 
     /**
+     * @var resource
+     */
+    private $img;
+
+    /**
      * Creates a new text drawing helper.
      */
-    public function __construct()
+    public function __construct($img, $config)
     {
-        $configPath = __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
-        $this->config = Config::load($configPath);
+        $this->img = $img;
+        $this->config = $config;
 
-        $this->fontsDirectory = $this->config->get(
+        $this->fontsDirectory = $config->get(
             'fonts.path',
             dirname(__FILE__)
             . DIRECTORY_SEPARATOR. '..'
@@ -93,7 +95,6 @@ class Text
     /**
      * Print text.
      *
-     * @param resource $img Image GD image
      * @param integer $px text coordinate (x)
      * @param integer $py text coordinate (y)
      * @param \Libchart\Color\Color $color text color
@@ -102,7 +103,7 @@ class Text
      * @param int $align text alignment
      * @param int $fontSize
      */
-    public function printText($img, $px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
+    public function printText($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
     {
         if (!($align & $this->HORIZONTAL_CENTER_ALIGN) && !($align & $this->HORIZONTAL_RIGHT_ALIGN)) {
             $align |= $this->HORIZONTAL_LEFT_ALIGN;
@@ -143,23 +144,21 @@ class Text
             $py += $textHeight;
         }
 
-        imagettftext($img, $fontSize, $angle, $px, $py, $color->getColor($img), $fontFileName, $text);
+        imagettftext($this->img, $fontSize, $angle, $px, $py, $color->getColor($this->img), $fontFileName, $text);
     }
 
     /**
      * Print text centered horizontally on the image.
      *
-     * @param resource $img Image GD image
      * @param integer $py text coordinate (y)
      * @param \Libchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
      */
-    public function printCentered($img, $py, $color, $text, $fontFileName)
+    public function printCentered($py, $color, $text, $fontFileName)
     {
         $this->printText(
-            $img,
-            imagesx($img) / 2,
+            imagesx($this->img) / 2,
             $py,
             $color,
             $text,

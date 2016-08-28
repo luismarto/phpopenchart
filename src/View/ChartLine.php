@@ -41,17 +41,6 @@ class ChartLine extends ChartBar
     }
 
     /**
-     * Computes the layout.
-     */
-    protected function computeLayout()
-    {
-        if ($this->hasSeveralSerie) {
-            $this->plot->setHasCaption(true);
-        }
-        $this->plot->computeLayout();
-    }
-
-    /**
      * Print the axis.
      */
     protected function printAxis()
@@ -183,7 +172,7 @@ class ChartLine extends ChartBar
         // Get the graph area
         $graphArea = $this->plot->getGraphArea();
 
-        $lineColorSet = $palette->lineColorSet;
+        $lineColorSet = $palette->barColorSet;
         $lineColorSet->reset();
         for ($j = 0; $j < count($serieList); $j++) {
             $serie = $serieList[$j];
@@ -221,27 +210,6 @@ class ChartLine extends ChartBar
                 $y1 = $y2;
             }
         }
-    }
-
-    /**
-     * Renders the caption.
-     */
-    protected function printCaption()
-    {
-        // Get the list of labels
-        $labelList = $this->dataSet->getTitleList();
-
-        // Create the caption
-        $caption = new Caption();
-        $caption->setPlot($this->plot);
-        $caption->setLabelList($labelList);
-
-        $palette = $this->plot->getPalette();
-        $lineColorSet = $palette->lineColorSet;
-        $caption->setColorSet($lineColorSet);
-
-        // Render the caption
-        $caption->render();
     }
 
     /**

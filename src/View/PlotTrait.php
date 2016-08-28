@@ -1,84 +1,64 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+<?php namespace Libchart\View;
 
-namespace Libchart\View;
-
-use Libchart\Color\Color;
-use Libchart\Color\ColorHex;
 use Libchart\Color\ColorPalette;
+use Libchart\Color\ColorHex;
+use Libchart\Color\Color;
 use Noodlehaus\Config;
 
-/**
- * The plot holds graphical attributes, and is responsible for computing the layout of the graph.
- * The layout is quite simple right now, with 4 areas laid out like that:
- * (of course this is subject to change in the future).
- *
- * output area------------------------------------------------|
- * |  (outer padding)                                         |
- * |  image area--------------------------------------------| |
- * |  | (title padding)                                     | |
- * |  | title area----------------------------------------| | |
- * |  | |-------------------------------------------------| | |
- * |  |                                                     | |
- * |  | (graph padding)              (caption padding)      | |
- * |  | graph area----------------|  caption area---------| | |
- * |  | |                         |  |                    | | |
- * |  | |                         |  |                    | | |
- * |  | |                         |  |                    | | |
- * |  | |                         |  |                    | | |
- * |  | |                         |  |                    | | |
- * |  | |-------------------------|  |--------------------| | |
- * |  |                                                     | |
- * |  |-----------------------------------------------------| |
- * |                                                          |
- * |----------------------------------------------------------|
- *
- * All area dimensions are known in advance , and the optional logo is drawn in absolute coordinates.
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- * Created on 27 july 2007
- */
-class Plot
+trait PlotTrait
 {
-    // Style properties
-    protected $title;
+    /**
+     * Width of the chart in pixels
+     * @var int
+     */
+    private $width;
 
     /**
-     * Location of the logo. Can be overridden to your personalized logo.
+     * Height of the chart in pixels
+     * @var int
      */
-    protected $logoFileName;
+    private $height;
+
+    /**
+     * GD image of the chart
+     * @var resource|null
+     */
+    protected $img = null;
+
+    /**
+     * Var with GD methods to create lines and rectangles
+     * @var Primitive
+     */
+    protected $primitive;
+
+    /**
+     * Default color palette with methods to set other colors
+     * @var ColorPalette
+     */
+    protected $palette;
+
+    /**
+     * Enables you to draw text
+     * @var Text
+     */
+    protected $text;
+
+
 
     /**
      * Outer area, whose dimension is the same as the PNG returned.
+     * @var PrimitiveRectangle
      */
     protected $outputArea;
-
-    /**
-     * Outer padding surrounding the whole image, everything outside is blank.
-     */
-    protected $outerPadding;
 
     /**
      * Coordinates of the area inside the outer padding.
      */
     protected $imageArea;
 
+
+
+    protected $title;
     /**
      * Fixed title height in pixels.
      */
@@ -93,6 +73,27 @@ class Plot
      *  Coordinates of the title area.
      */
     protected $titleArea;
+    /**
+     * @var Color
+     */
+    public $titleColor;
+
+
+
+
+
+    /**
+     * Location of the logo. Can be overridden to your personalized logo.
+     */
+    protected $logoFileName;
+
+
+    /**
+     * Outer padding surrounding the whole image, everything outside is blank.
+     */
+    protected $outerPadding;
+
+
 
     /**
      * True if the plot has a caption.
@@ -126,36 +127,16 @@ class Plot
     protected $captionArea;
 
     /**
-     * Text writer.
-     */
-    protected $text;
-
-    /**
-     * Color palette.
-     * @var ColorPalette
-     */
-    protected $palette;
-
-    /**
      * Label generator for axis values
+     * @var \Libchart\Label\DefaultLabel
      */
     protected $axisLabelGenerator;
 
     /**
      * Label generator for bar values
+     * @var \Libchart\Label\DefaultLabel
      */
     protected $barLabelGenerator;
-
-    /**
-     * GD image
-     * @var resource
-     */
-    protected $img;
-
-    /**
-     * Drawing primitives
-     */
-    protected $primitive;
 
     /**
      * @var Color
@@ -168,29 +149,23 @@ class Plot
     protected $textColor;
 
     /**
-     * @var Color
-     */
-    public $titleColor;
-
-    /**
      * @var bool
      */
     protected $hasLogo;
 
     /**
-     * @var \Noodlehaus\Config
+     * @var Config
      */
     private $config;
 
-    /**
-     * Constructor of Plot.
-     *
-     * @param integer $width of the image
-     * @param integer $height of the image
-     */
-    public function __construct($width, $height)
-    {
+    private $hasSeveralSeries;
 
+    protected function init($width, $height, $hasSeveralSeries)
+    {
+        $this->width = $width;
+        $this->height = $height;
+
+        // Get config file
         // Initialize the configuration
         $configPath = __DIR__
             . DIRECTORY_SEPARATOR . '..'
@@ -198,11 +173,16 @@ class Plot
             . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
         $this->config = Config::load($configPath);
 
-        $this->width = $width;
-        $this->height = $height;
+        // Create image
+        $this->img = imagecreatetruecolor($this->width, $this->height);
 
-        $this->text = new Text();
+        // Init graphical classes
+        $this->primitive = new Primitive($this->img);
+        $this->text = new Text($this->img, $this->config);
         $this->palette = new ColorPalette();
+        // Immediately draw the chart background
+        $this->primitive->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
+
         $axisLabelGeneratorClass = $this->config->get(
             'axisLabelGenerator',
             '\Libchart\Label\DefaultLabel'
@@ -215,7 +195,7 @@ class Plot
         $this->barLabelGenerator = new $barLabelGeneratorClass;
 
         // Default layout
-        $this->outputArea = new PrimitiveRectangle(0, 0, $width - 1, $height - 1);
+        $this->outputArea = new PrimitiveRectangle(0, 0, $this->width - 1, $this->height - 1);
         $this->outerPadding = new PrimitivePadding(5);
         $this->titleHeight = 26;
         $this->titlePadding = new PrimitivePadding(5);
@@ -224,26 +204,26 @@ class Plot
         $this->graphPadding = new PrimitivePadding(50);
         $this->captionPadding = new PrimitivePadding(15);
 
-        $this->titleColor = new Color(0, 0, 0);
+        $this->titleColor = new ColorHex('000000');
         $this->textColor = new ColorHex('#555555');
 
         // By default, don't display the logo
         $this->hasLogo = false;
+        $this->hasSeveralSeries = $hasSeveralSeries;
     }
 
     /**
-     * Compute the area inside the outer padding (outside is white).
+     * Compute the layout of all areas of the graph.
      */
-    private function computeImageArea()
+    public function computeLayout()
     {
+        if ($this->hasSeveralSeries) {
+            $this->hasCaption = true;
+        }
+
         $this->imageArea = $this->outputArea->getPaddedRectangle($this->outerPadding);
-    }
 
-    /**
-     * Compute the title area.
-     */
-    private function computeTitleArea()
-    {
+        // Compute Title Area
         $titleUnpaddedBottom = $this->imageArea->y1
             + $this->titleHeight
             + $this->titlePadding->top
@@ -255,13 +235,8 @@ class Plot
             $titleUnpaddedBottom - 1
         );
         $this->titleArea = $titleArea->getPaddedRectangle($this->titlePadding);
-    }
 
-    /**
-     * Compute the graph area.
-     */
-    private function computeGraphArea()
-    {
+        // Compute graph area
         $titleUnpaddedBottom = $this->imageArea->y1
             + $this->titleHeight
             + $this->titlePadding->top
@@ -288,64 +263,27 @@ class Plot
             );
         }
         $this->graphArea = $graphArea->getPaddedRectangle($this->graphPadding);
-    }
 
-    /**
-     * Compute the caption area.
-     */
-    private function computeCaptionArea()
-    {
-        $graphUnpaddedRight = $this->imageArea->x1
-            + ($this->imageArea->x2 - $this->imageArea->x1)
-            * $this->graphCaptionRatio
-            + $this->graphPadding->left
-            + $this->graphPadding->right;
-        $titleUnpaddedBottom = $this->imageArea->y1
-            + $this->titleHeight
-            + $this->titlePadding->top
-            + $this->titlePadding->bottom;
-        $captionArea = new PrimitiveRectangle(
-            $graphUnpaddedRight,
-            $titleUnpaddedBottom,
-            $this->imageArea->x2,
-            $this->imageArea->y2
-        );
-        $this->captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
-    }
 
-    /**
-     * Compute the layout of all areas of the graph.
-     */
-    public function computeLayout()
-    {
-        $this->computeImageArea();
-        $this->computeTitleArea();
-        $this->computeGraphArea();
         if ($this->hasCaption) {
-            $this->computeCaptionArea();
+            // compute caption area
+            $graphUnpaddedRight = $this->imageArea->x1
+                + ($this->imageArea->x2 - $this->imageArea->x1)
+                * $this->graphCaptionRatio
+                + $this->graphPadding->left
+                + $this->graphPadding->right;
+            $titleUnpaddedBottom = $this->imageArea->y1
+                + $this->titleHeight
+                + $this->titlePadding->top
+                + $this->titlePadding->bottom;
+            $captionArea = new PrimitiveRectangle(
+                $graphUnpaddedRight,
+                $titleUnpaddedBottom,
+                $this->imageArea->x2,
+                $this->imageArea->y2
+            );
+            $this->captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
         }
-    }
-
-    /**
-     * Creates and initialize the image.
-     */
-    public function createImage()
-    {
-//        $this->img = imagecreatetruecolor($this->width, $this->height);
-//
-//        $this->primitive = new Primitive($this->img);
-
-        $this->backGroundColor = new Color(255, 255, 255);
-
-        // White background
-        imagefilledrectangle(
-            $this->img,
-            0,
-            0,
-            $this->width - 1,
-            $this->height - 1,
-            $this->backGroundColor->getColor($this->img)
-        );
     }
 
     /**
@@ -381,20 +319,6 @@ class Plot
                 imagesy($logoImage),
                 100
             );
-        }
-    }
-
-    /**
-     * Renders to a file or to standard output.
-     *
-     * @param string $fileName File name (optional)
-     */
-    public function render($fileName)
-    {
-        if (isset($fileName)) {
-            imagepng($this->img, $fileName);
-        } else {
-            imagepng($this->img);
         }
     }
 
@@ -449,59 +373,6 @@ class Plot
         return $this->hasLogo;
     }
 
-    /**
-     * Return the GD image.
-     *
-     * @return resource GD Image
-     */
-    public function getImg()
-    {
-        return $this->img;
-    }
-    public function setImg($img)
-    {
-        $this->img = $img;
-    }
-
-    /**
-     * Return the palette.
-     *
-     * @return ColorPalette palette
-     */
-    public function getPalette()
-    {
-        return $this->palette;
-    }
-
-    /**
-     * Return the text.
-     *
-     * @return text
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * Return the primitive.
-     *
-     * @return primitive
-     */
-    public function getPrimitive()
-    {
-        return $this->primitive;
-    }
-
-    /**
-     * Return the outer padding.
-     *
-     * @return PrimitivePadding Outer padding value in pixels
-     */
-    public function getOuterPadding()
-    {
-        return $this->outerPadding;
-    }
 
     /**
      * Set the outer padding.
@@ -574,16 +445,6 @@ class Plot
     }
 
     /**
-     * Return the label generator used on the Axis
-     *
-     * @return \Libchart\Label\DefaultLabel Label generator
-     */
-    public function getAxisLabelGenerator()
-    {
-        return $this->axisLabelGenerator;
-    }
-
-    /**
      * Set the label generator for the Axis.
      *
      * @param \Libchart\Label\DefaultLabel $labelGenerator Label generator
@@ -591,16 +452,6 @@ class Plot
     public function setAxisLabelGenerator($labelGenerator)
     {
         $this->axisLabelGenerator = $labelGenerator;
-    }
-
-    /**
-     * Return the label generator used on the Bar
-     *
-     * @return \Libchart\Label\DefaultLabel Label generator
-     */
-    public function getBarLabelGenerator()
-    {
-        return $this->barLabelGenerator;
     }
 
     /**
@@ -614,16 +465,6 @@ class Plot
     }
 
     /**
-     * Return the graph area.
-     *
-     * @return PrimitiveRectangle graph area
-     */
-    public function getGraphArea()
-    {
-        return $this->graphArea;
-    }
-
-    /**
      * Return the caption area.
      *
      * @return PrimitiveRectangle caption area
@@ -631,16 +472,6 @@ class Plot
     public function getCaptionArea()
     {
         return $this->captionArea;
-    }
-
-    /**
-     * Return the text color.
-     *
-     * @return Color text color
-     */
-    public function getTextColor()
-    {
-        return $this->textColor;
     }
 
     /**
