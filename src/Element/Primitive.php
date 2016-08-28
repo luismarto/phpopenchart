@@ -11,10 +11,12 @@ class Primitive
 
     /**
      * Creates a new primitive object
+     * Make sure the instance gets the $img, if you intend to use line(), rectangle() or any
+     * methods that depend on $img. For padding, you don't need the $img
      *
-     * @param resource $img GD image resource
+     * @param resource|null $img GD image resource
      */
-    public function __construct($img)
+    public function __construct($img = null)
     {
         $this->img = $img;
     }

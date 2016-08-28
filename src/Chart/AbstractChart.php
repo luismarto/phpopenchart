@@ -10,6 +10,8 @@ use Libchart\Data\XYSeriesDataSet;
  */
 abstract class AbstractChart
 {
+    use PlotTrait;
+
     /**
      * The data set.
      * @var XYDataSet|XYSeriesDataSet

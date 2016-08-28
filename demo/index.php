@@ -35,8 +35,8 @@ $chart->setDataSet($dataSet);
 //$chart->setTitleColor(51, 51, 156);
 //$chart->setTitleColorHex('#333333');
 
-$chart->setTitle("Values");
-
+$chart->getTitle()->setText("Values");
+$chart->getText()->setTextColorHex('#33333');
 $chart->render();
 
 $chart = new \Libchart\Chart\Bar(600, 300);
@@ -46,6 +46,6 @@ $dataSet->addPoint(new Point("Feb", 5015));
 $chart->setDataSet($dataSet);
 
 
-$chart->setTitle("Values");
+$chart->getTitle()->setText("Values");
 
 $chart->render();

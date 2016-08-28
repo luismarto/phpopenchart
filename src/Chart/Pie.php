@@ -8,8 +8,6 @@ use Libchart\Color\ColorHex;
  */
 class Pie extends AbstractChart
 {
-    use PlotTrait;
-
     /**
      * @var float
      */
@@ -296,7 +294,7 @@ class Pie extends AbstractChart
         if ($this->hasLogo()) {
             $this->printLogo();
         }
-        $this->printTitle();
+        $this->title->printTitle();
         $this->printPie();
         $this->printCaption();
 

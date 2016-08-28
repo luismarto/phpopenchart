@@ -216,11 +216,11 @@ class Text
 
     /**
      * Defines the textColor
-     * @param ColorHex $hexColor
+     * @param string $hexColor
      */
     public function setTextColorHex($hexColor)
     {
-        $this->textColor = $hexColor;
+        $this->textColor = new ColorHex($hexColor);
     }
 
     /**

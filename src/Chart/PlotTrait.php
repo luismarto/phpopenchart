@@ -6,6 +6,7 @@ use Libchart\Color\Color;
 use Libchart\Element\Primitive;
 use Libchart\Element\PrimitiveRectangle;
 use Libchart\Element\Text;
+use Libchart\Element\Title;
 use Noodlehaus\Config;
 
 /**
@@ -45,13 +46,13 @@ trait PlotTrait
      * Width of the chart in pixels
      * @var int
      */
-    private $width;
+    protected $width;
 
     /**
      * Height of the chart in pixels
      * @var int
      */
-    private $height;
+    protected $height;
 
     /**
      * GD image of the chart
@@ -77,6 +78,11 @@ trait PlotTrait
      */
     protected $text;
 
+    /**
+     * The title instance of this chart
+     * @var Title
+     */
+    protected $title;
 
 
     /**
@@ -90,27 +96,6 @@ trait PlotTrait
      */
     protected $imageArea;
 
-
-
-    protected $title;
-    /**
-     * Fixed title height in pixels.
-     */
-    protected $titleHeight;
-
-    /**
-     * Padding of the title area.
-     */
-    protected $titlePadding;
-
-    /**
-     *  Coordinates of the title area.
-     */
-    protected $titleArea;
-    /**
-     * @var Color
-     */
-    public $titleColor;
 
 
 
@@ -185,7 +170,7 @@ trait PlotTrait
     /**
      * @var Config
      */
-    private $config;
+    protected $config;
 
     /**
      * @var bool
@@ -211,6 +196,7 @@ trait PlotTrait
         // Init graphical classes
         $this->primitive = new Primitive($this->img);
         $this->text = new Text($this->img, $this->config);
+        $this->title = new Title($this->text, $this->config);
         $this->palette = new ColorPalette();
         // Immediately draw the chart background
         $this->primitive->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
@@ -229,14 +215,10 @@ trait PlotTrait
         // Default layout
         $this->outputArea = new PrimitiveRectangle(0, 0, $this->width - 1, $this->height - 1);
         $this->outerPadding = $this->primitive->getPadding(5);
-        $this->titleHeight = 26;
-        $this->titlePadding = $this->primitive->getPadding(5, null, 15);
         $this->hasCaption = false;
         $this->graphCaptionRatio = 0.50;
         $this->graphPadding = $this->primitive->getPadding(50);
         $this->captionPadding = $this->primitive->getPadding(15);
-
-        $this->titleColor = new ColorHex('000000');
 
         // By default, don't display the logo
         // @todo: make this configurable
@@ -256,23 +238,12 @@ trait PlotTrait
         $this->imageArea = $this->outputArea->getPaddedRectangle($this->outerPadding);
 
         // Compute Title Area
-        $titleUnpaddedBottom = $this->imageArea->y1
-            + $this->titleHeight
-            + $this->titlePadding->top
-            + $this->titlePadding->bottom;
-        $titleArea = new PrimitiveRectangle(
-            $this->imageArea->x1,
-            $this->imageArea->y1,
-            $this->imageArea->x2,
-            $titleUnpaddedBottom - 1
-        );
-        $this->titleArea = $titleArea->getPaddedRectangle($this->titlePadding);
+        $this->title->computeTitleArea($this->imageArea);
+        $titleHeight = $this->title->getTitleHeight();
+        $titlePadding = $this->title->getTitlePadding();
 
         // Compute graph area
-        $titleUnpaddedBottom = $this->imageArea->y1
-            + $this->titleHeight
-            + $this->titlePadding->top
-            + $this->titlePadding->bottom;
+        $titleUnpaddedBottom = $this->imageArea->y1 + $titleHeight + $titlePadding->top + $titlePadding->bottom;
         $graphArea = null;
         if ($this->hasCaption) {
             $graphUnpaddedRight = $this->imageArea->x1
@@ -305,9 +276,9 @@ trait PlotTrait
                 + $this->graphPadding->left
                 + $this->graphPadding->right;
             $titleUnpaddedBottom = $this->imageArea->y1
-                + $this->titleHeight
-                + $this->titlePadding->top
-                + $this->titlePadding->bottom;
+                + $titleHeight
+                + $titlePadding->top
+                + $titlePadding->bottom;
             $captionArea = new PrimitiveRectangle(
                 $graphUnpaddedRight,
                 $titleUnpaddedBottom,
@@ -316,20 +287,6 @@ trait PlotTrait
             );
             $this->captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
         }
-    }
-
-    /**
-     * Print the title to the image.
-     */
-    public function printTitle()
-    {
-        $yCenter = $this->titleArea->y1 + ($this->titleArea->y2 - $this->titleArea->y1) / 2;
-        $this->text->printCentered(
-            $yCenter,
-            $this->titleColor,
-            $this->title,
-            $this->text->getTitleFont()
-        );
     }
 
     /**
@@ -364,37 +321,6 @@ trait PlotTrait
     }
 
     /**
-     * Sets the title.
-     *
-     * @param string $title New title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Change the color used for the title
-     * @param string $hexColor
-     * @param int $alpha
-     */
-    public function setTitleColorHex($hexColor, $alpha = 0)
-    {
-        $this->titleColor = new ColorHex($hexColor, $alpha);
-    }
-
-    /**
-     * @param int $red
-     * @param int $green
-     * @param int $blue
-     * @param int|float $alpha
-     */
-    public function setTitleColor($red, $green, $blue, $alpha = 0)
-    {
-        $this->titleColor = new Color($red, $green, $blue, $alpha);
-    }
-
-    /**
      * Sets the logo image file name.
      *
      * @param string $logoFileName New logo image file name
@@ -418,31 +344,11 @@ trait PlotTrait
     /**
      * Set the outer padding.
      *
-     * @param PrimitivePadding $outerPadding Outer padding value in pixels
+     * @param \stdClass $outerPadding Outer padding value in pixels
      */
     public function setOuterPadding($outerPadding)
     {
         $this->outerPadding = $outerPadding;
-    }
-
-    /**
-     * Return the title height.
-     *
-     * @param integer $titleHeight title height
-     */
-    public function setTitleHeight($titleHeight)
-    {
-        $this->titleHeight = $titleHeight;
-    }
-
-    /**
-     * Return the title padding.
-     *
-     * @param integer $titlePadding title padding
-     */
-    public function setTitlePadding($titlePadding)
-    {
-        $this->titlePadding = $titlePadding;
     }
 
     /**
@@ -506,11 +412,20 @@ trait PlotTrait
     }
 
     /**
-     * Sets a new text color for the chart
-     * @param string $hexColor
+     * Returns the Text instance used on this chart
+     * @return Text
      */
-    public function setTextColorHex($hexColor)
+    public function getText()
     {
-        $this->text->setTextColorHex(new ColorHex($hexColor));
+        return $this->text;
+    }
+
+    /**
+     * Returns the Title instance used on this chart
+     * @return Title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

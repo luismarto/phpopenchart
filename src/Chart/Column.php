@@ -6,8 +6,6 @@
  */
 class Column extends AbstractChartBar
 {
-    use PlotTrait;
-
     /**
      * Ratio of empty space beside the bars.
      */
@@ -216,7 +214,7 @@ class Column extends AbstractChartBar
         if ($this->hasLogo()) {
             $this->printLogo();
         }
-        $this->printTitle();
+        $this->title->printTitle();
         if (!$this->isEmptyDataSet(1)) {
             $this->printAxis();
             $this->printBar();

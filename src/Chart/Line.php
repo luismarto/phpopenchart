@@ -6,8 +6,6 @@
  */
 class Line extends AbstractChartBar
 {
-    use PlotTrait;
-
     /**
      * Creates a new line chart.
      * Line charts allow for XYDataSet and XYSeriesDataSet in order to plot several lines.
@@ -154,7 +152,7 @@ class Line extends AbstractChartBar
         if ($this->hasLogo()) {
             $this->printLogo();
         }
-        $this->printTitle();
+        $this->title->printTitle();
         if (!$this->isEmptyDataSet(2)) {
             $this->printAxis();
             $this->printLine();
