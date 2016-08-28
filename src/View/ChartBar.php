@@ -188,8 +188,7 @@ abstract class ChartBar extends Chart
             $this->palette->barColorSet,
             $this->primitive,
             $this->palette,
-            $this->text,
-            $this->textColor
+            $this->text
         );
         $caption->setLabelList($labelList);
 

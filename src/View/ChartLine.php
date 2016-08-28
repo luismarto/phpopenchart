@@ -50,7 +50,7 @@ class ChartLine extends ChartBar
             $this->text->printText(
                 $graphArea->x1 - 5,
                 $y,
-                $this->textColor,
+                $this->text->getTextColor(),
                 $this->axisLabelGenerator->generateLabel($value),
                 $this->text->getTextFont(),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
@@ -79,7 +79,7 @@ class ChartLine extends ChartBar
 
             $label = $point->getX();
 
-            $this->text->printDiagonal($x - 5, $graphArea->y2 + 10, $this->textColor, $label);
+            $this->text->printDiagonal($x - 5, $graphArea->y2 + 10, $this->text->getTextColor(), $label);
         }
     }
 

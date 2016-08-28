@@ -53,13 +53,15 @@ class Caption
 
     private $palette;
 
+    /**
+     * @var Text
+     */
     private $text;
-    private $textColor;
 
     /**
      * Constructor of Caption
      */
-    public function __construct($captionArea, $colorSet, $primitive, $palette, $text, $textColor)
+    public function __construct($captionArea, $colorSet, $primitive, $palette, $text)
     {
         $this->labelBoxWidth = 15;
         $this->labelBoxHeight = 15;
@@ -68,7 +70,6 @@ class Caption
         $this->primitive = $primitive;
         $this->palette = $palette;
         $this->text = $text;
-        $this->textColor = $textColor;
     }
 
     /**
@@ -97,7 +98,7 @@ class Caption
             $this->text->printText(
                 $boxX2 + 5,
                 $boxY1 + $this->labelBoxHeight / 2,
-                $this->textColor,
+                $this->text->getTextColor(),
                 $label,
                 $this->text->getTextFont(),
                 $this->text->VERTICAL_CENTER_ALIGN

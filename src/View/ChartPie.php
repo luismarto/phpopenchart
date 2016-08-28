@@ -164,8 +164,7 @@ class ChartPie extends Chart
             $this->palette->pieColorSet,
             $this->primitive,
             $this->palette,
-            $this->text,
-            $this->textColor
+            $this->text
         );
         $caption->setLabelList($labelList);
 
@@ -249,7 +248,7 @@ class ChartPie extends Chart
             $this->text->printText(
                 $x,
                 $y,
-                $this->textColor,
+                $this->text->getTextColor(),
                 $label,
                 $this->text->getTextFont(),
                 $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN

@@ -62,7 +62,7 @@ class ChartVerticalBar extends ChartBar
             $this->text->printText(
                 $graphArea->x1 - 10,
                 $y,
-                $this->textColor,
+                $this->text->getTextColor(),
                 $this->axisLabelGenerator->generateLabel($value),
                 $this->text->getTextFont(),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
@@ -96,7 +96,7 @@ class ChartVerticalBar extends ChartBar
                 $this->text->printDiagonal(
                     $x + $columnWidth * 1 / 3,
                     $graphArea->y2 + 10,
-                    $this->textColor,
+                    $this->text->getTextColor(),
                     $label
                 );
             }
@@ -198,7 +198,7 @@ class ChartVerticalBar extends ChartBar
                     $this->text->printText(
                         $x1 + $barWidth / 2,
                         ($value > 0 ? $ymin - 5 : $ymin + 15),
-                        $this->textColor,
+                        $this->text->getTextColor(),
                         $this->barLabelGenerator->generateLabel($value),
                         $this->text->getTextFont(),
                         $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_BOTTOM_ALIGN

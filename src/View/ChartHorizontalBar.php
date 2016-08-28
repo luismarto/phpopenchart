@@ -61,7 +61,7 @@ class ChartHorizontalBar extends ChartBar
             $this->text->printText(
                 $x,
                 $graphArea->y2 + 5,
-                $this->textColor,
+                $this->text->getTextColor(),
                 $label,
                 $this->text->getTextFont(),
                 $this->text->HORIZONTAL_CENTER_ALIGN
@@ -99,7 +99,7 @@ class ChartHorizontalBar extends ChartBar
                 $this->text->printText(
                     $graphArea->x1 - 5,
                     $y - $rowHeight / 2,
-                    $this->textColor,
+                    $this->text->getTextColor(),
                     $label,
                     $this->text->getTextFont(),
                     $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
@@ -214,7 +214,7 @@ class ChartHorizontalBar extends ChartBar
                     $this->text->printText(
                         $xmax + ($value > 0 ? 5 : -10),
                         $y2 - $barWidth / 2,
-                        $this->textColor,
+                        $this->text->getTextColor(),
                         $label,
                         $this->text->getTextFont(),
                         $textAlign

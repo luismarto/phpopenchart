@@ -1,36 +1,14 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+<?php namespace Libchart\View;
 
-namespace Libchart\View;
-
+use Libchart\Color\ColorHex;
 use Noodlehaus\Config;
 
-const DS = DIRECTORY_SEPARATOR;
-
 /**
- * Text drawing helper
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
+ * Class Text
+ * @package Libchart\View
  */
 class Text
 {
-
     public $HORIZONTAL_LEFT_ALIGN = 1;
     public $HORIZONTAL_CENTER_ALIGN = 2;
     public $HORIZONTAL_RIGHT_ALIGN = 4;
@@ -69,6 +47,11 @@ class Text
     private $img;
 
     /**
+     * @var ColorHex
+     */
+    private $textColor;
+
+    /**
      * Creates a new text drawing helper.
      */
     public function __construct($img, $config)
@@ -76,7 +59,7 @@ class Text
         $this->img = $img;
         $this->config = $config;
 
-        $this->fontsDirectory = $config->get(
+        $this->fontsDirectory = $this->config->get(
             'fonts.path',
             dirname(__FILE__)
             . DIRECTORY_SEPARATOR. '..'
@@ -90,6 +73,8 @@ class Text
             . $this->config->get('fonts.title', 'SourceSansPro-Regular.otf');
 
         $this->angle = $this->config->get('label.angle', 0);
+        // @todo: make this configurable
+        $this->textColor = new ColorHex('#555555');
     }
 
     /**
@@ -227,5 +212,23 @@ class Text
     public function setAngle($angle)
     {
         $this->angle = $angle;
+    }
+
+    /**
+     * Defines the textColor
+     * @param ColorHex $hexColor
+     */
+    public function setTextColorHex($hexColor)
+    {
+        $this->textColor = $hexColor;
+    }
+
+    /**
+     * Returns the text color
+     * @return ColorHex
+     */
+    public function getTextColor()
+    {
+        return $this->textColor;
     }
 }

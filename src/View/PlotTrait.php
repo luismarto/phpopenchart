@@ -5,6 +5,37 @@ use Libchart\Color\ColorHex;
 use Libchart\Color\Color;
 use Noodlehaus\Config;
 
+/**
+ * Class PlotTrait
+ *
+ * The plot holds graphical attributes, and is responsible for computing the layout of the graph.
+ * The layout is quite simple right now, with 4 areas laid out like that:
+ * (of course this is subject to change in the future).
+ *
+ * output area------------------------------------------------|
+ * |  (outer padding)                                         |
+ * |  image area--------------------------------------------| |
+ * |  | (title padding)                                     | |
+ * |  | title area----------------------------------------| | |
+ * |  | |-------------------------------------------------| | |
+ * |  |                                                     | |
+ * |  | (graph padding)              (caption padding)      | |
+ * |  | graph area----------------|  caption area---------| | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |-------------------------|  |--------------------| | |
+ * |  |                                                     | |
+ * |  |-----------------------------------------------------| |
+ * |                                                          |
+ * |----------------------------------------------------------|
+ *
+ * All area dimensions are known in advance, and the optional logo is drawn in absolute coordinates.
+ *
+ * @package Libchart\View
+ */
 trait PlotTrait
 {
     /**
@@ -144,11 +175,6 @@ trait PlotTrait
     protected $backGroundColor;
 
     /**
-     * @var Color
-     */
-    protected $textColor;
-
-    /**
      * @var bool
      */
     protected $hasLogo;
@@ -205,7 +231,6 @@ trait PlotTrait
         $this->captionPadding = new PrimitivePadding(15);
 
         $this->titleColor = new ColorHex('000000');
-        $this->textColor = new ColorHex('#555555');
 
         // By default, don't display the logo
         $this->hasLogo = false;
@@ -480,6 +505,6 @@ trait PlotTrait
      */
     public function setTextColorHex($hexColor)
     {
-        $this->textColor = new ColorHex($hexColor);
+        $this->text->setTextColorHex(new ColorHex($hexColor));
     }
 }
