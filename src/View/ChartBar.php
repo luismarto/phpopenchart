@@ -183,13 +183,15 @@ abstract class ChartBar extends Chart
         $labelList = $this->dataSet->getTitleList();
 
         // Create the caption
-        $caption = new Caption();
-        $caption->setPlot($this->plot);
+        $caption = new Caption(
+            $this->captionArea,
+            $this->palette->barColorSet,
+            $this->primitive,
+            $this->palette,
+            $this->text,
+            $this->textColor
+        );
         $caption->setLabelList($labelList);
-
-        $palette = $this->plot->getPalette();
-        $barColorSet = $palette->barColorSet;
-        $caption->setColorSet($barColorSet);
 
         // Render the caption
         $caption->render();

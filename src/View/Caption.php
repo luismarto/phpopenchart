@@ -38,11 +38,6 @@ class Caption
     protected $labelBoxHeight;
 
     /**
-     * @var Plot
-     */
-    protected $plot;
-
-    /**
      * @var array
      */
     protected $labelList;
@@ -50,15 +45,30 @@ class Caption
     /**
      * @var ColorSet
      */
-    protected $colorSet;
+    private $colorSet;
+
+    private $captionArea;
+
+    private $primitive;
+
+    private $palette;
+
+    private $text;
+    private $textColor;
 
     /**
      * Constructor of Caption
      */
-    public function __construct()
+    public function __construct($captionArea, $colorSet, $primitive, $palette, $text, $textColor)
     {
         $this->labelBoxWidth = 15;
         $this->labelBoxHeight = 15;
+        $this->captionArea = $captionArea;
+        $this->colorSet = $colorSet;
+        $this->primitive = $primitive;
+        $this->palette = $palette;
+        $this->text = $text;
+        $this->textColor = $textColor;
     }
 
     /**
@@ -66,15 +76,6 @@ class Caption
      */
     public function render()
     {
-        // Get graphical obects
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-        $primitive = $this->plot->getPrimitive();
-
-        // Get the caption area
-        $captionArea = $this->plot->getCaptionArea();
-
         // Get the pie color set
         $colorSet = $this->colorSet;
         $colorSet->reset();
@@ -85,35 +86,25 @@ class Caption
             $color = $colorSet->currentColor();
             $colorSet->next();
 
-            $boxX1 = $captionArea->x1;
+            $boxX1 = $this->captionArea->x1;
             $boxX2 = $boxX1 + $this->labelBoxWidth;
-            $boxY1 = $captionArea->y1 + 5 + $i * ($this->labelBoxHeight + 5);
+            $boxY1 = $this->captionArea->y1 + 5 + $i * ($this->labelBoxHeight + 5);
             $boxY2 = $boxY1 + $this->labelBoxHeight;
 
-            $primitive->outlinedBox($boxX1, $boxY1, $boxX2, $boxY2, $palette->axisColor[0], $palette->axisColor[1]);
-            imagefilledrectangle($img, $boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color->getColor($img));
+            $this->primitive->outlinedBox($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[0], $this->palette->axisColor[1]);
+            $this->primitive->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
 
-            $text->printText(
+            $this->text->printText(
                 $boxX2 + 5,
                 $boxY1 + $this->labelBoxHeight / 2,
-                $this->plot->getTextColor(),
+                $this->textColor,
                 $label,
-                $text->getTextFont(),
-                $text->VERTICAL_CENTER_ALIGN
+                $this->text->getTextFont(),
+                $this->text->VERTICAL_CENTER_ALIGN
             );
 
             $i++;
         }
-    }
-
-    /**
-     * Sets the plot.
-     *
-     * @param \Libchart\View\Plot The plot
-     */
-    public function setPlot($plot)
-    {
-        $this->plot = $plot;
     }
 
     /**
@@ -124,15 +115,5 @@ class Caption
     public function setLabelList($labelList)
     {
         $this->labelList = $labelList;
-    }
-
-    /**
-     * Sets the color set.
-     *
-     * @param \Libchart\Color\ColorSet $colorSet Color set
-     */
-    public function setColorSet($colorSet)
-    {
-        $this->colorSet = $colorSet;
     }
 }

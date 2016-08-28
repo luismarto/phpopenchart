@@ -160,7 +160,7 @@ trait PlotTrait
 
     private $hasSeveralSeries;
 
-    protected function init($width, $height, $hasSeveralSeries)
+    protected function init($width, $height, $hasSeveralSeries = true)
     {
         $this->width = $width;
         $this->height = $height;
