@@ -51,13 +51,8 @@ class Column extends AbstractChartBar
                 * ($graphArea->y2 - $graphArea->y1)
                 / ($this->axis->displayDelta);
 
-            // This creates a little blue marker, next to the label of the Y axis, that match
-            // each chart step.
-            $this->primitive->line($graphArea->x1 - 2, $y, $graphArea->x1, $y, $axisColor0);
-
             // For each marker, create the "guiding line"
-            $color = $this->palette->backgroundColor;
-            $this->primitive->line($graphArea->x1, $y, $graphArea->x2, $y, $color);
+            $this->primitive->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
             $this->text->printText(
@@ -86,7 +81,8 @@ class Column extends AbstractChartBar
         for ($i = 0; $i <= $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
-            $this->primitive->line($x, $horizOriginY, $x, $horizOriginY + 3, $axisColor0);
+            // Draw the bar separator marker
+            $this->primitive->line($x, $horizOriginY, $x, $horizOriginY + 5, $axisColor0);
 
             if ($i < $pointCount) {
                 $point = current($pointList);
@@ -170,19 +166,14 @@ class Column extends AbstractChartBar
                 // Check if the point has a specific color. If so, this overrides anything else
                 if (!is_null($point->getColor())) {
                     $color = $point->getColor();
-                    $shadowColor = $color->getShadowColor(1);
                 } elseif ($this->config->get('useMultipleColor')) {
                     $color = $barColorSet->currentColor();
-                    $shadowColor = $barColorSet->currentShadowColor();
                     $barColorSet->next();
                 } else {
                     $color = $bColor;
-                    $shadowColor = $bShadowColor;
                 }
 
                 // Draw the vertical bar
-                $this->primitive->line($x1, $ymin, $x2, $horizOriginY + ($value >= 0 ? -1 : 1), $shadowColor);
-
                 // Prevents drawing a small box when y = 0
                 if ($value != 0) {
                     $this->primitive->rectangle(

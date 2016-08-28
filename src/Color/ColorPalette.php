@@ -59,7 +59,7 @@ class ColorPalette
         ]);
 
         // Set the colors for the background
-        $this->setBackgroundColor(new ColorHex('#D8D8D8'));
+        $this->setBackgroundColor(new ColorHex('#E4E4E4'));
 
         // Set the colors for the bars
         $colors = [

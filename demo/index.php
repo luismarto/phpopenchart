@@ -7,6 +7,8 @@ include "../vendor/autoload.php";
 use Libchart\Data\Point;
 use Libchart\Data\XYDataSet;
 
+header("Content-type: image/png");
+
 $chart = new \Libchart\Chart\Column(600, 300);
 //$chart = new \Libchart\Chart\Bar(600, 300);
 //$chart = new \Libchart\Chart\Line(600, 300);
@@ -35,6 +37,15 @@ $chart->setDataSet($dataSet);
 
 $chart->setTitle("Values");
 
+$chart->render();
 
-header("Content-type: image/png");
+$chart = new \Libchart\Chart\Bar(600, 300);
+$dataSet = new XYDataSet();
+$dataSet->addPoint(new Point("Feb", 3296));
+$dataSet->addPoint(new Point("Feb", 5015));
+$chart->setDataSet($dataSet);
+
+
+$chart->setTitle("Values");
+
 $chart->render();
