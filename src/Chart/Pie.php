@@ -285,9 +285,9 @@ class Pie extends AbstractChart
     /**
      * Render the chart image.
      *
-     * @param string $fileName name of the file to render the image to (optional)
+     * @param string $filename name of the file to render the image to (optional)
      */
-    public function render($fileName = null)
+    public function render($filename = null)
     {
         $this->computePercent();
         $this->computeLayout();
@@ -300,10 +300,6 @@ class Pie extends AbstractChart
         $this->printPie();
         $this->printCaption();
 
-        if (isset($fileName)) {
-            imagepng($this->img, $fileName);
-        } else {
-            imagepng($this->img);
-        }
+        $this->output($filename);
     }
 }

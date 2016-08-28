@@ -354,6 +354,15 @@ trait PlotTrait
         }
     }
 
+    public function output($filename = null)
+    {
+        if (isset($filename)) {
+            imagepng($this->img, $filename);
+        } else {
+            imagepng($this->img);
+        }
+    }
+
     /**
      * Sets the title.
      *

@@ -228,9 +228,9 @@ class Bar extends AbstractChartBar
     /**
      * Render the chart image.
      *
-     * @param string $fileName name of the file to render the image to (optional)
+     * @param string $filename name of the file to render the image to (optional)
      */
-    public function render($fileName = null)
+    public function render($filename = null)
     {
         // Check the data model
         $this->checkDataModel();
@@ -250,10 +250,6 @@ class Bar extends AbstractChartBar
             }
         }
 
-        if (isset($fileName)) {
-            imagepng($this->img, $fileName);
-        } else {
-            imagepng($this->img);
-        }
+        $this->output($filename);
     }
 }
