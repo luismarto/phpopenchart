@@ -1,31 +1,13 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-namespace Libchart\View;
+<?php namespace Libchart\View;
 
 /**
  * Line chart.
  *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
  */
 class ChartLine extends ChartBar
 {
+    use PlotTrait;
+
     /**
      * Creates a new line chart.
      * Line charts allow for XYDataSet and XYSeriesDataSet in order to plot several lines.
@@ -36,8 +18,8 @@ class ChartLine extends ChartBar
     public function __construct($width = 600, $height = 250)
     {
         parent::__construct($width, $height);
-
-        $this->plot->setGraphPadding(new PrimitivePadding(5, 30, 50, 50));
+        $this->init($width, $height, $this->hasSeveralSerie);
+        $this->setGraphPadding(new PrimitivePadding(5, 30, 50, 50));
     }
 
     /**
@@ -49,25 +31,12 @@ class ChartLine extends ChartBar
         $maxValue = $this->axis->getUpperBoundary();
         $stepValue = $this->axis->getTics();
 
-        // Get graphical obects
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-
         // Get the graph area
-        $graphArea = $this->plot->getGraphArea();
-
-        $labelGenerator = $this->plot->getAxisLabelGenerator();
+        $graphArea = $this->graphArea;
+        $axisColor0 = $this->palette->axisColor[0];
 
         // Vertical axis
-        imagerectangle(
-            $img,
-            $graphArea->x1 - 1,
-            $graphArea->y1,
-            $graphArea->x1,
-            $graphArea->y2,
-            $palette->axisColor[0]->getColor($img)
-        );
+        $this->primitive->rectangle($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
@@ -75,32 +44,16 @@ class ChartLine extends ChartBar
                 * ($graphArea->y2 - $graphArea->y1)
                 / ($this->axis->displayDelta);
 
-            imagerectangle(
-                $img,
-                $graphArea->x1 - 3,
-                $y,
-                $graphArea->x1 - 2,
-                $y + 1,
-                $palette->axisColor[0]->getColor($img)
-            );
-            imagerectangle(
-                $img,
-                $graphArea->x1 - 1,
-                $y,
-                $graphArea->x1,
-                $y + 1,
-                $palette->axisColor[1]->getColor($img)
-            );
+            $this->primitive->rectangle($graphArea->x1 - 3, $y, $graphArea->x1 - 2, $y +1, $axisColor0);
+            $this->primitive->rectangle($graphArea->x1 -1, $y, $graphArea->x1, $y + 1, $axisColor0);
 
-            $label = $labelGenerator->generateLabel($value);
-            $text->printText(
-                $img,
+            $this->text->printText(
                 $graphArea->x1 - 5,
                 $y,
-                $this->plot->getTextColor(),
-                $label,
-                $text->getTextFont(),
-                $text->HORIZONTAL_RIGHT_ALIGN | $text->VERTICAL_CENTER_ALIGN
+                $this->textColor,
+                $this->axisLabelGenerator->generateLabel($value),
+                $this->text->getTextFont(),
+                $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
 
@@ -113,41 +66,20 @@ class ChartLine extends ChartBar
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-        imagerectangle(
-            $img,
-            $graphArea->x1 - 1,
-            $horizOriginY,
-            $graphArea->x2,
-            $horizOriginY + 1,
-            $palette->axisColor[0]->getColor($img)
-        );
+        $this->primitive->rectangle($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY + 1, $axisColor0);
 
         for ($i = 0; $i < $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
-            imagerectangle(
-                $img,
-                $x - 1,
-                $graphArea->y2 + 2,
-                $x,
-                $graphArea->y2 + 3,
-                $palette->axisColor[0]->getColor($img)
-            );
-            imagerectangle(
-                $img,
-                $x - 1,
-                $graphArea->y2,
-                $x,
-                $graphArea->y2 + 1,
-                $palette->axisColor[1]->getColor($img)
-            );
+            $this->primitive->rectangle($x - 1, $graphArea->y2 + 2, $x, $graphArea->y2 + 3, $axisColor0);
+            $this->primitive->rectangle($x -1, $graphArea->y2, $x, $graphArea->y2 + 1, $axisColor0);
 
             $point = current($pointList);
             next($pointList);
 
             $label = $point->getX();
 
-            $text->printDiagonal($img, $x - 5, $graphArea->y2 + 10, $this->plot->getTextColor(), $label);
+            $this->text->printDiagonal($x - 5, $graphArea->y2 + 10, $this->textColor, $label);
         }
     }
 
@@ -163,16 +95,10 @@ class ChartLine extends ChartBar
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();
 
-        // Get graphical obects
-        $img = $this->plot->getImg();
-        $palette = $this->plot->getPalette();
-        $text = $this->plot->getText();
-        $primitive = $this->plot->getPrimitive();
-
         // Get the graph area
-        $graphArea = $this->plot->getGraphArea();
+        $graphArea = $this->graphArea;
 
-        $lineColorSet = $palette->barColorSet;
+        $lineColorSet = $this->palette->barColorSet;
         $lineColorSet->reset();
         for ($j = 0; $j < count($serieList); $j++) {
             $serie = $serieList[$j];
@@ -202,8 +128,8 @@ class ChartLine extends ChartBar
 
                 // Draw line
                 if ($x1) {
-                    $primitive->line($x1, $y1, $x2, $y2, $lineColor, 4);
-                    $primitive->line($x1, $y1 - 1, $x2, $y2 - 1, $lineColorShadow, 2);
+                    $this->primitive->line($x1, $y1, $x2, $y2, $lineColor, 4);
+                    $this->primitive->line($x1, $y1 - 1, $x2, $y2 - 1, $lineColorShadow, 2);
                 }
 
                 $x1 = $x2;
@@ -225,11 +151,10 @@ class ChartLine extends ChartBar
         $this->bound->computeBound($this->dataSet);
         $this->computeAxis();
         $this->computeLayout();
-        $this->createImage();
-        if ($this->plot->hasLogo()) {
-            $this->plot->printLogo();
+        if ($this->hasLogo()) {
+            $this->printLogo();
         }
-        $this->plot->printTitle();
+        $this->printTitle();
         if (!$this->isEmptyDataSet(2)) {
             $this->printAxis();
             $this->printLine();
@@ -238,6 +163,10 @@ class ChartLine extends ChartBar
             }
         }
 
-        $this->plot->render($fileName);
+        if (isset($fileName)) {
+            imagepng($this->img, $fileName);
+        } else {
+            imagepng($this->img);
+        }
     }
 }
