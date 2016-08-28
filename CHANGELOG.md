@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased - to be 1.5.0]
+## [Unreleased]
+### Added
+### Changed
+
+
+## [1.5.0]
 ### Added
 - Exceptions instead of `die`, so you can handle exceptions in your own code
 - Added config file (which replaced the `Config` class) that enables you to set the default fonts and label settings
