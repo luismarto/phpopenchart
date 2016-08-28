@@ -7,10 +7,10 @@
 
     $chart->getConfig()->setShowPointCaption(false);
 
-    $dataSet = new \Libchart\Model\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Model\Point("Some part", 20));
-    $dataSet->addPoint(new \Libchart\Model\Point("Another part", 35));
-    $dataSet->addPoint(new \Libchart\Model\Point("Biggest part", 70));
+    $dataSet = new \Libchart\Data\XYDataSet();
+    $dataSet->addPoint(new \Libchart\Data\Point("Some part", 20));
+    $dataSet->addPoint(new \Libchart\Data\Point("Another part", 35));
+    $dataSet->addPoint(new \Libchart\Data\Point("Biggest part", 70));
     $chart->setDataSet($dataSet);
 
     $chart->setTitle("This is a pie");

@@ -2,7 +2,7 @@
 
 /**
  * Class Short
- * @package Libchart\View
+ * @package Libchart\Label
  */
 class Short implements LabelInterface
 {

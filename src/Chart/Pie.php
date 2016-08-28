@@ -1,11 +1,12 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 use Libchart\Color\ColorHex;
 
 /**
- * Pie chart.
+ * Class Pie
+ * @package Libchart\Chart
  */
-class ChartPie extends Chart
+class Pie extends AbstractChart
 {
     use PlotTrait;
 
@@ -113,7 +114,7 @@ class ChartPie extends Chart
 
         // Sort data points
         if ($this->config->get('sortDataPoint')) {
-            usort($this->percent, array("\\Libchart\\View\\ChartPie", "sortPie"));
+            usort($this->percent, array("\\Libchart\\Chart\\Pie", "sortPie"));
         }
     }
 
@@ -150,7 +151,7 @@ class ChartPie extends Chart
         $labelList = array();
         foreach ($this->percent as $percent) {
             /**
-             * @var \Libchart\Model\Point $point
+             * @var \Libchart\Data\Point $point
              */
             list(, $point) = $percent;
             $label = $point->getX();

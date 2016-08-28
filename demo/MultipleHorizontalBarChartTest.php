@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,21 +24,21 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\HorizontalBarChart(450, 250);
+	$chart = new \Libchart\Chart\Bar(450, 250);
 
-	$serie1 = new \Libchart\Model\XYDataSet();
-	$serie1->addPoint(new \Libchart\Model\Point("18-24", 22));
-	$serie1->addPoint(new \Libchart\Model\Point("25-34", 17));
-	$serie1->addPoint(new \Libchart\Model\Point("35-44", 20));
-	$serie1->addPoint(new \Libchart\Model\Point("45-54", 25));
+	$serie1 = new \Libchart\Data\XYDataSet();
+	$serie1->addPoint(new \Libchart\Data\Point("18-24", 22));
+	$serie1->addPoint(new \Libchart\Data\Point("25-34", 17));
+	$serie1->addPoint(new \Libchart\Data\Point("35-44", 20));
+	$serie1->addPoint(new \Libchart\Data\Point("45-54", 25));
 	
-	$serie2 = new \Libchart\Model\XYDataSet();
-	$serie2->addPoint(new \Libchart\Model\Point("18-24", 13));
-	$serie2->addPoint(new \Libchart\Model\Point("25-34", 18));
-	$serie2->addPoint(new \Libchart\Model\Point("35-44", 23));
-	$serie2->addPoint(new \Libchart\Model\Point("45-54", 22));
+	$serie2 = new \Libchart\Data\XYDataSet();
+	$serie2->addPoint(new \Libchart\Data\Point("18-24", 13));
+	$serie2->addPoint(new \Libchart\Data\Point("25-34", 18));
+	$serie2->addPoint(new \Libchart\Data\Point("35-44", 23));
+	$serie2->addPoint(new \Libchart\Data\Point("45-54", 22));
 	
-	$dataSet = new \Libchart\Model\XYSeriesDataSet();
+	$dataSet = new \Libchart\Data\XYSeriesDataSet();
 	$dataSet->addSerie("Male", $serie1);
 	$dataSet->addSerie("Female", $serie2);
 	$chart->setDataSet($dataSet);

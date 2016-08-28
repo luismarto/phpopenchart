@@ -15,9 +15,9 @@
         'SunOS' => '3');
         
     $chart = new \Libchart\View\Chart\PieChart();
-    $dataSet = new \Libchart\Model\XYDataSet();
+    $dataSet = new \Libchart\Data\XYDataSet();
     foreach($data as $key => $value) {
-        $dataSet->addPoint(new \Libchart\Model\Point($key, $value));
+        $dataSet->addPoint(new \Libchart\Data\Point($key, $value));
     }
     $chart->setDataSet($dataSet);
     $chart->render();

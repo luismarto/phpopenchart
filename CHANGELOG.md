@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 
+## [2.0.0] - 2016-08-28
+### Changed
+- Refactored package structure
+- Refactored class names
 
-## [1.5.0]
+## [1.5.0] - 2016-08-28
 ### Added
 - Exceptions instead of `die`, so you can handle exceptions in your own code
 - Added config file (which replaced the `Config` class) that enables you to set the default fonts and label settings

@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,23 +24,23 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\VerticalBarChart();
+	$chart = new \Libchart\Chart\Chart\VerticalBarChart();
 
-	$serie1 = new \Libchart\Model\XYDataSet();
-	$serie1->addPoint(new \Libchart\Model\Point("YT", 64));
-	$serie1->addPoint(new \Libchart\Model\Point("NT", 63));
-	$serie1->addPoint(new \Libchart\Model\Point("BC", 58));
-	$serie1->addPoint(new \Libchart\Model\Point("AB", 58));
-	$serie1->addPoint(new \Libchart\Model\Point("SK", 46));
+	$serie1 = new \Libchart\Data\XYDataSet();
+	$serie1->addPoint(new \Libchart\Data\Point("YT", 64));
+	$serie1->addPoint(new \Libchart\Data\Point("NT", 63));
+	$serie1->addPoint(new \Libchart\Data\Point("BC", 58));
+	$serie1->addPoint(new \Libchart\Data\Point("AB", 58));
+	$serie1->addPoint(new \Libchart\Data\Point("SK", 46));
 	
-	$serie2 = new \Libchart\Model\XYDataSet();
-	$serie2->addPoint(new \Libchart\Model\Point("YT", 61));
-	$serie2->addPoint(new \Libchart\Model\Point("NT", 60));
-	$serie2->addPoint(new \Libchart\Model\Point("BC", 56));
-	$serie2->addPoint(new \Libchart\Model\Point("AB", 57));
-	$serie2->addPoint(new \Libchart\Model\Point("SK", 52));
+	$serie2 = new \Libchart\Data\XYDataSet();
+	$serie2->addPoint(new \Libchart\Data\Point("YT", 61));
+	$serie2->addPoint(new \Libchart\Data\Point("NT", 60));
+	$serie2->addPoint(new \Libchart\Data\Point("BC", 56));
+	$serie2->addPoint(new \Libchart\Data\Point("AB", 57));
+	$serie2->addPoint(new \Libchart\Data\Point("SK", 52));
 	
-	$dataSet = new \Libchart\Model\XYSeriesDataSet();
+	$dataSet = new \Libchart\Data\XYSeriesDataSet();
 	$dataSet->addSerie("1990", $serie1);
 	$dataSet->addSerie("1995", $serie2);
 	$chart->setDataSet($dataSet);

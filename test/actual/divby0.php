@@ -3,12 +3,12 @@
     
     header("Content-type: image/png");
     
-    $chart = new \Libchart\View\Chart\PieChart(500, 250);
+    $chart = new \Libchart\Chart\Pie(500, 250);
     
-    $dataSet = new \Libchart\Model\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Model\Point("Mozilla Firefox (0)", 0));
-    $dataSet->addPoint(new \Libchart\Model\Point("Konqueror (0)", 0));
-    $dataSet->addPoint(new \Libchart\Model\Point("Other (0)", 0));
+    $dataSet = new \Libchart\Data\XYDataSet();
+    $dataSet->addPoint(new \Libchart\Data\Point("Mozilla Firefox (0)", 0));
+    $dataSet->addPoint(new \Libchart\Data\Point("Konqueror (0)", 0));
+    $dataSet->addPoint(new \Libchart\Data\Point("Other (0)", 0));
     $chart->setDataSet($dataSet);
     
     $chart->setTitle("User agents for www.example.com");

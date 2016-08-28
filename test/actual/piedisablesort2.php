@@ -7,11 +7,11 @@
 
     $chart->getConfig()->setSortDataPoint(false);
     
-    $dataSet = new \Libchart\Model\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Model\Point("Item 1 (20)", 20));
-    $dataSet->addPoint(new \Libchart\Model\Point("Item 2 (0)", 0));
-    $dataSet->addPoint(new \Libchart\Model\Point("Item 3 (30)", 30));
-    $dataSet->addPoint(new \Libchart\Model\Point("Item 4 (70)", 70));
+    $dataSet = new \Libchart\Data\XYDataSet();
+    $dataSet->addPoint(new \Libchart\Data\Point("Item 1 (20)", 20));
+    $dataSet->addPoint(new \Libchart\Data\Point("Item 2 (0)", 0));
+    $dataSet->addPoint(new \Libchart\Data\Point("Item 3 (30)", 30));
+    $dataSet->addPoint(new \Libchart\Data\Point("Item 4 (70)", 70));
     $chart->setDataSet($dataSet);
     
     $chart->setTitle("This example preserves item order");

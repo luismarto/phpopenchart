@@ -1,11 +1,11 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Element;
 
 use Libchart\Color\ColorHex;
 use Noodlehaus\Config;
 
 /**
  * Class Text
- * @package Libchart\View
+ * @package Libchart\Element
  */
 class Text
 {

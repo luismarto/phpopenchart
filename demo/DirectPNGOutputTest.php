@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -26,12 +26,12 @@
 
 	header("Content-type: image/png");
 
-	$chart = new \Libchart\View\Chart\PieChart(500, 300);
+	$chart = new \Libchart\Chart\Chart\PieChart(500, 300);
 
-	$dataSet = new \Libchart\Model\XYDataSet();
-	$dataSet->addPoint(new \Libchart\Model\Point("Bleu d'Auvergne", 50));
-	$dataSet->addPoint(new \Libchart\Model\Point("Tomme de Savoie", 75));
-	$dataSet->addPoint(new \Libchart\Model\Point("Crottin de Chavignol", 30));
+	$dataSet = new \Libchart\Data\XYDataSet();
+	$dataSet->addPoint(new \Libchart\Data\Point("Bleu d'Auvergne", 50));
+	$dataSet->addPoint(new \Libchart\Data\Point("Tomme de Savoie", 75));
+	$dataSet->addPoint(new \Libchart\Data\Point("Crottin de Chavignol", 30));
 	$chart->setDataSet($dataSet);
 
 	$chart->setTitle("Preferred Cheese");

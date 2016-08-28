@@ -11,7 +11,11 @@ Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
 
 ---
 ````php
-$chart = new ChartVerticalBar(600, 300);
+use Libchart\Chart\Column;
+use Libchart\Data\Point;
+use Libchart\Data\XYDataSet;
+
+$chart = new Column(600, 300);
 
 $dataSet = new XYDataSet();
 $dataSet->addPoint(new Point("Feb", 3296));
@@ -34,7 +38,7 @@ $chart->render();
 Require the package in your `composer.json` file and update composer, using the following data:
 
 ```php
-"luismarto/libchart": "1.*"
+"luismarto/libchart": "2.*"
 ```
 
 # Documentation
@@ -47,9 +51,8 @@ It's my intention to fully document the package and it's options, but first I wa
 In a forseable future (v 1.6).
 - Make the package more "configurable"
 - Fix bugs on Pie and Line charts
-- Rename some classes and review the package's structure
 - Refactor the bootstrap code, so you don't need to include so many classes
-- Fix tests and demo
+- Fix tests and demos
 
 In a near future (v 2.0)
 - Make this easily integrated with Laravel

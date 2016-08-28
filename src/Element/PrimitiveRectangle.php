@@ -1,49 +1,31 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-namespace Libchart\View;
+<?php namespace Libchart\Element;
 
 /**
  * A rectangle identified by the top-left and the bottom-right corners.
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- * @Created on 27 july 2007
  */
 class PrimitiveRectangle
 {
     /**
      * Top left X.
+     * @var int
      */
     public $x1;
 
     /**
      * Top left Y.
+     * @var int
      */
     public $y1;
 
     /**
      * Bottom right X.
+     * @var int
      */
     public $x2;
 
     /**
      * Bottom right Y.
+     * @var int
      */
     public $y2;
 
@@ -67,6 +49,7 @@ class PrimitiveRectangle
      * Apply a padding and returns the resulting rectangle.
      * The result is an enlarged rectangle.
      *
+     * @param \stdClass $padding
      * @return PrimitiveRectangle $padding Padded rectangle
      */
     public function getPaddedRectangle($padding)

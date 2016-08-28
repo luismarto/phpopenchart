@@ -1,9 +1,10 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 /**
- * Chart composed of vertical bars.
+ * Class Column
+ * @package Libchart\Chart
  */
-class ChartVerticalBar extends ChartBar
+class Column extends AbstractChartBar
 {
     use PlotTrait;
 
@@ -144,7 +145,7 @@ class ChartVerticalBar extends ChartBar
                 $x = $graphArea->x1 + $i * $columnWidth;
 
                 /**
-                 * @var \Libchart\Model\Point $point
+                 * @var \Libchart\Data\Point $point
                  */
                 $point = current($pointList);
                 next($pointList);

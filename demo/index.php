@@ -4,20 +4,19 @@ error_reporting(-1);
 
 include "../vendor/autoload.php";
 
-use Libchart\Model\Point;
-use Libchart\View\ChartVerticalBar;
-use Libchart\Model\XYDataSet;
+use Libchart\Data\Point;
+use Libchart\Data\XYDataSet;
 
-$chart = new ChartVerticalBar(600, 300);
-//$chart = new \Libchart\View\ChartHorizontalBar(600, 300);
-//$chart = new \Libchart\View\ChartLine(600, 300);
-//$chart = new \Libchart\View\ChartPie(600, 300);
+$chart = new \Libchart\Chart\Column(600, 300);
+//$chart = new \Libchart\Chart\Bar(600, 300);
+//$chart = new \Libchart\Chart\Line(600, 300);
+//$chart = new \Libchart\Chart\Pie(600, 300);
 //$chart->getPlot()->setTitleColor(251, 128, 128);
 
 
 //$chart = new VerticalBarChart(600, 300);
 
-//$chart = new HorizontalBarChart(500, 300);
+//$chart = new Bar(500, 300);
 
 //$dataSet->addPoint(new Point("Fev", 79902));
 //$dataSet->addPoint(new Point("Fev", 102543));

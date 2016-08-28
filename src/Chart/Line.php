@@ -1,10 +1,10 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 /**
- * Line chart.
- *
+ * Class Line
+ * @package Libchart\Chart
  */
-class ChartLine extends ChartBar
+class Line extends AbstractChartBar
 {
     use PlotTrait;
 

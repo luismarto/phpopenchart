@@ -1,4 +1,4 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Element;
 
 use stdClass;
 

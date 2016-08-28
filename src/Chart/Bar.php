@@ -1,9 +1,10 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 /**
- * Horizontal bar chart
+ * Class Bar
+ * @package Libchart\Chart
  */
-class ChartHorizontalBar extends ChartBar
+class Bar extends AbstractChartBar
 {
     use PlotTrait;
 
@@ -150,7 +151,7 @@ class ChartHorizontalBar extends ChartBar
                 $y = $graphArea->y2 - $i * $rowHeight;
 
                 /**
-                 * @var \Libchart\Model\Point $point
+                 * @var \Libchart\Data\Point $point
                  */
                 $point = current($pointList);
                 next($pointList);

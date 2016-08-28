@@ -1,37 +1,18 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 use Libchart\Exceptions\DatasetNotDefinedException;
 use Libchart\Exceptions\InvalidDatasetException;
 use Libchart\Exceptions\PointsInSeriesDontMatchException;
 use Libchart\Exceptions\UnknownDatasetTypeException;
-use Libchart\Model\XYDataSet;
-use Libchart\Model\XYSeriesDataSet;
+use Libchart\Data\XYDataSet;
+use Libchart\Data\XYSeriesDataSet;
 
 /**
- * Base abstract class for rendering both horizontal and vertical bar charts.
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
+ * Class AbstractChartBar
+ * Base abstract class for rendering both horizontal, vertical and line bar charts.
+ * @package Libchart\Chart
  */
-abstract class ChartBar extends Chart
+abstract class AbstractChartBar extends AbstractChart
 {
     protected $bound;
 
@@ -117,7 +98,7 @@ abstract class ChartBar extends Chart
             $serieList = $this->dataSet->getSerieList();
             for ($i = 0; $i < count($serieList); $i++) {
                 /**
-                 * @var $serie \Libchart\Model\XYDataSet
+                 * @var $serie \Libchart\Data\XYDataSet
                  */
                 $serie = $serieList[$i];
                 $pointCount = count($serie->getPointList());
@@ -137,7 +118,7 @@ abstract class ChartBar extends Chart
     /**
      * Return the data as a series list (for consistency).
      *
-     * @return array|\Libchart\Model\XYDataSet[] List of series
+     * @return array|\Libchart\Data\XYDataSet[] List of series
      */
     protected function getDataAsSerieList()
     {

@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,21 +24,21 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\LineChart();
+	$chart = new \Libchart\Chart\Chart\LineChart();
 
-	$dataSet = new \Libchart\Model\XYDataSet();
-	$dataSet->addPoint(new \Libchart\Model\Point("06-01", 273));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-02", 421));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-03", 642));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-04", 799));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-05", 1009));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-06", 1406));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-07", 1820));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-08", 2511));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-09", 2832));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-10", 3550));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-11", 4143));
-	$dataSet->addPoint(new \Libchart\Model\Point("06-12", 4715));
+	$dataSet = new \Libchart\Data\XYDataSet();
+	$dataSet->addPoint(new \Libchart\Data\Point("06-01", 273));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-02", 421));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-03", 642));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-04", 799));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-05", 1009));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-06", 1406));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-07", 1820));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-08", 2511));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-09", 2832));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-10", 3550));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-11", 4143));
+	$dataSet->addPoint(new \Libchart\Data\Point("06-12", 4715));
 	$chart->setDataSet($dataSet);
 
 	$chart->setTitle("Sales for 2006");

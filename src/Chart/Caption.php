@@ -1,29 +1,8 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 /**
- * Caption.
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- * Created on 30 july 2007
+ * Class Caption
+ * @package Libchart\Chart
  */
 class Caption
 {
@@ -43,23 +22,33 @@ class Caption
     protected $labelList;
 
     /**
-     * @var ColorSet
+     * @var \Libchart\Color\ColorSet
      */
     private $colorSet;
 
     private $captionArea;
 
+    /**
+     * @var \Libchart\Element\Primitive
+     */
     private $primitive;
 
+    /**
+     * @var \Libchart\Color\ColorPalette
+     */
     private $palette;
 
     /**
-     * @var Text
+     * @var \Libchart\Element\Text
      */
     private $text;
 
     /**
-     * Constructor of Caption
+     * @param $captionArea
+     * @param \Libchart\Color\ColorSet $colorSet
+     * @param \Libchart\Element\Primitive $primitive
+     * @param \Libchart\Color\ColorPalette $palette
+     * @param \Libchart\Element\Text $text
      */
     public function __construct($captionArea, $colorSet, $primitive, $palette, $text)
     {

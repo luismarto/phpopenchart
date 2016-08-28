@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,16 +24,16 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\VerticalBarChart();
+	$chart = new \Libchart\Chart\Chart\VerticalBarChart();
 
-	$dataSet = new \Libchart\Model\XYDataSet();
-	$dataSet->addPoint(new \Libchart\Model\Point("Jan 2005", 273));
-	$dataSet->addPoint(new \Libchart\Model\Point("Feb 2005", 421));
-	$dataSet->addPoint(new \Libchart\Model\Point("March 2005", 642));
-	$dataSet->addPoint(new \Libchart\Model\Point("April 2005", 800));
-	$dataSet->addPoint(new \Libchart\Model\Point("May 2005", 1200));
-	$dataSet->addPoint(new \Libchart\Model\Point("June 2005", 1500));
-	$dataSet->addPoint(new \Libchart\Model\Point("July 2005", 2600));
+	$dataSet = new \Libchart\Data\XYDataSet();
+	$dataSet->addPoint(new \Libchart\Data\Point("Jan 2005", 273));
+	$dataSet->addPoint(new \Libchart\Data\Point("Feb 2005", 421));
+	$dataSet->addPoint(new \Libchart\Data\Point("March 2005", 642));
+	$dataSet->addPoint(new \Libchart\Data\Point("April 2005", 800));
+	$dataSet->addPoint(new \Libchart\Data\Point("May 2005", 1200));
+	$dataSet->addPoint(new \Libchart\Data\Point("June 2005", 1500));
+	$dataSet->addPoint(new \Libchart\Data\Point("July 2005", 2600));
 	$chart->setDataSet($dataSet);
 
 	$chart->setTitle("Monthly usage for www.example.com");

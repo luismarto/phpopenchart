@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,14 +24,14 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\HorizontalBarChart(600, 170);
+	$chart = new \Libchart\Chart\Bar(600, 170);
 
-	$dataSet = new \Libchart\Model\XYDataSet();
-	$dataSet->addPoint(new \Libchart\Model\Point("/wiki/Instant_messenger", 50));
-	$dataSet->addPoint(new \Libchart\Model\Point("/wiki/Web_Browser", 75));
-	$dataSet->addPoint(new \Libchart\Model\Point("/wiki/World_Wide_Web", 122));
+	$dataSet = new \Libchart\Data\XYDataSet();
+	$dataSet->addPoint(new \Libchart\Data\Point("/wiki/Instant_messenger", 50));
+	$dataSet->addPoint(new \Libchart\Data\Point("/wiki/Web_Browser", 75));
+	$dataSet->addPoint(new \Libchart\Data\Point("/wiki/World_Wide_Web", 122));
 	$chart->setDataSet($dataSet);
-	$chart->getPlot()->setGraphPadding(new \Libchart\View\Primitive\Padding(5, 30, 20, 140));
+	$chart->getPlot()->setGraphPadding(new \Libchart\Chart\Primitive\Padding(5, 30, 20, 140));
 
 	$chart->setTitle("Most visited pages for www.example.com");
 	$chart->render("generated/demo2.png");

@@ -2,7 +2,7 @@
 
 /**
  * Class ColorHex
- * @package Libchart\View
+ * @package Libchart\Color
  */
 class ColorHex extends Color
 {

@@ -4,7 +4,7 @@
     header("Content-type: image/png");
     
     $chart = new \Libchart\View\Chart\VerticalBarChart(500, 250);
-    $dataSet = new \Libchart\Model\XYDataSet();
+    $dataSet = new \Libchart\Data\XYDataSet();
     $chart->setDataSet($dataSet);
     
     $chart->setTitle("User agents for www.example.com");

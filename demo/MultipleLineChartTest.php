@@ -1,6 +1,6 @@
 <?php
 	/* Libchart - PHP chart library
-	 * Copyright (C) 2005-2011 Jean-Marc Trémeaux (jm.tremeaux at gmail.com)
+	 * Copyright (C) 2005-2011 Jean-Marc Trï¿½meaux (jm.tremeaux at gmail.com)
 	 * 
 	 * This program is free software: you can redistribute it and/or modify
 	 * it under the terms of the GNU General Public License as published by
@@ -24,49 +24,49 @@
 
 	include "../vendor/autoload.php";
 
-	$chart = new \Libchart\View\Chart\LineChart();
+	$chart = new \Libchart\Chart\Chart\LineChart();
 
-	$serie1 = new \Libchart\Model\XYDataSet();
-	$serie1->addPoint(new \Libchart\Model\Point("06-01", 273));
-	$serie1->addPoint(new \Libchart\Model\Point("06-02", 421));
-	$serie1->addPoint(new \Libchart\Model\Point("06-03", 642));
-	$serie1->addPoint(new \Libchart\Model\Point("06-04", 799));
-	$serie1->addPoint(new \Libchart\Model\Point("06-05", 1009));
-	$serie1->addPoint(new \Libchart\Model\Point("06-06", 1106));
+	$serie1 = new \Libchart\Data\XYDataSet();
+	$serie1->addPoint(new \Libchart\Data\Point("06-01", 273));
+	$serie1->addPoint(new \Libchart\Data\Point("06-02", 421));
+	$serie1->addPoint(new \Libchart\Data\Point("06-03", 642));
+	$serie1->addPoint(new \Libchart\Data\Point("06-04", 799));
+	$serie1->addPoint(new \Libchart\Data\Point("06-05", 1009));
+	$serie1->addPoint(new \Libchart\Data\Point("06-06", 1106));
 	
-	$serie2 = new \Libchart\Model\XYDataSet();
-	$serie2->addPoint(new \Libchart\Model\Point("06-01", 280));
-	$serie2->addPoint(new \Libchart\Model\Point("06-02", 300));
-	$serie2->addPoint(new \Libchart\Model\Point("06-03", 212));
-	$serie2->addPoint(new \Libchart\Model\Point("06-04", 542));
-	$serie2->addPoint(new \Libchart\Model\Point("06-05", 600));
-	$serie2->addPoint(new \Libchart\Model\Point("06-06", 850));
+	$serie2 = new \Libchart\Data\XYDataSet();
+	$serie2->addPoint(new \Libchart\Data\Point("06-01", 280));
+	$serie2->addPoint(new \Libchart\Data\Point("06-02", 300));
+	$serie2->addPoint(new \Libchart\Data\Point("06-03", 212));
+	$serie2->addPoint(new \Libchart\Data\Point("06-04", 542));
+	$serie2->addPoint(new \Libchart\Data\Point("06-05", 600));
+	$serie2->addPoint(new \Libchart\Data\Point("06-06", 850));
 	
-	$serie3 = new \Libchart\Model\XYDataSet();
-	$serie3->addPoint(new \Libchart\Model\Point("06-01", 180));
-	$serie3->addPoint(new \Libchart\Model\Point("06-02", 400));
-	$serie3->addPoint(new \Libchart\Model\Point("06-03", 512));
-	$serie3->addPoint(new \Libchart\Model\Point("06-04", 642));
-	$serie3->addPoint(new \Libchart\Model\Point("06-05", 700));
-	$serie3->addPoint(new \Libchart\Model\Point("06-06", 900));
+	$serie3 = new \Libchart\Data\XYDataSet();
+	$serie3->addPoint(new \Libchart\Data\Point("06-01", 180));
+	$serie3->addPoint(new \Libchart\Data\Point("06-02", 400));
+	$serie3->addPoint(new \Libchart\Data\Point("06-03", 512));
+	$serie3->addPoint(new \Libchart\Data\Point("06-04", 642));
+	$serie3->addPoint(new \Libchart\Data\Point("06-05", 700));
+	$serie3->addPoint(new \Libchart\Data\Point("06-06", 900));
 	
-	$serie4 = new \Libchart\Model\XYDataSet();
-	$serie4->addPoint(new \Libchart\Model\Point("06-01", 280));
-	$serie4->addPoint(new \Libchart\Model\Point("06-02", 500));
-	$serie4->addPoint(new \Libchart\Model\Point("06-03", 612));
-	$serie4->addPoint(new \Libchart\Model\Point("06-04", 742));
-	$serie4->addPoint(new \Libchart\Model\Point("06-05", 800));
-	$serie4->addPoint(new \Libchart\Model\Point("06-06", 1000));
+	$serie4 = new \Libchart\Data\XYDataSet();
+	$serie4->addPoint(new \Libchart\Data\Point("06-01", 280));
+	$serie4->addPoint(new \Libchart\Data\Point("06-02", 500));
+	$serie4->addPoint(new \Libchart\Data\Point("06-03", 612));
+	$serie4->addPoint(new \Libchart\Data\Point("06-04", 742));
+	$serie4->addPoint(new \Libchart\Data\Point("06-05", 800));
+	$serie4->addPoint(new \Libchart\Data\Point("06-06", 1000));
 	
-	$serie5 = new \Libchart\Model\XYDataSet();
-	$serie5->addPoint(new \Libchart\Model\Point("06-01", 380));
-	$serie5->addPoint(new \Libchart\Model\Point("06-02", 600));
-	$serie5->addPoint(new \Libchart\Model\Point("06-03", 712));
-	$serie5->addPoint(new \Libchart\Model\Point("06-04", 842));
-	$serie5->addPoint(new \Libchart\Model\Point("06-05", 900));
-	$serie5->addPoint(new \Libchart\Model\Point("06-06", 1200));
+	$serie5 = new \Libchart\Data\XYDataSet();
+	$serie5->addPoint(new \Libchart\Data\Point("06-01", 380));
+	$serie5->addPoint(new \Libchart\Data\Point("06-02", 600));
+	$serie5->addPoint(new \Libchart\Data\Point("06-03", 712));
+	$serie5->addPoint(new \Libchart\Data\Point("06-04", 842));
+	$serie5->addPoint(new \Libchart\Data\Point("06-05", 900));
+	$serie5->addPoint(new \Libchart\Data\Point("06-06", 1200));
 	
-	$dataSet = new \Libchart\Model\XYSeriesDataSet();
+	$dataSet = new \Libchart\Data\XYSeriesDataSet();
 	$dataSet->addSerie("Product 1", $serie1);
 	$dataSet->addSerie("Product 2", $serie2);
 	$dataSet->addSerie("Product 3", $serie3);

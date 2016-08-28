@@ -6,18 +6,18 @@
 	"homepage": "http://naku.dohcrew.com/libchart/pages/introduction/",
 	"license": "GPL-3.0",
 	"authors": [
-		{
-			"name": "Jean-Marc Trémeaux",
-			"homepage": "http://naku.dohcrew.com/",
-			"role": "Developer"
-		},
+        {
+          "name": "Luis Cruz",
+          "role": "Developer"
+        },
 		{
 			"name": "Alexander Stehlik",
 			"role": "Developer"
 		},
 		{
-			"name": "Luis Cruz",
-			"role": "Developer"
+		  "name": "Jean-Marc Trémeaux",
+		  "homepage": "http://naku.dohcrew.com/",
+		  "role": "Developer"
 		}
 	],
 	"require": {

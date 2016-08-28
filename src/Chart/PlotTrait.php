@@ -1,8 +1,11 @@
-<?php namespace Libchart\View;
+<?php namespace Libchart\Chart;
 
 use Libchart\Color\ColorPalette;
 use Libchart\Color\ColorHex;
 use Libchart\Color\Color;
+use Libchart\Element\Primitive;
+use Libchart\Element\PrimitiveRectangle;
+use Libchart\Element\Text;
 use Noodlehaus\Config;
 
 /**
@@ -34,7 +37,7 @@ use Noodlehaus\Config;
  *
  * All area dimensions are known in advance, and the optional logo is drawn in absolute coordinates.
  *
- * @package Libchart\View
+ * @package Libchart\Chart
  */
 trait PlotTrait
 {
