@@ -170,19 +170,18 @@ class Text
     /**
      * Print text in diagonal.
      *
-     * @param resource $img Image GD image
      * @param int $px text coordinate (x)
      * @param int $py text coordinate (y)
      * @param \Libchart\Color\Color $color text color
      * @param string $text value
      */
-    public function printDiagonal($img, $px, $py, $color, $text)
+    public function printDiagonal($px, $py, $color, $text)
     {
         $fontSize = $this->config->get('label.size', 11);
         $fontFileName = $this->textFont;
 
         $py = $py + $this->config->get('label.margin-top', 15);
-        imagettftext($img, $fontSize, $this->angle, $px, $py, $color->getColor($img), $fontFileName, $text);
+        imagettftext($this->img, $fontSize, $this->angle, $px, $py, $color->getColor($this->img), $fontFileName, $text);
     }
 
     /**

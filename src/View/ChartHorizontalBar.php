@@ -1,28 +1,7 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
-namespace Libchart\View;
+<?php namespace Libchart\View;
 
 /**
  * Horizontal bar chart
- *
- * @author Jean-Marc Tremeaux (jm.tremeaux at gmail.com)
  */
 class ChartHorizontalBar extends ChartBar
 {
@@ -43,7 +22,8 @@ class ChartHorizontalBar extends ChartBar
     {
         parent::__construct($width, $height);
         $this->emptyToFullRatio = 1 / 5;
-        // Set the traits properties
+
+        // Set the trait's properties
         $this->init($width, $height, $this->hasSeveralSerie);
         $this->setGraphPadding(new PrimitivePadding(5, 30, 30, 50));
     }
@@ -59,7 +39,6 @@ class ChartHorizontalBar extends ChartBar
 
         // Get the graph area
         $graphArea = $this->graphArea;
-
         $axisColor0 = $this->palette->axisColor[0];
 
         /**

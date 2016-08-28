@@ -8,8 +8,8 @@ use Libchart\Model\Point;
 use Libchart\View\ChartVerticalBar;
 use Libchart\Model\XYDataSet;
 
-//$chart = new ChartVerticalBar(600, 300);
-$chart = new \Libchart\View\ChartHorizontalBar(600, 300);
+$chart = new ChartVerticalBar(600, 300);
+//$chart = new \Libchart\View\ChartHorizontalBar(600, 300);
 //$chart = new \Libchart\View\ChartLine(600, 300);
 //$chart = new \Libchart\View\ChartPie(600, 300);
 //$chart->getPlot()->setTitleColor(251, 128, 128);
