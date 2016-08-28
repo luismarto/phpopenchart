@@ -44,7 +44,7 @@ It's my intention to fully document the package and it's options, but first I wa
 
 # Roadmap
 
-In a forseable future (v 1.5 / 1.6).
+In a forseable future (v 1.6).
 - Make the package more "configurable"
 - Fix bugs on Pie and Line charts
 - Rename some classes and review the package's structure
@@ -52,7 +52,6 @@ In a forseable future (v 1.5 / 1.6).
 - Fix tests and demo
 
 In a near future (v 2.0)
-- Refactor the core (Plot and Chart) and remove duplicate code
 - Make this easily integrated with Laravel
 
 ## License

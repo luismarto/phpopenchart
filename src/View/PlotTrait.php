@@ -184,6 +184,9 @@ trait PlotTrait
      */
     private $config;
 
+    /**
+     * @var bool
+     */
     private $hasSeveralSeries;
 
     protected function init($width, $height, $hasSeveralSeries = true)
@@ -233,6 +236,7 @@ trait PlotTrait
         $this->titleColor = new ColorHex('000000');
 
         // By default, don't display the logo
+        // @todo: make this configurable
         $this->hasLogo = false;
         $this->hasSeveralSeries = $hasSeveralSeries;
     }
@@ -487,16 +491,6 @@ trait PlotTrait
     public function setBarLabelGenerator($labelGenerator)
     {
         $this->barLabelGenerator = $labelGenerator;
-    }
-
-    /**
-     * Return the caption area.
-     *
-     * @return PrimitiveRectangle caption area
-     */
-    public function getCaptionArea()
-    {
-        return $this->captionArea;
     }
 
     /**

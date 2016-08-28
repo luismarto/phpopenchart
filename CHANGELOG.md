@@ -15,15 +15,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - When you create a new `Point`, you can now define a specific color for that point
 
 ### Changed
-- Fixed PSR-2
-- Fixed minor bugs (see `sortPie()` on `ChartPie`)
-- Renamed Libchart to src
+- Refactored the Plot class, which is now a Trait to avoid too much dependency between classes
+- Removed duplicated code shared across the Chart classes (part of it)
 - Changed the way the "guides" were being created. The guides are now aligned with the axis values instead of "randomly" on the background.
 - Added white as default color for Pie chart background
-- Updated package structure
 - The chart title default color is now `#444444`
 - Chart Axis, guides and markers are defined as lines instead of rectangles.
+- Fixed PSR-2
 - Minor fixes and optimizations
+- Updated package structure
 
 ## [1.4.1] - 2016-08-12
 ### Added
