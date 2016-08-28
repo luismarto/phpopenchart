@@ -24,7 +24,7 @@ class ChartVerticalBar extends ChartBar
         $this->emptyToFullRatio = 1 / 5;
 
         $this->init($width, $height, $this->hasSeveralSerie);
-        $this->setGraphPadding(new PrimitivePadding(5, 30, 50, 50));
+        $this->setGraphPadding($this->primitive->getPadding(5, 30, 50, 50));
     }
 
     /**

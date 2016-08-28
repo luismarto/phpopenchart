@@ -25,7 +25,7 @@ class ChartHorizontalBar extends ChartBar
 
         // Set the trait's properties
         $this->init($width, $height, $this->hasSeveralSerie);
-        $this->setGraphPadding(new PrimitivePadding(5, 30, 30, 50));
+        $this->setGraphPadding($this->primitive->getPadding(5, 30, 30, 50));
     }
 
     /**

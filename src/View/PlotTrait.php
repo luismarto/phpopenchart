@@ -225,13 +225,13 @@ trait PlotTrait
 
         // Default layout
         $this->outputArea = new PrimitiveRectangle(0, 0, $this->width - 1, $this->height - 1);
-        $this->outerPadding = new PrimitivePadding(5);
+        $this->outerPadding = $this->primitive->getPadding(5);
         $this->titleHeight = 26;
-        $this->titlePadding = new PrimitivePadding(5);
+        $this->titlePadding = $this->primitive->getPadding(5, null, 15);
         $this->hasCaption = false;
         $this->graphCaptionRatio = 0.50;
-        $this->graphPadding = new PrimitivePadding(50);
-        $this->captionPadding = new PrimitivePadding(15);
+        $this->graphPadding = $this->primitive->getPadding(50);
+        $this->captionPadding = $this->primitive->getPadding(15);
 
         $this->titleColor = new ColorHex('000000');
 
@@ -436,7 +436,7 @@ trait PlotTrait
     /**
      * Return the graph padding.
      *
-     * @param PrimitivePadding $graphPadding graph padding
+     * @param \stdClass $graphPadding graph padding
      */
     public function setGraphPadding($graphPadding)
     {

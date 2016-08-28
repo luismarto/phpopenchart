@@ -1,28 +1,9 @@
-<?php
-/* Libchart - PHP chart library
- * Copyright (C) 2005-2011 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+<?php namespace Libchart\View;
 
-namespace Libchart\View;
+use stdClass;
 
 /**
  * Graphic primitives, extends GD with chart related primitives.
- *
- * @author Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
  */
 class Primitive
 {
@@ -82,5 +63,25 @@ class Primitive
         imagerectangle($this->img, $x2 - 1, $y1, $x2, $y1 + 1, $color1->getColor($this->img));
         imagerectangle($this->img, $x1, $y2 - 1, $x1 + 1, $y2, $color1->getColor($this->img));
         imagerectangle($this->img, $x2 - 1, $y2 - 1, $x2, $y2, $color1->getColor($this->img));
+    }
+
+    /**
+     * Creates and returns a padding
+     * @param int $top
+     * @param null|int $right
+     * @param null|int $bottom
+     * @param null|int $left
+     * @return stdClass
+     */
+    public function getPadding($top, $right = null, $bottom = null, $left = null)
+    {
+        $padding = new stdClass;
+
+        $padding->top = $top;
+        $padding->right = $right;
+        $padding->bottom = $bottom;
+        $padding->left = $left;
+
+        return $padding;
     }
 }

@@ -53,7 +53,7 @@ class ChartPie extends Chart
     public function __construct($width = 600, $height = 250)
     {
         $this->init($width, $height);
-        $this->setGraphPadding(new PrimitivePadding(15, 10, 30, 30));
+        $this->setGraphPadding($this->primitive->getPadding(15, 10, 30, 30));
     }
 
     /**
