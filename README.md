@@ -48,13 +48,11 @@ It's my intention to fully document the package and it's options, but first I wa
 
 # Roadmap
 
-In a forseable future (v 1.6).
+In a forseable future
 - Make the package more "configurable"
 - Fix bugs on Pie and Line charts
 - Refactor the bootstrap code, so you don't need to include so many classes
 - Fix tests and demos
-
-In a near future (v 2.0)
 - Make this easily integrated with Laravel
 
 ## License
