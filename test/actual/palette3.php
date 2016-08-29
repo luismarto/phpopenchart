@@ -1,25 +1,28 @@
 <?php
-    require_once '../common.php';
-    
-    header("Content-type: image/png");
-    
-    $chart = new \Libchart\View\Chart\VerticalBarChart(500, 250);
-    
-    $chart->getConfig()->setUseMultipleColor(true);
-    $chart->getPlot()->getPalette()->setBarColor(array(
-        new \Libchart\View\Color\Color(255, 0, 0),
-        new \Libchart\View\Color\Color(44, 70, 181),
-        new \Libchart\View\Color\Color(126, 209, 59),
-        new \Libchart\View\Color\Color(247, 150, 71)
-    ));
-    
-    $dataSet = new \Libchart\Data\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Data\Point("Jan 2005", 273));
-    $dataSet->addPoint(new \Libchart\Data\Point("Feb 2005", 321));
-    $dataSet->addPoint(new \Libchart\Data\Point("Mar 2005", 442));
-    $dataSet->addPoint(new \Libchart\Data\Point("Apr 2005", 711));
-    $chart->setDataSet($dataSet);
-    
-    $chart->setTitle("Monthly usage for www.example.com");
-    $chart->render();
-?>
+require_once '../common.php';
+
+header("Content-type: image/png");
+
+$chart = new Libchart\Chart\Column([
+    'width' => 500,
+    'height' => 250,
+    'use-multiple-color' => true,
+    'title' => [
+        'text' => 'Monthly usage for www.example.com'
+    ],
+    'dataset' => [
+        ["Jan 2005", 273],
+        ["Feb 2005", 321],
+        ["Mar 2005", 442],
+        ["Apr 2005", 711],
+    ]
+]);
+
+$chart->getPalette()->setBarColor(array(
+    new \Libchart\Color\Color(255, 0, 0),
+    new \Libchart\Color\Color(44, 70, 181),
+    new \Libchart\Color\Color(126, 209, 59),
+    new \Libchart\Color\Color(247, 150, 71)
+));
+
+$chart->render();

@@ -1,24 +1,28 @@
 <?php
-    require_once '../common.php';
-    
-    class ThousandLabelGenerator implements \Libchart\Label\LabelInterface {
-        function generateLabel($value) {
-            return ((int) ($value / 1000)) . "k";
-        }
+require_once '../common.php';
+
+class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
+{
+    public function generateLabel($value)
+    {
+        return ((int)($value / 1000)) . "k";
     }
-    
-    header("Content-type: image/png");
-    
-    $chart = new \Libchart\Chart\Line(500, 250);
-     
-    $dataSet = new \Libchart\Data\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Data\Point("Jan 2005", 27300));
-    $dataSet->addPoint(new \Libchart\Data\Point("Feb 2005", 32100));
-    $dataSet->addPoint(new \Libchart\Data\Point("March 2005", 44200));
-    $dataSet->addPoint(new \Libchart\Data\Point("April 2005", 71100));
-    $chart->setDataSet($dataSet);
-    
-    $chart->setTitle("Monthly usage for www.example.com");
-    $chart->getPlot()->setLabelGenerator(new ThousandLabelGenerator());
-    $chart->render();
-?>
+}
+
+header("Content-type: image/png");
+
+$chart = new Libchart\Chart\Line([
+    'width' => 500,
+    'height' => 250,
+    'title' => [
+        'text' => 'Monthly usage for www.example.com'
+    ],
+    'dataset' => [
+        ["Jan 2005", 27300],
+        ["Feb 2005", 32100],
+        ["March 2005", 44200],
+        ["April 2005", 71100],
+    ]
+]);
+$chart->setBarLabelGenerator(new ThousandLabelGenerator());
+$chart->render();

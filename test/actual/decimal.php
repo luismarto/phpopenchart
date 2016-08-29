@@ -1,20 +1,19 @@
 <?php
-    require_once '../common.php';
+require_once '../common.php';
 
-    header("Content-type: image/png");
+header("Content-type: image/png");
 
-    $chart = new \Libchart\Chart\Column();
-
-    $dataSet = new \Libchart\Data\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Data\Point("Jan 2005", 1));
-    $dataSet->addPoint(new \Libchart\Data\Point("Feb 2005", 1));
-    $dataSet->addPoint(new \Libchart\Data\Point("March 2005", 1));
-    $dataSet->addPoint(new \Libchart\Data\Point("April 2005", 2.25));
-    $dataSet->addPoint(new \Libchart\Data\Point("May 2005", 3.14156265));
-    $dataSet->addPoint(new \Libchart\Data\Point("June 2005", 2.4));
-    $dataSet->addPoint(new \Libchart\Data\Point("July 2005", 1));
-    $chart->setDataSet($dataSet);
-    
-    $chart->setTitle("Monthly usage for www.example.com");
-    $chart->render();
-?>
+(new Libchart\Chart\Column([
+    'title' => [
+        'text' => 'Monthly usage for www.example.com'
+    ],
+    'dataset' => [
+        ["Jan 2005", 1],
+        ["Feb 2005", 1],
+        ["March 2005", 1],
+        ["April 2005", 2.25],
+        ["May 2005", 3.14156265],
+        ["June 2005", 2.4],
+        ["July 2005", 1],
+    ]
+]))->render();

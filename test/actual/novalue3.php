@@ -1,13 +1,15 @@
 <?php
-    require_once '../common.php';
+require_once '../common.php';
 
-    header("Content-type: image/png");
-    
-    $chart = new \Libchart\View\Chart\LineChart();
+header("Content-type: image/png");
 
-#    $chart->addPoint(new \Libchart\Data\Point("06-01", 0));
-#    $chart->addPoint(new \Libchart\Data\Point("06-02", 10));
-
-    $chart->setTitle("Sales for 2006");
-    $chart->render();
-?>
+// @todo: Maybe we should probably render the chart without points...
+$chart = new Libchart\Chart\Line([
+    'title' => [
+        'text' => 'Sales for 2006'
+    ],
+    'dataset' => [
+        [],
+    ]
+]);
+$chart->render();

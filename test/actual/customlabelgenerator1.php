@@ -11,7 +11,7 @@ class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
 
 header("Content-type: image/png");
 
-$chart = new \Libchart\Chart\Column([
+$chart = new Libchart\Chart\Column([
     'width' => 500,
     'height' => 250,
     'title' => [

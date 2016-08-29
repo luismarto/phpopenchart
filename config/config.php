@@ -4,17 +4,17 @@ return [
     /*
      * Use several colors for a single data set chart (as if it was a multiple data set)
      */
-    'useMultipleColor' => false,
+    'use-multiple-color' => false,
 
     /*
      * Show caption on individual data points.
      */
-    'showPointCaption' => true,
+    'show-point-caption' => true,
 
     /*
      * Sort data points (only pie charts)
      */
-    'sortDataPoint' => true,
+    'sort-data-point' => true,
 
     /*
     |--------------------------------------------------------------------------

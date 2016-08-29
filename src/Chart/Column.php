@@ -128,7 +128,7 @@ class Column extends AbstractChartBar
 
             // Select the next color for the next serie
             $bColor = '';
-            if (!$this->config->get('useMultipleColor')) {
+            if (!$this->useMultipleColor) {
                 $bColor = $barColorSet->currentColor();
                 $barColorSet->next();
             }
@@ -163,7 +163,7 @@ class Column extends AbstractChartBar
                 // Check if the point has a specific color. If so, this overrides anything else
                 if (!is_null($point->getColor())) {
                     $color = $point->getColor();
-                } elseif ($this->config->get('useMultipleColor')) {
+                } elseif ($this->useMultipleColor) {
                     $color = $barColorSet->currentColor();
                     $barColorSet->next();
                 } else {
@@ -177,13 +177,13 @@ class Column extends AbstractChartBar
                         $x1 + 1,
                         $ymin + ($value > 0 ? 1 : 0),
                         $x2 - 4,
-                        $horizOriginY + ($value >= 0 ? -1 : 2),
+                        $horizOriginY + ($value >= 0 ? -1 : 1),
                         $color
                     );
                 }
 
                 // Draw caption text on bar
-                if ($this->config->get('showPointCaption')) {
+                if ($this->showPointCaption) {
                     $this->text->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 15),

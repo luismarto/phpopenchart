@@ -1,19 +1,19 @@
 <?php
-    require_once '../common.php';
-    
-    header("Content-type: image/png");
-    
-    $chart = new \Libchart\View\Chart\PieChart(500, 250);
+require_once '../common.php';
 
-    $chart->getConfig()->setSortDataPoint(false);
-    
-    $dataSet = new \Libchart\Data\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Data\Point("Item 1 (20)", 20));
-    $dataSet->addPoint(new \Libchart\Data\Point("Item 2 (0)", 0));
-    $dataSet->addPoint(new \Libchart\Data\Point("Item 3 (30)", 30));
-    $dataSet->addPoint(new \Libchart\Data\Point("Item 4 (70)", 70));
-    $chart->setDataSet($dataSet);
-    
-    $chart->setTitle("This example preserves item order");
-    $chart->render();
-?>
+header("Content-type: image/png");
+
+(new Libchart\Chart\Pie([
+    'width' => 500,
+    'height' => 250,
+    'sort-data-point' => false,
+    'title' => [
+        'text' => 'This example preserves item order'
+    ],
+    'dataset' => [
+        ["Item 1 (20)", 20],
+        ["Item 2 (0)", 0],
+        ["Item 3 (30)", 30],
+        ["Item 4 (70)", 70],
+    ]
+]))->render();

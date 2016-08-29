@@ -137,9 +137,8 @@ class Bar extends AbstractChartBar
 
             // Select the next color for the next serie
             $bColor = $bShadowColor = '';
-            if (!$this->config->get('useMultipleColor')) {
+            if (!$this->useMultipleColor) {
                 $bColor = $barColorSet->currentColor();
-                $bShadowColor = $barColorSet->currentShadowColor();
                 $barColorSet->next();
             }
 
@@ -171,7 +170,7 @@ class Bar extends AbstractChartBar
                 // Select the next color for the next item in the serie
                 if (!is_null($point->getColor())) {
                     $color = $point->getColor();
-                } elseif ($this->config->get('useMultipleColor')) {
+                } elseif ($this->useMultipleColor) {
                     $color = $barColorSet->currentColor();
                     $barColorSet->next();
                 } else {
@@ -185,7 +184,7 @@ class Bar extends AbstractChartBar
                 }
 
                 // Draw caption text on bar
-                if ($this->config->get('showPointCaption')) {
+                if ($this->showPointCaption) {
                     $label = $this->barLabelGenerator->generateLabel($value);
                     $textAlign = $this->text->VERTICAL_CENTER_ALIGN
                         | ($value > 0 ? $this->text->HORIZONTAL_LEFT_ALIGN : $this->text->HORIZONTAL_RIGHT_ALIGN);

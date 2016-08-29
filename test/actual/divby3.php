@@ -1,15 +1,16 @@
 <?php
-    require_once '../common.php';
+require_once '../common.php';
 
-    header("Content-type: image/png");
-    
-    $chart = new \Libchart\View\Chart\LineChart();
+header("Content-type: image/png");
 
-    $dataSet = new \Libchart\Data\XYDataSet();
-    $dataSet->addPoint(new \Libchart\Data\Point("06-01", 0));
-    $dataSet->addPoint(new \Libchart\Data\Point("06-02", 0));
-    $chart->setDataSet($dataSet);
-    
-    $chart->setTitle("Sales for 2006");
-    $chart->render();
-?>
+$chart = new Libchart\Chart\Line([
+    'title' => [
+        'text' => 'Sales for 2006'
+    ],
+    'dataset' => [
+        ["06-01", 0],
+        ["06-02", 0],
+    ]
+]);
+
+$chart->render();

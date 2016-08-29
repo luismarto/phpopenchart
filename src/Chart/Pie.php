@@ -111,7 +111,7 @@ class Pie extends AbstractChart
         }
 
         // Sort data points
-        if ($this->config->get('sortDataPoint')) {
+        if ($this->sortDataPoint) {
             usort($this->percent, array("\\Libchart\\Chart\\Pie", "sortPie"));
         }
     }
@@ -275,7 +275,7 @@ class Pie extends AbstractChart
         $this->drawDisc($this->pieCenterY - $this->pieDepth / 2, $this->palette->pieColorSet->colorList, IMG_ARC_PIE);
 
         // Top Outline
-        if ($this->config->get('showPointCaption')) {
+        if ($this->showPointCaption) {
             $this->drawPercent();
         }
     }

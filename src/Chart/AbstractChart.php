@@ -170,6 +170,21 @@ abstract class AbstractChart
     protected $hasSeveralSeries;
 
     /**
+     * @var bool
+     */
+    protected $showPointCaption;
+
+    /**
+     * @var bool
+     */
+    protected $useMultipleColor;
+
+    /**
+     * @var bool
+     */
+    protected $sortDataPoint;
+
+    /**
      * Main chart constructor
      * @param array $args
      * @throws DatasetNotDefinedException
@@ -199,6 +214,17 @@ abstract class AbstractChart
         $this->palette = new ColorPalette();
         // Immediately draw the chart background
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
+
+        // Set chart properties
+        $this->showPointCaption = !array_key_exists('show-point-caption', $args)
+            ? $this->config->get('show-point-caption', true)
+            : (bool)$args['show-point-caption'];
+        $this->useMultipleColor = !array_key_exists('use-multiple-color', $args)
+            ? $this->config->get('use-multiple-color', true)
+            : (bool)$args['use-multiple-color'];
+        $this->sortDataPoint = !array_key_exists('sort-data-point', $args)
+            ? $this->config->get('sort-data-point', true)
+            : (bool)$args['sort-data-point'];
 
         $axisLabelGeneratorClass = $this->config->get(
             'axisLabelGenerator',

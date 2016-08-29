@@ -6,19 +6,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Added specific classes for Title and Logo
 
 ### Changed
+
+## [2.0.0] - 2016-08-29
+### Added
+- Added specific classes for Title and Logo
+- Added configurations for all possible Title attributes
+- Added ability to configure the font size for the Title
+- Added PHP and extension requirements on `composer.json`
+
+### Changed
+- Refactor the chart's constructor, which now receives an array with all the options
+- The XYDataSet constructor now receives an array with points
+- Refactored package structure
+- Refactored class names
+- Removed the Trait and added that code to the AbstractChartBar
 - The step markers no longer have a "small marker"
 - The point markers have an increased size
 - Updated the colors for the axis and guides
 - Reused shared code between Line, Column and Bar
 - If the logo is requested and the file does not exist, an exception is now throwed
-
-## [2.0.0] - 2016-08-28
-### Changed
-- Refactored package structure
-- Refactored class names
+- The default for the BasicPadding properties are now 0, instead of the `$top` value
+- Fixed the demos
 
 ## [1.5.0] - 2016-08-28
 ### Added

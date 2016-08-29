@@ -12,23 +12,25 @@ Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
 ---
 ````php
 use Libchart\Chart\Column;
-use Libchart\Data\Point;
-use Libchart\Data\XYDataSet;
-
-$chart = new Column(600, 300);
-
-$dataSet = new XYDataSet();
-$dataSet->addPoint(new Point("Feb", 3296));
-$dataSet->addPoint(new Point("Mar", -1816));
-$dataSet->addPoint(new Point("Apr", 687));
-$dataSet->addPoint(new Point("May", 10987));
-$dataSet->addPoint(new Point("Jun", 8014));
-$dataSet->addPoint(new Point("Jul", 7695));
-
-$chart->setDataSet($dataSet);
-$chart->setTitle("Values");
 
 header("Content-type: image/png");
+
+$chart = new Column([
+    'width' => 600,
+    'height' => 300,
+    'title' => [
+        'text' => 'Values'
+    ],
+    'dataset' => [
+        ["Feb", 3296],
+        ["Mar", -1816],
+        ["Apr", 687],
+        ["May", 10987],
+        ["Jun", 8014],
+        ["Jul", 7695],
+    ]
+]);
+
 $chart->render();
 
 ````
@@ -51,8 +53,7 @@ It's my intention to fully document the package and it's options, but first I wa
 In a forseable future
 - Make the package more "configurable"
 - Fix bugs on Pie and Line charts
-- Refactor the bootstrap code, so you don't need to include so many classes
-- Fix tests and demos
+- Fix tests
 - Make this easily integrated with Laravel
 
 ## License
