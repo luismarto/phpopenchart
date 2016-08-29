@@ -174,36 +174,17 @@ class Bar extends AbstractChartBar
                 // Select the next color for the next item in the serie
                 if (!is_null($point->getColor())) {
                     $color = $point->getColor();
-                    $shadowColor = $color->getShadowColor(1);
                 } elseif ($this->config->get('useMultipleColor')) {
                     $color = $barColorSet->currentColor();
-                    $shadowColor = $barColorSet->currentShadowColor();
                     $barColorSet->next();
                 } else {
                     $color = $bColor;
-                    $shadowColor = $bShadowColor;
                 }
 
                 // Draw the horizontal bar
-                imagefilledrectangle(
-                    $this->img,
-                    $verticalOriginX + ($value >= 0 ? 1 : -1),
-                    $y1,
-                    $xmax,
-                    $y2,
-                    $shadowColor->getColor($this->img)
-                );
-
                 // Prevents drawing a small box when x = 0
                 if ($value != 0) {
-                    imagefilledrectangle(
-                        $this->img,
-                        $verticalOriginX + ($value >= 0 ? 2 : -2),
-                        $y1 + 1,
-                        $xmax + ($value >= 0 ? -4 : -0),
-                        $y2,
-                        $color->getColor($this->img)
-                    );
+                    $this->gd->rectangle($verticalOriginX, $y1 + 1, $xmax + ($value >= 0 ? -4 : -0), $y2, $color);
                 }
 
                 // Draw caption text on bar

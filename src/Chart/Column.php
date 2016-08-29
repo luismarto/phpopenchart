@@ -129,10 +129,9 @@ class Column extends AbstractChartBar
             reset($pointList);
 
             // Select the next color for the next serie
-            $bColor = $bShadowColor = '';
+            $bColor = '';
             if (!$this->config->get('useMultipleColor')) {
                 $bColor = $barColorSet->currentColor();
-                $bShadowColor = $barColorSet->currentShadowColor();
                 $barColorSet->next();
             }
 
@@ -189,7 +188,7 @@ class Column extends AbstractChartBar
                 if ($this->config->get('showPointCaption')) {
                     $this->text->draw(
                         $x1 + $barWidth / 2,
-                        ($value > 0 ? $ymin - 5 : $ymin + 15),
+                        ($value >= 0 ? $ymin - 5 : $ymin + 15),
                         $this->text->getColor(),
                         $this->barLabelGenerator->generateLabel($value),
                         $this->text->getFont(),
