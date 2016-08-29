@@ -15,24 +15,29 @@ class Title
      * Fixed title height in pixels.
      * @var int
      */
-    private $titleHeight;
+    private $height;
 
     /**
      * Padding of the title area.
      * @var BasicPadding
      */
-    private $titlePadding;
+    private $padding;
 
     /**
      *  Coordinates of the title area.
      */
-    private $titleArea;
+    private $area;
 
     /**
      * The title color
      * @var Color|ColorHex
      */
-    private $titleColor;
+    private $color;
+
+    /**
+     * @var string
+     */
+    private $font;
 
     /**
      * The text instance of the chart
@@ -55,10 +60,20 @@ class Title
         $this->config = $config;
 
         // @todo: make this configurable
-        $this->titleHeight = 26;
-        $this->titlePadding = new BasicPadding(5, null, 15);
-        $this->titleColor = new ColorHex('000000');
+        $this->height = 26;
+        $this->padding = new BasicPadding(5, null, 15);
+        $this->color = new ColorHex('000000');
 
+        $this->fontsDirectory = $this->config->get(
+            'fonts.path',
+            dirname(__FILE__)
+            . DIRECTORY_SEPARATOR. '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
+        );
+
+        $this->font = $this->fontsDirectory
+            . $this->config->get('fonts.title', 'SourceSansPro-Regular.otf');
     }
 
     /**
@@ -68,18 +83,18 @@ class Title
     public function computeTitleArea($imageArea)
     {
         $titleUnpaddedBottom = $imageArea->y1
-            + $this->titleHeight
-            + $this->titlePadding->top
-            + $this->titlePadding->bottom;
+            + $this->height
+            + $this->padding->top
+            + $this->padding->bottom;
 
-        $titleArea = new PrimitiveRectangle(
+        $area = new PrimitiveRectangle(
             $imageArea->x1,
             $imageArea->y1,
             $imageArea->x2,
             $titleUnpaddedBottom - 1
         );
 
-        $this->titleArea = $titleArea->getPaddedRectangle($this->titlePadding);
+        $this->area = $area->getPaddedRectangle($this->padding);
     }
 
     /**
@@ -88,20 +103,23 @@ class Title
     public function draw()
     {
         $this->textInstance->printCentered(
-            $this->titleArea->y1 + ($this->titleArea->y2 - $this->titleArea->y1) / 2,
-            $this->titleColor,
+            $this->area->y1 + ($this->area->y2 - $this->area->y1) / 2,
+            $this->color,
             $this->text,
-            $this->textInstance->getTitleFont()
+            $this->font
         );
     }
 
     /**
      * Sets the text.
      * @param string $text New text
+     * @return $this
      */
     public function setText($text)
     {
         $this->text = $text;
+
+        return $this;
     }
 
     /**
@@ -109,9 +127,9 @@ class Title
      * @param string $hexColor
      * @param int $alpha
      */
-    public function setTitleColorHex($hexColor, $alpha = 0)
+    public function setColorHex($hexColor, $alpha = 0)
     {
-        $this->titleColor = new ColorHex($hexColor, $alpha);
+        $this->color = new ColorHex($hexColor, $alpha);
     }
 
     /**
@@ -119,47 +137,79 @@ class Title
      * @param int $green
      * @param int $blue
      * @param int|float $alpha
+     * @return $this
      */
-    public function setTitleColor($red, $green, $blue, $alpha = 0)
+    public function setColor($red, $green, $blue, $alpha = 0)
     {
-        $this->titleColor = new Color($red, $green, $blue, $alpha);
+        $this->color = new Color($red, $green, $blue, $alpha);
+
+        return $this;
     }
 
     /**
      * Return the title height.
-     *
-     * @param integer $titleHeight title height
+     * @param integer $height title height
+     * @return $this
      */
-    public function setTitleHeight($titleHeight)
+    public function setHeight($height)
     {
-        $this->titleHeight = $titleHeight;
+        $this->height = $height;
+
+        return $this;
     }
 
     /**
      * Returns the title height
      * @return int
      */
-    public function getTitleHeight()
+    public function getHeight()
     {
-        return $this->titleHeight;
+        return $this->height;
     }
 
     /**
      * Return the title padding.
-     *
-     * @param integer $titlePadding title padding
+     * @param BasicPadding $padding title padding
+     * @return $this
      */
-    public function setTitlePadding($titlePadding)
+    public function setPadding($padding)
     {
-        $this->titlePadding = $titlePadding;
+        $this->padding = $padding;
+
+        return $this;
     }
 
     /**
      * Returns the title padding
-     * @return \stdClass
+     * @return BasicPadding
      */
-    public function getTitlePadding()
+    public function getPadding()
     {
-        return $this->titlePadding;
+        return $this->padding;
+    }
+
+    /**
+     * Sets a new font to be used for the chart title
+     * @param string $fontName
+     * @return $this
+     */
+    public function setFont($fontName)
+    {
+        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
+            $this->font = $this->fontsDirectory . $fontName;
+        } else {
+            $this->font = $fontName;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the font used for the chart's title
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
     }
 }

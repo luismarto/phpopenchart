@@ -245,12 +245,12 @@ class Pie extends AbstractChart
             $x = cos($angle) * ($this->pieWidth + 35) / 2 + $this->pieCenterX;
             $y = sin($angle) * ($this->pieHeight + 35) / 2 + $this->pieCenterY;
 
-            $this->text->printText(
+            $this->text->draw(
                 $x,
                 $y,
-                $this->text->getTextColor(),
+                $this->text->getColor(),
                 $label,
-                $this->text->getTextFont(),
+                $this->text->getFont(),
                 $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
 

@@ -55,12 +55,12 @@ class Column extends AbstractChartBar
             $this->primitive->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
-            $this->text->printText(
+            $this->text->draw(
                 $graphArea->x1 - 10,
                 $y,
-                $this->text->getTextColor(),
+                $this->text->getColor(),
                 $this->axisLabelGenerator->generateLabel($value),
-                $this->text->getTextFont(),
+                $this->text->getFont(),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
@@ -93,7 +93,7 @@ class Column extends AbstractChartBar
                 $this->text->printDiagonal(
                     $x + $columnWidth * 1 / 3,
                     $graphArea->y2 + 10,
-                    $this->text->getTextColor(),
+                    $this->text->getColor(),
                     $label
                 );
             }
@@ -187,12 +187,12 @@ class Column extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->config->get('showPointCaption')) {
-                    $this->text->printText(
+                    $this->text->draw(
                         $x1 + $barWidth / 2,
                         ($value > 0 ? $ymin - 5 : $ymin + 15),
-                        $this->text->getTextColor(),
+                        $this->text->getColor(),
                         $this->barLabelGenerator->generateLabel($value),
-                        $this->text->getTextFont(),
+                        $this->text->getFont(),
                         $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_BOTTOM_ALIGN
                     );
                 }

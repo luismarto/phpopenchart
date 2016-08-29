@@ -59,12 +59,12 @@ class Bar extends AbstractChartBar
 
             // Draw the text for each step value (guiding marker)
             $label = $this->axisLabelGenerator->generateLabel($value);
-            $this->text->printText(
+            $this->text->draw(
                 $x,
                 $graphArea->y2 + 5,
-                $this->text->getTextColor(),
+                $this->text->getColor(),
                 $label,
-                $this->text->getTextFont(),
+                $this->text->getFont(),
                 $this->text->HORIZONTAL_CENTER_ALIGN
             );
         }
@@ -97,12 +97,12 @@ class Bar extends AbstractChartBar
 
                 $label = $point->getX();
 
-                $this->text->printText(
+                $this->text->draw(
                     $graphArea->x1 - 5,
                     $y - $rowHeight / 2,
-                    $this->text->getTextColor(),
+                    $this->text->getColor(),
                     $label,
-                    $this->text->getTextFont(),
+                    $this->text->getFont(),
                     $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
                 );
             }
@@ -212,12 +212,12 @@ class Bar extends AbstractChartBar
                     $textAlign = $this->text->VERTICAL_CENTER_ALIGN
                         | ($value > 0 ? $this->text->HORIZONTAL_LEFT_ALIGN : $this->text->HORIZONTAL_RIGHT_ALIGN);
 
-                    $this->text->printText(
+                    $this->text->draw(
                         $xmax + ($value > 0 ? 5 : -10),
                         $y2 - $barWidth / 2,
-                        $this->text->getTextColor(),
+                        $this->text->getColor(),
                         $label,
-                        $this->text->getTextFont(),
+                        $this->text->getFont(),
                         $textAlign
                     );
                 }

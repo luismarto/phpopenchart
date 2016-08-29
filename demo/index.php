@@ -36,7 +36,7 @@ $chart->setDataSet($dataSet);
 //$chart->setTitleColorHex('#333333');
 
 $chart->getTitle()->setText("Values");
-$chart->getText()->setTextColorHex('#33333');
+$chart->getText()->setColorHex('#33333');
 $chart->render();
 
 $chart = new \Libchart\Chart\Bar(600, 300);

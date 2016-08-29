@@ -231,8 +231,8 @@ trait PlotTrait
 
         // Compute Title Area
         $this->title->computeTitleArea($this->imageArea);
-        $titleHeight = $this->title->getTitleHeight();
-        $titlePadding = $this->title->getTitlePadding();
+        $titleHeight = $this->title->getHeight();
+        $titlePadding = $this->title->getPadding();
 
         // Compute graph area
         $titleUnpaddedBottom = $this->imageArea->y1 + $titleHeight + $titlePadding->top + $titlePadding->bottom;

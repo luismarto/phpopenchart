@@ -84,12 +84,12 @@ class Caption
             $this->primitive->outlinedBox($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[0], $this->palette->axisColor[1]);
             $this->primitive->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
 
-            $this->text->printText(
+            $this->text->draw(
                 $boxX2 + 5,
                 $boxY1 + $this->labelBoxHeight / 2,
-                $this->text->getTextColor(),
+                $this->text->getColor(),
                 $label,
-                $this->text->getTextFont(),
+                $this->text->getFont(),
                 $this->text->VERTICAL_CENTER_ALIGN
             );
 

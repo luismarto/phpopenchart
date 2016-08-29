@@ -29,12 +29,7 @@ class Text
     /**
      * @var string
      */
-    private $textFont;
-
-    /**
-     * @var string
-     */
-    private $titleFont;
+    private $font;
 
     /**
      * @var int
@@ -49,7 +44,7 @@ class Text
     /**
      * @var ColorHex
      */
-    private $textColor;
+    private $color;
 
     /**
      * Creates a new text drawing helper.
@@ -67,14 +62,12 @@ class Text
             . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
         );
 
-        $this->textFont = $this->fontsDirectory
+        $this->font = $this->fontsDirectory
             . $this->config->get('fonts.text', 'SourceSansPro-Light.otf');
-        $this->titleFont = $this->fontsDirectory
-            . $this->config->get('fonts.title', 'SourceSansPro-Regular.otf');
 
         $this->angle = $this->config->get('label.angle', 0);
         // @todo: make this configurable
-        $this->textColor = new ColorHex('#555555');
+        $this->color = new ColorHex('#555555');
     }
 
     /**
@@ -88,7 +81,7 @@ class Text
      * @param int $align text alignment
      * @param int $fontSize
      */
-    public function printText($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
+    public function draw($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
     {
         if (!($align & $this->HORIZONTAL_CENTER_ALIGN) && !($align & $this->HORIZONTAL_RIGHT_ALIGN)) {
             $align |= $this->HORIZONTAL_LEFT_ALIGN;
@@ -142,7 +135,7 @@ class Text
      */
     public function printCentered($py, $color, $text, $fontFileName)
     {
-        $this->printText(
+        $this->draw(
             imagesx($this->img) / 2,
             $py,
             $color,
@@ -163,7 +156,7 @@ class Text
     public function printDiagonal($px, $py, $color, $text)
     {
         $fontSize = $this->config->get('label.size', 11);
-        $fontFileName = $this->textFont;
+        $fontFileName = $this->font;
 
         $py = $py + $this->config->get('label.margin-top', 15);
         imagettftext($this->img, $fontSize, $this->angle, $px, $py, $color->getColor($this->img), $fontFileName, $text);
@@ -172,63 +165,58 @@ class Text
     /**
      * Sets a new font to be used for the text
      * @param string $fontName
+     * @return $this
      */
-    public function setTextFont($fontName)
+    public function setFont($fontName)
     {
-        $this->textFont = $this->fontsDirectory . $fontName;
+        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
+            $this->font = $this->fontsDirectory . $fontName;
+        } else {
+            $this->font = $fontName;
+        }
+
+        return $this;
     }
 
     /**
      * Returns the font used for the chart texts
      * @return string
      */
-    public function getTextFont()
+    public function getFont()
     {
-        return $this->textFont;
-    }
-
-    /**
-     * Sets a new font to be used for the chart title
-     * @param string $fontName
-     */
-    public function setTitleFont($fontName)
-    {
-        $this->titleFont = $this->fontsDirectory . $fontName;
-    }
-
-    /**
-     * Returns the font used for the chart's title
-     * @return string
-     */
-    public function getTitleFont()
-    {
-        return $this->titleFont;
+        return $this->font;
     }
 
     /**
      * Allows you to change the point's label angle on runtime
      * @param int $angle
+     * @return $this
      */
     public function setAngle($angle)
     {
         $this->angle = $angle;
+
+        return $this;
     }
 
     /**
-     * Defines the textColor
+     * Defines the color
      * @param string $hexColor
+     * @return $this
      */
-    public function setTextColorHex($hexColor)
+    public function setColorHex($hexColor)
     {
-        $this->textColor = new ColorHex($hexColor);
+        $this->color = new ColorHex($hexColor);
+
+        return $this;
     }
 
     /**
      * Returns the text color
      * @return ColorHex
      */
-    public function getTextColor()
+    public function getColor()
     {
-        return $this->textColor;
+        return $this->color;
     }
 }
