@@ -76,7 +76,7 @@ class Title
         // Check if the options were defined on the chart's constructor
         if (array_key_exists('title', $args) && is_array($args['title'])) {
             if (array_key_exists('font', $args['title'])) {
-                $this->font = $args['title']['font'];
+                $this->font = $this->setFont($args['title']['font']);
             }
             if (array_key_exists('size', $args['title'])) {
                 $this->fontSize = (int)$args['title']['size'];
@@ -97,10 +97,12 @@ class Title
 
         // If any option is null, get the config value or set a default value if the config doesn't exist
         if (is_null($this->font)) {
-            $this->font = $this->config->get(
-                'title.fonts',
-                __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
-                . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+            $this->font = $this->setFont(
+                $this->config->get(
+                    'title.fonts',
+                    __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
+                    . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+                )
             );
         }
         if (is_null($this->text)) {
@@ -173,5 +175,29 @@ class Title
     public function getPadding()
     {
         return $this->padding;
+    }
+
+    /**
+     * Private method to set the font for the title
+     * @param string $fontName
+     * @return $this
+     */
+    private function setFont($fontName)
+    {
+        $fontsDirectory = $this->config->get(
+            'fonts.path',
+            dirname(__FILE__)
+            . DIRECTORY_SEPARATOR. '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
+        );
+
+        // If a slash is on the filename, we assume the user setted the full path
+        // otherwise, look for the font on the default directory
+        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
+            $this->font = $fontsDirectory . $fontName;
+        } else {
+            $this->font = $fontName;
+        }
     }
 }
