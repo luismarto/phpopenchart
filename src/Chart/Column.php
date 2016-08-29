@@ -21,7 +21,7 @@ class Column extends AbstractChartBar
      */
     public function __construct($width = 600, $height = 250)
     {
-        parent::__construct($width, $height);
+        parent::__construct($width, $height, 'bar');
         $this->emptyToFullRatio = 1 / 5;
 
         $this->init($width, $height, $this->hasSeveralSerie);
@@ -198,31 +198,5 @@ class Column extends AbstractChartBar
                 }
             }
         }
-    }
-
-    /**
-     * Render the chart image.
-     *
-     * @param string $filename name of the file to render the image to (optional)
-     */
-    public function render($filename = null)
-    {
-        // Check the data model
-        $this->checkDataModel();
-
-        $this->bound->computeBound($this->dataSet);
-        $this->computeAxis();
-        $this->computeLayout();
-        $this->logo->draw();
-        $this->title->draw();
-        if (!$this->isEmptyDataSet(1)) {
-            $this->printAxis();
-            $this->printBar();
-            if ($this->hasSeveralSerie) {
-                $this->printCaption();
-            }
-        }
-
-        $this->output($filename);
     }
 }

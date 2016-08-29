@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- Added specific classes for Title and Logo
+
 ### Changed
+- The step markers no longer have a "small marker"
+- The point markers have an increased size
+- Updated the colors for the axis and guides
+- Reused shared code between Line, Column and Bar
+- If the logo is requested and the file does not exist, an exception is now throwed
 
 ## [2.0.0] - 2016-08-28
 ### Changed

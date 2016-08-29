@@ -49,7 +49,7 @@ class PrimitiveRectangle
      * Apply a padding and returns the resulting rectangle.
      * The result is an enlarged rectangle.
      *
-     * @param \stdClass $padding
+     * @param BasicPadding $padding
      * @return PrimitiveRectangle $padding Padded rectangle
      */
     public function getPaddedRectangle($padding)
@@ -61,7 +61,6 @@ class PrimitiveRectangle
             $this->y2 - $padding->bottom
         );
 
-        //echo "(" . $this->x1 . "," . $this->y1 . ") (" . $this->x2 . "," . $this->y2 . ")<br>";
         return $rectangle;
     }
 }

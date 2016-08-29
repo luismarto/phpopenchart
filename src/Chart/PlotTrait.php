@@ -162,11 +162,6 @@ trait PlotTrait
     protected $barLabelGenerator;
 
     /**
-     * @var Color
-     */
-    protected $backGroundColor;
-
-    /**
      * @var Config
      */
     protected $config;

@@ -17,7 +17,7 @@ class Line extends AbstractChartBar
      */
     public function __construct($width = 600, $height = 250)
     {
-        parent::__construct($width, $height);
+        parent::__construct($width, $height, 'line');
         $this->init($width, $height, $this->hasSeveralSerie);
         $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
@@ -136,31 +136,5 @@ class Line extends AbstractChartBar
                 $y1 = $y2;
             }
         }
-    }
-
-    /**
-     * Render the chart image.
-     *
-     * @param string $filename name of the file to render the image to (optional)
-     */
-    public function render($filename = null)
-    {
-        // Check the data model
-        $this->checkDataModel();
-
-        $this->bound->computeBound($this->dataSet);
-        $this->computeAxis();
-        $this->computeLayout();
-        $this->logo->draw();
-        $this->title->draw();
-        if (!$this->isEmptyDataSet(2)) {
-            $this->printAxis();
-            $this->printLine();
-            if ($this->hasSeveralSerie) {
-                $this->printCaption();
-            }
-        }
-
-        $this->output($filename);
     }
 }

@@ -27,16 +27,23 @@ abstract class AbstractChartBar extends AbstractChart
     protected $hasSeveralSerie;
 
     /**
+     * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar) or 'line')
+     * @var string
+     */
+    private $type;
+
+    /**
      * Creates a new bar chart.
      *
      * @param integer $width width of the image
      * @param integer $height height of the image
      */
-    protected function __construct($width, $height)
+    protected function __construct($width, $height, $type)
     {
         // Initialize the bounds
         $this->bound = new AxisBound();
         $this->bound->setLowerBound(0);
+        $this->type = $type;
     }
 
     /**
@@ -175,5 +182,32 @@ abstract class AbstractChartBar extends AbstractChart
 
         // Render the caption
         $caption->render();
+    }
+
+    /**
+     * Render the chart image.
+     *
+     * @param string|null $filename name of the file to render the image to (optional)
+     */
+    public function render($filename = null)
+    {
+        // Check the data model
+        $this->checkDataModel();
+
+        $this->bound->computeBound($this->dataSet);
+        $this->computeAxis();
+        $this->computeLayout();
+        $this->logo->draw();
+        $this->title->draw();
+        // @todo: Check the possibility of printing the chart line with only one point (it would look like a point)
+        if (!$this->isEmptyDataSet($this->type === 'line' ? 2 : 1)) {
+            $this->printAxis();
+            $this->{'print' . strtoupper($this->type)}();
+            if ($this->hasSeveralSerie) {
+                $this->printCaption();
+            }
+        }
+
+        $this->output($filename);
     }
 }
