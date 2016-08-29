@@ -46,7 +46,7 @@ class Bar extends AbstractChartBar
          * Deal with the Horizontal Axis
          */
         // Draw the line for the X axis
-        $this->primitive->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
+        $this->gd->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $x = $graphArea->x1
@@ -55,7 +55,7 @@ class Bar extends AbstractChartBar
                 / ($this->axis->displayDelta);
 
             // Draw the guiding line and marker for each step value
-            $this->primitive->line($x, $graphArea->y1, $x, $graphArea->y2, $this->palette->backgroundColor);
+            $this->gd->line($x, $graphArea->y1, $x, $graphArea->y2, $this->palette->backgroundColor);
 
             // Draw the text for each step value (guiding marker)
             $label = $this->axisLabelGenerator->generateLabel($value);
@@ -83,13 +83,13 @@ class Bar extends AbstractChartBar
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
         // Draw the Y axis
-        $this->primitive->line($verticalOriginX, $graphArea->y1, $verticalOriginX, $graphArea->y2, $axisColor0);
+        $this->gd->line($verticalOriginX, $graphArea->y1, $verticalOriginX, $graphArea->y2, $axisColor0);
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $y = $graphArea->y2 - $i * $rowHeight;
 
             // Prints the small blue markers that separate each point / bar
-            $this->primitive->line($verticalOriginX - 5, $y, $verticalOriginX, $y, $axisColor0);
+            $this->gd->line($verticalOriginX - 5, $y, $verticalOriginX, $y, $axisColor0);
 
             if ($i < $pointCount) {
                 $point = current($pointList);

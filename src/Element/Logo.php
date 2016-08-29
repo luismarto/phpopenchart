@@ -18,9 +18,9 @@ class Logo
     private $config;
 
     /**
-     * @var Primitive resource
+     * @var Gd resource
      */
-    private $primitive;
+    private $gd;
 
     /**
      * @var \stdClass
@@ -28,14 +28,14 @@ class Logo
     private $outerPadding;
 
     /**
-     * @param Primitive $primitive
+     * @param Gd $gd
      * @param BasicPadding $outerPadding
      * @param \Noodlehaus\Config $config
      */
-    public function __construct($primitive, $outerPadding, $config)
+    public function __construct($gd, $outerPadding, $config)
     {
         $this->config = $config;
-        $this->primitive = $primitive;
+        $this->gd = $gd;
         $this->outerPadding = $outerPadding;
 
         // By default, don't display the logo
@@ -53,7 +53,7 @@ class Logo
             return false;
         }
 
-        $this->primitive->copyMergeImage(
+        $this->gd->copyMergeImage(
             $this->filename,
             2 * $this->outerPadding->left,
             $this->outerPadding->top,

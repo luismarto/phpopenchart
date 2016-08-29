@@ -43,7 +43,7 @@ class Column extends AbstractChartBar
         /**
          * Deal with the Vertical Axis
          */
-        $this->primitive->line($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1 - 1, $graphArea->y2, $axisColor0);
+        $this->gd->line($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1 - 1, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
@@ -52,7 +52,7 @@ class Column extends AbstractChartBar
                 / ($this->axis->displayDelta);
 
             // For each marker, create the "guiding line"
-            $this->primitive->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
+            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
             $this->text->draw(
@@ -76,13 +76,13 @@ class Column extends AbstractChartBar
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-        $this->primitive->line($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
+        $this->gd->line($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
         for ($i = 0; $i <= $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
             // Draw the bar separator marker
-            $this->primitive->line($x, $horizOriginY, $x, $horizOriginY + 5, $axisColor0);
+            $this->gd->line($x, $horizOriginY, $x, $horizOriginY + 5, $axisColor0);
 
             if ($i < $pointCount) {
                 $point = current($pointList);
@@ -176,7 +176,7 @@ class Column extends AbstractChartBar
                 // Draw the vertical bar
                 // Prevents drawing a small box when y = 0
                 if ($value != 0) {
-                    $this->primitive->rectangle(
+                    $this->gd->rectangle(
                         $x1 + 1,
                         $ymin + ($value > 0 ? 1 : 0),
                         $x2 - 4,

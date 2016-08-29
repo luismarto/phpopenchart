@@ -126,7 +126,7 @@ class Pie extends AbstractChart
         $graphArea = $this->graphArea;
 
         // Legend box
-        $this->primitive->outlinedBox(
+        $this->gd->outlinedBox(
             $graphArea->x1,
             $graphArea->y1,
             $graphArea->x2,
@@ -137,7 +137,7 @@ class Pie extends AbstractChart
 
         // Aqua-like background
         for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
-            $this->primitive->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
+            $this->gd->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
         }
     }
 
@@ -162,7 +162,7 @@ class Pie extends AbstractChart
         $caption = new Caption(
             $this->captionArea,
             $this->palette->pieColorSet,
-            $this->primitive,
+            $this->gd,
             $this->palette,
             $this->text
         );

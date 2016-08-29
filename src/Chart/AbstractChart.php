@@ -10,7 +10,7 @@ use Libchart\Data\XYSeriesDataSet;
  */
 abstract class AbstractChart
 {
-    use PlotTrait;
+    use ChartTrait;
 
     /**
      * The data set.

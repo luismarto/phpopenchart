@@ -36,7 +36,7 @@ class Line extends AbstractChartBar
         $axisColor0 = $this->palette->axisColor[0];
 
         // Vertical axis
-        $this->primitive->rectangle($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
+        $this->gd->rectangle($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
@@ -44,8 +44,8 @@ class Line extends AbstractChartBar
                 * ($graphArea->y2 - $graphArea->y1)
                 / ($this->axis->displayDelta);
 
-            $this->primitive->rectangle($graphArea->x1 - 3, $y, $graphArea->x1 - 2, $y +1, $axisColor0);
-            $this->primitive->rectangle($graphArea->x1 -1, $y, $graphArea->x1, $y + 1, $axisColor0);
+            $this->gd->rectangle($graphArea->x1 - 3, $y, $graphArea->x1 - 2, $y +1, $axisColor0);
+            $this->gd->rectangle($graphArea->x1 -1, $y, $graphArea->x1, $y + 1, $axisColor0);
 
             $this->text->draw(
                 $graphArea->x1 - 5,
@@ -66,13 +66,13 @@ class Line extends AbstractChartBar
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
-        $this->primitive->rectangle($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY + 1, $axisColor0);
+        $this->gd->rectangle($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY + 1, $axisColor0);
 
         for ($i = 0; $i < $pointCount; $i++) {
             $x = $graphArea->x1 + $i * $columnWidth;
 
-            $this->primitive->rectangle($x - 1, $graphArea->y2 + 2, $x, $graphArea->y2 + 3, $axisColor0);
-            $this->primitive->rectangle($x -1, $graphArea->y2, $x, $graphArea->y2 + 1, $axisColor0);
+            $this->gd->rectangle($x - 1, $graphArea->y2 + 2, $x, $graphArea->y2 + 3, $axisColor0);
+            $this->gd->rectangle($x -1, $graphArea->y2, $x, $graphArea->y2 + 1, $axisColor0);
 
             $point = current($pointList);
             next($pointList);
@@ -128,8 +128,8 @@ class Line extends AbstractChartBar
 
                 // Draw line
                 if ($x1) {
-                    $this->primitive->line($x1, $y1, $x2, $y2, $lineColor, 4);
-                    $this->primitive->line($x1, $y1 - 1, $x2, $y2 - 1, $lineColorShadow, 2);
+                    $this->gd->line($x1, $y1, $x2, $y2, $lineColor, 4);
+                    $this->gd->line($x1, $y1 - 1, $x2, $y2 - 1, $lineColorShadow, 2);
                 }
 
                 $x1 = $x2;

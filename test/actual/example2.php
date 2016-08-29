@@ -11,7 +11,7 @@
     $dataSet->addPoint(new \Libchart\Data\Point("/wiki/World_Wide_Web", 142));
     $chart->setDataSet($dataSet);
     
-	$chart->getPlot()->setGraphPadding(new \Libchart\View\Primitive\Padding(5, 30, 20, 140));
+	$chart->getPlot()->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 140));
 	$chart->setTitle("Most visited pages for www.example.com");
     $chart->render();
 ?>

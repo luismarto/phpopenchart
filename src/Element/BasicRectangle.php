@@ -1,9 +1,11 @@
 <?php namespace Libchart\Element;
 
 /**
+ * Class BasicRectangle
  * A rectangle identified by the top-left and the bottom-right corners.
+ * @package Libchart\Element
  */
-class PrimitiveRectangle
+class BasicRectangle
 {
     /**
      * Top left X.
@@ -50,11 +52,11 @@ class PrimitiveRectangle
      * The result is an enlarged rectangle.
      *
      * @param BasicPadding $padding
-     * @return PrimitiveRectangle $padding Padded rectangle
+     * @return BasicRectangle $padding Padded rectangle
      */
     public function getPaddedRectangle($padding)
     {
-        $rectangle = new PrimitiveRectangle(
+        $rectangle = new BasicRectangle(
             $this->x1 + $padding->left,
             $this->y1 + $padding->top,
             $this->x2 - $padding->right,

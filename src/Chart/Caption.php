@@ -29,9 +29,9 @@ class Caption
     private $captionArea;
 
     /**
-     * @var \Libchart\Element\Primitive
+     * @var \Libchart\Element\Gd
      */
-    private $primitive;
+    private $gd;
 
     /**
      * @var \Libchart\Color\ColorPalette
@@ -46,17 +46,17 @@ class Caption
     /**
      * @param $captionArea
      * @param \Libchart\Color\ColorSet $colorSet
-     * @param \Libchart\Element\Primitive $primitive
+     * @param \Libchart\Element\Gd $gd
      * @param \Libchart\Color\ColorPalette $palette
      * @param \Libchart\Element\Text $text
      */
-    public function __construct($captionArea, $colorSet, $primitive, $palette, $text)
+    public function __construct($captionArea, $colorSet, $gd, $palette, $text)
     {
         $this->labelBoxWidth = 15;
         $this->labelBoxHeight = 15;
         $this->captionArea = $captionArea;
         $this->colorSet = $colorSet;
-        $this->primitive = $primitive;
+        $this->gd = $gd;
         $this->palette = $palette;
         $this->text = $text;
     }
@@ -81,8 +81,8 @@ class Caption
             $boxY1 = $this->captionArea->y1 + 5 + $i * ($this->labelBoxHeight + 5);
             $boxY2 = $boxY1 + $this->labelBoxHeight;
 
-            $this->primitive->outlinedBox($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[0], $this->palette->axisColor[1]);
-            $this->primitive->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
+            $this->gd->outlinedBox($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[0], $this->palette->axisColor[1]);
+            $this->gd->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
 
             $this->text->draw(
                 $boxX2 + 5,

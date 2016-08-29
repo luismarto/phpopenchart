@@ -2,17 +2,16 @@
 
 use Libchart\Color\ColorPalette;
 use Libchart\Color\ColorHex;
-use Libchart\Color\Color;
 use Libchart\Element\BasicPadding;
+use Libchart\Element\BasicRectangle;
 use Libchart\Element\Logo;
-use Libchart\Element\Primitive;
-use Libchart\Element\PrimitiveRectangle;
+use Libchart\Element\Gd;
 use Libchart\Element\Text;
 use Libchart\Element\Title;
 use Noodlehaus\Config;
 
 /**
- * Class PlotTrait
+ * Class ChartTrait
  *
  * The plot holds graphical attributes, and is responsible for computing the layout of the graph.
  * The layout is quite simple right now, with 4 areas laid out like that:
@@ -42,7 +41,7 @@ use Noodlehaus\Config;
  *
  * @package Libchart\Chart
  */
-trait PlotTrait
+trait ChartTrait
 {
     /**
      * Width of the chart in pixels
@@ -64,9 +63,9 @@ trait PlotTrait
 
     /**
      * Var with GD methods to create lines and rectangles
-     * @var Primitive
+     * @var Gd
      */
-    protected $primitive;
+    protected $gd;
 
     /**
      * Default color palette with methods to set other colors
@@ -94,7 +93,7 @@ trait PlotTrait
 
     /**
      * Outer area, whose dimension is the same as the PNG returned.
-     * @var PrimitiveRectangle
+     * @var BasicRectangle
      */
     protected $outputArea;
 
@@ -135,7 +134,7 @@ trait PlotTrait
 
     /**
      * Coordinates of the graph area.
-     * @var PrimitiveRectangle
+     * @var BasicRectangle
      */
     protected $graphArea;
 
@@ -188,14 +187,14 @@ trait PlotTrait
         $this->img = imagecreatetruecolor($this->width, $this->height);
 
         // Init graphical classes
-        $this->primitive = new Primitive($this->img);
+        $this->gd = new Gd($this->img);
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
-        $this->logo = new Logo($this->primitive, $this->outerPadding, $this->config);
+        $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
         // Immediately draw the chart background
-        $this->primitive->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
+        $this->gd->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
 
         $axisLabelGeneratorClass = $this->config->get(
             'axisLabelGenerator',
@@ -209,7 +208,7 @@ trait PlotTrait
         $this->barLabelGenerator = new $barLabelGeneratorClass;
 
         // Default layout
-        $this->outputArea = new PrimitiveRectangle(0, 0, $this->width - 1, $this->height - 1);
+        $this->outputArea = new BasicRectangle(0, 0, $this->width - 1, $this->height - 1);
         $this->hasCaption = false;
         $this->graphCaptionRatio = 0.50;
         $this->graphPadding = new BasicPadding(50, 50, 50, 50);
@@ -243,14 +242,14 @@ trait PlotTrait
                 * $this->graphCaptionRatio
                 + $this->graphPadding->left
                 + $this->graphPadding->right;
-            $graphArea = new PrimitiveRectangle(
+            $graphArea = new BasicRectangle(
                 $this->imageArea->x1,
                 $titleUnpaddedBottom,
                 $graphUnpaddedRight - 1,
                 $this->imageArea->y2
             );
         } else {
-            $graphArea = new PrimitiveRectangle(
+            $graphArea = new BasicRectangle(
                 $this->imageArea->x1,
                 $titleUnpaddedBottom,
                 $this->imageArea->x2,
@@ -271,7 +270,7 @@ trait PlotTrait
                 + $titleHeight
                 + $titlePadding->top
                 + $titlePadding->bottom;
-            $captionArea = new PrimitiveRectangle(
+            $captionArea = new BasicRectangle(
                 $graphUnpaddedRight,
                 $titleUnpaddedBottom,
                 $this->imageArea->x2,

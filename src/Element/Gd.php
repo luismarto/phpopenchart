@@ -3,9 +3,11 @@
 use Libchart\Exception\LogoFileNotFoundException;
 
 /**
+ * Class Gd
  * Graphic primitives, extends GD with chart related primitives.
+ * @package Libchart\Element
  */
-class Primitive
+class Gd
 {
     private $img;
 

@@ -20,6 +20,6 @@
     
     $chart->setTitle("Monthly usage for www.example.com");
     $chart->getPlot()->setLabelGenerator(new ThousandLabelGenerator());
-	$chart->getPlot()->setGraphPadding(new \Libchart\Element\Primitive\Padding(5, 30, 20, 100));
+	$chart->getPlot()->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 100));
     $chart->render();
 ?>

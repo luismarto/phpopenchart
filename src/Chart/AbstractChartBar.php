@@ -37,6 +37,7 @@ abstract class AbstractChartBar extends AbstractChart
      *
      * @param integer $width width of the image
      * @param integer $height height of the image
+     * @param string $type
      */
     protected function __construct($width, $height, $type)
     {
@@ -174,7 +175,7 @@ abstract class AbstractChartBar extends AbstractChart
         $caption = new Caption(
             $this->captionArea,
             $this->palette->barColorSet,
-            $this->primitive,
+            $this->gd,
             $this->palette,
             $this->text
         );

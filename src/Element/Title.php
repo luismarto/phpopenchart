@@ -78,7 +78,7 @@ class Title
 
     /**
      * Processes the image area and created an area, on the chart, for the title
-     * @param PrimitiveRectangle $imageArea
+     * @param BasicRectangle $imageArea
      */
     public function computeTitleArea($imageArea)
     {
@@ -87,7 +87,7 @@ class Title
             + $this->padding->top
             + $this->padding->bottom;
 
-        $area = new PrimitiveRectangle(
+        $area = new BasicRectangle(
             $imageArea->x1,
             $imageArea->y1,
             $imageArea->x2,
