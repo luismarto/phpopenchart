@@ -377,4 +377,13 @@ trait ChartTrait
     {
         return $this->title;
     }
+
+    /**
+     * Returns the ColorPalette instance used on this chart
+     * @return ColorPalette
+     */
+    public function getPalette()
+    {
+        return $this->palette;
+    }
 }

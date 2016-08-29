@@ -53,6 +53,12 @@ class Short implements LabelInterface
 
         // We found our match, or there were no matches.
         // Either way, use the last defined value for $divisor.
+
+        // If the value is 0, don't display precision
+        if ($number / $divisor == 0) {
+            return 0;
+        }
+
         return number_format($number / $divisor, $precision) . $shorthand;
     }
 }
