@@ -104,10 +104,10 @@ class Title
             );
         }
         if (is_null($this->text)) {
-            $this->text = (int)$this->config->get('title.text', 'Undefined title');
+            $this->text = $this->config->get('title.text', 'Undefined title');
         }
         if (is_null($this->fontSize)) {
-            $this->fontSize = $this->config->get('title.size', 14);
+            $this->fontSize = (int)$this->config->get('title.size', 14);
         }
         if (is_null($this->color)) {
             $this->color = new ColorHex($this->config->get('title.color', '#444444'));

@@ -24,16 +24,21 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Bar(600, 170);
+$chart = new \Libchart\Chart\Bar([
+    'width' => 600,
+    'height' => 170,
+    'title' => [
+        'text' => "Most visited pages for www.example.com"
+    ],
+    'dataset' => [
+        ["/wiki/Instant_messenger", 50],
+        ["/wiki/Web_Browser", 75],
+        ["/wiki/World_Wide_Web", 122],
+    ]
+]);
 
-$dataSet = new \Libchart\Data\XYDataSet();
-$dataSet->addPoint(new \Libchart\Data\Point("/wiki/Instant_messenger", 50));
-$dataSet->addPoint(new \Libchart\Data\Point("/wiki/Web_Browser", 75));
-$dataSet->addPoint(new \Libchart\Data\Point("/wiki/World_Wide_Web", 122));
-$chart->setDataSet($dataSet);
-$chart->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 140));
+$chart->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 200));
 
-$chart->getTitle()->setText("Most visited pages for www.example.com");
 $chart->render("generated/demo2.png");
 ?>
 <!DOCTYPE html>

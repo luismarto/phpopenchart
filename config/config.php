@@ -117,9 +117,6 @@ return [
         |
         */
         'text' => 'SourceSansPro-Regular.otf',
-
-        'title' => 'SourceSansPro-Semibold.otf',
-
     ],
 
     /*

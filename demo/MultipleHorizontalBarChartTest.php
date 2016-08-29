@@ -24,26 +24,33 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Bar(450, 250);
-
-$serie1 = new \Libchart\Data\XYDataSet();
-$serie1->addPoint(new \Libchart\Data\Point("18-24", 22));
-$serie1->addPoint(new \Libchart\Data\Point("25-34", 17));
-$serie1->addPoint(new \Libchart\Data\Point("35-44", 20));
-$serie1->addPoint(new \Libchart\Data\Point("45-54", 25));
-
-$serie2 = new \Libchart\Data\XYDataSet();
-$serie2->addPoint(new \Libchart\Data\Point("18-24", 13));
-$serie2->addPoint(new \Libchart\Data\Point("25-34", 18));
-$serie2->addPoint(new \Libchart\Data\Point("35-44", 23));
-$serie2->addPoint(new \Libchart\Data\Point("45-54", 22));
-
-$dataSet = new \Libchart\Data\XYSeriesDataSet();
-$dataSet->addSerie("Male", $serie1);
-$dataSet->addSerie("Female", $serie2);
-$chart->setDataSet($dataSet);
-
-$chart->getTitle()->setText("Firefox vs IE users: Age");
+$chart = new \Libchart\Chart\Bar([
+    'width' => 450,
+    'height' => 250,
+    'title' => [
+        'text' => "Firefox vs IE users: Age"
+    ],
+    'dataset' => [
+        [
+            'name' => 'Male',
+            'points' => [
+                ["18-24", 22],
+                ["25-34", 17],
+                ["35-44", 20],
+                ["45-54", 25],
+            ]
+        ],
+        [
+            'name' => 'Female',
+            'points' => [
+                ["18-24", 13],
+                ["25-34", 18],
+                ["35-44", 23],
+                ["45-54", 22],
+            ]
+        ],
+    ]
+]);
 $chart->render("generated/demo8.png");
 ?>
 <!DOCTYPE html>

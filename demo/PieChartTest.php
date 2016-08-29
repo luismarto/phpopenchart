@@ -24,18 +24,20 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Pie();
+$chart = new \Libchart\Chart\Pie([
+    'title' => [
+        'text' => 'User agents for www.example.com'
+    ],
+    'dataset' => [
+        ["Mozilla Firefox (80)", 80],
+        ["Konqueror (75)", 75],
+        ["Opera (50)", 50],
+        ["Safari (37)", 37],
+        ["Dillo (37)", 37],
+        ["Other (72)", 70],
+    ]
+]);
 
-$dataSet = new \Libchart\Data\XYDataSet();
-$dataSet->addPoint(new \Libchart\Data\Point("Mozilla Firefox (80)", 80));
-$dataSet->addPoint(new \Libchart\Data\Point("Konqueror (75)", 75));
-$dataSet->addPoint(new \Libchart\Data\Point("Opera (50)", 50));
-$dataSet->addPoint(new \Libchart\Data\Point("Safari (37)", 37));
-$dataSet->addPoint(new \Libchart\Data\Point("Dillo (37)", 37));
-$dataSet->addPoint(new \Libchart\Data\Point("Other (72)", 70));
-$chart->setDataSet($dataSet);
-
-$chart->getTitle()->setText("User agents for www.example.com");
 $chart->render("generated/demo3.png");
 ?>
 <!DOCTYPE html>

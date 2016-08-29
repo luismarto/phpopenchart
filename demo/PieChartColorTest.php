@@ -24,23 +24,25 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Pie();
+$chart = new \Libchart\Chart\Pie([
+    'title' => [
+        'text' => 'Deadly mushrooms'
+    ],
+    'dataset' => [
+        ["Amanita abrupta", 80],
+        ["Amanita arocheae", 75],
+        ["Clitocybe dealbata", 50],
+        ["Cortinarius rubellus", 70],
+        ["Gyromitra esculenta", 37],
+        ["Lepiota castanea", 37],
+    ]
+]);
 
 $chart->getPalette()->setPieColor(array(
     new \Libchart\Color\Color(255, 0, 0),
     new \Libchart\Color\Color(255, 255, 255)
 ));
 
-$dataSet = new \Libchart\Data\XYDataSet();
-$dataSet->addPoint(new \Libchart\Data\Point("Amanita abrupta", 80));
-$dataSet->addPoint(new \Libchart\Data\Point("Amanita arocheae", 75));
-$dataSet->addPoint(new \Libchart\Data\Point("Clitocybe dealbata", 50));
-$dataSet->addPoint(new \Libchart\Data\Point("Cortinarius rubellus", 70));
-$dataSet->addPoint(new \Libchart\Data\Point("Gyromitra esculenta", 37));
-$dataSet->addPoint(new \Libchart\Data\Point("Lepiota castanea", 37));
-$chart->setDataSet($dataSet);
-
-$chart->getTitle()->setText("Deadly mushrooms");
 $chart->render("generated/pie_chart_color.png");
 ?>
 <!DOCTYPE html>

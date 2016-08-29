@@ -24,29 +24,35 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Column();
-
-$serie1 = new \Libchart\Data\XYDataSet();
-$serie1->addPoint(new \Libchart\Data\Point("YT", 64));
-$serie1->addPoint(new \Libchart\Data\Point("NT", 63));
-$serie1->addPoint(new \Libchart\Data\Point("BC", 58));
-$serie1->addPoint(new \Libchart\Data\Point("AB", 58));
-$serie1->addPoint(new \Libchart\Data\Point("SK", 46));
-
-$serie2 = new \Libchart\Data\XYDataSet();
-$serie2->addPoint(new \Libchart\Data\Point("YT", 61));
-$serie2->addPoint(new \Libchart\Data\Point("NT", 60));
-$serie2->addPoint(new \Libchart\Data\Point("BC", 56));
-$serie2->addPoint(new \Libchart\Data\Point("AB", 57));
-$serie2->addPoint(new \Libchart\Data\Point("SK", 52));
-
-$dataSet = new \Libchart\Data\XYSeriesDataSet();
-$dataSet->addSerie("1990", $serie1);
-$dataSet->addSerie("1995", $serie2);
-$chart->setDataSet($dataSet);
+$chart = new \Libchart\Chart\Column([
+    'title' => [
+        'text' => "Average family income (k$)"
+    ],
+    'dataset' => [
+        [
+            'name' => '1990',
+            'points' => [
+                ["YT", 64],
+                ["NT", 63],
+                ["BC", 58],
+                ["AB", 58],
+                ["SK", 46],
+            ]
+        ],
+        [
+            'name' => '1995',
+            'points' => [
+                ["YT", 61],
+                ["NT", 60],
+                ["BC", 56],
+                ["AB", 57],
+                ["SK", 52],
+            ]
+        ],
+    ]
+]);
 $chart->setGraphCaptionRatio(0.65);
 
-$chart->getTitle()->setText("Average family income (k$)");
 $chart->render("generated/demo7.png");
 ?>
 <!DOCTYPE html>

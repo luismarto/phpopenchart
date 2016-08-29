@@ -24,20 +24,20 @@
 
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Column();
-
-$dataSet = new \Libchart\Data\XYDataSet();
-$dataSet->addPoint(new \Libchart\Data\Point("Jan 2005", 273));
-$dataSet->addPoint(new \Libchart\Data\Point("Feb 2005", 421));
-$dataSet->addPoint(new \Libchart\Data\Point("March 2005", 642));
-$dataSet->addPoint(new \Libchart\Data\Point("April 2005", 800));
-$dataSet->addPoint(new \Libchart\Data\Point("May 2005", 1200));
-$dataSet->addPoint(new \Libchart\Data\Point("June 2005", 1500));
-$dataSet->addPoint(new \Libchart\Data\Point("July 2005", 2600));
-$chart->setDataSet($dataSet);
-
-$chart->getTitle()->setText("Monthly usage for www.example.com");
-$chart->render("generated/demo1.png");
+$chart = (new \Libchart\Chart\Column([
+    'title' => [
+        'text' => 'Monthly usage for www.example.com'
+    ],
+    'dataset' => [
+        ["Jan 2005", 273],
+        ["Feb 2005", 421],
+        ["March 2005", 642],
+        ["April 2005", 800],
+        ["May 2005", 1200],
+        ["June 2005", 1500],
+        ["July 2005", 2600],
+    ]
+]))->render("generated/demo1.png");
 ?>
 <!DOCTYPE html>
 <html>

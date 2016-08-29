@@ -23,24 +23,26 @@
  */
 include "../vendor/autoload.php";
 
-$chart = new \Libchart\Chart\Line();
+$chart = new \Libchart\Chart\Line([
+    'title' => [
+        'text' => "Sales for 2006"
+    ],
+    'dataset' => [
+        ["06-01", 273],
+        ["06-02", 421],
+        ["06-03", 642],
+        ["06-04", 799],
+        ["06-05", 1009],
+        ["06-06", 1406],
+        ["06-07", 1820],
+        ["06-08", 2511],
+        ["06-09", 2832],
+        ["06-10", 3550],
+        ["06-11", 4143],
+        ["06-12", 4715],
+    ]
+]);
 
-$dataSet = new \Libchart\Data\XYDataSet();
-$dataSet->addPoint(new \Libchart\Data\Point("06-01", 273));
-$dataSet->addPoint(new \Libchart\Data\Point("06-02", 421));
-$dataSet->addPoint(new \Libchart\Data\Point("06-03", 642));
-$dataSet->addPoint(new \Libchart\Data\Point("06-04", 799));
-$dataSet->addPoint(new \Libchart\Data\Point("06-05", 1009));
-$dataSet->addPoint(new \Libchart\Data\Point("06-06", 1406));
-$dataSet->addPoint(new \Libchart\Data\Point("06-07", 1820));
-$dataSet->addPoint(new \Libchart\Data\Point("06-08", 2511));
-$dataSet->addPoint(new \Libchart\Data\Point("06-09", 2832));
-$dataSet->addPoint(new \Libchart\Data\Point("06-10", 3550));
-$dataSet->addPoint(new \Libchart\Data\Point("06-11", 4143));
-$dataSet->addPoint(new \Libchart\Data\Point("06-12", 4715));
-$chart->setDataSet($dataSet);
-
-$chart->getTitle()->setText("Sales for 2006");
 $chart->render("generated/demo5.png");
 ?>
 <!DOCTYPE html>

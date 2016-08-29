@@ -177,7 +177,7 @@ abstract class AbstractChart
     protected function __construct($args)
     {
         $width = !array_key_exists('width', $args) ? 600 : $args['width'];
-        $height = !array_key_exists('height', $args) ? 600 : $args['height'];
+        $height = !array_key_exists('height', $args) ? 300 : $args['height'];
 
         // Get config file
         // Initialize the configuration
