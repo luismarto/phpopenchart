@@ -51,7 +51,7 @@ class Pie extends AbstractChart
      */
     public function __construct($args)
     {
-        $this->init($args);
+        parent::__construct($args);
         $this->setGraphPadding(new BasicPadding(15, 10, 30, 30));
     }
 

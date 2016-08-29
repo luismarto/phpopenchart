@@ -16,8 +16,8 @@ class Line extends AbstractChartBar
      */
     public function __construct($args)
     {
-        parent::__construct('line');
-        $this->init($args, $this->hasSeveralSerie);
+        parent::__construct($args, 'line');
+
         $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 

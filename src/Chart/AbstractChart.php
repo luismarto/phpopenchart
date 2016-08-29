@@ -26,19 +26,6 @@ abstract class AbstractChart
      */
     protected $dataSet;
 
-
-    /**
-     * Width of the chart in pixels
-     * @var int
-     */
-    protected $width;
-
-    /**
-     * Height of the chart in pixels
-     * @var int
-     */
-    protected $height;
-
     /**
      * GD image of the chart
      * @var resource|null
@@ -155,6 +142,59 @@ abstract class AbstractChart
     private $hasSeveralSeries;
 
     /**
+     * Boots the chart dependencies
+     * @param array $args
+     * @param bool $hasSeveralSeries
+     */
+    protected function __construct($args, $hasSeveralSeries = true)
+    {
+        $width = !array_key_exists('width', $args) ? 600 : $args['width'];
+        $height = !array_key_exists('height', $args) ? 600 : $args['height'];
+
+        // Get config file
+        // Initialize the configuration
+        $configPath = __DIR__
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+        $this->config = Config::load($configPath);
+
+        // Create image
+        $this->img = imagecreatetruecolor($width, $height);
+
+        // Init graphical classes
+        $this->gd = new Gd($this->img);
+        $this->text = new Text($this->img, $this->config);
+        $this->title = new Title($args, $this->text, $this->config);
+        $this->outerPadding = new BasicPadding(5, 5, 5, 5);
+        $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
+        $this->palette = new ColorPalette();
+        // Immediately draw the chart background
+        $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
+
+        $axisLabelGeneratorClass = $this->config->get(
+            'axisLabelGenerator',
+            '\Libchart\Label\DefaultLabel'
+        );
+        $this->axisLabelGenerator = new $axisLabelGeneratorClass;
+        $barLabelGeneratorClass = $this->config->get(
+            'barLabelGenerator',
+            '\Libchart\Label\DefaultLabel'
+        );
+        $this->barLabelGenerator = new $barLabelGeneratorClass;
+
+        // Default layout
+        $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
+        $this->hasCaption = false;
+        $this->graphCaptionRatio = 0.50;
+        $this->graphPadding = new BasicPadding(50, 50, 50, 50);
+        $this->captionPadding = new BasicPadding(15, 15, 15, 15);
+
+        $this->hasSeveralSeries = $hasSeveralSeries;
+    }
+
+
+    /**
      * Checks the data model before rendering the graph.
      */
     protected function checkDataModel()
@@ -175,58 +215,6 @@ abstract class AbstractChart
     public function setDataSet($dataSet)
     {
         $this->dataSet = $dataSet;
-    }
-
-    /**
-     * Boots the chart dependencies
-     * @param array $args
-     * @param bool $hasSeveralSeries
-     */
-    protected function init($args, $hasSeveralSeries = true)
-    {
-        $this->width = !array_key_exists('width', $args) ? 600 : $args['width'];
-        $this->height = !array_key_exists('height', $args) ? 600 : $args['height'];
-
-        // Get config file
-        // Initialize the configuration
-        $configPath = __DIR__
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
-        $this->config = Config::load($configPath);
-
-        // Create image
-        $this->img = imagecreatetruecolor($this->width, $this->height);
-
-        // Init graphical classes
-        $this->gd = new Gd($this->img);
-        $this->text = new Text($this->img, $this->config);
-        $this->title = new Title($args, $this->text, $this->config);
-        $this->outerPadding = new BasicPadding(5, 5, 5, 5);
-        $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
-        $this->palette = new ColorPalette();
-        // Immediately draw the chart background
-        $this->gd->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
-
-        $axisLabelGeneratorClass = $this->config->get(
-            'axisLabelGenerator',
-            '\Libchart\Label\DefaultLabel'
-        );
-        $this->axisLabelGenerator = new $axisLabelGeneratorClass;
-        $barLabelGeneratorClass = $this->config->get(
-            'barLabelGenerator',
-            '\Libchart\Label\DefaultLabel'
-        );
-        $this->barLabelGenerator = new $barLabelGeneratorClass;
-
-        // Default layout
-        $this->outputArea = new BasicRectangle(0, 0, $this->width - 1, $this->height - 1);
-        $this->hasCaption = false;
-        $this->graphCaptionRatio = 0.50;
-        $this->graphPadding = new BasicPadding(50, 50, 50, 50);
-        $this->captionPadding = new BasicPadding(15, 15, 15, 15);
-
-        $this->hasSeveralSeries = $hasSeveralSeries;
     }
 
     /**

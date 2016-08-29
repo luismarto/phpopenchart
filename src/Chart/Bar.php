@@ -20,10 +20,9 @@ class Bar extends AbstractChartBar
      */
     public function __construct($args)
     {
-        parent::__construct('bar');
-        $this->emptyToFullRatio = 1 / 5;
+        parent::__construct($args, 'bar');
 
-        $this->init($args, $this->hasSeveralSerie);
+        $this->emptyToFullRatio = 1 / 5;
         $this->setGraphPadding(new BasicPadding(5, 30, 30, 50));
     }
 

@@ -14,6 +14,9 @@ use Libchart\Data\XYSeriesDataSet;
  */
 abstract class AbstractChartBar extends AbstractChart
 {
+    /**
+     * @var AxisBound
+     */
     protected $bound;
 
     /**
@@ -33,16 +36,19 @@ abstract class AbstractChartBar extends AbstractChart
     private $type;
 
     /**
-     * Creates a new bar chart.
+     * Creates a new Column, Bar or Line chart
      *
+     * @param array $args
      * @param string $type
      */
-    protected function __construct($type)
+    protected function __construct($args, $type)
     {
         // Initialize the bounds
         $this->bound = new AxisBound();
         $this->bound->setLowerBound(0);
         $this->type = $type;
+
+        parent::__construct($args, $this->hasSeveralSerie);
     }
 
     /**
