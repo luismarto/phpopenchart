@@ -10,12 +10,40 @@ use Libchart\Element\Logo;
 use Libchart\Element\Gd;
 use Libchart\Element\Text;
 use Libchart\Element\Title;
+use Libchart\Exception\DatasetMalformedException;
 use Libchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
 
 /**
  * Class AbstractChart
+ *
+ * This holds graphical attributes and is responsible for computing the layout of the graph.
+ * The layout is quite simple right now, with 4 areas laid out like that:
+ * (of course this is subject to change in the future).
+ *
+ * output area------------------------------------------------|
+ * |  (outer padding)                                         |
+ * |  image area--------------------------------------------| |
+ * |  | (title padding)                                     | |
+ * |  | title area----------------------------------------| | |
+ * |  | |-------------------------------------------------| | |
+ * |  |                                                     | |
+ * |  | (graph padding)              (caption padding)      | |
+ * |  | graph area----------------|  caption area---------| | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |                         |  |                    | | |
+ * |  | |-------------------------|  |--------------------| | |
+ * |  |                                                     | |
+ * |  |-----------------------------------------------------| |
+ * |                                                          |
+ * |----------------------------------------------------------|
+ *
+ * All area dimensions are known in advance, and the optional logo is drawn in absolute coordinates.
+ *
  * @package Libchart\Chart
  */
 abstract class AbstractChart
@@ -139,14 +167,14 @@ abstract class AbstractChart
     /**
      * @var bool
      */
-    private $hasSeveralSeries;
+    protected $hasSeveralSeries;
 
     /**
-     * Boots the chart dependencies
+     * Main chart constructor
      * @param array $args
-     * @param bool $hasSeveralSeries
+     * @throws DatasetNotDefinedException
      */
-    protected function __construct($args, $hasSeveralSeries = true)
+    protected function __construct($args)
     {
         $width = !array_key_exists('width', $args) ? 600 : $args['width'];
         $height = !array_key_exists('height', $args) ? 600 : $args['height'];
@@ -190,9 +218,38 @@ abstract class AbstractChart
         $this->graphPadding = new BasicPadding(50, 50, 50, 50);
         $this->captionPadding = new BasicPadding(15, 15, 15, 15);
 
-        $this->hasSeveralSeries = $hasSeveralSeries;
+        // Set dataset
+        $this->validateDataset($args);
+        if (count($args['dataset']) > 1 && array_key_exists('points', $args['dataset'][0])) {
+            $this->dataSet = new XYSeriesDataSet();
+            foreach ($args['dataset'] as $serie) {
+                $this->dataSet->addSerie($serie['name'], $serie['points']);
+            }
+            $this->hasSeveralSeries = true;
+        } else {
+            $this->dataSet = new XYDataSet($args['dataset']);
+            $this->hasSeveralSeries = false;
+        }
     }
 
+    /**
+     * Validates the dataset received through the constructor arguments
+     * @param array $args
+     * @throws DatasetMalformedException
+     * @throws DatasetNotDefinedException
+     */
+    private function validateDataset($args)
+    {
+        // Check if dataset exists on the arguments and validate it's an array
+        if (!array_key_exists('dataset', $args) || !is_array($args['dataset'])) {
+            throw new DatasetNotDefinedException();
+        }
+
+        // If there's only one series, verify that the first element is an array
+        if (count($args['dataset']) === 1 && (!is_array($args['dataset'][0]) || empty($args['dataset'][0]))) {
+            throw new DatasetMalformedException();
+        }
+    }
 
     /**
      * Checks the data model before rendering the graph.
@@ -205,16 +262,6 @@ abstract class AbstractChart
         }
 
         // Maybe no points are defined, but that's ok. This will yield and empty graph with default boundaries.
-    }
-
-    /**
-     * Sets the data set.
-     *
-     * @param XYDataSet|XYSeriesDataSet $dataSet The data set
-     */
-    public function setDataSet($dataSet)
-    {
-        $this->dataSet = $dataSet;
     }
 
     /**

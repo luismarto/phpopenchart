@@ -25,11 +25,6 @@ abstract class AbstractChartBar extends AbstractChart
     protected $axis;
 
     /**
-     * @var bool
-     */
-    protected $hasSeveralSerie;
-
-    /**
      * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar) or 'line')
      * @var string
      */
@@ -48,7 +43,7 @@ abstract class AbstractChartBar extends AbstractChart
         $this->bound->setLowerBound(0);
         $this->type = $type;
 
-        parent::__construct($args, $this->hasSeveralSerie);
+        parent::__construct($args);
     }
 
     /**
@@ -103,7 +98,6 @@ abstract class AbstractChartBar extends AbstractChart
         // Bar charts accept both XYDataSet and XYSeriesDataSet
         if ($this->dataSet instanceof XYDataSet) {
             // The dataset contains only one serie
-            $this->hasSeveralSerie = false;
         } elseif ($this->dataSet instanceof XYSeriesDataSet) {
             // Check if each series has the same number of points
             unset($lastPointCount);
@@ -119,9 +113,6 @@ abstract class AbstractChartBar extends AbstractChart
                 }
                 $lastPointCount = $pointCount;
             }
-
-            // The dataset contains several series
-            $this->hasSeveralSerie = true;
         } else {
             throw new InvalidDatasetException();
         }
@@ -208,7 +199,7 @@ abstract class AbstractChartBar extends AbstractChart
         if (!$this->isEmptyDataSet($this->type === 'line' ? 2 : 1)) {
             $this->printAxis();
             $this->{'print' . strtoupper($this->type)}();
-            if ($this->hasSeveralSerie) {
+            if ($this->hasSeveralSeries) {
                 $this->printCaption();
             }
         }

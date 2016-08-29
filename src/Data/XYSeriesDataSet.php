@@ -24,20 +24,25 @@ class XYSeriesDataSet extends DataSet
      */
     public function __construct()
     {
-        $this->titleList = array();
-        $this->serieList = array();
+        $this->titleList = [];
+        $this->serieList = [];
     }
 
     /**
      * Add a new serie to the dataset.
      *
      * @param string $title (label) of the serie.
-     * @param \Libchart\Data\XYDataSet Serie of points to add
+     * @param \Libchart\Data\XYDataSet|array Serie of points to add
      */
     public function addSerie($title, $serie)
     {
-        array_push($this->titleList, $title);
-        array_push($this->serieList, $serie);
+        $this->titleList[] = $title;
+        // If the serie is an array, create the XY dataset
+        if (is_array($serie)) {
+            $serie = new XYDataSet($serie);
+        }
+
+        $this->serieList[] = $serie;
     }
 
     /**
