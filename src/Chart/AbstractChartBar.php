@@ -25,12 +25,6 @@ abstract class AbstractChartBar extends AbstractChart
     protected $axis;
 
     /**
-     * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar) or 'line')
-     * @var string
-     */
-    private $type;
-
-    /**
      * Creates a new Column, Bar or Line chart
      *
      * @param array $args
@@ -41,9 +35,8 @@ abstract class AbstractChartBar extends AbstractChart
         // Initialize the bounds
         $this->bound = new AxisBound();
         $this->bound->setLowerBound(0);
-        $this->type = $type;
 
-        parent::__construct($args);
+        parent::__construct($args, $type);
     }
 
     /**

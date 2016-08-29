@@ -185,11 +185,18 @@ abstract class AbstractChart
     protected $sortDataPoint;
 
     /**
+     * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar) or 'line')
+     * @var string
+     */
+    protected $type;
+
+    /**
      * Main chart constructor
      * @param array $args
+     * @param string $type
      * @throws DatasetNotDefinedException
      */
-    protected function __construct($args)
+    protected function __construct($args, $type)
     {
         $width = !array_key_exists('width', $args) ? 600 : $args['width'];
         $height = !array_key_exists('height', $args) ? 300 : $args['height'];
@@ -239,7 +246,6 @@ abstract class AbstractChart
 
         // Default layout
         $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
-        $this->hasCaption = false;
         $this->graphCaptionRatio = 0.50;
         $this->graphPadding = new BasicPadding(50, 50, 50, 50);
         $this->captionPadding = new BasicPadding(15, 15, 15, 15);
@@ -256,6 +262,11 @@ abstract class AbstractChart
             $this->dataSet = new XYDataSet($args['dataset']);
             $this->hasSeveralSeries = false;
         }
+
+        // Display the caption if the chart has multiple series of if the
+        // chart is of type $piew
+        $this->hasCaption = $this->hasSeveralSeries || $type == 'pie';
+        $this->type = $type;
     }
 
     /**
@@ -295,10 +306,6 @@ abstract class AbstractChart
      */
     public function computeLayout()
     {
-        if ($this->hasSeveralSeries) {
-            $this->hasCaption = true;
-        }
-
         $this->imageArea = $this->outputArea->getPaddedRectangle($this->outerPadding);
 
         // Compute Title Area

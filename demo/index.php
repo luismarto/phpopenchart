@@ -1,8 +1,5 @@
 <?php
-//ini_set('display_errors', 1);
-error_reporting(-1);
-
-include "../vendor/autoload.php";
+include_once 'common.php';
 
 use Libchart\Chart\Column;
 use Libchart\Chart\Bar;

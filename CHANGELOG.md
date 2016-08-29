@@ -28,7 +28,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Reused shared code between Line, Column and Bar
 - If the logo is requested and the file does not exist, an exception is now throwed
 - The default for the BasicPadding properties are now 0, instead of the `$top` value
-- Fixed the demos
+- Fixed the and tests
+- Fixed bug displaying the Caption on Pie charts (wrong position) 
 
 ## [1.5.0] - 2016-08-28
 ### Added
