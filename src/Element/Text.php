@@ -54,6 +54,7 @@ class Text
         $this->img = $img;
         $this->config = $config;
 
+        // @todo: make this configurable
         $this->fontsDirectory = $this->config->get(
             'fonts.path',
             dirname(__FILE__)
@@ -66,7 +67,6 @@ class Text
             . $this->config->get('fonts.text', 'SourceSansPro-Light.otf');
 
         $this->angle = $this->config->get('label.angle', 0);
-        // @todo: make this configurable
         $this->color = new ColorHex('#555555');
     }
 
@@ -165,22 +165,6 @@ class Text
     }
 
     /**
-     * Sets a new font to be used for the text
-     * @param string $fontName
-     * @return $this
-     */
-    public function setFont($fontName)
-    {
-        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
-            $this->font = $this->fontsDirectory . $fontName;
-        } else {
-            $this->font = $fontName;
-        }
-
-        return $this;
-    }
-
-    /**
      * Returns the font used for the chart texts
      * @return string
      */
@@ -197,8 +181,6 @@ class Text
     public function setAngle($angle)
     {
         $this->angle = $angle;
-
-        return $this;
     }
 
     /**
@@ -209,8 +191,6 @@ class Text
     public function setColorHex($hexColor)
     {
         $this->color = new ColorHex($hexColor);
-
-        return $this;
     }
 
     /**
@@ -220,5 +200,19 @@ class Text
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Sets a new font to be used for the text
+     * @param string $fontName
+     * @return $this
+     */
+    private function setFont($fontName)
+    {
+        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
+            $this->font = $this->fontsDirectory . $fontName;
+        } else {
+            $this->font = $fontName;
+        }
     }
 }
