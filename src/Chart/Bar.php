@@ -16,16 +16,14 @@ class Bar extends AbstractChartBar
     /**
      * Creates a new horizontal bar chart.
      *
-     * @param integer $width width of the image
-     * @param integer $height height of the image
+     * @param array $args
      */
-    public function __construct($width = 600, $height = 250)
+    public function __construct($args)
     {
-        parent::__construct($width, $height, 'bar');
+        parent::__construct('bar');
         $this->emptyToFullRatio = 1 / 5;
 
-        // Set the trait's properties
-        $this->init($width, $height, $this->hasSeveralSerie);
+        $this->init($args, $this->hasSeveralSerie);
         $this->setGraphPadding(new BasicPadding(5, 30, 30, 50));
     }
 

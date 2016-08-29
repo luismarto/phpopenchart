@@ -18,6 +18,68 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Properties for the title chart
+    |--------------------------------------------------------------------------
+    */
+    'title' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Title font
+        |--------------------------------------------------------------------------
+        |
+        | Determines the font to be used on the chart title
+        |
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Semibold.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Title text
+        |--------------------------------------------------------------------------
+        |
+        | Default text to be displayed as the title.
+        | Can (and probably should) be overridden when constructing the chart
+        |
+        */
+        'text' => 'Chart default title',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Title color
+        |--------------------------------------------------------------------------
+        |
+        | Default color for the title's text. Set this in hex format
+        |
+        */
+        'color' => '#999999',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Title height
+        |--------------------------------------------------------------------------
+        |
+        | Default height, in pixels, for the title area.
+        |
+        */
+        'height' => '26',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Title padding
+        |--------------------------------------------------------------------------
+        |
+        | Default title padding to be added to title. Must be an array with the values
+        | [«top-padding», «right-padding», «bottom-padding», «left-padding»].
+        | You need to define at least the top-padding. The other values, if not set,
+        | will assume 0
+        |
+        */
+        'padding' => [15, 0, 15, 0],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Font properties used on the chart
     |--------------------------------------------------------------------------
     */
@@ -46,15 +108,6 @@ return [
         */
         'text' => 'SourceSansPro-Regular.otf',
 
-        /*
-        |--------------------------------------------------------------------------
-        | Title font
-        |--------------------------------------------------------------------------
-        |
-        | Determines the font to be used on the chart title
-        | Can be overridden at runtime through Text->setTitleFont('otherfont.ttf')
-        |
-        */
         'title' => 'SourceSansPro-Semibold.otf',
 
     ],

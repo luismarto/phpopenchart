@@ -12,13 +12,12 @@ class Line extends AbstractChartBar
      * Creates a new line chart.
      * Line charts allow for XYDataSet and XYSeriesDataSet in order to plot several lines.
      *
-     * @param integer $width of the image
-     * @param integer $height of the image
+     * @param array $args
      */
-    public function __construct($width = 600, $height = 250)
+    public function __construct($args)
     {
-        parent::__construct($width, $height, 'line');
-        $this->init($width, $height, $this->hasSeveralSerie);
+        parent::__construct('line');
+        $this->init($args, $this->hasSeveralSerie);
         $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 

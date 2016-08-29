@@ -35,11 +35,9 @@ abstract class AbstractChartBar extends AbstractChart
     /**
      * Creates a new bar chart.
      *
-     * @param integer $width width of the image
-     * @param integer $height height of the image
      * @param string $type
      */
-    protected function __construct($width, $height, $type)
+    protected function __construct($type)
     {
         // Initialize the bounds
         $this->bound = new AxisBound();

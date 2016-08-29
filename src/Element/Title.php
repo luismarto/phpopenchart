@@ -1,7 +1,7 @@
 <?php namespace Libchart\Element;
 
 use Libchart\Color\ColorHex;
-use Libchart\Color\Color;
+use ReflectionClass;
 
 class Title
 {
@@ -9,19 +9,19 @@ class Title
      * The title (text) for the chart
      * @var string
      */
-    private $text;
+    private $text = null;
 
     /**
      * Fixed title height in pixels.
      * @var int
      */
-    private $height;
+    private $height = null;
 
     /**
      * Padding of the title area.
      * @var BasicPadding
      */
-    private $padding;
+    private $padding = null;
 
     /**
      *  Coordinates of the title area.
@@ -30,14 +30,14 @@ class Title
 
     /**
      * The title color
-     * @var Color|ColorHex
+     * @var ColorHex
      */
-    private $color;
+    private $color = null;
 
     /**
      * @var string
      */
-    private $font;
+    private $font = null;
 
     /**
      * The text instance of the chart
@@ -52,28 +52,56 @@ class Title
 
     /**
      * @param Text $textInstance
+     * @param array $args
      * @param \Noodlehaus\Config $config
      */
-    public function __construct($textInstance, $config)
+    public function __construct($args, $textInstance, $config)
     {
         $this->textInstance = $textInstance;
         $this->config = $config;
+        $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
 
-        // @todo: make this configurable
-        $this->height = 26;
-        $this->padding = new BasicPadding(5, null, 15);
-        $this->color = new ColorHex('000000');
+        // Check if the options were defined on the chart's constructor
+        if (array_key_exists('title', $args) && is_array($args['title'])) {
+            if (array_key_exists('font', $args['title'])) {
+                $this->font = $args['title']['font'];
+            }
+            if (array_key_exists('text', $args['title'])) {
+                $this->text = $args['title']['text'];
+            }
+            if (array_key_exists('color', $args['title'])) {
+                $this->color = new ColorHex($args['title']['color']);
+            }
+            if (array_key_exists('height', $args['title'])) {
+                $this->height = (int)$args['title']['height'];
+            }
+            if (array_key_exists('padding', $args['title']) && is_array($args['title']['padding'])) {
+                $this->padding = $paddingReflect->newInstanceArgs($args['title']['padding']);
+            }
+        }
 
-        $this->fontsDirectory = $this->config->get(
-            'fonts.path',
-            dirname(__FILE__)
-            . DIRECTORY_SEPARATOR. '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
-        );
-
-        $this->font = $this->fontsDirectory
-            . $this->config->get('fonts.title', 'SourceSansPro-Regular.otf');
+        // If any option is null, get the config value or set a default value if the config doesn't exist
+        if (is_null($this->font)) {
+            $this->font = $this->config->get(
+                'title.fonts',
+                __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
+                . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+            );
+        }
+        if (is_null($this->text)) {
+            $this->text = $this->config->get('title.text', 'Undefined title');
+        }
+        if (is_null($this->color)) {
+            $this->color = new ColorHex($this->config->get('title.color', '#444444'));
+        }
+        if (is_null($this->height)) {
+            $this->height = (int)$this->config->get('title.height', 26);
+        }
+        if (is_null($this->padding)) {
+            $this->padding = $paddingReflect->newInstanceArgs(
+                $this->config->get('title.padding', [15, 0, 15])
+            );
+        }
     }
 
     /**
@@ -111,54 +139,6 @@ class Title
     }
 
     /**
-     * Sets the text.
-     * @param string $text New text
-     * @return $this
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    /**
-     * Change the color used for the title
-     * @param string $hexColor
-     * @param int $alpha
-     */
-    public function setColorHex($hexColor, $alpha = 0)
-    {
-        $this->color = new ColorHex($hexColor, $alpha);
-    }
-
-    /**
-     * @param int $red
-     * @param int $green
-     * @param int $blue
-     * @param int|float $alpha
-     * @return $this
-     */
-    public function setColor($red, $green, $blue, $alpha = 0)
-    {
-        $this->color = new Color($red, $green, $blue, $alpha);
-
-        return $this;
-    }
-
-    /**
-     * Return the title height.
-     * @param integer $height title height
-     * @return $this
-     */
-    public function setHeight($height)
-    {
-        $this->height = $height;
-
-        return $this;
-    }
-
-    /**
      * Returns the title height
      * @return int
      */
@@ -168,48 +148,11 @@ class Title
     }
 
     /**
-     * Return the title padding.
-     * @param BasicPadding $padding title padding
-     * @return $this
-     */
-    public function setPadding($padding)
-    {
-        $this->padding = $padding;
-
-        return $this;
-    }
-
-    /**
      * Returns the title padding
      * @return BasicPadding
      */
     public function getPadding()
     {
         return $this->padding;
-    }
-
-    /**
-     * Sets a new font to be used for the chart title
-     * @param string $fontName
-     * @return $this
-     */
-    public function setFont($fontName)
-    {
-        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
-            $this->font = $this->fontsDirectory . $fontName;
-        } else {
-            $this->font = $fontName;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Returns the font used for the chart's title
-     * @return string
-     */
-    public function getFont()
-    {
-        return $this->font;
     }
 }

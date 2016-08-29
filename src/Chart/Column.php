@@ -14,17 +14,16 @@ class Column extends AbstractChartBar
     private $emptyToFullRatio;
 
     /**
-     * Creates a new vertical bar chart
+     * Creates a new vertical bar chart (Column)
      *
-     * @param integer $width of the image
-     * @param integer $height of the image
+     * @param array $args arguments to define the properties for this chart
      */
-    public function __construct($width = 600, $height = 250)
+    public function __construct(array $args)
     {
-        parent::__construct($width, $height, 'bar');
+        parent::__construct('bar');
         $this->emptyToFullRatio = 1 / 5;
 
-        $this->init($width, $height, $this->hasSeveralSerie);
+        $this->init($args, $this->hasSeveralSerie);
         $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 

@@ -170,10 +170,15 @@ trait ChartTrait
      */
     private $hasSeveralSeries;
 
-    protected function init($width, $height, $hasSeveralSeries = true)
+    /**
+     * Boots the chart dependencies
+     * @param array $args
+     * @param bool $hasSeveralSeries
+     */
+    protected function init($args, $hasSeveralSeries = true)
     {
-        $this->width = $width;
-        $this->height = $height;
+        $this->width = !array_key_exists('width', $args) ? 600 : $args['width'];
+        $this->height = !array_key_exists('height', $args) ? 600 : $args['height'];
 
         // Get config file
         // Initialize the configuration
@@ -189,7 +194,7 @@ trait ChartTrait
         // Init graphical classes
         $this->gd = new Gd($this->img);
         $this->text = new Text($this->img, $this->config);
-        $this->title = new Title($this->text, $this->config);
+        $this->title = new Title($args, $this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
@@ -367,15 +372,6 @@ trait ChartTrait
     public function getText()
     {
         return $this->text;
-    }
-
-    /**
-     * Returns the Title instance used on this chart
-     * @return Title
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**

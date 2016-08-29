@@ -47,12 +47,11 @@ class Pie extends AbstractChart
     /**
      * Constructor of a pie chart.
      *
-     * @param integer $width of the image
-     * @param integer $height of the image
+     * @param array $args
      */
-    public function __construct($width = 600, $height = 250)
+    public function __construct($args)
     {
-        $this->init($width, $height);
+        $this->init($args);
         $this->setGraphPadding(new BasicPadding(15, 10, 30, 30));
     }
 
