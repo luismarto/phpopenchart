@@ -3,6 +3,8 @@
 use Libchart\Color\ColorPalette;
 use Libchart\Color\ColorHex;
 use Libchart\Color\Color;
+use Libchart\Element\BasicPadding;
+use Libchart\Element\Logo;
 use Libchart\Element\Primitive;
 use Libchart\Element\PrimitiveRectangle;
 use Libchart\Element\Text;
@@ -84,6 +86,11 @@ trait PlotTrait
      */
     protected $title;
 
+    /**
+     * @var Logo
+     */
+    protected $logo;
+
 
     /**
      * Outer area, whose dimension is the same as the PNG returned.
@@ -101,10 +108,7 @@ trait PlotTrait
 
 
 
-    /**
-     * Location of the logo. Can be overridden to your personalized logo.
-     */
-    protected $logoFileName;
+
 
 
     /**
@@ -163,11 +167,6 @@ trait PlotTrait
     protected $backGroundColor;
 
     /**
-     * @var bool
-     */
-    protected $hasLogo;
-
-    /**
      * @var Config
      */
     protected $config;
@@ -197,6 +196,8 @@ trait PlotTrait
         $this->primitive = new Primitive($this->img);
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($this->text, $this->config);
+        $this->outerPadding = new BasicPadding(5, 5, 5, 5);
+        $this->logo = new Logo($this->primitive, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
         // Immediately draw the chart background
         $this->primitive->rectangle(0, 0, $this->width - 1, $this->height - 1, new ColorHex('#ffffff'));
@@ -214,15 +215,11 @@ trait PlotTrait
 
         // Default layout
         $this->outputArea = new PrimitiveRectangle(0, 0, $this->width - 1, $this->height - 1);
-        $this->outerPadding = $this->primitive->getPadding(5);
         $this->hasCaption = false;
         $this->graphCaptionRatio = 0.50;
-        $this->graphPadding = $this->primitive->getPadding(50);
-        $this->captionPadding = $this->primitive->getPadding(15);
+        $this->graphPadding = new BasicPadding(50, 50, 50, 50);
+        $this->captionPadding = new BasicPadding(15, 15, 15, 15);
 
-        // By default, don't display the logo
-        // @todo: make this configurable
-        $this->hasLogo = false;
         $this->hasSeveralSeries = $hasSeveralSeries;
     }
 
@@ -289,28 +286,6 @@ trait PlotTrait
         }
     }
 
-    /**
-     * Print the logo image to the image.
-     */
-    public function printLogo()
-    {
-        @$logoImage = imagecreatefrompng($this->logoFileName);
-
-        if ($logoImage) {
-            imagecopymerge(
-                $this->img,
-                $logoImage,
-                2 * $this->outerPadding->left,
-                $this->outerPadding->top,
-                0,
-                0,
-                imagesx($logoImage),
-                imagesy($logoImage),
-                100
-            );
-        }
-    }
-
     public function output($filename = null)
     {
         if (isset($filename)) {
@@ -318,26 +293,6 @@ trait PlotTrait
         } else {
             imagepng($this->img);
         }
-    }
-
-    /**
-     * Sets the logo image file name.
-     *
-     * @param string $logoFileName New logo image file name
-     */
-    public function setLogoFileName($logoFileName)
-    {
-        $this->logoFileName = $logoFileName;
-    }
-
-    public function setHasLogo($hasLogo)
-    {
-        $this->hasLogo = $hasLogo;
-    }
-
-    public function hasLogo()
-    {
-        return $this->hasLogo;
     }
 
 
@@ -354,7 +309,7 @@ trait PlotTrait
     /**
      * Return the graph padding.
      *
-     * @param \stdClass $graphPadding graph padding
+     * @param BasicPadding $graphPadding graph padding
      */
     public function setGraphPadding($graphPadding)
     {

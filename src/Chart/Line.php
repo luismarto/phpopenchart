@@ -1,5 +1,7 @@
 <?php namespace Libchart\Chart;
 
+use Libchart\Element\BasicPadding;
+
 /**
  * Class Line
  * @package Libchart\Chart
@@ -17,7 +19,7 @@ class Line extends AbstractChartBar
     {
         parent::__construct($width, $height);
         $this->init($width, $height, $this->hasSeveralSerie);
-        $this->setGraphPadding($this->primitive->getPadding(5, 30, 50, 50));
+        $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 
     /**
@@ -149,10 +151,8 @@ class Line extends AbstractChartBar
         $this->bound->computeBound($this->dataSet);
         $this->computeAxis();
         $this->computeLayout();
-        if ($this->hasLogo()) {
-            $this->printLogo();
-        }
-        $this->title->printTitle();
+        $this->logo->draw();
+        $this->title->draw();
         if (!$this->isEmptyDataSet(2)) {
             $this->printAxis();
             $this->printLine();

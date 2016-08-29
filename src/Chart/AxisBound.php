@@ -1,6 +1,6 @@
 <?php namespace Libchart\Chart;
 
-use Libchart\Exceptions\UnknownDatasetTypeException;
+use Libchart\Exception\UnknownDatasetTypeException;
 use Libchart\Data\XYDataSet;
 use Libchart\Data\XYSeriesDataSet;
 

@@ -19,7 +19,7 @@ class Title
 
     /**
      * Padding of the title area.
-     * @var \stdClass
+     * @var BasicPadding
      */
     private $titlePadding;
 
@@ -56,35 +56,39 @@ class Title
 
         // @todo: make this configurable
         $this->titleHeight = 26;
-        $primitive = new Primitive();
-        $this->titlePadding = $primitive->getPadding(5, null, 15);
+        $this->titlePadding = new BasicPadding(5, null, 15);
         $this->titleColor = new ColorHex('000000');
 
     }
 
+    /**
+     * Processes the image area and created an area, on the chart, for the title
+     * @param PrimitiveRectangle $imageArea
+     */
     public function computeTitleArea($imageArea)
     {
         $titleUnpaddedBottom = $imageArea->y1
             + $this->titleHeight
             + $this->titlePadding->top
             + $this->titlePadding->bottom;
+
         $titleArea = new PrimitiveRectangle(
             $imageArea->x1,
             $imageArea->y1,
             $imageArea->x2,
             $titleUnpaddedBottom - 1
         );
+
         $this->titleArea = $titleArea->getPaddedRectangle($this->titlePadding);
     }
 
     /**
      * Print the title to the image.
      */
-    public function printTitle()
+    public function draw()
     {
-        $yCenter = $this->titleArea->y1 + ($this->titleArea->y2 - $this->titleArea->y1) / 2;
         $this->textInstance->printCentered(
-            $yCenter,
+            $this->titleArea->y1 + ($this->titleArea->y2 - $this->titleArea->y1) / 2,
             $this->titleColor,
             $this->text,
             $this->textInstance->getTitleFont()

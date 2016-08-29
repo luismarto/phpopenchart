@@ -1,6 +1,7 @@
 <?php namespace Libchart\Chart;
 
 use Libchart\Color\ColorHex;
+use Libchart\Element\BasicPadding;
 
 /**
  * Class Pie
@@ -52,7 +53,7 @@ class Pie extends AbstractChart
     public function __construct($width = 600, $height = 250)
     {
         $this->init($width, $height);
-        $this->setGraphPadding($this->primitive->getPadding(15, 10, 30, 30));
+        $this->setGraphPadding(new BasicPadding(15, 10, 30, 30));
     }
 
     /**
@@ -291,10 +292,8 @@ class Pie extends AbstractChart
         $this->computeLayout();
         $this->computePieLayout();
         $this->createImage();
-        if ($this->hasLogo()) {
-            $this->printLogo();
-        }
-        $this->title->printTitle();
+        $this->logo->draw();
+        $this->title->draw();
         $this->printPie();
         $this->printCaption();
 

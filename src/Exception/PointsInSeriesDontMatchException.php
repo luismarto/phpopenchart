@@ -1,4 +1,4 @@
-<?php namespace Libchart\Exceptions;
+<?php namespace Libchart\Exception;
 
 use Exception;
 

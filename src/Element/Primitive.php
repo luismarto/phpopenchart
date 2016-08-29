@@ -1,6 +1,6 @@
 <?php namespace Libchart\Element;
 
-use stdClass;
+use Libchart\Exception\LogoFileNotFoundException;
 
 /**
  * Graphic primitives, extends GD with chart related primitives.
@@ -16,7 +16,7 @@ class Primitive
      *
      * @param resource|null $img GD image resource
      */
-    public function __construct($img = null)
+    public function __construct($img)
     {
         $this->img = $img;
     }
@@ -29,9 +29,8 @@ class Primitive
      * @param int $x2 line end (X)
      * @param int $y2 line end (Y)
      * @param \Libchart\Color\Color $color
-     * @param int $width line color
      */
-    public function line($x1, $y1, $x2, $y2, $color, $width = 1)
+    public function line($x1, $y1, $x2, $y2, $color)
     {
         imageline($this->img, $x1, $y1, $x2, $y2, $color->getColor($this->img));
     }
@@ -68,22 +67,37 @@ class Primitive
     }
 
     /**
-     * Creates and returns a padding
-     * @param int $top
-     * @param null|int $right
-     * @param null|int $bottom
-     * @param null|int $left
-     * @return stdClass
+     * Merges a image onto the $this->img
+     * @param string $imgPath
+     * @param int $dstX
+     * @param int $dstY
+     * @param int $srcX
+     * @param int $srcY
+     * @param null|int $srcW
+     * @param null|int $srcH
+     * @param int $pct
+     * @throws LogoFileNotFoundException
      */
-    public function getPadding($top, $right = null, $bottom = null, $left = null)
+    public function copyMergeImage($imgPath, $dstX, $dstY, $srcX, $srcY, $srcW = null, $srcH = null, $pct = 100)
     {
-        $padding = new stdClass;
+        $logoImage = @imagecreatefrompng($imgPath);
 
-        $padding->top = $top;
-        $padding->right = $right;
-        $padding->bottom = $bottom;
-        $padding->left = $left;
+        if (!$logoImage) {
+            throw new LogoFileNotFoundException;
+        }
 
-        return $padding;
+        if ($logoImage) {
+            imagecopymerge(
+                $this->img,
+                $logoImage,
+                $dstX,
+                $dstY,
+                $srcX,
+                $srcY,
+                is_null($srcW) ? imagesx($logoImage) : $srcW,
+                is_null($srcH) ? imagesy($logoImage) : $srcH,
+                $pct
+            );
+        }
     }
 }

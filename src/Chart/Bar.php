@@ -1,5 +1,7 @@
 <?php namespace Libchart\Chart;
 
+use Libchart\Element\BasicPadding;
+
 /**
  * Class Bar
  * @package Libchart\Chart
@@ -24,7 +26,7 @@ class Bar extends AbstractChartBar
 
         // Set the trait's properties
         $this->init($width, $height, $this->hasSeveralSerie);
-        $this->setGraphPadding($this->primitive->getPadding(5, 30, 30, 50));
+        $this->setGraphPadding(new BasicPadding(5, 30, 30, 50));
     }
 
     /**
@@ -236,10 +238,8 @@ class Bar extends AbstractChartBar
         $this->bound->computeBound($this->dataSet);
         $this->computeAxis();
         $this->computeLayout();
-        if ($this->hasLogo()) {
-            $this->printLogo();
-        }
-        $this->title->printTitle();
+        $this->logo->draw();
+        $this->title->draw();
         if (!$this->isEmptyDataSet(1)) {
             $this->printAxis();
             $this->printBar();

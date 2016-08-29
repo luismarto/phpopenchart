@@ -1,5 +1,7 @@
 <?php namespace Libchart\Chart;
 
+use Libchart\Element\BasicPadding;
+
 /**
  * Class Column
  * @package Libchart\Chart
@@ -23,7 +25,7 @@ class Column extends AbstractChartBar
         $this->emptyToFullRatio = 1 / 5;
 
         $this->init($width, $height, $this->hasSeveralSerie);
-        $this->setGraphPadding($this->primitive->getPadding(5, 30, 50, 50));
+        $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 
     /**
@@ -211,10 +213,8 @@ class Column extends AbstractChartBar
         $this->bound->computeBound($this->dataSet);
         $this->computeAxis();
         $this->computeLayout();
-        if ($this->hasLogo()) {
-            $this->printLogo();
-        }
-        $this->title->printTitle();
+        $this->logo->draw();
+        $this->title->draw();
         if (!$this->isEmptyDataSet(1)) {
             $this->printAxis();
             $this->printBar();

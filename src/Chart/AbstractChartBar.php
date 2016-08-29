@@ -1,9 +1,9 @@
 <?php namespace Libchart\Chart;
 
-use Libchart\Exceptions\DatasetNotDefinedException;
-use Libchart\Exceptions\InvalidDatasetException;
-use Libchart\Exceptions\PointsInSeriesDontMatchException;
-use Libchart\Exceptions\UnknownDatasetTypeException;
+use Libchart\Exception\DatasetNotDefinedException;
+use Libchart\Exception\InvalidDatasetException;
+use Libchart\Exception\PointsInSeriesDontMatchException;
+use Libchart\Exception\UnknownDatasetTypeException;
 use Libchart\Data\XYDataSet;
 use Libchart\Data\XYSeriesDataSet;
 
