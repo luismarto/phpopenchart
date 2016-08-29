@@ -132,8 +132,9 @@ class Text
      * @param \Libchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
+     * @param int $fontSize
      */
-    public function printCentered($py, $color, $text, $fontFileName)
+    public function printCentered($py, $color, $text, $fontFileName, $fontSize)
     {
         $this->draw(
             imagesx($this->img) / 2,
@@ -141,7 +142,8 @@ class Text
             $color,
             $text,
             $fontFileName,
-            $this->HORIZONTAL_CENTER_ALIGN | $this->VERTICAL_CENTER_ALIGN
+            $this->HORIZONTAL_CENTER_ALIGN | $this->VERTICAL_CENTER_ALIGN,
+            $fontSize
         );
     }
 

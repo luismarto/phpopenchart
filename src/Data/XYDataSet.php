@@ -1,5 +1,7 @@
 <?php namespace Libchart\Data;
 
+use ReflectionClass;
+
 /**
  * Set of data in the form of (x, y) items.
  */
@@ -8,15 +10,18 @@ class XYDataSet extends DataSet
     /**
      * @var array
      */
-    private $pointList;
+    private $pointList = [];
 
     /**
      * Constructor of XYDataSet.
-     *
+     * @param array $points
      */
-    public function __construct()
+    public function __construct(array $points)
     {
-        $this->pointList = array();
+        foreach ($points as $point) {
+            $pointReflection = new ReflectionClass('\Libchart\\Data\\Point');
+            $this->addPoint($pointReflection->newInstanceArgs($point));
+        }
     }
 
     /**

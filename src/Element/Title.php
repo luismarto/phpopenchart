@@ -3,6 +3,13 @@
 use Libchart\Color\ColorHex;
 use ReflectionClass;
 
+/**
+ * Class Title
+ *
+ * Sets the properties and methods specific for the chart's title
+ *
+ * @package Libchart\Element
+ */
 class Title
 {
     /**
@@ -40,6 +47,11 @@ class Title
     private $font = null;
 
     /**
+     * @var int
+     */
+    private $fontSize = null;
+
+    /**
      * The text instance of the chart
      * @var Text
      */
@@ -66,6 +78,9 @@ class Title
             if (array_key_exists('font', $args['title'])) {
                 $this->font = $args['title']['font'];
             }
+            if (array_key_exists('size', $args['title'])) {
+                $this->fontSize = (int)$args['title']['size'];
+            }
             if (array_key_exists('text', $args['title'])) {
                 $this->text = $args['title']['text'];
             }
@@ -89,7 +104,10 @@ class Title
             );
         }
         if (is_null($this->text)) {
-            $this->text = $this->config->get('title.text', 'Undefined title');
+            $this->text = (int)$this->config->get('title.text', 'Undefined title');
+        }
+        if (is_null($this->fontSize)) {
+            $this->fontSize = $this->config->get('title.size', 14);
         }
         if (is_null($this->color)) {
             $this->color = new ColorHex($this->config->get('title.color', '#444444'));
@@ -134,7 +152,8 @@ class Title
             $this->area->y1 + ($this->area->y2 - $this->area->y1) / 2,
             $this->color,
             $this->text,
-            $this->font
+            $this->font,
+            $this->fontSize
         );
     }
 
