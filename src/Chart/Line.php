@@ -45,12 +45,10 @@ class Line extends AbstractChartBar
 
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
-            $this->text->draw(
-                $graphArea->x1 - 5,
-                $y,
-                $this->text->getColor(),
+            $this->axisLabel->draw(
+                $graphArea->x1 - 25,
+                $y - 15,
                 $this->axisLabelGenerator->generateLabel($value),
-                $this->text->getFont(),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
@@ -75,9 +73,12 @@ class Line extends AbstractChartBar
             $point = current($pointList);
             next($pointList);
 
-            $label = $point->getX();
-
-            $this->text->printDiagonal($x - 5, $graphArea->y2 + 10, $this->text->getColor(), $label);
+            $this->axisLabel->draw(
+                $x - 25,
+                $graphArea->y2 + 5,
+                $point->getLabel(),
+                0
+            );
         }
     }
 
@@ -116,7 +117,7 @@ class Line extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $value = $point->getY();
+                $value = $point->getValue();
 
                 $y2 = $graphArea->y2
                     - ($value - $minValue)

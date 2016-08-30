@@ -10,8 +10,9 @@ class Bar extends AbstractChartBar
 {
     /**
      * Ratio of empty space beside the bars.
+     * @var float
      */
-    private $emptyToFullRatio;
+    private $emptyToFullRatio = 1 / 5;
 
     /**
      * Creates a new horizontal bar chart.
@@ -22,7 +23,6 @@ class Bar extends AbstractChartBar
     {
         parent::__construct($args, 'bar');
 
-        $this->emptyToFullRatio = 1 / 5;
         $this->setGraphPadding(new BasicPadding(5, 30, 30, 50));
     }
 
@@ -55,13 +55,10 @@ class Bar extends AbstractChartBar
             $this->gd->line($x, $graphArea->y1, $x, $graphArea->y2, $this->palette->backgroundColor);
 
             // Draw the text for each step value (guiding marker)
-            $label = $this->axisLabelGenerator->generateLabel($value);
-            $this->text->draw(
-                $x,
-                $graphArea->y2 + 5,
-                $this->text->getColor(),
-                $label,
-                $this->text->getFont(),
+            $this->axisLabel->draw(
+                $x - 15,
+                $graphArea->y2,
+                $this->axisLabelGenerator->generateLabel($value),
                 $this->text->HORIZONTAL_CENTER_ALIGN
             );
         }
@@ -92,14 +89,10 @@ class Bar extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $label = $point->getX();
-
-                $this->text->draw(
-                    $graphArea->x1 - 5,
-                    $y - $rowHeight / 2,
-                    $this->text->getColor(),
-                    $label,
-                    $this->text->getFont(),
+                $this->axisLabel->draw(
+                    $graphArea->x1 - 25,
+                    $y - $rowHeight / 2 - 15,
+                    $point->getLabel(),
                     $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
                 );
             }
@@ -152,7 +145,7 @@ class Bar extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $value = $point->getY();
+                $value = $point->getValue();
 
                 $xmax = $graphArea->x1
                     + ($value - $minValue)

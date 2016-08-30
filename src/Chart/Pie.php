@@ -99,13 +99,13 @@ class Pie extends AbstractChart
 
         $pointList = $this->dataSet->getPointList();
         foreach ($pointList as $point) {
-            $this->total += $point->getY();
+            $this->total += $point->getValue();
         }
 
         foreach ($pointList as $point) {
             $percent = $this->total == 0
                 ? 0
-                : 100 * $point->getY() / $this->total;
+                : 100 * $point->getValue() / $this->total;
 
             array_push($this->percent, array($percent, $point));
         }
@@ -152,7 +152,7 @@ class Pie extends AbstractChart
              * @var \Libchart\Data\Point $point
              */
             list(, $point) = $percent;
-            $label = $point->getX();
+            $label = $point->getLabel();
 
             array_push($labelList, $label);
         }

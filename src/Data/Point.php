@@ -3,20 +3,20 @@
 use Libchart\Color\ColorHex;
 
 /**
- * Point of coordinates (X,Y).
- * The value of X isn't really of interest, but X is used as a label to display on the horizontal axis.
+ * Class Point
+ * @package Libchart\Data
  */
 class Point
 {
     /**
-     * @var int
+     * @var string
      */
-    private $x;
+    private $label;
 
     /**
-     * @var int
+     * @var float|int|double
      */
-    private $y;
+    private $value;
 
     /**
      * @var ColorHex|null
@@ -26,37 +26,33 @@ class Point
     /**
      * Creates a new sampling point of coordinates (x, y)
      *
-     * @param integer $x coordinate (label)
-     * @param integer $y coordinate (value)
+     * @param integer $label coordinate (label)
+     * @param integer $value coordinate (value)
      * @param string|null $hexColor Specific color for this point
      */
-    public function __construct($x, $y, $hexColor = null)
+    public function __construct($label, $value, $hexColor = null)
     {
-        $this->x = $x;
-        $this->y = $y;
+        $this->label = $label;
+        $this->value = $value;
         if (!is_null($hexColor)) {
             $this->color = new ColorHex($hexColor);
         }
     }
 
     /**
-     * Gets the x coordinate (label).
-     *
-     * @return integer x coordinate (label)
+     * @return string
      */
-    public function getX()
+    public function getLabel()
     {
-        return $this->x;
+        return $this->label;
     }
 
     /**
-     * Gets the y coordinate (value).
-     *
-     * @return integer y coordinate (value)
+     * @return float|int|double
      */
-    public function getY()
+    public function getValue()
     {
-        return $this->y;
+        return $this->value;
     }
 
     /**

@@ -10,8 +10,10 @@ class Column extends AbstractChartBar
 {
     /**
      * Ratio of empty space beside the bars.
+     * @var float
+     *
      */
-    private $emptyToFullRatio;
+    private $emptyToFullRatio = 1 / 5;
 
     /**
      * Creates a new vertical bar chart (Column)
@@ -22,7 +24,6 @@ class Column extends AbstractChartBar
     {
         parent::__construct($args, 'bar');
 
-        $this->emptyToFullRatio = 1 / 5;
         $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 
@@ -53,12 +54,10 @@ class Column extends AbstractChartBar
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
-            $this->text->draw(
-                $graphArea->x1 - 10,
-                $y,
-                $this->text->getColor(),
+            $this->axisLabel->draw(
+                $graphArea->x1 - 25,
+                $y - 15,
                 $this->axisLabelGenerator->generateLabel($value),
-                $this->text->getFont(),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
@@ -83,17 +82,13 @@ class Column extends AbstractChartBar
             $this->gd->line($x, $horizOriginY, $x, $horizOriginY + 5, $axisColor0);
 
             if ($i < $pointCount) {
+                /**
+                 * @var \Libchart\Data\Point $point
+                 */
                 $point = current($pointList);
                 next($pointList);
 
-                $label = $point->getX();
-
-                $this->text->printDiagonal(
-                    $x + $columnWidth * 1 / 3,
-                    $graphArea->y2 + 10,
-                    $this->text->getColor(),
-                    $label
-                );
+                $this->axisLabel->draw($x + $columnWidth * 1 / 3, $graphArea->y2, $point->getLabel(), 0);
             }
         }
     }
@@ -143,7 +138,7 @@ class Column extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $value = $point->getY();
+                $value = $point->getValue();
 
                 $ymin = $graphArea->y2
                     - ($value - $minValue)

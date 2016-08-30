@@ -26,9 +26,7 @@ return [
         |--------------------------------------------------------------------------
         | Title font
         |--------------------------------------------------------------------------
-        |
         | Determines the font to be used on the chart title
-        |
         */
         'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
             . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Semibold.otf',
@@ -37,20 +35,16 @@ return [
         |--------------------------------------------------------------------------
         | Font size
         |--------------------------------------------------------------------------
-        |
         | Default font size to be used when printing the title
-        |
         */
-        'size' => 14,
+        'size' => 12,
 
         /*
         |--------------------------------------------------------------------------
         | Title text
         |--------------------------------------------------------------------------
-        |
         | Default text to be displayed as the title.
         | Can (and probably should) be overridden when constructing the chart
-        |
         */
         'text' => 'Chart default title',
 
@@ -58,9 +52,7 @@ return [
         |--------------------------------------------------------------------------
         | Title color
         |--------------------------------------------------------------------------
-        |
         | Default color for the title's text. Set this in hex format
-        |
         */
         'color' => '#999999',
 
@@ -68,9 +60,7 @@ return [
         |--------------------------------------------------------------------------
         | Title height
         |--------------------------------------------------------------------------
-        |
         | Default height, in pixels, for the title area.
-        |
         */
         'height' => '26',
 
@@ -78,15 +68,84 @@ return [
         |--------------------------------------------------------------------------
         | Title padding
         |--------------------------------------------------------------------------
-        |
         | Default title padding to be added to title. Must be an array with the values
         | [«top-padding», «right-padding», «bottom-padding», «left-padding»].
         | You need to define at least the top-padding. The other values, if not set,
         | will assume 0
-        |
         */
         'padding' => [15, 0, 15, 0],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Properties for the labels on both axis
+    |--------------------------------------------------------------------------
+    */
+    'axis-label' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Font
+        |--------------------------------------------------------------------------
+        | Determines the font to be used on the axis labels
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Font size
+        |--------------------------------------------------------------------------
+        | Default font size to be used when printing the labels
+        */
+        'size' => 10,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Color
+        |--------------------------------------------------------------------------
+        | Default color for the axis' label. Set this in hex format
+        */
+        'color' => '#666666',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Angle to display the axis label
+        |--------------------------------------------------------------------------
+        | Defaults to 0, you can set this to the angle in which the label should
+        | be displayed (ex: 45)
+        */
+        'angle' => 0,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Margins to be applied to the labels
+        |--------------------------------------------------------------------------
+        | Set the value you want to "distance" the label from the axis (both top and left).
+        | Mind a larger number might result on the label not being displayed, in case this margin
+        | exceeds the chart area.
+        */
+        'margin' => [
+            'top'  => 15,
+            'left' => 15,
+        ],
+    ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -118,47 +177,6 @@ return [
         */
         'text' => 'SourceSansPro-Regular.otf',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Label properties (label used on each Point)
-    |--------------------------------------------------------------------------
-    */
-    'label' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Font size used on the Labels (point label)
-        |--------------------------------------------------------------------------
-        |
-        | Determines the font size used on the label
-        |
-        */
-        'size' => 11,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Angle to display the point label
-        |--------------------------------------------------------------------------
-        |
-        | Defaults to 0. If you want the label to be diagonal, set the angle here (ex: 45)
-        | Can also be overridden at runtime through Text->setAngle(«value»);
-        |
-        */
-        'angle' => 0,
-
-        /*
-        |--------------------------------------------------------------------------
-        | "Margin-top" to be applied to the labels
-        |--------------------------------------------------------------------------
-        |
-        | Set the value you want to "distance" the label from the axis.
-        | Mind a larger number might result on the label not being displayed, in case this margin
-        | exceeds the chart area.
-        |
-        */
-        'margin-top' => 15,
-    ],
-
 
     /*
     |--------------------------------------------------------------------------

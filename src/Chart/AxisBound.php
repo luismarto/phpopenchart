@@ -74,7 +74,7 @@ class AxisBound
 
             foreach ($serieList as $serie) {
                 foreach ($serie->getPointList() as $point) {
-                    $y = $point->getY();
+                    $y = $point->getValue();
 
                     if (!isset($yMin)) {
                         $yMin = $y;

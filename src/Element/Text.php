@@ -1,13 +1,12 @@
 <?php namespace Libchart\Element;
 
 use Libchart\Color\ColorHex;
-use Noodlehaus\Config;
 
 /**
  * Class Text
  * @package Libchart\Element
  */
-class Text
+class Text extends AbstractElement
 {
     public $HORIZONTAL_LEFT_ALIGN = 1;
     public $HORIZONTAL_CENTER_ALIGN = 2;
@@ -15,11 +14,6 @@ class Text
     public $VERTICAL_TOP_ALIGN = 8;
     public $VERTICAL_CENTER_ALIGN = 16;
     public $VERTICAL_BOTTOM_ALIGN = 32;
-
-    /**
-     * @var Config
-     */
-    private $config;
 
     /**
      * @var string
@@ -30,11 +24,6 @@ class Text
      * @var string
      */
     private $font;
-
-    /**
-     * @var int
-     */
-    private $angle;
 
     /**
      * @var resource
@@ -66,7 +55,6 @@ class Text
         $this->font = $this->fontsDirectory
             . $this->config->get('fonts.text', 'SourceSansPro-Light.otf');
 
-        $this->angle = $this->config->get('label.angle', 0);
         $this->color = new ColorHex('#555555');
     }
 
@@ -80,8 +68,9 @@ class Text
      * @param string $fontFileName font file name
      * @param int $align text alignment
      * @param int $fontSize
+     * @param int $angle
      */
-    public function draw($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12)
+    public function draw($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12, $angle = 0)
     {
         if (!($align & $this->HORIZONTAL_CENTER_ALIGN) && !($align & $this->HORIZONTAL_RIGHT_ALIGN)) {
             $align |= $this->HORIZONTAL_LEFT_ALIGN;
@@ -103,8 +92,6 @@ class Text
 
         $textWidth = $lrx - $llx;
         $textHeight = $lry - $ury;
-
-        $angle = 0;
 
         if ($align & $this->HORIZONTAL_CENTER_ALIGN) {
             $px -= $textWidth / 2;
@@ -148,39 +135,12 @@ class Text
     }
 
     /**
-     * Print text in diagonal.
-     *
-     * @param int $px text coordinate (x)
-     * @param int $py text coordinate (y)
-     * @param \Libchart\Color\Color $color text color
-     * @param string $text value
-     */
-    public function printDiagonal($px, $py, $color, $text)
-    {
-        $fontSize = $this->config->get('label.size', 11);
-        $fontFileName = $this->font;
-
-        $py = $py + $this->config->get('label.margin-top', 15);
-        imagettftext($this->img, $fontSize, $this->angle, $px, $py, $color->getColor($this->img), $fontFileName, $text);
-    }
-
-    /**
      * Returns the font used for the chart texts
      * @return string
      */
     public function getFont()
     {
         return $this->font;
-    }
-
-    /**
-     * Allows you to change the point's label angle on runtime
-     * @param int $angle
-     * @return $this
-     */
-    public function setAngle($angle)
-    {
-        $this->angle = $angle;
     }
 
     /**
@@ -200,19 +160,5 @@ class Text
     public function getColor()
     {
         return $this->color;
-    }
-
-    /**
-     * Sets a new font to be used for the text
-     * @param string $fontName
-     * @return $this
-     */
-    private function setFont($fontName)
-    {
-        if (strpos($fontName, DIRECTORY_SEPARATOR) === false) {
-            $this->font = $this->fontsDirectory . $fontName;
-        } else {
-            $this->font = $fontName;
-        }
     }
 }

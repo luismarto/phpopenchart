@@ -4,6 +4,7 @@ use Libchart\Color\ColorPalette;
 use Libchart\Color\ColorHex;
 use Libchart\Data\XYDataSet;
 use Libchart\Data\XYSeriesDataSet;
+use Libchart\Element\AxisLabel;
 use Libchart\Element\BasicPadding;
 use Libchart\Element\BasicRectangle;
 use Libchart\Element\Logo;
@@ -88,6 +89,8 @@ abstract class AbstractChart
      * @var Logo
      */
     protected $logo;
+
+    protected $axisLabel;
 
 
     /**
@@ -216,6 +219,7 @@ abstract class AbstractChart
         $this->gd = new Gd($this->img);
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($args, $this->text, $this->config);
+        $this->axisLabel = new AxisLabel($args, $this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
