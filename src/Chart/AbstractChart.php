@@ -15,6 +15,7 @@ use Libchart\Exception\DatasetMalformedException;
 use Libchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
+use ReflectionClass;
 
 /**
  * Class AbstractChart
@@ -217,6 +218,7 @@ abstract class AbstractChart
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
+
         // Immediately draw the chart background
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
 
@@ -231,16 +233,31 @@ abstract class AbstractChart
             ? $this->config->get('sort-data-point', true)
             : (bool)$args['sort-data-point'];
 
+        $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
+        if (array_key_exists('chart', $args) && is_array($args['chart'])
+            && array_key_exists('padding', $args['chart']) && is_array($args['chart']['padding'])
+        ) {
+            $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart']['padding']);
+        } else {
+            $this->graphPadding = $paddingReflect->newInstanceArgs(
+                $this->config->get('chart.' . $type . '-padding', [0, 0, 0, 0])
+            );
+        }
+
+
         $barLabelGeneratorClass = $this->config->get(
             'barLabelGenerator',
             '\Libchart\Label\DefaultLabel'
         );
         $this->barLabelGenerator = new $barLabelGeneratorClass;
 
+
+
         // Default layout
         $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
         $this->graphCaptionRatio = 0.50;
-        $this->graphPadding = new BasicPadding(50, 50, 50, 50);
+
+
         $this->captionPadding = new BasicPadding(15, 15, 15, 15);
 
         // Set dataset

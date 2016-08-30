@@ -18,6 +18,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Properties for the chart
+    |--------------------------------------------------------------------------
+    */
+    'chart' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Customized paddings for each chart type
+        |--------------------------------------------------------------------------
+        | Default padding to be added to the chart. Must be an array with the values
+        | [«top-padding», «right-padding», «bottom-padding», «left-padding»].
+        | You need to define at least the top-padding. The other values, if not set,
+        | will assume 0
+        */
+        'bar-padding'    => [5, 30, 30, 50],
+        'column-padding' => [5, 30, 50, 50],
+        'line-padding'   => [5, 30, 50, 50],
+        'pie-padding'    => [15, 10, 30, 30],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Properties for the title chart
     |--------------------------------------------------------------------------
     */
