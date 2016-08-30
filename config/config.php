@@ -128,6 +128,16 @@ return [
             'top'  => 15,
             'left' => 15,
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Label Generator Class for Axis
+        |--------------------------------------------------------------------------
+        | Determines the class used to generate the labels for Axis
+        | Feel free to implement your own LabelGenerator Class that implements
+        | \Libchart\Label\LabelInterface and use that here
+        */
+        'generator' => '\Libchart\Label\Short',
     ],
 
 
@@ -178,17 +188,6 @@ return [
         'text' => 'SourceSansPro-Regular.otf',
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Label Generator Class for Axis
-    |--------------------------------------------------------------------------
-    |
-    | Determines the class used to generate the labels for Axis
-    | Feel free to implement your own LabelGenerator Class that implements
-    | \Libchart\Label\LabelInterface and use that here
-    |
-    */
-    'axisLabelGenerator' => '\Libchart\Label\Short',
 
     /*
     |--------------------------------------------------------------------------

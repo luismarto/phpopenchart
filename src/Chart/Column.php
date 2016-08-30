@@ -57,7 +57,7 @@ class Column extends AbstractChartBar
             $this->axisLabel->draw(
                 $graphArea->x1 - 25,
                 $y - 15,
-                $this->axisLabelGenerator->generateLabel($value),
+                $this->axisLabel->generateLabel($value),
                 $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }

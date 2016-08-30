@@ -36,6 +36,12 @@ class AxisLabel extends AbstractElement
     private $marginLeft = null;
 
     /**
+     * Label generator for axis values
+     * @var \Libchart\Label\DefaultLabel
+     */
+    protected $labelGenerator = null;
+
+    /**
      * The text instance of the chart
      * @var Text
      */
@@ -71,6 +77,9 @@ class AxisLabel extends AbstractElement
             if (array_key_exists('margin-left', $args['axis-label'])) {
                 $this->marginLeft = (int)$args['axis-label']['margin-left'];
             }
+            if (array_key_exists('genereator', $args['axis-label'])) {
+                $this->labelGenerator = new $args['axis-label']['genereator'];
+            }
         }
 
         // If any option is null, get the config value or set a default value if the config doesn't exist
@@ -98,6 +107,13 @@ class AxisLabel extends AbstractElement
         if (is_null($this->marginLeft)) {
             $this->marginLeft = (int)$this->config->get('axis-label.margin.left', 0);
         }
+        if (is_null($this->labelGenerator)) {
+            $labelGeneratorClass = $this->config->get(
+                'axis-label.generator',
+                '\Libchart\Label\DefaultLabel'
+            );
+            $this->labelGenerator = new $labelGeneratorClass;
+        }
     }
 
     /**
@@ -122,5 +138,15 @@ class AxisLabel extends AbstractElement
             $this->fontSize,
             $this->angle
         );
+    }
+
+    /**
+     * Returns the formatted label
+     * @param string $value
+     * @return string
+     */
+    public function generateLabel($value)
+    {
+        return $this->labelGenerator->generateLabel($value);
     }
 }

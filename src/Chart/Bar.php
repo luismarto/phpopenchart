@@ -58,7 +58,7 @@ class Bar extends AbstractChartBar
             $this->axisLabel->draw(
                 $x - 15,
                 $graphArea->y2,
-                $this->axisLabelGenerator->generateLabel($value),
+                $this->axisLabel->generateLabel($value),
                 $this->text->HORIZONTAL_CENTER_ALIGN
             );
         }

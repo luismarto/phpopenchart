@@ -151,12 +151,6 @@ abstract class AbstractChart
     protected $captionArea;
 
     /**
-     * Label generator for axis values
-     * @var \Libchart\Label\DefaultLabel
-     */
-    protected $axisLabelGenerator;
-
-    /**
      * Label generator for bar values
      * @var \Libchart\Label\DefaultLabel
      */
@@ -237,11 +231,6 @@ abstract class AbstractChart
             ? $this->config->get('sort-data-point', true)
             : (bool)$args['sort-data-point'];
 
-        $axisLabelGeneratorClass = $this->config->get(
-            'axisLabelGenerator',
-            '\Libchart\Label\DefaultLabel'
-        );
-        $this->axisLabelGenerator = new $axisLabelGeneratorClass;
         $barLabelGeneratorClass = $this->config->get(
             'barLabelGenerator',
             '\Libchart\Label\DefaultLabel'
@@ -422,16 +411,6 @@ abstract class AbstractChart
     public function setGraphCaptionRatio($graphCaptionRatio)
     {
         $this->graphCaptionRatio = $graphCaptionRatio;
-    }
-
-    /**
-     * Set the label generator for the Axis.
-     *
-     * @param \Libchart\Label\DefaultLabel $labelGenerator Label generator
-     */
-    public function setAxisLabelGenerator($labelGenerator)
-    {
-        $this->axisLabelGenerator = $labelGenerator;
     }
 
     /**
