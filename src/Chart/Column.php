@@ -1,7 +1,5 @@
 <?php namespace Libchart\Chart;
 
-use Libchart\Element\BasicPadding;
-
 /**
  * Class Column
  * @package Libchart\Chart
@@ -22,9 +20,7 @@ class Column extends AbstractChartBar
      */
     public function __construct(array $args)
     {
-        parent::__construct($args, 'bar');
-
-        $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
+        parent::__construct($args, 'column');
     }
 
     /**
@@ -96,7 +92,7 @@ class Column extends AbstractChartBar
     /**
      * Print the bars.
      */
-    protected function printBar()
+    protected function printColumn()
     {
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();

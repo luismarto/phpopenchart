@@ -1,7 +1,5 @@
 <?php namespace Libchart\Chart;
 
-use Libchart\Element\BasicPadding;
-
 /**
  * Class Line
  * @package Libchart\Chart
@@ -17,8 +15,6 @@ class Line extends AbstractChartBar
     public function __construct($args)
     {
         parent::__construct($args, 'line');
-
-        $this->setGraphPadding(new BasicPadding(5, 30, 50, 50));
     }
 
     /**
