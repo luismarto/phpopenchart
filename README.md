@@ -51,9 +51,9 @@ It's my intention to fully document the package and it's options, but first I wa
 # Roadmap
 
 In a forseable future
-- Make the package more "configurable"
-- Fix bugs on Pie and Line charts
+- Fix bugs on Pie charts (deal with negative values, improve graphic aspect)
 - Fix tests
+- Add documentation
 - Make this easily integrated with Laravel
 
 ## License

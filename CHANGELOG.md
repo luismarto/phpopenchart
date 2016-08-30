@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+## [2.1.0] - 2016-08-31
+### Added
 - Added settings for axis label (font, font size, angle, color and margin) and a `AxisLabel` element with all the properties and methods for the axis (such as printing)
 - Added settings for the default chart padding by chart type
 - Added a rectangle for each point on the Line chart
