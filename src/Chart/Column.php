@@ -84,7 +84,12 @@ class Column extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $this->axisLabel->draw($x + $columnWidth * 1 / 3, $graphArea->y2, $point->getLabel(), 0);
+                $this->axisLabel->draw(
+                    $x + $columnWidth * 1 / 3,
+                    $graphArea->y2,
+                    $point->getLabel(),
+                    $this->text->HORIZONTAL_CENTER_ALIGN |$this->text->VERTICAL_TOP_ALIGN
+                );
             }
         }
     }
