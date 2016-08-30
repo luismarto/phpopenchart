@@ -39,7 +39,7 @@ class Bar extends AbstractChartBar
          * Deal with the Horizontal Axis
          */
         // Draw the line for the X axis
-        $this->gd->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
+//        $this->gd->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $x = $graphArea->x1

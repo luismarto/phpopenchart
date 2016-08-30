@@ -31,7 +31,7 @@ class Line extends AbstractChartBar
         $axisColor0 = $this->palette->axisColor[0];
 
         // Vertical axis
-        $this->gd->line($graphArea->x1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
+//        $this->gd->line($graphArea->x1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
@@ -129,7 +129,7 @@ class Line extends AbstractChartBar
                         $this->text->getColor(),
                         $this->barLabelGenerator->generateLabel($value),
                         $this->text->getFont(),
-                        $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
                     );
                 }
 

@@ -38,7 +38,7 @@ class Column extends AbstractChartBar
         /**
          * Deal with the Vertical Axis
          */
-        $this->gd->line($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1 - 1, $graphArea->y2, $axisColor0);
+//        $this->gd->line($graphArea->x1 - 1, $graphArea->y1, $graphArea->x1 - 1, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
