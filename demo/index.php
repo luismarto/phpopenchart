@@ -8,7 +8,7 @@ use Libchart\Chart\Pie;
 
 header("Content-type: image/png");
 
-$chart = new Column([
+$chart = new Line([
     'width'  => 600,
     'height' => 300,
     'title'  => [
@@ -22,6 +22,9 @@ $chart = new Column([
         ['Feb', 3296, '#cccccc'],
         ['asd', 0],
         ['Feb', 5015],
+        ['Feb', -256],
+        ['Feb', -984],
+        ['Feb', 1897],
     ]
 ]);
 $chart->render();

@@ -148,7 +148,7 @@ return [
         */
         'margin' => [
             'top'  => 15,
-            'left' => 15,
+            'left' => 0,
         ],
 
         /*

@@ -30,9 +30,10 @@ class Line extends AbstractChartBar
         $graphArea = $this->graphArea;
         $axisColor0 = $this->palette->axisColor[0];
 
-        // Vertical axis
-//        $this->gd->line($graphArea->x1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
-
+        /**
+         * Deal with the Vertical Axis
+         */
+        //        $this->gd->line($graphArea->x1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
                 - ($value - $minValue)
@@ -45,18 +46,20 @@ class Line extends AbstractChartBar
                 $graphArea->x1 - 25,
                 $y - 15,
                 $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
 
         // Get first serie of a list
         $pointList = $this->getFirstSerieOfList();
 
-        // Horizontal Axis
+        /**
+         * Deal with the Horizontal Axis
+         */
         $pointCount = count($pointList);
         reset($pointList);
-        $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+        $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
@@ -70,10 +73,10 @@ class Line extends AbstractChartBar
             next($pointList);
 
             $this->axisLabel->draw(
-                $x - 25,
+                $x + ($columnWidth / 2),
                 $graphArea->y2 + 5,
                 $point->getLabel(),
-                0
+                $this->text->HORIZONTAL_CENTER_ALIGN
             );
         }
     }
@@ -93,7 +96,7 @@ class Line extends AbstractChartBar
         // Get the graph area
         $graphArea = $this->graphArea;
 
-        $lineColorSet = $this->palette->barColorSet;
+        $lineColorSet = $this->palette->lineColorSet;
         $lineColorSet->reset();
         for ($j = 0; $j < count($serieList); $j++) {
             $serie = $serieList[$j];
@@ -101,14 +104,14 @@ class Line extends AbstractChartBar
             $pointCount = count($pointList);
             reset($pointList);
 
-            $columnWidth = ($graphArea->x2 - $graphArea->x1) / ($pointCount - 1);
+            $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
 
             $lineColor = $lineColorSet->currentColor();
             $lineColorSet->next();
             $x1 = null;
             $y1 = null;
             for ($i = 0; $i < $pointCount; $i++) {
-                $x2 = $graphArea->x1 + $i * $columnWidth;
+                $x2 = ($graphArea->x1 + $columnWidth / 2) + $i * $columnWidth;
 
                 $point = current($pointList);
                 next($pointList);
@@ -120,21 +123,30 @@ class Line extends AbstractChartBar
                     * ($graphArea->y2 - $graphArea->y1)
                     / ($this->axis->displayDelta);
 
-                // Draw line
+                // Don't draw the "start" line, because the first point has $x1 = null
+                // and that would create a line from the top left corner of the image
+                // to the first point
                 if (!is_null($x1)) {
                     $this->gd->line($x1, $y1, $x2, $y2, $lineColor);
-                    $this->text->draw(
-                        $x2,
-                        $y2 - 15,
-                        $this->text->getColor(),
-                        $this->barLabelGenerator->generateLabel($value),
-                        $this->text->getFont(),
-                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
-                    );
+                    // Print the rectangle to mark the point
+                    $this->gd->rectangle($x1 - 2, $y1 - 2, $x1 + 2, $y1 + 2, $lineColor);
                 }
+                $this->text->draw(
+                    $x2,
+                    $value >= 0 ? $y2 - 15 : $y2 + 15,
+                    $this->text->getColor(),
+                    $this->barLabelGenerator->generateLabel($value),
+                    $this->text->getFont(),
+                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                );
 
                 $x1 = $x2;
                 $y1 = $y2;
+            }
+
+            // Print the rectangle for the last point
+            if (!is_null($x1) && !is_null($y1)) {
+                $this->gd->rectangle($x1 - 2, $y1 - 2, $x1 + 2, $y1 + 2, $lineColor);
             }
         }
     }

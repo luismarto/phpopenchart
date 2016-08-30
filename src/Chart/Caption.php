@@ -94,12 +94,12 @@ class Caption
             $this->gd->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
 
             $this->text->draw(
-                $boxX2 + 5,
+                $boxX2 -15,
                 $boxY1 + $this->labelBoxHeight / 2,
                 $this->text->getColor(),
                 $label,
                 $this->text->getFont(),
-                $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
 
             $i++;

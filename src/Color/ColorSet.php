@@ -43,6 +43,9 @@ class ColorSet
 
         // Generate the shadow color set
         foreach ($colorList as $color) {
+            /**
+             * @var Color $color
+             */
             $shadowColor = $color->getShadowColor($shadowFactor);
 
             array_push($this->shadowColorList, $shadowColor);

@@ -54,7 +54,7 @@ class Column extends AbstractChartBar
                 $graphArea->x1 - 25,
                 $y - 15,
                 $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
             );
         }
 
@@ -67,11 +67,14 @@ class Column extends AbstractChartBar
         $pointCount = count($pointList);
         reset($pointList);
         $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
 
-        $this->gd->line($graphArea->x1 -1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
+        $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
         for ($i = 0; $i <= $pointCount; $i++) {
+            // The starting X for this point is the sum of the $x1 of the chart (minding the padding)
+            // + the position of the point * the width of each column
+            // This is used for printing the marker and the label
             $x = $graphArea->x1 + $i * $columnWidth;
 
             // Draw the bar separator marker
@@ -84,11 +87,13 @@ class Column extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
+                // The $x points to the center of the column.
+                // Then, based on the alignment, the label is correctly positioned
                 $this->axisLabel->draw(
-                    $x + $columnWidth * 1 / 3,
+                    $x + ($columnWidth / 2),
                     $graphArea->y2,
                     $point->getLabel(),
-                    $this->text->HORIZONTAL_CENTER_ALIGN |$this->text->VERTICAL_TOP_ALIGN
+                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_TOP_ALIGN
                 );
             }
         }
@@ -182,7 +187,7 @@ class Column extends AbstractChartBar
                 if ($this->showPointCaption) {
                     $this->text->draw(
                         $x1 + $barWidth / 2,
-                        ($value >= 0 ? $ymin - 5 : $ymin + 15),
+                        ($value >= 0 ? $ymin - 5 : $ymin + 18),
                         $this->text->getColor(),
                         $this->barLabelGenerator->generateLabel($value),
                         $this->text->getFont(),

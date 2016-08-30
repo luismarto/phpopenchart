@@ -60,6 +60,8 @@ class Text extends AbstractElement
 
     /**
      * Print text.
+     * The $px always points to the "center" of the text. Based on the $align, we add or subtract
+     * the correct value to position the text
      *
      * @param integer $px text coordinate (x)
      * @param integer $py text coordinate (y)
@@ -82,12 +84,12 @@ class Text extends AbstractElement
 
         $lineSpacing = 1;
 
-        list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly)= imageftbbox(
+        list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly) = imageftbbox(
             $fontSize,
-            0,
+            $angle,
             $fontFileName,
             $text,
-            array("linespacing" => $lineSpacing)
+            ["linespacing" => $lineSpacing]
         );
 
         $textWidth = $lrx - $llx;
@@ -97,8 +99,12 @@ class Text extends AbstractElement
             $px -= $textWidth / 2;
         }
 
-        if ($align & $this->HORIZONTAL_RIGHT_ALIGN) {
+        if ($align & $this->HORIZONTAL_LEFT_ALIGN) {
             $px -= $textWidth;
+        }
+
+        if ($align & $this->HORIZONTAL_RIGHT_ALIGN) {
+            $px += $textWidth;
         }
 
         if ($align & $this->VERTICAL_CENTER_ALIGN) {
