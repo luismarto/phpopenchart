@@ -1,0 +1,117 @@
+<?php namespace Libchart\Element;
+
+use Libchart\Color\ColorHex;
+
+class PointLabel extends AbstractElement
+{
+    /**
+     * The color of the label
+     * @var ColorHex
+     */
+    private $color = null;
+
+    /**
+     * @var string
+     */
+    private $font = null;
+
+    /**
+     * @var int
+     */
+    private $fontSize = null;
+
+    /**
+     * @var int
+     */
+    private $angle = null;
+
+    /**
+     * Label generator for point values
+     * @var \Libchart\Label\NumberFormatter
+     */
+    private $labelGenerator = null;
+
+    /**
+     * The text instance of the chart
+     * @var Text
+     */
+    private $textInstance;
+
+    /**
+     * @param Text $textInstance
+     * @param array $args
+     * @param \Noodlehaus\Config $config
+     */
+    public function __construct($args, $textInstance, $config)
+    {
+        $this->config = $config;
+        $this->textInstance = $textInstance;
+
+        // Check if the options were defined on the chart's constructor
+        if (array_key_exists('point-label', $args) && is_array($args['point-label'])) {
+            if (array_key_exists('font', $args['point-label'])) {
+                $this->font = $this->setFont($args['point-label']['font']);
+            }
+            if (array_key_exists('size', $args['point-label'])) {
+                $this->fontSize = (int)$args['point-label']['size'];
+            }
+            if (array_key_exists('color', $args['point-label'])) {
+                $this->color = new ColorHex($args['point-label']['color']);
+            }
+            if (array_key_exists('angle', $args['point-label'])) {
+                $this->angle = (int)$args['point-label']['angle'];
+            }
+            if (array_key_exists('generator', $args['point-label'])) {
+                $this->labelGenerator = new $args['point-label']['generator'];
+            }
+        }
+
+        // If any option is null, get the config value or set a default value if the config doesn't exist
+        if (is_null($this->font)) {
+            $this->font = $this->setFont(
+                $this->config->get(
+                    'point-label.font',
+                    __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
+                    . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+                )
+            );
+        }
+        if (is_null($this->fontSize)) {
+            $this->fontSize = (int)$this->config->get('point-label.size', 14);
+        }
+        if (is_null($this->color)) {
+            $this->color = new ColorHex($this->config->get('point-label.color', '#444444'));
+        }
+        if (is_null($this->angle)) {
+            $this->angle = (int)$this->config->get('point-label.angle', 0);
+        }
+        if (is_null($this->labelGenerator)) {
+            $labelGeneratorClass = $this->config->get(
+                'point-label.generator',
+                '\Libchart\Label\NumberFormatter'
+            );
+            $this->labelGenerator = new $labelGeneratorClass;
+        }
+    }
+
+    /**
+     * Draws the axis label with the configured properties
+     * @param int $x
+     * @param int $y
+     * @param int $value
+     * @param int $align
+     */
+    public function draw($x, $y, $value, $align)
+    {
+        $this->textInstance->draw(
+            $x,
+            $y,
+            $this->color,
+            $this->labelGenerator->generateLabel($value),
+            $this->font,
+            $align,
+            $this->fontSize,
+            $this->angle
+        );
+    }
+}

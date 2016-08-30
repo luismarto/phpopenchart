@@ -5,7 +5,7 @@ use Libchart\Color\ColorHex;
 class AxisLabel extends AbstractElement
 {
     /**
-     * The title color
+     * The color of the label
      * @var ColorHex
      */
     private $color = null;
@@ -39,7 +39,7 @@ class AxisLabel extends AbstractElement
      * Label generator for axis values
      * @var \Libchart\Label\DefaultLabel
      */
-    protected $labelGenerator = null;
+    private $labelGenerator = null;
 
     /**
      * The text instance of the chart
@@ -77,8 +77,8 @@ class AxisLabel extends AbstractElement
             if (array_key_exists('margin-left', $args['axis-label'])) {
                 $this->marginLeft = (int)$args['axis-label']['margin-left'];
             }
-            if (array_key_exists('genereator', $args['axis-label'])) {
-                $this->labelGenerator = new $args['axis-label']['genereator'];
+            if (array_key_exists('generator', $args['axis-label'])) {
+                $this->labelGenerator = new $args['axis-label']['generator'];
             }
         }
 
@@ -86,7 +86,7 @@ class AxisLabel extends AbstractElement
         if (is_null($this->font)) {
             $this->font = $this->setFont(
                 $this->config->get(
-                    'axis-label.fonts',
+                    'axis-label.font',
                     __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
                     . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
                 )

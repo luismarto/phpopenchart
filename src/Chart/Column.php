@@ -185,12 +185,10 @@ class Column extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->showPointCaption) {
-                    $this->text->draw(
+                    $this->pointLabel->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 18),
-                        $this->text->getColor(),
-                        $this->barLabelGenerator->generateLabel($value),
-                        $this->text->getFont(),
+                        $value,
                         $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_BOTTOM_ALIGN
                     );
                 }

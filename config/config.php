@@ -162,6 +162,57 @@ return [
         'generator' => '\Libchart\Label\Short',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Properties for the Point label
+    |--------------------------------------------------------------------------
+    */
+    'point-label' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Font
+        |--------------------------------------------------------------------------
+        | Determines the font to be used on the label
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Font size
+        |--------------------------------------------------------------------------
+        | Default font size to be used when printing the label
+        */
+        'size' => 10,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Color
+        |--------------------------------------------------------------------------
+        | Default color for the point label. Set this in hex format
+        */
+        'color' => '#333333',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Angle to display the point label
+        |--------------------------------------------------------------------------
+        | Defaults to 0, you can set this to the angle in which the label should
+        | be displayed (ex: 45)
+        */
+        'angle' => 0,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Label Generator Class for Point values
+        |--------------------------------------------------------------------------
+        | Determines the class used to generate the labels for Axis
+        | Feel free to implement your own LabelGenerator Class that implements
+        | \Libchart\Label\LabelInterface and use that here
+        */
+        'generator' => '\Libchart\Label\NumberFormatter',
+    ],
+
 
 
 
@@ -209,17 +260,4 @@ return [
         */
         'text' => 'SourceSansPro-Regular.otf',
     ],
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Label Generator Class for Bar values
-    |--------------------------------------------------------------------------
-    |
-    | Determines the class used to generate the labels for bar values (that is, for each dataset point)
-    | Feel free to implement your own LabelGenerator Class that implements
-    | \Libchart\Label\LabelInterface and use that here
-    |
-    */
-    'barLabelGenerator' => '\Libchart\Label\NumberFormatter'
 ];

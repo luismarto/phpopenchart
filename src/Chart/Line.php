@@ -131,12 +131,11 @@ class Line extends AbstractChartBar
                     // Print the rectangle to mark the point
                     $this->gd->rectangle($x1 - 2, $y1 - 2, $x1 + 2, $y1 + 2, $lineColor);
                 }
-                $this->text->draw(
+
+                $this->pointLabel->draw(
                     $x2,
                     $value >= 0 ? $y2 - 15 : $y2 + 15,
-                    $this->text->getColor(),
-                    $this->barLabelGenerator->generateLabel($value),
-                    $this->text->getFont(),
+                    $value,
                     $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
                 );
 

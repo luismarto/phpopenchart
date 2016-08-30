@@ -6,19 +6,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Added settings for label axis (font, font size, angle, color and margin) and a `AxisLabel` element with all the properties and methods for the axis (such as printing)
+- Added settings for axis label (font, font size, angle, color and margin) and a `AxisLabel` element with all the properties and methods for the axis (such as printing)
 - Added settings for the default chart padding by chart type
-- 
+- Added a rectangle for each point on the Line chart
+- Added settings for point label (similar to the axis label)
 
 ### Changed
 - When setting the font for the title, if you simply pass the font name, the package will look for that font on the fonts.path configuration. If you pass a full path with the name, that's what the package uses.
  This works for any element with a font
+- Added a `AbstractElement` with the common properties and methods for the Elements
+- The Line chart now starts at the center of the point area (before it was starting on the X axis).
+- The points with negative values have their label below the point on Line chart
+- Improved colors for Line chart
+- Improved the position of the labels (both horizontal and vertical) on all charts
+- Removed the axis line for the numbers (it's "cleaner" this way)
 - Refactored `Point` to have a `$label` and `$value` instead of a `$x` and `$y`
 - Moved the `$axisLabelGenerator` to `AxisLabel`
 - Removed `setAxisLabelGenerator`. Either you set it in `config.php` or on the chart's constructor
-- Added a `AbstractElement` with the common properties and methods for the Elements
 - Removed `setAngle()` on `Text`. Either you set it in `config.php` or on the chart's constructor
-- Removed the axis line for the numbers (it's "cleaner" this way)
 
 ## [2.0.0] - 2016-08-29
 ### Added

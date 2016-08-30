@@ -7,8 +7,9 @@ use Libchart\Data\XYSeriesDataSet;
 use Libchart\Element\AxisLabel;
 use Libchart\Element\BasicPadding;
 use Libchart\Element\BasicRectangle;
-use Libchart\Element\Logo;
 use Libchart\Element\Gd;
+use Libchart\Element\Logo;
+use Libchart\Element\PointLabel;
 use Libchart\Element\Text;
 use Libchart\Element\Title;
 use Libchart\Exception\DatasetMalformedException;
@@ -91,7 +92,15 @@ abstract class AbstractChart
      */
     protected $logo;
 
+    /**
+     * @var AxisLabel
+     */
     protected $axisLabel;
+
+    /**
+     * @var PointLabel
+     */
+    protected $pointLabel;
 
 
     /**
@@ -152,12 +161,6 @@ abstract class AbstractChart
     protected $captionArea;
 
     /**
-     * Label generator for bar values
-     * @var \Libchart\Label\DefaultLabel
-     */
-    protected $barLabelGenerator;
-
-    /**
      * @var Config
      */
     protected $config;
@@ -215,6 +218,7 @@ abstract class AbstractChart
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($args, $this->text, $this->config);
         $this->axisLabel = new AxisLabel($args, $this->text, $this->config);
+        $this->pointLabel = new PointLabel($args, $this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
@@ -243,15 +247,6 @@ abstract class AbstractChart
                 $this->config->get('chart.' . $type . '-padding', [0, 0, 0, 0])
             );
         }
-
-
-        $barLabelGeneratorClass = $this->config->get(
-            'barLabelGenerator',
-            '\Libchart\Label\DefaultLabel'
-        );
-        $this->barLabelGenerator = new $barLabelGeneratorClass;
-
-
 
         // Default layout
         $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
@@ -428,16 +423,6 @@ abstract class AbstractChart
     public function setGraphCaptionRatio($graphCaptionRatio)
     {
         $this->graphCaptionRatio = $graphCaptionRatio;
-    }
-
-    /**
-     * Set the label generator for the Bar.
-     *
-     * @param \Libchart\Label\DefaultLabel $labelGenerator Label generator
-     */
-    public function setBarLabelGenerator($labelGenerator)
-    {
-        $this->barLabelGenerator = $labelGenerator;
     }
 
     /**
