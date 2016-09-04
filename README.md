@@ -45,8 +45,8 @@ Require the package in your `composer.json` file and update composer, using the 
 
 # Documentation & examples
 
-Visit [https://github.com/luismarto/libchart/docs/index.html](https://github.com/luismarto/libchart/docs/index.html) for a complete documentation. 
-For examples, check [https://github.com/luismarto/libchart/docs/examples.html](https://github.com/luismarto/libchart/docs/examples.html)
+Visit [https://luismarto.github.com/docs/index.html](https://luismarto.github.com/docs/index.html) for a complete documentation. 
+For examples, check [https://luismarto.github.com/docs/examples.html](https://luismarto.github.com/docs/examples.html)
 
 # Roadmap
 
