@@ -103,10 +103,6 @@ class Text extends AbstractElement
             $px -= $textWidth;
         }
 
-        if ($align & $this->HORIZONTAL_RIGHT_ALIGN) {
-            $px += $textWidth;
-        }
-
         if ($align & $this->VERTICAL_CENTER_ALIGN) {
             $py += $textHeight / 2;
         }

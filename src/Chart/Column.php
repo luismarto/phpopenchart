@@ -184,7 +184,7 @@ class Column extends AbstractChartBar
                 }
 
                 // Draw caption text on bar
-                if ($this->showPointCaption) {
+                if ($this->pointLabel->show()) {
                     $this->pointLabel->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 18),

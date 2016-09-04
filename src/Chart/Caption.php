@@ -82,19 +82,12 @@ class Caption
             $boxY2 = $boxY1 + $this->labelBoxHeight;
 
             // Print the outline of the square color for the serie
-            $this->gd->outlinedBox(
-                $boxX1,
-                $boxY1,
-                $boxX2,
-                $boxY2,
-                $this->palette->axisColor[0],
-                $this->palette->axisColor[1]
-            );
+            $this->gd->rectangle($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[1]);
             // Print the square color for the serie
-            $this->gd->rectangle($boxX1 + 2, $boxY1 + 2, $boxX2 - 2, $boxY2 - 2, $color);
+            $this->gd->rectangle($boxX1 + 1, $boxY1 + 1, $boxX2 - 1, $boxY2 - 1, $color);
 
             $this->text->draw(
-                $boxX2 -15,
+                $boxX1 + 22,
                 $boxY1 + $this->labelBoxHeight / 2,
                 $this->text->getColor(),
                 $label,

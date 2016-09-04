@@ -60,7 +60,7 @@ class ColorPalette
         // Set the colors for the horizontal and vertical axis
         $this->setAxisColor([
             new ColorHex('#8BC5E0'),
-            new ColorHex('#C0D0E0')
+            new ColorHex('#E5E5E5')
         ]);
 
         // Set the colors for the background

@@ -2,26 +2,14 @@
 
 return [
     /*
-     * Use several colors for a single data set chart (as if it was a multiple data set)
-     */
-    'use-multiple-color' => false,
-
-    /*
-     * Show caption on individual data points.
-     */
-    'show-point-caption' => true,
-
-    /*
-     * Sort data points (only pie charts)
-     */
-    'sort-data-point' => true,
-
-    /*
     |--------------------------------------------------------------------------
     | Properties for the chart
     |--------------------------------------------------------------------------
     */
     'chart' => [
+        //@todo: doc this
+        'width' => 600,
+        'height' => 300,
         /*
         |--------------------------------------------------------------------------
         | Customized paddings for each chart type
@@ -46,6 +34,15 @@ return [
     'title' => [
         /*
         |--------------------------------------------------------------------------
+        | Title text
+        |--------------------------------------------------------------------------
+        | Default text to be displayed as the title.
+        | Can (and probably should) be overridden when constructing the chart
+        */
+        'text' => 'Chart default title',
+
+        /*
+        |--------------------------------------------------------------------------
         | Title font
         |--------------------------------------------------------------------------
         | Determines the font to be used on the chart title
@@ -60,15 +57,6 @@ return [
         | Default font size to be used when printing the title
         */
         'size' => 12,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Title text
-        |--------------------------------------------------------------------------
-        | Default text to be displayed as the title.
-        | Can (and probably should) be overridden when constructing the chart
-        */
-        'text' => 'Chart default title',
 
         /*
         |--------------------------------------------------------------------------
@@ -170,12 +158,21 @@ return [
     'point-label' => [
         /*
         |--------------------------------------------------------------------------
+        | Display the label
+        |--------------------------------------------------------------------------
+        | Determines if the point label should be displayed. If set to false, all the
+        | remaining properties are discarded
+        */
+        'show' => true,
+
+        /*
+        |--------------------------------------------------------------------------
         | Font
         |--------------------------------------------------------------------------
         | Determines the font to be used on the label
         */
         'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Semibold.otf',
 
         /*
         |--------------------------------------------------------------------------
@@ -227,9 +224,10 @@ return [
 
 
 
+    // @todo: add configs for logo
 
 
-
+    // @todo: to be documented
     /*
     |--------------------------------------------------------------------------
     | Font properties used on the chart
@@ -260,4 +258,17 @@ return [
         */
         'text' => 'SourceSansPro-Regular.otf',
     ],
+
+
+
+    /*
+     * Use several colors for a single data set chart (as if it was a multiple data set)
+     */
+    'use-multiple-color' => false,
+
+    /*
+     * Sort data points (only pie charts)
+     */
+    'sort-data-point' => false,
+
 ];

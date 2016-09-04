@@ -5,6 +5,12 @@ use Libchart\Color\ColorHex;
 class PointLabel extends AbstractElement
 {
     /**
+     * Determines if the label should be displayed
+     * @var bool
+     */
+    private $show = null;
+
+    /**
      * The color of the label
      * @var ColorHex
      */
@@ -49,6 +55,9 @@ class PointLabel extends AbstractElement
 
         // Check if the options were defined on the chart's constructor
         if (array_key_exists('point-label', $args) && is_array($args['point-label'])) {
+            if (array_key_exists('show', $args['point-label'])) {
+                $this->show = $args['point-label']['show'];
+            }
             if (array_key_exists('font', $args['point-label'])) {
                 $this->font = $this->setFont($args['point-label']['font']);
             }
@@ -75,6 +84,9 @@ class PointLabel extends AbstractElement
                     . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
                 )
             );
+        }
+        if (is_null($this->show)) {
+            $this->show = (bool)$this->config->get('point-label.show', true);
         }
         if (is_null($this->fontSize)) {
             $this->fontSize = (int)$this->config->get('point-label.size', 14);
@@ -113,5 +125,14 @@ class PointLabel extends AbstractElement
             $this->fontSize,
             $this->angle
         );
+    }
+
+    /**
+     * Returns if the point label should be displayed
+     * @return bool
+     */
+    public function show()
+    {
+        return $this->show;
     }
 }

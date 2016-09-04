@@ -1,9 +1,7 @@
 <?php namespace Libchart\Chart;
 
 use Libchart\Exception\DatasetNotDefinedException;
-use Libchart\Exception\InvalidDatasetException;
 use Libchart\Exception\PointsInSeriesDontMatchException;
-use Libchart\Exception\UnknownDatasetTypeException;
 use Libchart\Data\XYDataSet;
 use Libchart\Data\XYSeriesDataSet;
 
@@ -52,7 +50,6 @@ abstract class AbstractChartBar extends AbstractChart
      * Returns true if the data set has some data.
      * @param int $minNumberOfPoint Minimum number of points (1 for bars, 2 for lines).
      * @return bool true if data set empty
-     * @throws UnknownDatasetTypeException
      */
     protected function isEmptyDataSet($minNumberOfPoint)
     {
@@ -71,8 +68,6 @@ abstract class AbstractChartBar extends AbstractChart
 
                 return $pointCount < $minNumberOfPoint;
             }
-        } else {
-            throw new UnknownDatasetTypeException();
         }
 
         return false;
@@ -106,8 +101,6 @@ abstract class AbstractChartBar extends AbstractChart
                 }
                 $lastPointCount = $pointCount;
             }
-        } else {
-            throw new InvalidDatasetException();
         }
     }
 
@@ -195,6 +188,11 @@ abstract class AbstractChartBar extends AbstractChart
             if ($this->hasSeveralSeries) {
                 $this->printCaption();
             }
+        }
+
+        // If there's no filename, then render the chart as an image
+        if (is_null($filename)) {
+            header("Content-type: image/png");
         }
 
         $this->output($filename);

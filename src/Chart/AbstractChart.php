@@ -173,11 +173,6 @@ abstract class AbstractChart
     /**
      * @var bool
      */
-    protected $showPointCaption;
-
-    /**
-     * @var bool
-     */
     protected $useMultipleColor;
 
     /**
@@ -199,9 +194,6 @@ abstract class AbstractChart
      */
     protected function __construct($args, $type)
     {
-        $width = !array_key_exists('width', $args) ? 600 : $args['width'];
-        $height = !array_key_exists('height', $args) ? 300 : $args['height'];
-
         // Get config file
         // Initialize the configuration
         $configPath = __DIR__
@@ -209,6 +201,13 @@ abstract class AbstractChart
             . DIRECTORY_SEPARATOR . '..'
             . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
         $this->config = Config::load($configPath);
+
+        $width = $this->config->get('chart.width', 600);
+        $height = $this->config->get('chart.height', 300);
+        if (array_key_exists('chart', $args) && is_array($args['chart'])) {
+            $width = array_key_exists('width', $args['chart']) ? $args['chart']['width'] : $width;
+            $height = array_key_exists('height', $args['chart']) ? $args['chart']['height'] : $height;
+        }
 
         // Create image
         $this->img = imagecreatetruecolor($width, $height);
@@ -227,9 +226,6 @@ abstract class AbstractChart
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
 
         // Set chart properties
-        $this->showPointCaption = !array_key_exists('show-point-caption', $args)
-            ? $this->config->get('show-point-caption', true)
-            : (bool)$args['show-point-caption'];
         $this->useMultipleColor = !array_key_exists('use-multiple-color', $args)
             ? $this->config->get('use-multiple-color', true)
             : (bool)$args['use-multiple-color'];
@@ -239,9 +235,9 @@ abstract class AbstractChart
 
         $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])
-            && array_key_exists('padding', $args['chart']) && is_array($args['chart']['padding'])
+            && array_key_exists( $type . '-padding', $args['chart']) && is_array($args['chart'][ $type . '-padding'])
         ) {
-            $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart']['padding']);
+            $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart'][ $type . '-padding']);
         } else {
             $this->graphPadding = $paddingReflect->newInstanceArgs(
                 $this->config->get('chart.' . $type . '-padding', [0, 0, 0, 0])
@@ -257,11 +253,8 @@ abstract class AbstractChart
 
         // Set dataset
         $this->validateDataset($args);
-        if (count($args['dataset']) > 1 && array_key_exists('points', $args['dataset'][0])) {
-            $this->dataSet = new XYSeriesDataSet();
-            foreach ($args['dataset'] as $serie) {
-                $this->dataSet->addSerie($serie['name'], $serie['points']);
-            }
+        if (count($args['dataset']) > 1 && array_key_exists('series', $args['dataset'])) {
+            $this->dataSet = new XYSeriesDataSet($args['dataset']);
             $this->hasSeveralSeries = true;
         } else {
             $this->dataSet = new XYDataSet($args['dataset']);
@@ -288,9 +281,16 @@ abstract class AbstractChart
         }
 
         // If there's only one series, verify that the first element is an array
-        if (count($args['dataset']) === 1 && (!is_array($args['dataset'][0]) || empty($args['dataset'][0]))) {
+        if (count($args['dataset']) === 1 && !array_key_exists('data', $args['dataset'])) {
             throw new DatasetMalformedException();
         }
+
+        // Check if there's a 'series' key and, if so, validate if 'data' has three levels
+        //@todo fix this
+
+        // otherwise, check if data has two level
+        //
+        // throw exception if ne number of elee,ments in data is diffenret from the labels
     }
 
     /**
@@ -302,8 +302,6 @@ abstract class AbstractChart
         if (!$this->dataSet) {
             throw new DatasetNotDefinedException();
         }
-
-        // Maybe no points are defined, but that's ok. This will yield and empty graph with default boundaries.
     }
 
     /**
