@@ -10,7 +10,7 @@ class Bar extends AbstractChartBar
      * Ratio of empty space beside the bars.
      * @var float
      */
-    private $emptyToFullRatio = 1 / 5;
+    private $emptyToFullRatio;
 
     /**
      * Creates a new horizontal bar chart.
@@ -19,6 +19,7 @@ class Bar extends AbstractChartBar
      */
     public function __construct($args)
     {
+        $this->emptyToFullRatio = 1 / 5;
         parent::__construct($args, 'bar');
     }
 
