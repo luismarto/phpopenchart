@@ -1,7 +1,5 @@
 <?php namespace Libchart\Data;
 
-use ReflectionClass;
-
 /**
  * Set of data in the form of (x, y) items.
  */
@@ -14,25 +12,29 @@ class XYDataSet extends DataSet
 
     /**
      * Constructor of XYDataSet.
+     * Receives an array with a format similar to:
+     * [
+        'labels' => ['Jan', 'Feb', 'Mar'],
+        'data' => [
+            [3296],
+            [3296, '#cccccc'],
+            [3296],
+        ]
      * @param array $points
      */
     public function __construct(array $points)
     {
-        foreach ($points as $point) {
-            $pointReflection = new ReflectionClass('\Libchart\\Data\\Point');
-            $this->addPoint($pointReflection->newInstanceArgs($point));
+        for ($i = 0; $i < count($points['data']); $i++) {
+            $label = array_key_exists($i, $points['labels']) ? $points['labels'][$i] : 'undefined';
+            if (is_array($points['data'][$i])) {
+                $value = $points['data'][$i][0];
+                $color = array_key_exists(1, $points['data'][$i]) ? $points['data'][$i][1] : null;
+            } else {
+                $value = $points['data'][$i];
+                $color = null;
+            }
+            $this->pointList[] = new Point($label, $value, $color);
         }
-    }
-
-    /**
-     * Add a new point to the dataset.
-     *
-     * @param \Libchart\Data\Point Point to add to the dataset
-     */
-
-    public function addPoint($point)
-    {
-        array_push($this->pointList, $point);
     }
 
     /**

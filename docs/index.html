@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>luismarto/libchart documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Luís Cruz">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/libchart.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo font-size-12">
+                        <a href="index.html">
+                            <!--<span aria-hidden="true" class="icon_documents_alt icon"></span>-->
+                            <span class="text-highlight">luismarto/libchart</span><span class="color-white">  documentation</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Docs</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><i class="icon fa fa-file-text-o"></i> Documentation</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Last updated: Sep 4th, 2016</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                        <div class="content-inner">
+                            <section id="how-this-works-section" class="doc-section">
+                                <h2 class="section-title">How does this work?</h2>
+                                <div class="section-block">
+                                    <p>This is a PHP library that enables you to produce chart-like images. You simple create a new object of the chart class, set the dimensions and the chart dataset (and all the other available configurations, if needed) and a chart image is created. You can then display the image on the page or store it on a file.</p>
+                                    <p>Behind the curtain, the library calculates the dimensions of all the components (graph, axis, title, labels, columns / bars, lines / pie slices, etc) and assembles the final image.</p>
+                                 </div>
+                            </section><!--//doc-section-->
+                            <section id="installation-section" class="doc-section">
+                                <h2 class="section-title">Installation</h2>
+                                <div class="section-block">
+                                    <p>To use this package on your project, you need to use <a href="https://getcomposer.org/" target="_blank">Composer</a>.</p>
+                                    <p>Once you have Composer, just add the package as a dependency, as follows:</p>
+                                    <pre><code class="language-markup">"require": {
+    "luismarto/libchart": "2.*"
+}</code></pre>
+                                 </div>
+                            </section><!--//doc-section-->
+
+                            <section id="create-chart-section" class="doc-section">
+                                <h2 class="section-title">Create chart</h2>
+                                <div class="section-block">
+                                    <p>To create a chart you need to use one of the following classes, based on the chart you want to produce. The class names are faily expressive.</p>
+                                    <pre><code class="language-php">&lt;?php
+use Libchart\Chart\Column;
+use Libchart\Chart\Bar;
+use Libchart\Chart\Line;
+use Libchart\Chart\Pie;</code></pre>
+                                    <p>Then, you just need to create the chart with you options and render it, as such, which produces a chart like the image below</p>
+                                    <pre><code class="language-php">&lt;?php
+use Libchart\Chart\Column;
+
+$chart = new Column([
+    'dataset' => [
+        'labels' => ['Jan', 'Feb', 'Mar'],
+        'data'   => [3296, 1546, 5015]
+    ]
+]);
+$chart->render();</code></pre>
+                                    <p><img src="assets/images/sample-column-chart.png" alt="Sample column chart" class="img-responsive centered" style="max-width: 500px;" /></p>
+                                </div>
+                            </section><!--//doc-section-->
+
+                            <section id="dataset-section" class="doc-section">
+                                <h2 class="section-title">Dataset</h2>
+                                <div class="section-block">
+                                    <p>The dataset parameter is required and represents the information you want to display on the chart. There are two formats for dataset, based on the information you want to display</p>
+                                    <div class="callout-block callout-warning">
+                                        <div class="icon-holder">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <h4 class="callout-title">Beware</h4>
+                                            <p>Failing to set a <i class="italic">dataset</i> key will result in a <code class="language-php">Libchart\Exception\DatasetNotDefinedException</code> exception.</p>
+                                        </div><!--//content-->
+                                    </div>
+
+
+                                    <div id="single-series"  class="section-block">
+                                        <h3 class="block-title">Single serie</h3>
+                                        <p>If you want to display a single serie, you should set the <code class="language-php">'dataset'</code> key to an array of <code class="language-php">'labels'</code> and <code class="language-php">'data'</code>. Each element in <code class="language-php">'data'</code> can be either an integer (the value) or an array (the value and the color).</p>
+                                        <p>Make sure you use the same number of elements in labels and data.</p>
+                                        <p>The format for this dataset is as follows.</p>
+                                        <pre><code class="language-php">'dataset' => [
+    'labels' => ['Jan', 'Feb', 'Mar'],
+    'data' => [
+        3296,
+        [1546, '#F88C30'],
+        5015,
+    ]
+]</code></pre>
+                                        <p>The result of such dataset is similar to the example above.</p>
+                                    </div>
+
+
+
+                                    <div id="multiple-series"  class="section-block">
+                                        <h3 class="block-title">Multiple series</h3>
+                                        <p>Whenever you need to display multiple series in the same chart, you need to use another format for the <i class="italic">dataset</i>. Specifically, you should add a <code class="language-php">'series'</code> key, that must be an array with the series names.</p>
+                                        <p>As for the <code class="language-php">'data'</code> key, when using multiple series, you need to set it to an array of arrays. </p><pre><code class="language-php">'dataset' => [
+    'series' => ['First series', 'Second Series'],
+    'labels' => ['Jan', 'Feb', 'Mar'],
+    'data'   => [
+        [
+            3296, 154, 5015
+        ],
+        [
+            [564, '#cccccc'], 1564, 3215
+        ],
+    ],
+]</code></pre>
+                                        <p>Similar to the single series data points can either be an integer or an array, with the first element as the value and the second as the color.</p>
+                                        <p><img src="assets/images/dataset-multiple-series.png" alt="Dataset multiple series" class="img-responsive centered" style="max-width: 500px;"/></p>
+                                        <div class="callout-block callout-info">
+                                            <div class="icon-holder">
+                                                <i class="fa fa-info-circle"></i>
+                                            </div><!--//icon-holder-->
+                                            <div class="content">
+                                                <h4 class="callout-title">A note on Pie charts</h4>
+                                                <p>For obvious reasons, Pie charts don't support multiple series. So, when creating a Pie chart, be sure to set a single serie.</p>
+                                                <p>It's also a good time to tell you that, any negative point value on Pie charts will be treated as 0.</p>
+                                            </div><!--//content-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <section id="options-section" class="doc-section">
+                                <h2 class="section-title">Options</h2>
+                                <div class="section-block">
+                                    <p>All the options are defined in <code>config/config.php</code> file. You can change the settings through the file but <i style="text-decoration: underline">passing the settings when creating the chart is the preferred way</i>.</p>
+                                    <p>The options are divided by components and are as follows</p>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-options">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 100px">Parent key</th>
+                                                <th style="min-width: 100px;">Option key</th>
+                                                <th>Description</th>
+                                                <th style="min-width: 150px">Default value</th>
+                                                <th>Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">width</td>
+                                                <td>Sets the width for the output area</td>
+                                                <td class="option-default-value"><code class="language-php">600</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">height</td>
+                                                <td>Sets the height for the output area</td>
+                                                <td class="option-default-value"><code class="language-php">300</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">bar-padding</td>
+                                                <td rowspan="4" style="vertical-align: middle">Array with four positions at most, with integer values, that represent the top-padding, right-padding, bottom-padding and left-padding used for the chart.<br />
+                                                    Use the key that matches the chart type you're creating.<br />
+                                                    If you pass an array with less then four values, the remaining paddings will be 0.</td>
+                                                <td class="option-default-value"><code class="language-php">[5, 30, 30, 50]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">column-padding</td>
+                                                <td class="option-default-value"><code class="language-php">[5, 30, 50, 50]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">line-padding</td>
+                                                <td class="option-default-value"><code class="language-php">[5, 30, 50, 50]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
+                                                <td class="option-key">pie-padding</td>
+                                                <td class="option-default-value"><code class="language-php">[15, 10, 30, 30]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">text</td>
+                                                <td>The description of the chart. You probably want to set this for each chart</td>
+                                                <td class="option-default-value"><i class="italic">Chart default title</i></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">font</td>
+                                                <td>Path for the font (odt or ttf) to be used on the title. <br />You can either set this as the full path of the font file or simply set the font file name, if you want to use one of the SourceSans fonts (that are available on the <i class="italic">fonts</i> directory.</td>
+                                                <td class="option-default-value"><code class="language-php">SourceSansPro-Semibold.otf</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">size</td>
+                                                <td>Sets the font size to be used for the title text</td>
+                                                <td class="option-default-value"><code class="language-php">12</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">color</td>
+                                                <td>Sets the color in which the title should be printed. Make sure you pass a valid hexadecimal color (with #)</td>
+                                                <td class="option-default-value"><code class="language-php">#999999</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">height</td>
+                                                <td>Sets the height of the title component. The greater the value, the greater the distance between the title and the chart area.<br />Note that the dimensions of the chart remain, so this results in the chart area to be smaller.</td>
+                                                <td class="option-default-value"><code class="language-php">26</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">title</td>
+                                                <td class="option-key">padding</td>
+                                                <td>Besides the height, you can set the padding for the title component, just as you do with the chart.<br />Like the chart padding, this accepts an array with four integer values for the top-padding, right-padding, bottom-padding and left-padding.</td>
+                                                <td class="option-default-value"><code class="language-php">[15, 0, 15, 0]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">font</td>
+                                                <td>Path for the font (odt or ttf) to be used on the axis text. <br />You can either set this as the full path of the font file or simply set the font file name, if you want to use one of the SourceSans fonts (that are available on the <i class="italic">fonts</i> directory.</td>
+                                                <td class="option-default-value"><code class="language-php">SourceSansPro-Regular.otf</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">size</td>
+                                                <td>Determines the font size for the text</td>
+                                                <td class="option-default-value"><code class="language-php">10</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">color</td>
+                                                <td>Hexadecimal color for the axis labels</td>
+                                                <td class="option-default-value"><code class="language-php">#666666</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">angle</td>
+                                                <td>The angle for the text rotation. Set this to the number of degrees you want to rotate the text. Accepts both positive and negative values.</td>
+                                                <td class="option-default-value"><code class="language-php">0</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">margin</td>
+                                                <td>Array with <code class="language-php">'top'</code> and <code class="language-php">'left'</code> key. Both keys should be set to an integer value that represents the top and left padding.</td>
+                                                <td class="option-default-value"><code class="language-php">[ 'top' => 15, 'left' => 0]</code></td>
+                                                <td class="option-type">array</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">generator</td>
+                                                <td>A full qualified class name responsible for formatting the value axis.<br />If you want to display the value in a different format, use one of the <a class="scrollto" href="#label-generators-section">available label generators</a> or create your custom class that implements <code class="language-php">\Libchart\Label\LabelInterface</code>.</td>
+                                                <td class="option-default-value"><code class="language-php">\Libchart\Label\Short</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+
+
+
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">show</td>
+                                                <td>Boolean value that indicates if the point label should be displayed. If set to false, all the remaining settings are discarded.</td>
+                                                <td class="option-default-value"><code class="language-php">true</code></td>
+                                                <td class="option-type">bool</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">font</td>
+                                                <td>Path for the font (odt or ttf) to be used on the point label. <br />You can either set this as the full path of the font file or simply set the font file name, if you want to use one of the SourceSans fonts (that are available on the <i class="italic">fonts</i> directory.</td>
+                                                <td class="option-default-value"><code class="language-php">SourceSansPro-Semibold.otf</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">size</td>
+                                                <td>The size for the label</td>
+                                                <td class="option-default-value"><code class="language-php">10</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">color</td>
+                                                <td>Hexadecimal color used when printing the point label</td>
+                                                <td class="option-default-value"><code class="language-php">#333333</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">angle</td>
+                                                <td>The angle for the label. Set this to an integer value to display the point label rotated.</td>
+                                                <td class="option-default-value"><code class="language-php">0</code></td>
+                                                <td class="option-type">int</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">point-label</td>
+                                                <td class="option-key">generator</td>
+                                                <td>A full qualified class name responsible for formatting the point value.<br />If you want to display the value in a different format, use one of the <a class="scrollto" href="#label-generators-section">available label generators</a> or create your custom class that implements <code class="language-php">\Libchart\Label\LabelInterface</code></td>
+                                                <td class="option-default-value"><code class="language-php">\Libchart\Label\NumberFormatter</code></td>
+                                                <td class="option-type">string</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section><!--//doc-section-->
+
+
+
+                            <section id="label-generators-section" class="doc-section">
+                                <h2 class="section-title">Label generators</h2>
+                                <div class="section-block">
+                                    <p>The axis or point values are always formatted according to a given Label generator. This enables you to display the value in a custom format, based on the information you want to print. Libchart has a set of pre-defined formatters you can use (see the list below), but you can also create your own Label formatter and use it.</p>
+
+                                    <div id="libchart-formatters" class="section-block">
+                                        <h3 class="block-title">Libchart formatters</h3>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-labels">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="min-width: 100px">FQ Class Name</th>
+                                                        <th>Description</th>
+                                                        <th style="min-width: 170px">Example</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="option-key">\Libchart\Label\DefaultLabel</td>
+                                                        <td>The more basic formatter. Just recieve the value and print it as it is, without any formatting.</td>
+                                                        <td>100 => 100<br />30000 => 30000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="option-key">\Libchart\Label\Short</td>
+                                                        <td>This formatter shortens the number. Instead of displaying the full number, displays a number and a letter for the power of the number.<br />This is the default label formatter for the value axis.</td>
+                                                        <td>100 => 100<br />30000 => 30k<br />7000000 => 7M</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="option-key">\Libchart\Label\NumberFormatter</td>
+                                                        <td>Similar to the <code class="language-php">DefaultLabel</code> formatter, this one prints the numbers in a specific format. Specifically, a separator is added for the thousands and millions.</td>
+                                                        <td>100 => 100<br />30000 => 30 000<br />7000000 => 7 000 000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="option-key">\Libchart\Label\PercentageFormatter</td>
+                                                        <td>Enables you to display percentage values, with decimals and the <code>%</code> symbol.</td>
+                                                        <td>2.54 => 2,54 %<br />26 => 26,00 %<br />100 => 100,00 %</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="option-key">\Libchart\Label\EurCurrencyFormatter</td>
+                                                        <td>Uses the <code class="language-php">NumberFormatter</code> and appends a <code>€</code> symbol at the end of the number.</td>
+                                                        <td>100 => 100 €<br />30000 => 30 000 €<br />7000000 => 7 000 000 €</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="craft-your-own-formatter" class="section-block">
+                                        <h3 class="block-title">Craft your own formatter</h3>
+                                        <p>If you need a validator that doesn't yet exist, you can create your own Label Formatter class and use it on your chart.</p>
+                                        <p>Make sure your class implements <code class="language-php">\Libchart\Label\LabelInterface</code> and then specify the full qualified class name on the chart settings (look for <i class="italic">point-label.generator</i> and <i class="italic">axis-label.generator</i> on the <a class="scrollto" href="#options-section">options</a> section).</p>
+                                        <pre><code class="language-php">&lt;?php
+
+class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
+{
+    public function generateLabel($value)
+    {
+        return ((int)($value / 1000)) . "k";
+    }
+}</code></pre>
+                                        <pre><code class="language-php">(new Line([
+    'axis-label' => [
+     'generator' => 'ThousandLabelGenerator'
+    ],
+    'point-label' => [
+      'generator' => 'ThousandLabelGenerator'
+    ],
+    'dataset' => [
+        'labels' => ['Jan', 'Feb', 'Mar'],
+        'data' => [
+            3296,
+            [1546, '#F88C30'],
+            -256,
+        ]
+    ]
+]))->render();</code></pre>
+                                    </div>
+                                </div>
+                            </section><!--//doc-section-->
+
+
+
+                            <section id="methods-section" class="doc-section">
+                                <h2 class="section-title">Methods</h2>
+                                <div class="section-block">
+                                    <p>The only available public method is <code class="language-php">render();</code> which renders the chart. The method accepts an optional argument for the file path.</p>
+                                    <p>If no argument is specified, the image is created and displayed on the browser. Otherwise, an image is created on the specified file path.</p>
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+
+                            <section id="exceptions-section" class="doc-section">
+                                <h2 class="section-title">Exceptions</h2>
+                                <div class="section-block">
+                                    <p>Along the process some exceptions might be throwed if the data ins't on the expected format. Below you can check the list of existing exceptions and why they are throwed</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-exceptions">
+                                            <thead>
+                                                <tr>
+                                                    <th style="min-width: 100px">Exception</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="option-key">\Libchart\Exception\DatasetNotDefinedException</td>
+                                                    <td>This exception is throwed when you fail to set a <code class="language-php">'dataset'</code> key array that's passed to the chart constructor. Make sure you take a look at the <a class="scrollto" href="#dataset-section">dataset</a> option.</td>
+                                                <tr>
+                                                    <td class="option-key">\Libchart\Exception\DatasetMalformedException</td>
+                                                    <td>The exception is throwed when the structure of the <code class="language-php">'dataset'</code> key is incorrect. You might have failed to pass a <code class="language-php">'labels'</code> or <code class="language-php">'data'</code> keys. Or you may have set the <code class="language-php">'data'</code> to a multiple series, but failed to add a <code class="language-php">'series'</code> key.<br />Take a look a the <a class="scrollto" href="#dataset-section">Dataset</a> documentation and make sure you have setted the correct format.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="option-key">\Libchart\Exception\LogoFileNotFoundException</td>
+                                                    <td>If you setted a logo on the configuration and the logo cannot be found, this exception is throwed.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="option-key">\Libchart\Exception\PointsInSeriesDontMatchException</td>
+                                                    <td>This exception might occur when you're creating a multiple series chart.<br />Make sure each array in <code class="language-php">'dataset.data'</code> has the exact same number of points. If you have a series that has 5 points and another with 3 points, this exception will be throwed.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar hidden-xs">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                                <li><a href="examples.html">Go to examples</a></li>
+                                <li>&nbsp;</li>
+                                <li><a class="scrollto" href="#how-this-works-section">How does this work?</a></li>
+                                <li><a class="scrollto" href="#installation-section">Installation</a></li>
+                                <li><a class="scrollto" href="#create-chart-section">Create chart</a></li>
+                                <li>
+                                    <a class="scrollto" href="#dataset-section">Dataset</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li><a class="scrollto" href="#single-series">Single serie</a></li>
+                                        <li><a class="scrollto" href="#multiple-series">Multiple series</a></li>
+                                    </ul><!--//nav-->
+                                </li>
+                                <li><a class="scrollto" href="#options-section">Options</a></li>
+                                <li>
+                                    <a class="scrollto" href="#label-generators-section">Label generators</a>
+                                    <ul class="nav doc-sub-menu">
+                                        <li><a class="scrollto" href="#libchart-formatters">Libchart formatters</a></li>
+                                        <li><a class="scrollto" href="#craft-your-own-formatter">Craft your own formatter</a></li>
+                                    </ul><!--//nav-->
+                                </li>
+                                <li><a class="scrollto" href="#methods-section">Methods</a></li>
+                                <li><a class="scrollto" href="#exceptions-section">Exceptions</a></li>
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+    </div>
+
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" target="_blank">Xiaoying Riley</a> for developers</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>                                                                
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+

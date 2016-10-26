@@ -132,12 +132,14 @@ class Line extends AbstractChartBar
                     $this->gd->rectangle($x1 - 2, $y1 - 2, $x1 + 2, $y1 + 2, $lineColor);
                 }
 
-                $this->pointLabel->draw(
-                    $x2,
-                    $value >= 0 ? $y2 - 15 : $y2 + 15,
-                    $value,
-                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
-                );
+                if ($this->pointLabel->show()) {
+                    $this->pointLabel->draw(
+                        $x2,
+                        $value >= 0 ? $y2 - 15 : $y2 + 15,
+                        $value,
+                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                    );
+                }
 
                 $x1 = $x2;
                 $y1 = $y2;

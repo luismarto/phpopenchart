@@ -174,12 +174,11 @@ class Bar extends AbstractChartBar
                 }
 
                 // Draw caption text on bar
-                if ($this->showPointCaption) {
-                    $textAlign = $this->text->VERTICAL_CENTER_ALIGN
-                        | ($value >= 0 ? $this->text->HORIZONTAL_RIGHT_ALIGN : $this->text->HORIZONTAL_LEFT_ALIGN);
+                if ($this->pointLabel->show()) {
+                    $textAlign = $this->text->VERTICAL_CENTER_ALIGN | $this->text->HORIZONTAL_LEFT_ALIGN;
 
                     $this->pointLabel->draw(
-                        $xmax + ($value > 0 ? -25 : ($value == 0 ? 0 : -10)),
+                        $xmax + ($value > 0 ? 30 : ($value == 0 ? 0 : -10)),
                         $y2 - $barWidth / 2,
                         $value,
                         $textAlign

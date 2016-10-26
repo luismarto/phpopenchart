@@ -43,17 +43,16 @@ Require the package in your `composer.json` file and update composer, using the 
 "luismarto/libchart": "2.*"
 ```
 
-# Documentation
+# Documentation & examples
 
-At this point documentation is scarce and the most you can get is by reading code.
-It's my intention to fully document the package and it's options, but first I want to refactor a few things.
+Visit [https://luismarto.github.com/docs/index.html](https://luismarto.github.com/docs/index.html) for a complete documentation. 
+For examples, check [https://luismarto.github.com/docs/examples.html](https://luismarto.github.com/docs/examples.html)
 
 # Roadmap
 
 In a forseable future
-- Fix bugs on Pie charts (deal with negative values, improve graphic aspect)
+- Minor fixes and improvements (add configurations, apply configurations to all chart types, optimize internal code, add the color specified on the point to the pie chart, ...)
 - Fix tests
-- Add documentation
 - Make this easily integrated with Laravel
 
 ## License

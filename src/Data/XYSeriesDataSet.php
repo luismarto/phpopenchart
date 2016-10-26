@@ -10,39 +10,41 @@ class XYSeriesDataSet extends DataSet
      * List of titles
      * @var array
      */
-    private $titleList;
+    private $titleList = [];
 
     /**
      * List of XYDataSet.
      * @var array
      */
-    private $serieList;
+    private $serieList = [];
 
     /**
      * Constructor of XYSeriesDataSet.
-     *
+     * $points is an array with the following format:
+     * [
+            'series' => ['First series', 'Second Series'],
+            'labels' => ['Jan', 'Feb', 'Mar'],
+            'data' => [
+                [
+                    3296, 0, 5015
+                ],
+                [
+                    [564, '#cccccc'], 1564, 3215
+                ],
+            ],
+        ]
+     * @param array $dataset
      */
-    public function __construct()
+    public function __construct(array $dataset)
     {
-        $this->titleList = [];
-        $this->serieList = [];
-    }
-
-    /**
-     * Add a new serie to the dataset.
-     *
-     * @param string $title (label) of the serie.
-     * @param \Libchart\Data\XYDataSet|array Serie of points to add
-     */
-    public function addSerie($title, $serie)
-    {
-        $this->titleList[] = $title;
-        // If the serie is an array, create the XY dataset
-        if (is_array($serie)) {
-            $serie = new XYDataSet($serie);
+        // Each dataset 'data' contains the points for the `$i` series
+        for ($i = 0; $i < count($dataset['data']); $i++) {
+            $this->titleList[] = array_key_exists($i, $dataset['series']) ? $dataset['series'][$i] : 'Serie ' . $i;
+            $this->serieList[] = new XYDataSet([
+                'labels' => $dataset['labels'],
+                'data'   => $dataset['data'][$i]
+            ]);
         }
-
-        $this->serieList[] = $serie;
     }
 
     /**

@@ -97,7 +97,7 @@ class Pie extends AbstractChart
 
         $pointList = $this->dataSet->getPointList();
         foreach ($pointList as $point) {
-            $this->total += $point->getValue();
+            $this->total += $point->getValue() < 0 ? 0 : $point->getValue();
         }
 
         foreach ($pointList as $point) {
@@ -273,7 +273,7 @@ class Pie extends AbstractChart
         $this->drawDisc($this->pieCenterY - $this->pieDepth / 2, $this->palette->pieColorSet->colorList, IMG_ARC_PIE);
 
         // Top Outline
-        if ($this->showPointCaption) {
+        if ($this->pointLabel->show()) {
             $this->drawPercent();
         }
     }
@@ -293,6 +293,11 @@ class Pie extends AbstractChart
         $this->title->draw();
         $this->printPie();
         $this->printCaption();
+
+        // If there's no filename, then render the chart as an image
+        if (is_null($filename)) {
+            header("Content-type: image/png");
+        }
 
         $this->output($filename);
     }
