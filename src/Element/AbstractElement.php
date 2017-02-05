@@ -1,4 +1,4 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
 use Noodlehaus\Config;
 

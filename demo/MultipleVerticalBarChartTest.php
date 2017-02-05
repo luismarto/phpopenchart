@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new \Libchart\Chart\Column([
+$chart = new \Phpopenchart\Chart\Column([
     'title' => [
         'text' => "Average family income (k$)"
     ],
@@ -36,7 +36,7 @@ $chart->render("generated/demo7.png");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart line demonstration</title>
+    <title>Phpopenchart line demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

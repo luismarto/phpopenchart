@@ -1,11 +1,11 @@
-<?php namespace Libchart\Label;
+<?php namespace Phpopenchart\Label;
 
 /**
  * Class EurCurrencyFormatter
  *
  * Class
  *
- * @package Libchart\Label
+ * @package Phpopenchart\Label
  */
 class EurCurrencyFormatter extends NumberFormatter implements LabelInterface
 {

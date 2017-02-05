@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
+class ThousandLabelGenerator implements \Phpopenchart\Label\LabelInterface
 {
     public function generateLabel($value)
     {
@@ -9,7 +9,7 @@ class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
     }
 }
 
-$chart = new Libchart\Chart\Column([
+$chart = new Phpopenchart\Chart\Column([
     'chart' => [
         'width' => 500,
         'height' => 250,

@@ -1,7 +1,7 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
-use Libchart\Data\XYDataSet;
-use Libchart\Data\XYSeriesDataSet;
+use Phpopenchart\Data\XYDataSet;
+use Phpopenchart\Data\XYSeriesDataSet;
 
 /**
  * Class AxisBound
@@ -9,7 +9,7 @@ use Libchart\Data\XYSeriesDataSet;
  * The bounds are automatically calculated from a XYDataSet or XYSeriesDataSet.
  * Default (calculated) bounds can be overridden using the setLowerBound() and setUpperBound() methods.
  *
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class AxisBound
 {
@@ -36,7 +36,7 @@ class AxisBound
     /**
      * Compute the boundaries on the axis.
      *
-     * @param \Libchart\Data\XYDataSet|\Libchart\Data\XYSeriesDataSet $dataSet The data set
+     * @param \Phpopenchart\Data\XYDataSet|\Phpopenchart\Data\XYSeriesDataSet $dataSet The data set
      */
     public function computeBound($dataSet)
     {

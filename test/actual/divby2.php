@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-$chart = new Libchart\Chart\Bar([
+$chart = new Phpopenchart\Chart\Bar([
     'chart' => [
         'width' => 500,
         'height' => 250,

@@ -1,10 +1,10 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
-use Libchart\Color\ColorHex;
+use Phpopenchart\Color\ColorHex;
 
 /**
  * Class Text
- * @package Libchart\Element
+ * @package Phpopenchart\Element
  */
 class Text extends AbstractElement
 {
@@ -66,7 +66,7 @@ class Text extends AbstractElement
      *
      * @param integer $px text coordinate (x)
      * @param integer $py text coordinate (y)
-     * @param \Libchart\Color\Color $color text color
+     * @param \Phpopenchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
      * @param int $align text alignment
@@ -119,7 +119,7 @@ class Text extends AbstractElement
      * Print text centered horizontally on the image.
      *
      * @param integer $py text coordinate (y)
-     * @param \Libchart\Color\Color $color text color
+     * @param \Phpopenchart\Color\Color $color text color
      * @param string $text text value
      * @param string $fontFileName font file name
      * @param int $fontSize

@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-(new Libchart\Chart\Pie([
+(new Phpopenchart\Chart\Pie([
     'title' => [
         'text' => 'This is a pie'
     ],

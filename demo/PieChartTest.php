@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new \Libchart\Chart\Pie([
+$chart = new \Phpopenchart\Chart\Pie([
     'title' => [
         'text' => 'User agents for www.example.com'
     ],
@@ -21,7 +21,7 @@ $chart->render("generated/demo3.png");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart pie chart demonstration</title>
+    <title>Phpopenchart pie chart demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

@@ -1,6 +1,6 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
-use Libchart\Color\ColorHex;
+use Phpopenchart\Color\ColorHex;
 
 class AxisLabel extends AbstractElement
 {
@@ -37,7 +37,7 @@ class AxisLabel extends AbstractElement
 
     /**
      * Label generator for axis values
-     * @var \Libchart\Label\DefaultLabel
+     * @var \Phpopenchart\Label\DefaultLabel
      */
     private $labelGenerator = null;
 
@@ -110,7 +110,7 @@ class AxisLabel extends AbstractElement
         if (is_null($this->labelGenerator)) {
             $labelGeneratorClass = $this->config->get(
                 'axis-label.generator',
-                '\Libchart\Label\DefaultLabel'
+                '\Phpopenchart\Label\DefaultLabel'
             );
             $this->labelGenerator = new $labelGeneratorClass;
         }

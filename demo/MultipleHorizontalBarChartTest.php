@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new Libchart\Chart\Bar([
+$chart = new Phpopenchart\Chart\Bar([
     'width' => 450,
     'height' => 250,
     'title' => [
@@ -34,7 +34,7 @@ $chart->render("generated/demo8.png");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart line demonstration</title>
+    <title>Phpopenchart line demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

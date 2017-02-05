@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-$chart = new Libchart\Chart\Pie([
+$chart = new Phpopenchart\Chart\Pie([
     'chart'   => [
         'width' => 500,
         'height' => 250,
@@ -25,8 +25,8 @@ $chart = new Libchart\Chart\Pie([
 // @todo: Beware, this might be removed later on amd colors will be setted directly on the points
 // as in palette2.php or pal
 $chart->getPalette()->setPieColor(array(
-    new Libchart\Color\Color(255, 0, 0),
-    new Libchart\Color\Color(255, 255, 255)
+    new Phpopenchart\Color\Color(255, 0, 0),
+    new Phpopenchart\Color\Color(255, 255, 255)
 ));
 
 $chart->render();

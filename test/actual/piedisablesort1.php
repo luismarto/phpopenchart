@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-(new Libchart\Chart\Pie([
+(new Phpopenchart\Chart\Pie([
     'chart'   => [
         'width'           => 600,
         'height'          => 250,

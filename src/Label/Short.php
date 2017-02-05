@@ -1,8 +1,8 @@
-<?php namespace Libchart\Label;
+<?php namespace Phpopenchart\Label;
 
 /**
  * Class Short
- * @package Libchart\Label
+ * @package Phpopenchart\Label
  */
 class Short implements LabelInterface
 {

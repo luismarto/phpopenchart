@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new Libchart\Chart\Bar([
+$chart = new Phpopenchart\Chart\Bar([
     'width' => 600,
     'height' => 170,
     'title' => [
@@ -15,14 +15,14 @@ $chart = new Libchart\Chart\Bar([
     ]
 ]);
 
-$chart->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 200));
+$chart->setGraphPadding(new \Phpopenchart\Element\BasicPadding(5, 30, 20, 200));
 
 $chart->render("generated/demo2.png");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart horizontal bars demonstration</title>
+    <title>Phpopenchart horizontal bars demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

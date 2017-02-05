@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-(new Libchart\Chart\Column([
+(new Phpopenchart\Chart\Column([
     'chart' => [
         'width' => 500,
         'height' => 250,

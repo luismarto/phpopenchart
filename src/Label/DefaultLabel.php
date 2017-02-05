@@ -1,5 +1,5 @@
 <?php
-/* Libchart - PHP chart library
+/* PhpOpenChart - PHP chart library
  * Copyright (C) 2005-2013 Jean-Marc Tr�meaux (jm.tremeaux at gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
  *
  */
 
-namespace Libchart\Label;
+namespace Phpopenchart\Label;
 
 /**
  * The default label generator simply uses strval() to convert the value.

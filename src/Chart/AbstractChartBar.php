@@ -1,14 +1,14 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
-use Libchart\Exception\DatasetNotDefinedException;
-use Libchart\Exception\PointsInSeriesDontMatchException;
-use Libchart\Data\XYDataSet;
-use Libchart\Data\XYSeriesDataSet;
+use Phpopenchart\Exception\DatasetNotDefinedException;
+use Phpopenchart\Exception\PointsInSeriesDontMatchException;
+use Phpopenchart\Data\XYDataSet;
+use Phpopenchart\Data\XYSeriesDataSet;
 
 /**
  * Class AbstractChartBar
  * Base abstract class for rendering both horizontal, vertical and line bar charts.
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 abstract class AbstractChartBar extends AbstractChart
 {
@@ -92,7 +92,7 @@ abstract class AbstractChartBar extends AbstractChart
             $serieList = $this->dataSet->getSerieList();
             for ($i = 0; $i < count($serieList); $i++) {
                 /**
-                 * @var $serie \Libchart\Data\XYDataSet
+                 * @var $serie \Phpopenchart\Data\XYDataSet
                  */
                 $serie = $serieList[$i];
                 $pointCount = count($serie->getPointList());
@@ -107,7 +107,7 @@ abstract class AbstractChartBar extends AbstractChart
     /**
      * Return the data as a series list (for consistency).
      *
-     * @return array|\Libchart\Data\XYDataSet[] List of series
+     * @return array|\Phpopenchart\Data\XYDataSet[] List of series
      */
     protected function getDataAsSerieList()
     {

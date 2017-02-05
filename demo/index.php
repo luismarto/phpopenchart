@@ -2,10 +2,10 @@
 include_once 'common.php';
 include "../vendor/autoload.php";
 
-use Libchart\Chart\Column;
-use Libchart\Chart\Bar;
-use Libchart\Chart\Line;
-use Libchart\Chart\Pie;
+use Phpopenchart\Chart\Column;
+use Phpopenchart\Chart\Bar;
+use Phpopenchart\Chart\Line;
+use Phpopenchart\Chart\Pie;
 
 
 /**
@@ -97,7 +97,7 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -115,7 +115,7 @@ use Libchart\Chart\Pie;
         'size'   => 12,
         'color'  => '#FF0000',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -161,14 +161,14 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'point-label'  => [
         'font'   => 'SourceSansPro-Light.otf',
         'size'   => 12,
         'color'  => '#0000FF',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -268,7 +268,7 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -286,7 +286,7 @@ use Libchart\Chart\Pie;
         'size'   => 12,
         'color'  => '#FF0000',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -332,14 +332,14 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'point-label'  => [
         'font'   => 'SourceSansPro-Light.otf',
         'size'   => 12,
         'color'  => '#0000FF',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -441,7 +441,7 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -459,7 +459,7 @@ use Libchart\Chart\Pie;
         'size'   => 12,
         'color'  => '#FF0000',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -505,14 +505,14 @@ use Libchart\Chart\Pie;
             'top'  => 15,
             'left' => 20
         ],
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'point-label'  => [
         'font'   => 'SourceSansPro-Light.otf',
         'size'   => 12,
         'color'  => '#0000FF',
         'angle'  => 35,
-        'generator' => '\Libchart\Label\DefaultLabel',
+        'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'dataset' => [
         'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -613,7 +613,7 @@ use Libchart\Chart\Pie;
 //        'size'   => 12,
 //        'color'  => '#FF0000',
 //        'angle'  => 35,
-//        'generator' => '\Libchart\Label\DefaultLabel',
+//        'generator' => '\Phpopenchart\Label\DefaultLabel',
 //    ],
 //    'dataset' => [
 //        'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],

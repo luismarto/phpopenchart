@@ -1,8 +1,8 @@
-<?php namespace Libchart\Color;
+<?php namespace Phpopenchart\Color;
 
 /**
  * Class ColorHex
- * @package Libchart\Color
+ * @package Phpopenchart\Color
  */
 class ColorHex extends Color
 {

@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = (new \Libchart\Chart\Column([
+$chart = (new \Phpopenchart\Chart\Column([
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
@@ -20,7 +20,7 @@ $chart = (new \Libchart\Chart\Column([
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart vertical bars demonstration</title>
+    <title>Phpopenchart vertical bars demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

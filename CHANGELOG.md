@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-## [2.1.1] - 2017-02-05
+## [3.0.0] - 2017-02-05
+### Changed
+- Renamed package name to PhpOpenCharts, given the amount of changes
+
+## [2.1.1] - 2017-02-04
 ### Added
-- The points now accept a `\Libchart\Color\Color` object
+- The points now accept a `\Phpopenchart\Color\Color` object
 - Ability to specify a logo to display on the chart
 - Support for an empty dataset
 - Updated minimum PHP support version for PHP 5.5

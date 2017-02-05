@@ -1,8 +1,8 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
 /**
  * Class Bar
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Bar extends AbstractChartBar
 {
@@ -137,7 +137,7 @@ class Bar extends AbstractChartBar
                 $y = $graphArea->y2 - $i * $rowHeight;
 
                 /**
-                 * @var \Libchart\Data\Point $point
+                 * @var \Phpopenchart\Data\Point $point
                  */
                 $point = current($pointList);
                 next($pointList);

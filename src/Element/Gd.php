@@ -1,11 +1,11 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
-use Libchart\Exception\LogoFileNotFoundException;
+use Phpopenchart\Exception\LogoFileNotFoundException;
 
 /**
  * Class Gd
  * Graphic primitives, extends GD with chart related primitives.
- * @package Libchart\Element
+ * @package Phpopenchart\Element
  */
 class Gd
 {
@@ -30,7 +30,7 @@ class Gd
      * @param int $y1 line start (Y)
      * @param int $x2 line end (X)
      * @param int $y2 line end (Y)
-     * @param \Libchart\Color\Color $color
+     * @param \Phpopenchart\Color\Color $color
      */
     public function line($x1, $y1, $x2, $y2, $color)
     {
@@ -42,7 +42,7 @@ class Gd
      * @param int $y1
      * @param int $x2
      * @param int $y2
-     * @param \Libchart\Color\Color $color
+     * @param \Phpopenchart\Color\Color $color
      */
     public function rectangle($x1, $y1, $x2, $y2, $color)
     {
@@ -56,8 +56,8 @@ class Gd
      * @param int $y1 top left coordinate (y)
      * @param int $x2 bottom right coordinate (x)
      * @param int $y2 bottom right coordinate (y)
-     * @param \Libchart\Color\Color $color0 edge color
-     * @param \Libchart\Color\Color $color1 corner color
+     * @param \Phpopenchart\Color\Color $color0 edge color
+     * @param \Phpopenchart\Color\Color $color1 corner color
      */
     public function outlinedBox($x1, $y1, $x2, $y2, $color0, $color1)
     {

@@ -4,7 +4,7 @@ include_once 'common.php';
 
 header("Content-type: image/png");
 
-$chart = new \Libchart\Chart\Pie([
+$chart = new \Phpopenchart\Chart\Pie([
     'width' => 500,
     'height' => 300,
     'title' => [

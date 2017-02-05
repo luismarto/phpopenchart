@@ -189,9 +189,9 @@ return [
         |--------------------------------------------------------------------------
         | Determines the class used to generate the labels for Axis
         | Feel free to implement your own LabelGenerator Class that implements
-        | \Libchart\Label\LabelInterface and use that here
+        | \Phpopenchart\Label\LabelInterface and use that here
         */
-        'generator' => '\Libchart\Label\Short',
+        'generator' => '\Phpopenchart\Label\Short',
     ],
 
     /*
@@ -249,8 +249,8 @@ return [
         |--------------------------------------------------------------------------
         | Determines the class used to generate the labels for Axis
         | Feel free to implement your own LabelGenerator Class that implements
-        | \Libchart\Label\LabelInterface and use that here
+        | \Phpopenchart\Label\LabelInterface and use that here
         */
-        'generator' => '\Libchart\Label\NumberFormatter',
+        'generator' => '\Phpopenchart\Label\NumberFormatter',
     ],
 ];

@@ -1,9 +1,9 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
 /**
  * Class BasicRectangle
  * A rectangle identified by the top-left and the bottom-right corners.
- * @package Libchart\Element
+ * @package Phpopenchart\Element
  */
 class BasicRectangle
 {

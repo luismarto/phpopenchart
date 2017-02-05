@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-$chart = new Libchart\Chart\Bar([
+$chart = new Phpopenchart\Chart\Bar([
     'chart'   => [
         'width' => 500,
         'height' => 250,
@@ -12,8 +12,8 @@ $chart = new Libchart\Chart\Bar([
     'dataset' => [
         'labels' => ['Jan 2005', 'Feb 2005', 'March 2005', 'April 2005'],
         'data' => [
-            [273, new \Libchart\Color\Color(255, 0, 0)],
-            [321, new \Libchart\Color\ColorHex('#2C46B5')],
+            [273, new \Phpopenchart\Color\Color(255, 0, 0)],
+            [321, new \Phpopenchart\Color\ColorHex('#2C46B5')],
             [442, '#7ED13B'],
             [711, '#F79647']
         ]

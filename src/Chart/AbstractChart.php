@@ -1,18 +1,18 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
-use Libchart\Color\ColorPalette;
-use Libchart\Color\ColorHex;
-use Libchart\Data\XYDataSet;
-use Libchart\Data\XYSeriesDataSet;
-use Libchart\Element\AxisLabel;
-use Libchart\Element\BasicPadding;
-use Libchart\Element\BasicRectangle;
-use Libchart\Element\Gd;
-use Libchart\Element\Logo;
-use Libchart\Element\PointLabel;
-use Libchart\Element\Text;
-use Libchart\Element\Title;
-use Libchart\Exception\DatasetNotDefinedException;
+use Phpopenchart\Color\ColorPalette;
+use Phpopenchart\Color\ColorHex;
+use Phpopenchart\Data\XYDataSet;
+use Phpopenchart\Data\XYSeriesDataSet;
+use Phpopenchart\Element\AxisLabel;
+use Phpopenchart\Element\BasicPadding;
+use Phpopenchart\Element\BasicRectangle;
+use Phpopenchart\Element\Gd;
+use Phpopenchart\Element\Logo;
+use Phpopenchart\Element\PointLabel;
+use Phpopenchart\Element\Text;
+use Phpopenchart\Element\Title;
+use Phpopenchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
 use ReflectionClass;
@@ -46,7 +46,7 @@ use ReflectionClass;
  *
  * All area dimensions are known in advance, and the optional logo is drawn in absolute coordinates.
  *
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 abstract class AbstractChart
 {
@@ -238,7 +238,7 @@ abstract class AbstractChart
             $this->sortDataPoint = (bool)$args['chart']['sort-data-point'];
         }
 
-        $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
+        $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])
             && array_key_exists( $type . '-padding', $args['chart']) && is_array($args['chart'][ $type . '-padding'])
         ) {

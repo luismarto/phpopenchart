@@ -1,8 +1,8 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
 /**
  * Class Caption
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Caption
 {
@@ -22,33 +22,33 @@ class Caption
     protected $labelList;
 
     /**
-     * @var \Libchart\Color\ColorSet
+     * @var \Phpopenchart\Color\ColorSet
      */
     private $colorSet;
 
     private $captionArea;
 
     /**
-     * @var \Libchart\Element\Gd
+     * @var \Phpopenchart\Element\Gd
      */
     private $gd;
 
     /**
-     * @var \Libchart\Color\ColorPalette
+     * @var \Phpopenchart\Color\ColorPalette
      */
     private $palette;
 
     /**
-     * @var \Libchart\Element\Text
+     * @var \Phpopenchart\Element\Text
      */
     private $text;
 
     /**
      * @param $captionArea
-     * @param \Libchart\Color\ColorSet $colorSet
-     * @param \Libchart\Element\Gd $gd
-     * @param \Libchart\Color\ColorPalette $palette
-     * @param \Libchart\Element\Text $text
+     * @param \Phpopenchart\Color\ColorSet $colorSet
+     * @param \Phpopenchart\Element\Gd $gd
+     * @param \Phpopenchart\Color\ColorPalette $palette
+     * @param \Phpopenchart\Element\Text $text
      */
     public function __construct($captionArea, $colorSet, $gd, $palette, $text)
     {

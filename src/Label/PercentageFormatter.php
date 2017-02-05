@@ -1,10 +1,10 @@
-<?php namespace Libchart\Label;
+<?php namespace Phpopenchart\Label;
 
 /**
  * Class PercentageFormatter
  *
  * Percentage formatter: Displays the labels with 2 decimals and the % symbol aat the end
- * @package Libchart\Label
+ * @package Phpopenchart\Label
  */
 class PercentageFormatter implements LabelInterface
 {

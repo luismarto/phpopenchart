@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-(new Libchart\Chart\Bar([
+(new Phpopenchart\Chart\Bar([
     'title' => [
         'text' => 'Net migration'
     ],

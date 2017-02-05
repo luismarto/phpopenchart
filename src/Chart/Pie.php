@@ -1,10 +1,10 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
-use Libchart\Color\ColorHex;
+use Phpopenchart\Color\ColorHex;
 
 /**
  * Class Pie
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Pie extends AbstractChart
 {
@@ -110,7 +110,7 @@ class Pie extends AbstractChart
 
         // Sort data points
         if ($this->sortDataPoint) {
-            usort($this->percent, array("\\Libchart\\Chart\\Pie", "sortPie"));
+            usort($this->percent, array("\\Phpopenchart\\Chart\\Pie", "sortPie"));
         }
     }
 
@@ -147,7 +147,7 @@ class Pie extends AbstractChart
         $labelList = array();
         foreach ($this->percent as $percent) {
             /**
-             * @var \Libchart\Data\Point $point
+             * @var \Phpopenchart\Data\Point $point
              */
             list(, $point) = $percent;
             $label = $point->getLabel();

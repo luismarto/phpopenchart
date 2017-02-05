@@ -1,4 +1,4 @@
-<?php namespace Libchart\Data;
+<?php namespace Phpopenchart\Data;
 
 /**
  * This dataset comprises several series of points and is used to plot multiple lines charts.
@@ -60,7 +60,7 @@ class XYSeriesDataSet extends DataSet
     /**
      * Getter of serieList.
      *
-     * @return \Libchart\Data\XYDataSet[] List of series.
+     * @return \Phpopenchart\Data\XYDataSet[] List of series.
      */
     public function getSerieList()
     {

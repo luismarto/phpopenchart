@@ -1,6 +1,6 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
-use Libchart\Color\ColorHex;
+use Phpopenchart\Color\ColorHex;
 use ReflectionClass;
 
 /**
@@ -8,7 +8,7 @@ use ReflectionClass;
  *
  * Sets the properties and methods specific for the chart's title
  *
- * @package Libchart\Element
+ * @package Phpopenchart\Element
  */
 class Title extends AbstractElement
 {
@@ -66,7 +66,7 @@ class Title extends AbstractElement
     {
         $this->textInstance = $textInstance;
         $this->config = $config;
-        $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
+        $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
 
         // Check if the options were defined on the chart's constructor
         if (array_key_exists('title', $args) && is_array($args['title'])) {

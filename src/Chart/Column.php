@@ -1,8 +1,8 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
 /**
  * Class Column
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Column extends AbstractChartBar
 {
@@ -83,7 +83,7 @@ class Column extends AbstractChartBar
 
             if ($i < $pointCount) {
                 /**
-                 * @var \Libchart\Data\Point $point
+                 * @var \Phpopenchart\Data\Point $point
                  */
                 $point = current($pointList);
                 next($pointList);
@@ -140,7 +140,7 @@ class Column extends AbstractChartBar
                 $x = $graphArea->x1 + $i * $columnWidth;
 
                 /**
-                 * @var \Libchart\Data\Point $point
+                 * @var \Phpopenchart\Data\Point $point
                  */
                 $point = current($pointList);
                 next($pointList);

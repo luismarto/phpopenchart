@@ -1,5 +1,5 @@
 {
-  "name": "luismarto/libchart",
+  "name": "luismarto/phpopenchart",
   "type": "library",
   "description": "PHP library to draw Column, Bar, Line and Pie Charts",
   "keywords": [
@@ -27,7 +27,7 @@
       "role": "Developer"
     }
   ],
-  "version": "2.2.0",
+  "version": "3.0.0",
   "require": {
     "hassankhan/config": "0.10.*",
     "php": ">=5.5",
@@ -35,7 +35,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Libchart\\": "src"
+      "Phpopenchart\\": "src"
     }
   }
 }

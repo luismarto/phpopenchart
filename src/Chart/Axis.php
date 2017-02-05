@@ -1,10 +1,10 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
 /**
  * Class Axis
  * Automatic axis boundaries and ticks calibration
  *
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Axis
 {

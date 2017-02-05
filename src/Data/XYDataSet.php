@@ -1,4 +1,4 @@
-<?php namespace Libchart\Data;
+<?php namespace Phpopenchart\Data;
 
 /**
  * Set of data in the form of (x, y) items.
@@ -44,7 +44,7 @@ class XYDataSet extends DataSet
     /**
      * Getter of pointList.
      *
-     * @return \Libchart\Data\Point[] List of points.
+     * @return \Phpopenchart\Data\Point[] List of points.
      */
     public function getPointList()
     {

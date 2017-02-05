@@ -1,7 +1,7 @@
 <?php
 require_once '../common.php';
 
-$chart = new Libchart\Chart\Bar([
+$chart = new Phpopenchart\Chart\Bar([
     'chart' => [
         'width' => 700,
         'height' => 170,
@@ -15,5 +15,5 @@ $chart = new Libchart\Chart\Bar([
     ]
 ]);
 
-$chart->setGraphPadding(new \Libchart\Element\BasicPadding(5, 30, 20, 200));
+$chart->setGraphPadding(new \Phpopenchart\Element\BasicPadding(5, 30, 20, 200));
 $chart->render();

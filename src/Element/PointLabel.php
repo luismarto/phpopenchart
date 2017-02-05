@@ -1,6 +1,6 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
-use Libchart\Color\ColorHex;
+use Phpopenchart\Color\ColorHex;
 
 class PointLabel extends AbstractElement
 {
@@ -33,7 +33,7 @@ class PointLabel extends AbstractElement
 
     /**
      * Label generator for point values
-     * @var \Libchart\Label\NumberFormatter
+     * @var \Phpopenchart\Label\NumberFormatter
      */
     private $labelGenerator = null;
 
@@ -100,7 +100,7 @@ class PointLabel extends AbstractElement
         if (is_null($this->labelGenerator)) {
             $labelGeneratorClass = $this->config->get(
                 'point-label.generator',
-                '\Libchart\Label\NumberFormatter'
+                '\Phpopenchart\Label\NumberFormatter'
             );
             $this->labelGenerator = new $labelGeneratorClass;
         }

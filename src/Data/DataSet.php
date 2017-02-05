@@ -1,4 +1,4 @@
-<?php namespace Libchart\Data;
+<?php namespace Phpopenchart\Data;
 
 /**
  * Superclass of all data sets.

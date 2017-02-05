@@ -1,8 +1,8 @@
-<?php namespace Libchart\Element;
+<?php namespace Phpopenchart\Element;
 
 /**
  * Class BasicPadding
- * @package Libchart\Element
+ * @package Phpopenchart\Element
  */
 class BasicPadding
 {

@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new \Libchart\Chart\Pie([
+$chart = new \Phpopenchart\Chart\Pie([
     'title' => [
         'text' => 'Deadly mushrooms'
     ],
@@ -17,8 +17,8 @@ $chart = new \Libchart\Chart\Pie([
 ]);
 
 $chart->getPalette()->setPieColor(array(
-    new \Libchart\Color\Color(255, 0, 0),
-    new \Libchart\Color\Color(255, 255, 255)
+    new \Phpopenchart\Color\Color(255, 0, 0),
+    new \Phpopenchart\Color\Color(255, 255, 255)
 ));
 
 $chart->render("generated/pie_chart_color.png");
@@ -26,7 +26,7 @@ $chart->render("generated/pie_chart_color.png");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart pie chart color demonstration</title>
+    <title>Phpopenchart pie chart color demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

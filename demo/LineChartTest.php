@@ -2,7 +2,7 @@
 
 include_once 'common.php';
 
-$chart = new \Libchart\Chart\Line([
+$chart = new \Phpopenchart\Chart\Line([
     'title' => [
         'text' => "Sales for 2006"
     ],
@@ -27,7 +27,7 @@ $chart->render("generated/demo5.png");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Libchart line demonstration</title>
+    <title>Phpopenchart line demonstration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
 </head>
 <body>

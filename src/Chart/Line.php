@@ -1,8 +1,8 @@
-<?php namespace Libchart\Chart;
+<?php namespace Phpopenchart\Chart;
 
 /**
  * Class Line
- * @package Libchart\Chart
+ * @package Phpopenchart\Chart
  */
 class Line extends AbstractChartBar
 {
