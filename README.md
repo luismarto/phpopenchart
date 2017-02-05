@@ -43,7 +43,7 @@ or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/master/tes
 Require the package in your `composer.json` file and update composer, using the following data:
 
 ```php
-"luismarto/phpopenchart": "2.*"
+"luismarto/phpopenchart": "3.*"
 ```
 
 
