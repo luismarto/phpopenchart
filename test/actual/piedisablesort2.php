@@ -5,9 +5,8 @@ require_once '../common.php';
     'chart'   => [
         'width' => 500,
         'height' => 250,
+        'sort-data-point' => false,
     ],
-    // @todo: This will be moved to 'chart' later on
-    'sort-data-point' => false,
     'title' => [
         'text' => 'This example preserves item order'
     ],

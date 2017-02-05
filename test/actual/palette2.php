@@ -6,8 +6,6 @@ $chart = new Libchart\Chart\Bar([
         'width' => 500,
         'height' => 250,
     ],
-    // @todo: This will be moved to 'chart' later on
-    'use-multiple-color' => true,
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],

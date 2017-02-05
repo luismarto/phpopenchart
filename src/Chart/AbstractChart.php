@@ -225,12 +225,18 @@ abstract class AbstractChart
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
 
         // Set chart properties
-        $this->useMultipleColor = !array_key_exists('use-multiple-color', $args)
-            ? $this->config->get('use-multiple-color', true)
-            : (bool)$args['use-multiple-color'];
-        $this->sortDataPoint = !array_key_exists('sort-data-point', $args)
-            ? $this->config->get('sort-data-point', true)
-            : (bool)$args['sort-data-point'];
+        $this->useMultipleColor = $this->config->get('use-multiple-color', false);
+        if (array_key_exists('chart', $args) && is_array($args['chart'])
+            && array_key_exists('use-multiple-color', $args['chart'])
+        ) {
+            $this->useMultipleColor = (bool)$args['chart']['use-multiple-color'];
+        }
+        $this->sortDataPoint = $this->config->get('sort-data-point', true);
+        if (array_key_exists('chart', $args) && is_array($args['chart'])
+            && array_key_exists('sort-data-point', $args['chart'])
+        ) {
+            $this->sortDataPoint = (bool)$args['chart']['sort-data-point'];
+        }
 
         $paddingReflect = new ReflectionClass('\Libchart\\Element\\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])

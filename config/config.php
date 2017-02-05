@@ -7,9 +7,22 @@ return [
     |--------------------------------------------------------------------------
     */
     'chart' => [
-        //@todo: doc this
+        /*
+        |--------------------------------------------------------------------------
+        | Output width
+        |--------------------------------------------------------------------------
+        | Defined the total nr of pixels for the width of the output image
+        */
         'width' => 600,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Output height
+        |--------------------------------------------------------------------------
+        | Defined the total nr of pixels for the height of the output image
+        */
         'height' => 300,
+
         /*
         |--------------------------------------------------------------------------
         | Logo filepath
@@ -19,6 +32,28 @@ return [
         | and it will be displayed. Otherwise, leave it as false.
         */
         'logo' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Use multiple color
+        |--------------------------------------------------------------------------
+        | By default, a single series will have the same color (so, the default value is false)
+        | If you want to set a different color (automatically) to each point, set this
+        | to true.
+        | You can always set the color of the point an it will be taken into account
+        */
+        'use-multiple-color' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sort points (Pie charts only
+        |--------------------------------------------------------------------------
+        | By default, the discs of pie charts are drawn in a descending order
+        | by it's values.
+        | If you want to display them in the order defined on the dataset, set this to false
+        */
+        'sort-data-point' => true,
+
         /*
         |--------------------------------------------------------------------------
         | Customized paddings for each chart type
@@ -233,8 +268,6 @@ return [
 
 
 
-    // @todo: add configs for logo
-
 
     // @todo: to be documented
     /*
@@ -267,17 +300,4 @@ return [
         */
         'text' => 'SourceSansPro-Regular.otf',
     ],
-
-
-
-    /*
-     * Use several colors for a single data set chart (as if it was a multiple data set)
-     */
-    'use-multiple-color' => false,
-
-    /*
-     * Sort data points (only pie charts)
-     */
-    'sort-data-point' => false,
-
 ];
