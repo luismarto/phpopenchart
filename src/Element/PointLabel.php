@@ -2,6 +2,10 @@
 
 use Phpopenchart\Color\ColorHex;
 
+/**
+ * Class PointLabel
+ * @package Phpopenchart\Element
+ */
 class PointLabel extends AbstractElement
 {
     /**

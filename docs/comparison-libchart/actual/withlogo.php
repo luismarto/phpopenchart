@@ -5,7 +5,7 @@ require_once '../common.php';
     'chart' => [
         'width' => 500,
         'height' => 250,
-        'logo' => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'images\PoweredBy.png'
+        'logo' => __DIR__ . DIRECTORY_SEPARATOR . 'images\powered-by.png'
     ],
     'title' => [
         'text' => 'Monthly usage for www.example.com'

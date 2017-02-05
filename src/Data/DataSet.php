@@ -1,8 +1,8 @@
 <?php namespace Phpopenchart\Data;
 
 /**
- * Superclass of all data sets.
- *
+ * Class DataSet
+ * @package Phpopenchart\Data
  */
 abstract class DataSet
 {

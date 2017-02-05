@@ -11,6 +11,6 @@ require_once '../common.php';
     ],
     'dataset' => [
         'labels' => ['Mozilla Firefox (80)', 'Konqueror (75)', 'Other (50)'],
-        'data' => [80, 75, 80]
+        'data' => [80, 75, 50]
     ]
 ]))->render();

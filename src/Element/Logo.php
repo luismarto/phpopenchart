@@ -1,5 +1,9 @@
 <?php namespace Phpopenchart\Element;
 
+/**
+ * Class Logo
+ * @package Phpopenchart\Element
+ */
 class Logo
 {
     /**

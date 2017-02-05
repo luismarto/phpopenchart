@@ -2,6 +2,10 @@
 
 use Noodlehaus\Config;
 
+/**
+ * Class AbstractElement
+ * @package Phpopenchart\Element
+ */
 abstract class AbstractElement
 {
     /**

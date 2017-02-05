@@ -1,8 +1,10 @@
 <?php namespace Phpopenchart\Data;
 
 /**
+ * Class XYSeriesDataSet
  * This dataset comprises several series of points and is used to plot multiple lines charts.
  * Each serie is a XYDataSet.
+ * @package Phpopenchart\Data
  */
 class XYSeriesDataSet extends DataSet
 {

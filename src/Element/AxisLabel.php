@@ -2,6 +2,10 @@
 
 use Phpopenchart\Color\ColorHex;
 
+/**
+ * Class AxisLabel
+ * @package Phpopenchart\Element
+ */
 class AxisLabel extends AbstractElement
 {
     /**

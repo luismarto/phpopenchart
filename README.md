@@ -51,7 +51,6 @@ Require the package in your `composer.json` file and update composer, using the 
 
 In a forseable future
 - Minor fixes and improvements (add configurations, apply configurations to all chart types, optimize internal code, add the color specified on the point to the pie chart, ...)
-- Fix tests
 - Make this easily integrated with Laravel
 
 ## License
@@ -62,7 +61,6 @@ Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
 Phpopenchart is distributed under the terms of the GNU GPL v3.
 This includes everything in the source code distribution
 except where otherwise stated.
-A copy of the GNU GPL v3 can be found in doc/GNU_GPL_V3.
 
 ##### Third Party Content
 
@@ -70,4 +68,4 @@ The following third party software is distributed with Phpopenchart and
 is provided under other licenses and/or has source available from
 other locations. 
 
-Files in the fonts directory are distributed under their own licence, which is located unther the doc folder.
+Files in the fonts directory are distributed under their own licence, which is located under the fonts directory.

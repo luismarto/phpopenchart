@@ -2,6 +2,10 @@
 
 use Exception;
 
+/**
+ * Class LogoFileNotFoundException
+ * @package Phpopenchart\Exception
+ */
 class LogoFileNotFoundException extends Exception
 {
 

@@ -2,6 +2,10 @@
 
 use Exception;
 
+/**
+ * Class PointsInSeriesDontMatchException
+ * @package Phpopenchart\Exception
+ */
 class PointsInSeriesDontMatchException extends Exception
 {
     public function __construct($currentSerieNr, $currentSerieTotalPoints, $previousSerieTotalPoints)
