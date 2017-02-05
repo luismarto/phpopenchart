@@ -43,7 +43,8 @@ class Text extends AbstractElement
         $this->img = $img;
         $this->config = $config;
 
-        // @todo: make this configurable
+        // @todo: Update pie charts as this is only being used for piecharts and that's nonsense.
+        // Piecharts should use the font defined on the point-label
         $this->fontsDirectory = $this->config->get(
             'fonts.path',
             dirname(__FILE__)
