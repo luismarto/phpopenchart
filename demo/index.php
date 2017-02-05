@@ -8,7 +8,6 @@ use Libchart\Chart\Line;
 use Libchart\Chart\Pie;
 
 
-
 /**
  * COLUMN CHARTS
  */

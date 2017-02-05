@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## [2.1.1] - 2017-02-05
+### Added
+- The points now accept a `\Libchart\Color\Color` object
+- Ability to specify a logo to display on the chart
+- Support for an empty dataset
+- Updated minimum PHP support version for PHP 5.5
+
+### Changed
+- Improved config
+- Updated all tests
+
 ## [2.1.0] - 2016-08-31
 ### Added
 - Added settings for axis label (font, font size, angle, color and margin) and a `AxisLabel` element with all the properties and methods for the axis (such as printing)

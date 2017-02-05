@@ -1,39 +1,42 @@
 ## PHP library to draw charts
 
-This library allows you to create images of charts using PHP. It's specially useful when you need to create charts on the server-side 
+Libchart llows you to create charts using PHP. It's specially useful when you need to create charts on the server-side 
 and so you can't use a front-end library such as Highcharts.
 
-<img src="https://geekalicious.pt/github/libchart/libchart-sample.png"/>
+<img src="https://geekalicious.pt/github/libchart/libchart-sample-2.png"/>
 
-
-This library is is based on the original work of [Jean-Marc Trémeaux](http://naku.dohcrew.com/) (check the [original website](https://naku.dohcrew.com/libchart/pages/introduction/)).
-Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
-
----
 ````php
 use Libchart\Chart\Column;
 
-header("Content-type: image/png");
-
 $chart = new Column([
-    'width' => 600,
-    'height' => 300,
+    'chart' => [
+        'width' => 1000,
+        'height' => 300,
+    ],
     'title' => [
         'text' => 'Values'
     ],
     'dataset' => [
-        ["Feb", 3296],
-        ["Mar", -1816],
-        ["Apr", 687],
-        ["May", 10987],
-        ["Jun", 8014],
-        ["Jul", 7695],
+        'series' => ['Product A', 'Product B', 'Product C'],
+        'labels' => ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        'data' => [
+            [3296, 4852, 2010, 6004, 5014, 7695],
+            [2036, 1816, 687, 1025, 3074, 3651],
+            [123, 984, 102, 707, 853, 696],
+        ]
     ]
 ]);
 
 $chart->render();
 
 ````
+
+# Documentation & examples
+
+There's an extensive documentation [here](https://luismarto.github.com/docs/index.html) with all the available options, methods and datasets.
+
+If you're looking for examples check the [examples](https://luismarto.github.com/docs/examples.html) page for all the available options
+or the [/tests/actual](https://github.com/luismarto/libchart/tree/master/test/actual). 
 
 # Installation
 
@@ -43,10 +46,6 @@ Require the package in your `composer.json` file and update composer, using the 
 "luismarto/libchart": "2.*"
 ```
 
-# Documentation & examples
-
-Visit [https://luismarto.github.com/docs/index.html](https://luismarto.github.com/docs/index.html) for a complete documentation. 
-For examples, check [https://luismarto.github.com/docs/examples.html](https://luismarto.github.com/docs/examples.html)
 
 # Roadmap
 
@@ -56,6 +55,9 @@ In a forseable future
 - Make this easily integrated with Laravel
 
 ## License
+
+This library is is based on the original work of [Jean-Marc Trémeaux](http://naku.dohcrew.com/) (check the [original website](https://naku.dohcrew.com/libchart/pages/introduction/)).
+Also used the fork from [Alexander Stehlik](https://github.com/astehlik).
 
 Libchart is distributed under the terms of the GNU GPL v3.
 This includes everything in the source code distribution
