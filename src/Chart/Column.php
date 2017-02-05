@@ -11,7 +11,7 @@ class Column extends AbstractChartBar
      * @var float
      *
      */
-    private $emptyToFullRatio = 1 / 5;
+    private $emptyToFullRatio;
 
     /**
      * Creates a new vertical bar chart (Column)
@@ -20,6 +20,7 @@ class Column extends AbstractChartBar
      */
     public function __construct(array $args)
     {
+        $this->emptyToFullRatio = 1 / 5;
         parent::__construct($args, 'column');
     }
 
