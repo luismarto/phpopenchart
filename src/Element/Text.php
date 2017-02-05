@@ -8,12 +8,6 @@ use Phpopenchart\Color\ColorHex;
  */
 class Text extends AbstractElement
 {
-    public $HORIZONTAL_LEFT_ALIGN = 1;
-    public $HORIZONTAL_CENTER_ALIGN = 2;
-    public $HORIZONTAL_RIGHT_ALIGN = 4;
-    public $VERTICAL_TOP_ALIGN = 8;
-    public $VERTICAL_CENTER_ALIGN = 16;
-    public $VERTICAL_BOTTOM_ALIGN = 32;
 
     /**
      * @var string
@@ -75,12 +69,16 @@ class Text extends AbstractElement
      */
     public function draw($px, $py, $color, $text, $fontFileName, $align = 0, $fontSize = 12, $angle = 0)
     {
-        if (!($align & $this->HORIZONTAL_CENTER_ALIGN) && !($align & $this->HORIZONTAL_RIGHT_ALIGN)) {
-            $align |= $this->HORIZONTAL_LEFT_ALIGN;
+        if (!($align & $this->getAlignment('horizontal', 'center'))
+            && !($align & $this->getAlignment('horizontal', 'right'))
+        ) {
+            $align |= $this->getAlignment('horizontal', 'left');
         }
 
-        if (!($align & $this->VERTICAL_CENTER_ALIGN) && !($align & $this->VERTICAL_BOTTOM_ALIGN)) {
-            $align |= $this->VERTICAL_TOP_ALIGN;
+        if (!($align & $this->getAlignment('vertical', 'middle'))
+            && !($align & $this->getAlignment('vertical', 'bottom'))
+        ) {
+            $align |= $this->getAlignment('vertical', 'top');
         }
 
         $lineSpacing = 1;
@@ -96,19 +94,19 @@ class Text extends AbstractElement
         $textWidth = $lrx - $llx;
         $textHeight = $lry - $ury;
 
-        if ($align & $this->HORIZONTAL_CENTER_ALIGN) {
+        if ($align & $this->getAlignment('horizontal', 'center')) {
             $px -= $textWidth / 2;
         }
 
-        if ($align & $this->HORIZONTAL_LEFT_ALIGN) {
+        if ($align & $this->getAlignment('horizontal', 'left')) {
             $px -= $textWidth;
         }
 
-        if ($align & $this->VERTICAL_CENTER_ALIGN) {
+        if ($align & $this->getAlignment('vertical', 'middle')) {
             $py += $textHeight / 2;
         }
 
-        if ($align & $this->VERTICAL_TOP_ALIGN) {
+        if ($align & $this->getAlignment('vertical', 'top')) {
             $py += $textHeight;
         }
 
@@ -132,7 +130,7 @@ class Text extends AbstractElement
             $color,
             $text,
             $fontFileName,
-            $this->HORIZONTAL_CENTER_ALIGN | $this->VERTICAL_CENTER_ALIGN,
+            $this->getAlignment('horizontal', 'center') | $this->getAlignment('vertical', 'middle'),
             $fontSize
         );
     }
@@ -163,5 +161,43 @@ class Text extends AbstractElement
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * @param string $type (either 'vertical' or 'horizontal'
+     * @param string $property Depends on the $type, but can have the values
+     * 'left', 'center' or 'right' (for type = 'horizontal')
+     * 'top', 'middle' or 'bottom' (for type = 'vertical')
+     * @return int
+     */
+    public function getAlignment($type, $property)
+    {
+//        public $HORIZONTAL_LEFT_ALIGN = 1;
+//        public $HORIZONTAL_CENTER_ALIGN = 2;
+//        public $HORIZONTAL_RIGHT_ALIGN = 4;
+//        public $VERTICAL_TOP_ALIGN = 8;
+//        public $VERTICAL_CENTER_ALIGN = 16;
+//        public $VERTICAL_BOTTOM_ALIGN = 32;
+        if ($type == 'horizontal') {
+            switch ($property) {
+                case 'left':
+                    return 1;
+                case 'center':
+                default:
+                    return 2;
+                case 'right':
+                    return 4;
+            }
+        } else {
+            switch ($property) {
+                case 'top':
+                    return 8;
+                case 'middle':
+                default:
+                    return 16;
+                case 'bottom':
+                    return 32;
+            }
+        }
     }
 }

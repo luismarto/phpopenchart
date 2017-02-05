@@ -92,7 +92,7 @@ class Caption
                 $this->text->getColor(),
                 $label,
                 $this->text->getFont(),
-                $this->text->HORIZONTAL_RIGHT_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->getAlignment('horizontal', 'right') | $this->text->getAlignment('vertical', 'middle')
             );
 
             $i++;

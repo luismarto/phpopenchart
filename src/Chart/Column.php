@@ -53,7 +53,7 @@ class Column extends AbstractChartBar
                 $graphArea->x1 - 25,
                 $y - 15,
                 $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
             );
         }
 
@@ -92,7 +92,7 @@ class Column extends AbstractChartBar
                     $x + ($columnWidth / 2),
                     $graphArea->y2,
                     $point->getLabel(),
-                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_TOP_ALIGN
+                    $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'top')
                 );
             }
         }
@@ -184,11 +184,13 @@ class Column extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->pointLabel->show()) {
+                    $align = $this->text->getAlignment('horizontal', 'center')
+                        | $this->text->getAlignment('vertical', 'bottom');
                     $this->pointLabel->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 18),
                         $value,
-                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_BOTTOM_ALIGN
+                        $align
                     );
                 }
             }

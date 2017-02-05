@@ -248,7 +248,7 @@ class Pie extends AbstractChart
                 $this->text->getColor(),
                 $label,
                 $this->text->getFont(),
-                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
             );
 
             $angle1 = $angle2;

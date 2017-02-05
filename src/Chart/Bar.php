@@ -37,10 +37,8 @@ class Bar extends AbstractChartBar
         $axisColor0 = $this->palette->axisColor[0];
 
         /**
-         * Deal with the Horizontal Axis
+         * Deal with the Horizontal (X) Axis
          */
-        // Draw the line for the X axis
-//        $this->gd->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $x = $graphArea->x1
@@ -56,7 +54,7 @@ class Bar extends AbstractChartBar
                 $x,
                 $graphArea->y2,
                 $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_CENTER_ALIGN
+                $this->text->getAlignment('horizontal', 'center')
             );
         }
 
@@ -64,7 +62,7 @@ class Bar extends AbstractChartBar
         $pointList = $this->getFirstSerieOfList();
 
         /**
-         * Deal with the Vertical Axis
+         * Deal with the Vertical (Y) Axis
          */
         $pointCount = count($pointList);
         reset($pointList);
@@ -90,7 +88,7 @@ class Bar extends AbstractChartBar
                     $graphArea->x1 - 25,
                     $y - $rowHeight / 2 - 15,
                     $point->getLabel(),
-                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                    $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
                 );
             }
         }
@@ -175,7 +173,8 @@ class Bar extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->pointLabel->show()) {
-                    $textAlign = $this->text->VERTICAL_CENTER_ALIGN | $this->text->HORIZONTAL_LEFT_ALIGN;
+                    $textAlign = $this->text->getAlignment('vertical', 'middle')
+                        | $this->text->getAlignment('horizontal', 'left');
 
                     $this->pointLabel->draw(
                         $xmax + ($value > 0 ? 30 : ($value == 0 ? 0 : -10)),

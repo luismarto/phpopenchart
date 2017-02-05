@@ -2,16 +2,22 @@
 require_once '../common.php';
 
 $chart = new Phpopenchart\Chart\Bar([
-    'chart' => [
-        'width' => 500,
-        'height' => 250,
+    'chart'      => [
+        'width'       => 600,
+        'height'      => 250,
+        'bar-padding' => [5, 30, 30, 125],
     ],
-    'title' => [
+    'axis-label' => [
+        'margin' => [
+            'left' => -40,
+        ]
+    ],
+    'title'      => [
         'text' => 'User agents for www.example.com'
     ],
-    'dataset' => [
+    'dataset'    => [
         'labels' => ['Mozilla Firefox (0)', 'Konqueror (0)', 'Other (0)'],
-        'data' => [0, 0, 0]
+        'data'   => [0, 0, 0]
     ]
 ]);
 
