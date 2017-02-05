@@ -197,6 +197,16 @@ $chart->render();</code></pre>
                                             </tr>
                                             <tr>
                                                 <td class="option-key">chart</td>
+                                                <td class="option-key">logo</td>
+                                                <td>
+                                                    Defines the file path for the logo if you intend to use one. Otherwise leave it as false.<br />
+                                                    If you specify a path that's not valid, the logo won't be rendered.
+                                                </td>
+                                                <td class="option-default-value"><code class="language-php">false</code></td>
+                                                <td class="option-type">string|bool</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option-key">chart</td>
                                                 <td class="option-key">bar-padding</td>
                                                 <td rowspan="4" style="vertical-align: middle">Array with four positions at most, with integer values, that represent the top-padding, right-padding, bottom-padding and left-padding used for the chart.<br />
                                                     Use the key that matches the chart type you're creating.<br />
@@ -467,10 +477,6 @@ class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
                                                 <tr>
                                                     <td class="option-key">\Libchart\Exception\DatasetNotDefinedException</td>
                                                     <td>This exception is throwed when you fail to set a <code class="language-php">'dataset'</code> key array that's passed to the chart constructor. Make sure you take a look at the <a class="scrollto" href="#dataset-section">dataset</a> option.</td>
-                                                <tr>
-                                                    <td class="option-key">\Libchart\Exception\DatasetMalformedException</td>
-                                                    <td>The exception is throwed when the structure of the <code class="language-php">'dataset'</code> key is incorrect. You might have failed to pass a <code class="language-php">'labels'</code> or <code class="language-php">'data'</code> keys. Or you may have set the <code class="language-php">'data'</code> to a multiple series, but failed to add a <code class="language-php">'series'</code> key.<br />Take a look a the <a class="scrollto" href="#dataset-section">Dataset</a> documentation and make sure you have setted the correct format.</td>
-                                                </tr>
                                                 <tr>
                                                     <td class="option-key">\Libchart\Exception\LogoFileNotFoundException</td>
                                                     <td>If you setted a logo on the configuration and the logo cannot be found, this exception is throwed.</td>

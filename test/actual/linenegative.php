@@ -1,18 +1,12 @@
 <?php
 require_once '../common.php';
 
-header("Content-type: image/png");
-
 (new Libchart\Chart\Line([
     'title' => [
         'text' => 'Net migration'
     ],
     'dataset' => [
-        ["2000", 780],
-        ["2001", 200],
-        ["2002", -100],
-        ["2003", 0],
-        ["2004", -550],
-        ["2005", -300],
+        'labels' => ['2000', '2001', '2002', '2003', '2004', '2005'],
+        'data' => [780, 200, -100, 0, -550, -300]
     ]
 ]))->render();

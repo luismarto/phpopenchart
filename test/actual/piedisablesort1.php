@@ -1,19 +1,18 @@
 <?php
 require_once '../common.php';
 
-header("Content-type: image/png");
-
 (new Libchart\Chart\Pie([
-    'width' => 500,
-    'height' => 250,
+    'chart'           => [
+        'width'       => 600,
+        'height'      => 250,
+    ],
+    // @todo: This will be moved to 'chart' later on
     'sort-data-point' => false,
-    'title' => [
+    'title'           => [
         'text' => 'This example preserves item order'
     ],
-    'dataset' => [
-        ["Item 1 (20)", 20],
-        ["Item 2 (50)", 50],
-        ["Item 3 (30)", 30],
-        ["Item 4 (70)", 70],
+    'dataset'         => [
+        'labels' => ['Item 1 (20)', 'Item 2 (50)', 'Item 3 (30)', 'Item 4 (70)'],
+        'data'   => [20, 50, 30, 70]
     ]
 ]))->render();

@@ -24,6 +24,10 @@ class XYDataSet extends DataSet
      */
     public function __construct(array $points)
     {
+        if (!is_array($points) || !array_key_exists('data', $points)) {
+            return [];
+        }
+
         for ($i = 0; $i < count($points['data']); $i++) {
             $label = array_key_exists($i, $points['labels']) ? $points['labels'][$i] : 'undefined';
             if (is_array($points['data'][$i])) {

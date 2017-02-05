@@ -12,6 +12,15 @@ return [
         'height' => 300,
         /*
         |--------------------------------------------------------------------------
+        | Logo filepath
+        |--------------------------------------------------------------------------
+        | By default, no logo is used on the chart.
+        | If you want to display a logo, simple set this config as the path to the logo
+        | and it will be displayed. Otherwise, leave it as false.
+        */
+        'logo' => false,
+        /*
+        |--------------------------------------------------------------------------
         | Customized paddings for each chart type
         |--------------------------------------------------------------------------
         | Default padding to be added to the chart. Must be an array with the values

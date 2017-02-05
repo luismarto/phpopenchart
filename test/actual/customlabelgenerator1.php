@@ -9,21 +9,21 @@ class ThousandLabelGenerator implements \Libchart\Label\LabelInterface
     }
 }
 
-header("Content-type: image/png");
-
 $chart = new Libchart\Chart\Column([
-    'width' => 500,
-    'height' => 250,
+    'chart' => [
+        'width' => 500,
+        'height' => 250,
+    ],
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
+    'point-label' => [
+        'generator' => 'ThousandLabelGenerator'
+    ],
     'dataset' => [
-        ["Jan 2005", 27300],
-        ["Feb 2005", 32100],
-        ["March 2005", 44200],
-        ["April 2005", 71100],
+        'labels' => ['Jan 2005', 'Feb 2005', 'March 2005', 'April 2005'],
+        'data' => [27300, 32100, 44200, 71100]
     ]
 ]);
 
-$chart->setBarLabelGenerator(new ThousandLabelGenerator());
 $chart->render();

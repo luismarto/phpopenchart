@@ -1,19 +1,19 @@
 <?php
 require_once '../common.php';
 
-header("Content-type: image/png");
-
 (new Libchart\Chart\Bar([
-    'width' => 500,
-    'height' => 250,
-    'show-point-caption' => false,
+    'chart' => [
+        'width' => 500,
+        'height' => 250,
+    ],
+    'point-label' => [
+        'show' => false,
+    ],
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
     'dataset' => [
-        ["Jan 2005", 273],
-        ["Feb 2005", 321],
-        ["Mar 2005", 442],
-        ["Apr 2005", 711],
+        'labels' => ['Jan 2005', 'Feb 2005', 'Mar 2005', 'Apr 2005'],
+        'data' => [273, 321, 442, 711]
     ]
 ]))->render();

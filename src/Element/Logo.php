@@ -4,13 +4,9 @@ class Logo
 {
     /**
      * Location of the logo. Can be overridden to your personalized logo.
+     * @var string|false
      */
     private $filename;
-
-    /**
-     * @var bool
-     */
-    private $hasLogo;
 
     /**
      * @var \Noodlehaus\Config
@@ -32,16 +28,18 @@ class Logo
      * @param BasicPadding $outerPadding
      * @param \Noodlehaus\Config $config
      */
-    public function __construct($gd, $outerPadding, $config)
+    public function __construct($args, $gd, $outerPadding, $config)
     {
         $this->config = $config;
         $this->gd = $gd;
         $this->outerPadding = $outerPadding;
+        $this->filename = false;
 
-        // By default, don't display the logo
-        // @todo: make this configurable
-        $this->filename = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'images\PoweredBy.png';
-        $this->hasLogo = false;
+        if (array_key_exists('chart', $args) && is_array($args['chart'])) {
+            if (array_key_exists('logo', $args['chart']) && is_file($args['chart']['logo'])) {
+                $this->filename = $args['chart']['logo'];
+            }
+        }
     }
 
     /**
@@ -49,7 +47,7 @@ class Logo
      */
     public function draw()
     {
-        if (!$this->hasLogo) {
+        if (!$this->filename) {
             return false;
         }
 
@@ -72,14 +70,5 @@ class Logo
     public function setLogoFilename($filename)
     {
         $this->filename = $filename;
-    }
-
-    /**
-     * Ability to define if the chart should display the logo or not
-     * @param bool $hasLogo
-     */
-    public function setHasLogo($hasLogo)
-    {
-        $this->hasLogo = $hasLogo;
     }
 }

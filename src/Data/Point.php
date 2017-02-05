@@ -28,14 +28,19 @@ class Point
      *
      * @param integer $label coordinate (label)
      * @param integer $value coordinate (value)
-     * @param string|null $hexColor Specific color for this point
+     * @param string|null|\Libchart\Color\Color $hexColor Specific color for this point
      */
     public function __construct($label, $value, $hexColor = null)
     {
         $this->label = $label;
         $this->value = $value;
         if (!is_null($hexColor)) {
-            $this->color = new ColorHex($hexColor);
+            // In case the user passed a hex color or a color, set it
+            if ($hexColor instanceof \Libchart\Color\Color) {
+                $this->color = $hexColor;
+            } else {
+                $this->color = new ColorHex($hexColor);
+            }
         }
     }
 

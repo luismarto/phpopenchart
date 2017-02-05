@@ -12,7 +12,6 @@ use Libchart\Element\Logo;
 use Libchart\Element\PointLabel;
 use Libchart\Element\Text;
 use Libchart\Element\Title;
-use Libchart\Exception\DatasetMalformedException;
 use Libchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
@@ -219,7 +218,7 @@ abstract class AbstractChart
         $this->axisLabel = new AxisLabel($args, $this->text, $this->config);
         $this->pointLabel = new PointLabel($args, $this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
-        $this->logo = new Logo($this->gd, $this->outerPadding, $this->config);
+        $this->logo = new Logo($args, $this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
 
         // Immediately draw the chart background
@@ -248,7 +247,6 @@ abstract class AbstractChart
         $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
         $this->graphCaptionRatio = 0.50;
 
-
         $this->captionPadding = new BasicPadding(15, 15, 15, 15);
 
         // Set dataset
@@ -270,7 +268,6 @@ abstract class AbstractChart
     /**
      * Validates the dataset received through the constructor arguments
      * @param array $args
-     * @throws DatasetMalformedException
      * @throws DatasetNotDefinedException
      */
     private function validateDataset($args)
@@ -280,17 +277,7 @@ abstract class AbstractChart
             throw new DatasetNotDefinedException();
         }
 
-        // If there's only one series, verify that the first element is an array
-        if (count($args['dataset']) === 1 && !array_key_exists('data', $args['dataset'])) {
-            throw new DatasetMalformedException();
-        }
-
-        // Check if there's a 'series' key and, if so, validate if 'data' has three levels
-        //@todo fix this
-
-        // otherwise, check if data has two level
-        //
-        // throw exception if ne number of elee,ments in data is diffenret from the labels
+        // If any invalid or empty datasets are passed, we simply won't output any values
     }
 
     /**

@@ -1,18 +1,29 @@
 <?php
 require_once '../common.php';
 
-header("Content-type: image/png");
-
 (new Libchart\Chart\Pie([
     'dataset' => [
-        ['Windows XP', '751'],
-        ['Windows Vista', '342'],
-        ['Linux', '277'],
-        ['Mac OS X', '267'],
-        ['Windows 2003', '65'],
-        ['Windows 2000', '9'],
-        ['Windows Server 2008', '8'],
-        ['Windows 7', '4'],
-        ['SunOS', '3']
+        'labels' => [
+            'Windows XP',
+            'Windows Vista',
+            'Linux',
+            'Mac OS X',
+            'Windows 2003',
+            'Windows 2000',
+            'Windows Server 2008',
+            'Windows 7',
+            'SunOS'
+        ],
+        'data' => [
+            '751',
+            '342',
+            '277',
+            '267',
+            '65',
+            '9',
+            '8',
+            '4',
+            '3'
+        ]
     ]
 ]))->render();
