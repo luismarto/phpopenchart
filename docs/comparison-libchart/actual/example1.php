@@ -9,6 +9,11 @@ require_once '../common.php';
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
+    'label-axis' => [
+        'align' => [
+            'vertical' => 'middle'
+        ]
+    ],
     'dataset' => [
         'labels' => ['Jan 2005', 'Feb 2005', 'March 2005', 'April 2005'],
         'data' => [273, 321, 442, 711],

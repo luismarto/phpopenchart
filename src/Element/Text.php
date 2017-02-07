@@ -83,6 +83,8 @@ class Text extends AbstractElement
 
         $lineSpacing = 1;
 
+        // @todo: this has a bug when printing the labels, because some words can have a
+        // greater height then others. For instance "other" is smaller in height then "Heigh" or "april"...
         list ($llx, $lly, $lrx, $lry, $urx, $ury, $ulx, $uly) = imageftbbox(
             $fontSize,
             $angle,
@@ -107,9 +109,12 @@ class Text extends AbstractElement
         }
 
         if ($align & $this->getAlignment('vertical', 'top')) {
-            $py += $textHeight;
+            $py -= $textHeight;
         }
 
+//        $h = fopen('temp.log', 'a+');
+//        fwrite($h, 'label: ' . $text . '; x: ' . $px . '; y:' . $py . 'textheight: ' . $textHeight . "\r\n");
+//        fclose($h);
         imagettftext($this->img, $fontSize, $angle, $px, $py, $color->getColor($this->img), $fontFileName, $text);
     }
 

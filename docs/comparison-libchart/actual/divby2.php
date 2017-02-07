@@ -7,9 +7,9 @@ $chart = new Phpopenchart\Chart\Bar([
         'height'      => 250,
         'bar-padding' => [5, 30, 30, 125],
     ],
-    'axis-label' => [
-        'margin' => [
-            'left' => -40,
+    'label-axis' => [
+        'align' => [
+            'horizontal' => 'left'
         ]
     ],
     'title'      => [

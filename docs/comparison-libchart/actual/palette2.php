@@ -10,7 +10,7 @@ $chart = new Phpopenchart\Chart\Bar([
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
-    'axis-label' => [
+    'label-axis' => [
         'margin' => [
             'left' => -10,
         ]

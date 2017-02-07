@@ -4,7 +4,7 @@ use Phpopenchart\Color\ColorPalette;
 use Phpopenchart\Color\ColorHex;
 use Phpopenchart\Data\XYDataSet;
 use Phpopenchart\Data\XYSeriesDataSet;
-use Phpopenchart\Element\AxisLabel;
+use Phpopenchart\Element\LabelAxis;
 use Phpopenchart\Element\BasicPadding;
 use Phpopenchart\Element\BasicRectangle;
 use Phpopenchart\Element\Gd;
@@ -12,6 +12,7 @@ use Phpopenchart\Element\Logo;
 use Phpopenchart\Element\PointLabel;
 use Phpopenchart\Element\Text;
 use Phpopenchart\Element\Title;
+use Phpopenchart\Element\ValueAxis;
 use Phpopenchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
@@ -92,9 +93,14 @@ abstract class AbstractChart
     protected $logo;
 
     /**
-     * @var AxisLabel
+     * @var LabelAxis
      */
-    protected $axisLabel;
+    protected $labelAxis;
+
+    /**
+     * @var ValueAxis
+     */
+    protected $valueAxis;
 
     /**
      * @var PointLabel
@@ -215,7 +221,8 @@ abstract class AbstractChart
         $this->gd = new Gd($this->img);
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($args, $this->text, $this->config);
-        $this->axisLabel = new AxisLabel($args, $this->text, $this->config);
+        $this->labelAxis = new LabelAxis($args, $this->text, $this->config);
+        $this->valueAxis = new ValueAxis($args, $this->text, $this->config);
         $this->pointLabel = new PointLabel($args, $this->text, $this->config);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($args, $this->gd, $this->outerPadding, $this->config);
@@ -240,7 +247,7 @@ abstract class AbstractChart
 
         $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])
-            && array_key_exists( $type . '-padding', $args['chart']) && is_array($args['chart'][ $type . '-padding'])
+            && array_key_exists($type . '-padding', $args['chart']) && is_array($args['chart'][ $type . '-padding'])
         ) {
             $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart'][ $type . '-padding']);
         } else {

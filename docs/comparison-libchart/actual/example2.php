@@ -9,9 +9,9 @@ $chart = new Phpopenchart\Chart\Bar([
     'title' => [
         'text' => 'Most visited pages for www.example.com'
     ],
-    'axis-label' => [
-        'margin' => [
-            'left' => -55,
+    'label-axis' => [
+        'align' => [
+            'horizontal' => 'left'
         ]
     ],
     'dataset' => [

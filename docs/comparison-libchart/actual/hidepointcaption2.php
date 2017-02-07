@@ -10,7 +10,7 @@ require_once '../common.php';
     'point-label' => [
         'show' => false,
     ],
-    'axis-label' => [
+    'label-axis' => [
         'margin' => [
             'left' => -10,
         ]

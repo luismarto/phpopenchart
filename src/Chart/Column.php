@@ -49,11 +49,10 @@ class Column extends AbstractChartBar
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
-            $this->axisLabel->draw(
+            $this->valueAxis->draw(
                 $graphArea->x1 - 25,
                 $y - 15,
-                $this->axisLabel->generateLabel($value),
-                $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
+                $value
             );
         }
 
@@ -88,11 +87,10 @@ class Column extends AbstractChartBar
 
                 // The $x points to the center of the column.
                 // Then, based on the alignment, the label is correctly positioned
-                $this->axisLabel->draw(
+                $this->labelAxis->draw(
                     $x + ($columnWidth / 2),
                     $graphArea->y2,
-                    $point->getLabel(),
-                    $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'top')
+                    $point->getLabel()
                 );
             }
         }
