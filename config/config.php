@@ -46,7 +46,7 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Sort points (Pie charts only
+        | Sort points (Pie charts only)
         |--------------------------------------------------------------------------
         | By default, the discs of pie charts are drawn in a descending order
         | by it's values.
@@ -116,7 +116,7 @@ return [
         |--------------------------------------------------------------------------
         | Default height, in pixels, for the title area.
         */
-        'height' => '26',
+        'height' => 26,
 
         /*
         |--------------------------------------------------------------------------
@@ -132,10 +132,64 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Properties for the labels on both axis
+    | Properties for the Label Axis
     |--------------------------------------------------------------------------
     */
-    'axis-label' => [
+    'label-axis' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Font
+        |--------------------------------------------------------------------------
+        | Determines the font to be used on the axis labels
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Font size
+        |--------------------------------------------------------------------------
+        | Default font size to be used when printing the labels
+        */
+        'size' => 10,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Color
+        |--------------------------------------------------------------------------
+        | Default color for the axis' label. Set this in hex format
+        */
+        'color' => '#666666',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Angle to display the axis label
+        |--------------------------------------------------------------------------
+        | Defaults to 0, you can set this to the angle in which the label should
+        | be displayed (ex: 45)
+        */
+        'angle' => 0,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Margins to be applied to the labels
+        |--------------------------------------------------------------------------
+        | Set the value you want to "distance" the label from the axis (both top and left).
+        | Mind a larger number might result on the label not being displayed, in case this margin
+        | exceeds the chart area.
+        */
+        'margin' => [
+            'top'  => 15,
+            'left' => 0,
+        ],
+
+        'align' => [
+            'vertical' => 'middle',
+            'horizontal' => 'center'
+        ]
+    ],
+
+    'value-axis' => [
         /*
         |--------------------------------------------------------------------------
         | Font
@@ -192,6 +246,11 @@ return [
         | \Phpopenchart\Label\LabelInterface and use that here
         */
         'generator' => '\Phpopenchart\Label\Short',
+
+        'align' => [
+            'vertical' => 'middle',
+            'horizontal' => 'center'
+        ]
     ],
 
     /*

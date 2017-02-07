@@ -295,42 +295,42 @@ $chart->render();</code></pre>
 
 
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">font</td>
                                                 <td>Path for the font (odt or ttf) to be used on the axis text. <br />You can either set this as the full path of the font file or simply set the font file name, if you want to use one of the SourceSans fonts (that are available on the <i class="italic">fonts</i> directory.</td>
                                                 <td class="option-default-value"><code class="language-php">SourceSansPro-Regular.otf</code></td>
                                                 <td class="option-type">string</td>
                                             </tr>
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">size</td>
                                                 <td>Determines the font size for the text</td>
                                                 <td class="option-default-value"><code class="language-php">10</code></td>
                                                 <td class="option-type">int</td>
                                             </tr>
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">color</td>
                                                 <td>Hexadecimal color for the axis labels</td>
                                                 <td class="option-default-value"><code class="language-php">#666666</code></td>
                                                 <td class="option-type">string</td>
                                             </tr>
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">angle</td>
                                                 <td>The angle for the text rotation. Set this to the number of degrees you want to rotate the text. Accepts both positive and negative values.</td>
                                                 <td class="option-default-value"><code class="language-php">0</code></td>
                                                 <td class="option-type">int</td>
                                             </tr>
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">margin</td>
                                                 <td>Array with <code class="language-php">'top'</code> and <code class="language-php">'left'</code> key. Both keys should be set to an integer value that represents the top and left padding.</td>
                                                 <td class="option-default-value"><code class="language-php">[ 'top' => 15, 'left' => 0]</code></td>
                                                 <td class="option-type">array</td>
                                             </tr>
                                             <tr>
-                                                <td class="option-key">axis-label</td>
+                                                <td class="option-key">label-axis</td>
                                                 <td class="option-key">generator</td>
                                                 <td>A full qualified class name responsible for formatting the value axis.<br />If you want to display the value in a different format, use one of the <a class="scrollto" href="#label-generators-section">available label generators</a> or create your custom class that implements <code class="language-php">\Phpopenchart\Label\LabelInterface</code>.</td>
                                                 <td class="option-default-value"><code class="language-php">\Phpopenchart\Label\Short</code></td>
@@ -437,7 +437,7 @@ $chart->render();</code></pre>
                                     <div id="craft-your-own-formatter" class="section-block">
                                         <h3 class="block-title">Craft your own formatter</h3>
                                         <p>If you need a validator that doesn't yet exist, you can create your own Label Formatter class and use it on your chart.</p>
-                                        <p>Make sure your class implements <code class="language-php">\Phpopenchart\Label\LabelInterface</code> and then specify the full qualified class name on the chart settings (look for <i class="italic">point-label.generator</i> and <i class="italic">axis-label.generator</i> on the <a class="scrollto" href="#options-section">options</a> section).</p>
+                                        <p>Make sure your class implements <code class="language-php">\Phpopenchart\Label\LabelInterface</code> and then specify the full qualified class name on the chart settings (look for <i class="italic">point-label.generator</i> and <i class="italic">label-axis.generator</i> on the <a class="scrollto" href="#options-section">options</a> section).</p>
                                         <pre><code class="language-php">&lt;?php
 
 class ThousandLabelGenerator implements \Phpopenchart\Label\LabelInterface
@@ -448,7 +448,7 @@ class ThousandLabelGenerator implements \Phpopenchart\Label\LabelInterface
     }
 }</code></pre>
                                         <pre><code class="language-php">(new Line([
-    'axis-label' => [
+    'label-axis' => [
      'generator' => 'ThousandLabelGenerator'
     ],
     'point-label' => [

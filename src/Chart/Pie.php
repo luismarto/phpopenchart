@@ -119,23 +119,24 @@ class Pie extends AbstractChart
      */
     protected function createImage()
     {
+        // Commented the whole thing. No need to display a border
         // Get the graph area
-        $graphArea = $this->graphArea;
+//        $graphArea = $this->graphArea;
 
         // Legend box
-        $this->gd->outlinedBox(
-            $graphArea->x1,
-            $graphArea->y1,
-            $graphArea->x2,
-            $graphArea->y2,
-            $this->palette->axisColor[0],
-            $this->palette->axisColor[1]
-        );
+//        $this->gd->outlinedBox(
+//            $graphArea->x1,
+//            $graphArea->y1,
+//            $graphArea->x2,
+//            $graphArea->y2,
+//            $this->palette->axisColor[0],
+//            $this->palette->axisColor[1]
+//        );
 
         // Aqua-like background
-        for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
-            $this->gd->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
-        }
+//        for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
+//            $this->gd->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
+//        }
     }
 
     /**
@@ -248,7 +249,7 @@ class Pie extends AbstractChart
                 $this->text->getColor(),
                 $label,
                 $this->text->getFont(),
-                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
             );
 
             $angle1 = $angle2;

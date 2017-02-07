@@ -5,9 +5,15 @@ require_once '../common.php';
     'chart' => [
         'width' => 500,
         'height' => 250,
+        'bar-padding' => [5, 30, 30, 75],
     ],
     'point-label' => [
         'show' => false,
+    ],
+    'label-axis' => [
+        'margin' => [
+            'left' => -10,
+        ]
     ],
     'title' => [
         'text' => 'Monthly usage for www.example.com'

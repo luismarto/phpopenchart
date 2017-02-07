@@ -42,11 +42,10 @@ class Line extends AbstractChartBar
 
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
-            $this->axisLabel->draw(
+            $this->valueAxis->draw(
                 $graphArea->x1 - 25,
                 $y - 15,
-                $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $value
             );
         }
 
@@ -72,11 +71,10 @@ class Line extends AbstractChartBar
             $point = current($pointList);
             next($pointList);
 
-            $this->axisLabel->draw(
+            $this->labelAxis->draw(
                 $x + ($columnWidth / 2),
                 $graphArea->y2 + 5,
-                $point->getLabel(),
-                $this->text->HORIZONTAL_CENTER_ALIGN
+                $point->getLabel()
             );
         }
     }
@@ -86,9 +84,7 @@ class Line extends AbstractChartBar
      */
     protected function printLine()
     {
-        // @todo: check unused variables...
         $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
 
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();
@@ -133,11 +129,13 @@ class Line extends AbstractChartBar
                 }
 
                 if ($this->pointLabel->show()) {
+                    $align = $this->text->getAlignment('horizontal', 'center')
+                        | $this->text->getAlignment('vertical', 'middle');
                     $this->pointLabel->draw(
                         $x2,
                         $value >= 0 ? $y2 - 15 : $y2 + 15,
                         $value,
-                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                        $align
                     );
                 }
 

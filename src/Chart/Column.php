@@ -49,11 +49,10 @@ class Column extends AbstractChartBar
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
 
             // Now print the label for the y axis
-            $this->axisLabel->draw(
+            $this->valueAxis->draw(
                 $graphArea->x1 - 25,
                 $y - 15,
-                $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                $value
             );
         }
 
@@ -69,6 +68,14 @@ class Column extends AbstractChartBar
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
+
+        // Get the max height for the text of all the labels.
+        // This way all the labels will get aligned
+        $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
+            $this->labelAxis->getFontSize(),
+            $this->labelAxis->getTextAngle(),
+            $this->labelAxis->getFont()
+        );
 
         for ($i = 0; $i <= $pointCount; $i++) {
             // The starting X for this point is the sum of the $x1 of the chart (minding the padding)
@@ -88,11 +95,11 @@ class Column extends AbstractChartBar
 
                 // The $x points to the center of the column.
                 // Then, based on the alignment, the label is correctly positioned
-                $this->axisLabel->draw(
+                $this->labelAxis->draw(
                     $x + ($columnWidth / 2),
                     $graphArea->y2,
                     $point->getLabel(),
-                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_TOP_ALIGN
+                    $maxTextHeight
                 );
             }
         }
@@ -114,8 +121,6 @@ class Column extends AbstractChartBar
         $barColorSet->reset();
 
         $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
 
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
@@ -184,11 +189,13 @@ class Column extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->pointLabel->show()) {
+                    $align = $this->text->getAlignment('horizontal', 'center')
+                        | $this->text->getAlignment('vertical', 'top');
                     $this->pointLabel->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 18),
                         $value,
-                        $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_BOTTOM_ALIGN
+                        $align
                     );
                 }
             }

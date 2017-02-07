@@ -5,7 +5,7 @@ require_once '../common.php';
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
-    'axis-label' => [
+    'label-axis' => [
         'generator' => '\Phpopenchart\Label\DefaultLabel',
     ],
     'point-label' => [

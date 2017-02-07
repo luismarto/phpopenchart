@@ -2,6 +2,9 @@
 require_once '../common.php';
 
 $chart = new Phpopenchart\Chart\Line([
+    'chart' => [
+        'width' => 700
+    ],
     'title' => [
         'text' => 'Sales for 2006'
     ],

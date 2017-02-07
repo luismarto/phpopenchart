@@ -37,10 +37,8 @@ class Bar extends AbstractChartBar
         $axisColor0 = $this->palette->axisColor[0];
 
         /**
-         * Deal with the Horizontal Axis
+         * Deal with the Horizontal (X) Axis
          */
-        // Draw the line for the X axis
-//        $this->gd->line($graphArea->x1 - 1, $graphArea->y2, $graphArea->x2, $graphArea->y2, $axisColor0);
 
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $x = $graphArea->x1
@@ -52,11 +50,10 @@ class Bar extends AbstractChartBar
             $this->gd->line($x, $graphArea->y1, $x, $graphArea->y2, $this->palette->backgroundColor);
 
             // Draw the text for each step value (guiding marker)
-            $this->axisLabel->draw(
+            $this->valueAxis->draw(
                 $x,
                 $graphArea->y2,
-                $this->axisLabel->generateLabel($value),
-                $this->text->HORIZONTAL_CENTER_ALIGN
+                $value
             );
         }
 
@@ -64,7 +61,7 @@ class Bar extends AbstractChartBar
         $pointList = $this->getFirstSerieOfList();
 
         /**
-         * Deal with the Vertical Axis
+         * Deal with the Vertical (Y) Axis
          */
         $pointCount = count($pointList);
         reset($pointList);
@@ -86,11 +83,10 @@ class Bar extends AbstractChartBar
                 $point = current($pointList);
                 next($pointList);
 
-                $this->axisLabel->draw(
+                $this->labelAxis->draw(
                     $graphArea->x1 - 25,
                     $y - $rowHeight / 2 - 15,
-                    $point->getLabel(),
-                    $this->text->HORIZONTAL_CENTER_ALIGN | $this->text->VERTICAL_CENTER_ALIGN
+                    $point->getLabel()
                 );
             }
         }
@@ -108,9 +104,6 @@ class Bar extends AbstractChartBar
         $graphArea = $this->graphArea;
 
         $minValue = $this->axis->getLowerBoundary();
-        // @todo: check this unused variables...
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
 
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 
@@ -175,10 +168,11 @@ class Bar extends AbstractChartBar
 
                 // Draw caption text on bar
                 if ($this->pointLabel->show()) {
-                    $textAlign = $this->text->VERTICAL_CENTER_ALIGN | $this->text->HORIZONTAL_LEFT_ALIGN;
+                    $textAlign = $this->text->getAlignment('vertical', 'middle')
+                        | $this->text->getAlignment('horizontal', 'left');
 
                     $this->pointLabel->draw(
-                        $xmax + ($value > 0 ? 30 : ($value == 0 ? 0 : -10)),
+                        $xmax + ($value > 0 ? 30 : ($value == 0 ? 10 : -10)),
                         $y2 - $barWidth / 2,
                         $value,
                         $textAlign

@@ -18,6 +18,11 @@ $chart = new Phpopenchart\Chart\Bar([
     'title'       => [
         'text' => 'Monthly usage for www.example.com'
     ],
+    'label-axis' => [
+        'margin' => [
+            'left' => -20,
+        ]
+    ],
     'point-label' => [
         'generator' => 'ThousandLabelGenerator'
     ],
