@@ -71,11 +71,14 @@ class Column extends AbstractChartBar
 
         // Get the max height for the text of all the labels.
         // This way all the labels will get aligned
-        $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
-            $this->labelAxis->getFontSize(),
-            $this->labelAxis->getTextAngle(),
-            $this->labelAxis->getFont()
-        );
+        $maxTextHeight = false;
+        if (!$this->hasSeveralSeries) {
+            $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
+                $this->labelAxis->getFontSize(),
+                $this->labelAxis->getTextAngle(),
+                $this->labelAxis->getFont()
+            );
+        }
 
         for ($i = 0; $i <= $pointCount; $i++) {
             // The starting X for this point is the sum of the $x1 of the chart (minding the padding)

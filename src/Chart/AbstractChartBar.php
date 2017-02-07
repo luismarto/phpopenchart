@@ -145,7 +145,7 @@ abstract class AbstractChartBar extends AbstractChart
     }
 
     /**
-     * Renders the caption.
+     * Renders the caption when there are multiple series
      */
     protected function printCaption()
     {

@@ -320,6 +320,9 @@ abstract class AbstractChart
         $titleUnpaddedBottom = $this->imageArea->y1 + $titleHeight + $titlePadding->top + $titlePadding->bottom;
         $graphArea = null;
         if ($this->hasCaption) {
+            // @todo: Fix this value when there's caption
+            // The image is too large because there's much space left for the caption area
+            // which makes the chart with just litle more than half of the chart image size
             $graphUnpaddedRight = $this->imageArea->x1
                 + ($this->imageArea->x2 - $this->imageArea->x1)
                 * $this->graphCaptionRatio
