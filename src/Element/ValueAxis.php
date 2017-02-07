@@ -17,9 +17,10 @@ class ValueAxis extends AbstractAxis
      * @param int $x
      * @param int $y
      * @param string $label
+     * @param int|bool $maxTextHeight
      */
-    public function draw($x, $y, $label)
+    public function draw($x, $y, $label, $maxTextHeight = false)
     {
-        parent::drawAxis($x, $y, $label, 'value-axis');
+        parent::drawAxis($x, $y, $label, $maxTextHeight, 'value-axis');
     }
 }

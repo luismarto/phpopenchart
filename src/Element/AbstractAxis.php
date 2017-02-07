@@ -159,9 +159,10 @@ class AbstractAxis extends AbstractElement
      * @param float|int $x
      * @param float|int $y
      * @param string $label
+     * @param int|bool $maxTextHeight
      * @param string $key
      */
-    protected function drawAxis($x, $y, $label, $key)
+    protected function drawAxis($x, $y, $label, $maxTextHeight, $key)
     {
         switch ($key) {
             case 'value-axis':
@@ -186,7 +187,38 @@ class AbstractAxis extends AbstractElement
             $this->font,
             $align,
             $this->fontSize,
-            $this->angle
+            $this->angle,
+            $maxTextHeight
         );
+    }
+
+    /**
+     * Returns the font file defined for this axis
+     * Used to calculate the max text height on the Column, Bar and Line classes
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    /**
+     * Returns the font size defined for this axis
+     * Used to calculate the max text height on the Column, Bar and Line classes
+     * @return int
+     */
+    public function getFontSize()
+    {
+        return $this->fontSize;
+    }
+
+    /**
+     * Returns the text angle defined for this axis' text
+     * Used to calculate the max text height on the Column, Bar and Line classes
+     * @return int
+     */
+    public function getTextAngle()
+    {
+        return $this->angle;
     }
 }

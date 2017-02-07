@@ -45,8 +45,7 @@ class Line extends AbstractChartBar
             $this->valueAxis->draw(
                 $graphArea->x1 - 25,
                 $y - 15,
-                $value,
-                $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
+                $value
             );
         }
 
@@ -75,8 +74,7 @@ class Line extends AbstractChartBar
             $this->labelAxis->draw(
                 $x + ($columnWidth / 2),
                 $graphArea->y2 + 5,
-                $point->getLabel(),
-                $this->text->getAlignment('horizontal', 'center')
+                $point->getLabel()
             );
         }
     }
@@ -86,9 +84,7 @@ class Line extends AbstractChartBar
      */
     protected function printLine()
     {
-        // @todo: check unused variables...
         $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
 
         // Get the data as a list of series for consistency
         $serieList = $this->getDataAsSerieList();

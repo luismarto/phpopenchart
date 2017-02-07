@@ -86,8 +86,7 @@ class Bar extends AbstractChartBar
                 $this->labelAxis->draw(
                     $graphArea->x1 - 25,
                     $y - $rowHeight / 2 - 15,
-                    $point->getLabel(),
-                    $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
+                    $point->getLabel()
                 );
             }
         }
@@ -105,9 +104,6 @@ class Bar extends AbstractChartBar
         $graphArea = $this->graphArea;
 
         $minValue = $this->axis->getLowerBoundary();
-        // @todo: check this unused variables...
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
 
         $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
 

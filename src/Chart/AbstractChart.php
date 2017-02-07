@@ -372,6 +372,15 @@ abstract class AbstractChart
         }
     }
 
+    /**
+     * Returns the dataset for this chart
+     * @return XYDataSet|XYSeriesDataSet
+     */
+    public function getDataSet()
+    {
+        return $this->dataSet;
+    }
+
 
     /**
      * Set the outer padding.

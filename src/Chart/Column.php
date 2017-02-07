@@ -69,6 +69,14 @@ class Column extends AbstractChartBar
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
+        // Get the max height for the text of all the labels.
+        // This way all the labels will get aligned
+        $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
+            $this->labelAxis->getFontSize(),
+            $this->labelAxis->getTextAngle(),
+            $this->labelAxis->getFont()
+        );
+
         for ($i = 0; $i <= $pointCount; $i++) {
             // The starting X for this point is the sum of the $x1 of the chart (minding the padding)
             // + the position of the point * the width of each column
@@ -90,7 +98,8 @@ class Column extends AbstractChartBar
                 $this->labelAxis->draw(
                     $x + ($columnWidth / 2),
                     $graphArea->y2,
-                    $point->getLabel()
+                    $point->getLabel(),
+                    $maxTextHeight
                 );
             }
         }
@@ -112,8 +121,6 @@ class Column extends AbstractChartBar
         $barColorSet->reset();
 
         $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
 
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
 
@@ -183,7 +190,7 @@ class Column extends AbstractChartBar
                 // Draw caption text on bar
                 if ($this->pointLabel->show()) {
                     $align = $this->text->getAlignment('horizontal', 'center')
-                        | $this->text->getAlignment('vertical', 'bottom');
+                        | $this->text->getAlignment('vertical', 'top');
                     $this->pointLabel->draw(
                         $x1 + $barWidth / 2,
                         ($value >= 0 ? $ymin - 5 : $ymin + 18),

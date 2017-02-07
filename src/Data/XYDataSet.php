@@ -39,6 +39,8 @@ class XYDataSet extends DataSet
             }
             $this->pointList[] = new Point($label, $value, $color);
         }
+
+        return $this->pointList;
     }
 
     /**
@@ -49,5 +51,36 @@ class XYDataSet extends DataSet
     public function getPointList()
     {
         return $this->pointList;
+    }
+
+    /**
+     * Returns the max text height of this series.
+     * This is used to correctly align the labels on the axis
+     * @param int $fontSize
+     * @param int $angle
+     * @param string $font
+     * @return int
+     */
+    public function getMaxLabelHeight($fontSize, $angle, $font)
+    {
+        $maxHeight = 0;
+
+        /**
+         * @var Point $point
+         */
+        foreach ($this->pointList as $point) {
+            list (, , , $lry, , $ury, , ) = imageftbbox(
+                $fontSize,
+                $angle,
+                $font,
+                $point->getValue(),
+                ["linespacing" => 1]
+            );
+
+            $textHeight = $lry - $ury;
+            $maxHeight = $textHeight > $maxHeight ? $textHeight : $maxHeight;
+        }
+
+        return $maxHeight;
     }
 }

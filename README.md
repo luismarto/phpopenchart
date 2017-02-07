@@ -50,9 +50,8 @@ Require the package in your `composer.json` file and update composer, using the 
 # Roadmap
 
 In a forseable future
-- Fix bug on Bar Charts (X axis) when a margin left is applied. The values of the axis are not taking into account
-    the difference specified on the margin
 - Minor fixes and improvements (add configurations, apply configurations to all chart types, optimize internal code, add the color specified on the point to the pie chart, ...)
+- Fully document label-axis and value-axis as well as the new "align" configurations
 - Make this easily integrated with Laravel
 
 ## License
