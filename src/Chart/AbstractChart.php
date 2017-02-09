@@ -13,6 +13,7 @@ use Phpopenchart\Element\PointLabel;
 use Phpopenchart\Element\Text;
 use Phpopenchart\Element\Title;
 use Phpopenchart\Element\ValueAxis;
+use Phpopenchart\Exception\ChartRatioOutOfBoundariesException;
 use Phpopenchart\Exception\DatasetNotDefinedException;
 
 use Noodlehaus\Config;
@@ -119,20 +120,10 @@ abstract class AbstractChart
      */
     protected $imageArea;
 
-
-
-
-
-
-
-
-
     /**
      * Outer padding surrounding the whole image, everything outside is blank.
      */
     protected $outerPadding;
-
-
 
     /**
      * True if the plot has a caption.
@@ -141,11 +132,13 @@ abstract class AbstractChart
 
     /**
      * Ratio of graph/caption in width.
+     * @var float
      */
-    protected $graphCaptionRatio;
+    protected $chartRatio;
 
     /**
      * Padding of the graph area.
+     * @var BasicPadding
      */
     protected $graphPadding;
 
@@ -171,6 +164,7 @@ abstract class AbstractChart
     protected $config;
 
     /**
+     * Determines if the current chart has multiple series
      * @var bool
      */
     protected $hasSeveralSeries;
@@ -196,6 +190,7 @@ abstract class AbstractChart
      * @param array $args
      * @param string $type
      * @throws DatasetNotDefinedException
+     * @throws ChartRatioOutOfBoundariesException
      */
     protected function __construct($args, $type)
     {
@@ -207,6 +202,20 @@ abstract class AbstractChart
             . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
         $this->config = Config::load($configPath);
 
+        // Check if dataset exists on the arguments and validate it's an array otherwise throw an error
+        if (!array_key_exists('dataset', $args) || !is_array($args['dataset'])) {
+            throw new DatasetNotDefinedException();
+        }
+
+        if (count($args['dataset']) > 1 && array_key_exists('series', $args['dataset'])) {
+            $this->dataSet = new XYSeriesDataSet($args['dataset']);
+            $this->hasSeveralSeries = true;
+        } else {
+            $this->dataSet = new XYDataSet($args['dataset']);
+            $this->hasSeveralSeries = false;
+        }
+
+        // Set basic chart properties to create the chart background
         $width = $this->config->get('chart.width', 600);
         $height = $this->config->get('chart.height', 300);
         if (array_key_exists('chart', $args) && is_array($args['chart'])) {
@@ -217,7 +226,7 @@ abstract class AbstractChart
         // Create image
         $this->img = imagecreatetruecolor($width, $height);
 
-        // Init graphical classes
+        // Init Elements
         $this->gd = new Gd($this->img);
         $this->text = new Text($this->img, $this->config);
         $this->title = new Title($args, $this->text, $this->config);
@@ -232,13 +241,13 @@ abstract class AbstractChart
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
 
         // Set chart properties
-        $this->useMultipleColor = $this->config->get('use-multiple-color', false);
+        $this->useMultipleColor = $this->config->get('chart.use-multiple-color', false);
         if (array_key_exists('chart', $args) && is_array($args['chart'])
             && array_key_exists('use-multiple-color', $args['chart'])
         ) {
             $this->useMultipleColor = (bool)$args['chart']['use-multiple-color'];
         }
-        $this->sortDataPoint = $this->config->get('sort-data-point', true);
+        $this->sortDataPoint = $this->config->get('chart.sort-data-point', true);
         if (array_key_exists('chart', $args) && is_array($args['chart'])
             && array_key_exists('sort-data-point', $args['chart'])
         ) {
@@ -256,52 +265,25 @@ abstract class AbstractChart
             );
         }
 
+        $this->chartRatio = $this->config->get('chart.ratio', 0.7);
+        if (array_key_exists('chart', $args) && is_array($args['chart'])
+            && array_key_exists('ratio', $args['chart'])
+        ) {
+            $this->chartRatio = (float)$args['chart']['ratio'];
+        }
+
+        if (!is_numeric($this->chartRatio) || $this->chartRatio < 0 || $this->chartRatio > 1) {
+            throw new ChartRatioOutOfBoundariesException;
+        }
+
         // Default layout
         $this->outputArea = new BasicRectangle(0, 0, $width - 1, $height - 1);
-        $this->graphCaptionRatio = 0.50;
-
         $this->captionPadding = new BasicPadding(15, 15, 15, 15);
 
-        // Set dataset
-        $this->validateDataset($args);
-        if (count($args['dataset']) > 1 && array_key_exists('series', $args['dataset'])) {
-            $this->dataSet = new XYSeriesDataSet($args['dataset']);
-            $this->hasSeveralSeries = true;
-        } else {
-            $this->dataSet = new XYDataSet($args['dataset']);
-            $this->hasSeveralSeries = false;
-        }
-
         // Display the caption if the chart has multiple series of if the
-        // chart is of type $piew
+        // chart is of $type pie
         $this->hasCaption = $this->hasSeveralSeries || $type == 'pie';
         $this->type = $type;
-    }
-
-    /**
-     * Validates the dataset received through the constructor arguments
-     * @param array $args
-     * @throws DatasetNotDefinedException
-     */
-    private function validateDataset($args)
-    {
-        // Check if dataset exists on the arguments and validate it's an array
-        if (!array_key_exists('dataset', $args) || !is_array($args['dataset'])) {
-            throw new DatasetNotDefinedException();
-        }
-
-        // If any invalid or empty datasets are passed, we simply won't output any values
-    }
-
-    /**
-     * Checks the data model before rendering the graph.
-     */
-    protected function checkDataModel()
-    {
-        // Check if a dataset was defined
-        if (!$this->dataSet) {
-            throw new DatasetNotDefinedException();
-        }
     }
 
     /**
@@ -319,39 +301,26 @@ abstract class AbstractChart
         // Compute graph area
         $titleUnpaddedBottom = $this->imageArea->y1 + $titleHeight + $titlePadding->top + $titlePadding->bottom;
         $graphArea = null;
+
+        // If the chart has caption, we can't use the entire width and height defined because
+        // we'll need to leave some room to the caption. If you need to tweak the chart/caption size
+        // be sure to change `chart.ratio` config value
         if ($this->hasCaption) {
-            // @todo: Fix this value when there's caption
-            // The image is too large because there's much space left for the caption area
-            // which makes the chart with just litle more than half of the chart image size
+            // Calculate the available chart area
             $graphUnpaddedRight = $this->imageArea->x1
                 + ($this->imageArea->x2 - $this->imageArea->x1)
-                * $this->graphCaptionRatio
+                * $this->chartRatio
                 + $this->graphPadding->left
                 + $this->graphPadding->right;
+
             $graphArea = new BasicRectangle(
                 $this->imageArea->x1,
                 $titleUnpaddedBottom,
                 $graphUnpaddedRight - 1,
                 $this->imageArea->y2
             );
-        } else {
-            $graphArea = new BasicRectangle(
-                $this->imageArea->x1,
-                $titleUnpaddedBottom,
-                $this->imageArea->x2,
-                $this->imageArea->y2
-            );
-        }
-        $this->graphArea = $graphArea->getPaddedRectangle($this->graphPadding);
 
-
-        if ($this->hasCaption) {
-            // compute caption area
-            $graphUnpaddedRight = $this->imageArea->x1
-                + ($this->imageArea->x2 - $this->imageArea->x1)
-                * $this->graphCaptionRatio
-                + $this->graphPadding->left
-                + $this->graphPadding->right;
+            // Calculate the available caption area
             $titleUnpaddedBottom = $this->imageArea->y1
                 + $titleHeight
                 + $titlePadding->top
@@ -363,9 +332,23 @@ abstract class AbstractChart
                 $this->imageArea->y2
             );
             $this->captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
+        } else {
+            $graphArea = new BasicRectangle(
+                $this->imageArea->x1,
+                $titleUnpaddedBottom,
+                $this->imageArea->x2,
+                $this->imageArea->y2
+            );
         }
+
+        $this->graphArea = $graphArea->getPaddedRectangle($this->graphPadding);
     }
 
+    /**
+     * Either store the created image in the specified filepath or
+     * output the image to stdout
+     * @param null|string $filename
+     */
     public function output($filename = null)
     {
         if (isset($filename)) {
@@ -384,68 +367,10 @@ abstract class AbstractChart
         return $this->dataSet;
     }
 
-
-    /**
-     * Set the outer padding.
-     *
-     * @param \stdClass $outerPadding Outer padding value in pixels
-     */
-    public function setOuterPadding($outerPadding)
-    {
-        $this->outerPadding = $outerPadding;
-    }
-
-    /**
-     * Return the graph padding.
-     *
-     * @param BasicPadding $graphPadding graph padding
-     */
-    public function setGraphPadding($graphPadding)
-    {
-        $this->graphPadding = $graphPadding;
-    }
-
-    /**
-     * Set if the graph has a caption.
-     *
-     * @param boolean $hasCaption graph has a caption
-     */
-    public function setHasCaption($hasCaption)
-    {
-        $this->hasCaption = $hasCaption;
-    }
-
-    /**
-     * Set the caption padding.
-     *
-     * @param integer caption padding
-     */
-    public function setCaptionPadding($captionPadding)
-    {
-        $this->captionPadding = $captionPadding;
-    }
-
-    /**
-     * Set the graph/caption ratio.
-     *
-     * @param integer caption padding
-     */
-    public function setGraphCaptionRatio($graphCaptionRatio)
-    {
-        $this->graphCaptionRatio = $graphCaptionRatio;
-    }
-
-    /**
-     * Returns the Text instance used on this chart
-     * @return Text
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
     /**
      * Returns the ColorPalette instance used on this chart
+     * @todo this is used on comparison-libchart/actual/palette1.php and should be dropped
+     * We should set the pie chart disc colors as we do with the bars/lines/column charts
      * @return ColorPalette
      */
     public function getPalette()

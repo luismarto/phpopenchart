@@ -68,6 +68,19 @@ return [
         'line-padding'   => [5, 30, 50, 50],
         'pie-padding'    => [15, 10, 30, 30],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Graphic area ratio in relation to caption. Used whenever the chart has a
+        | caption, such as all Pie Charts (default) and multi series Column / Bar / Line
+        |--------------------------------------------------------------------------
+        | This value is used to calculate the available width to place the chart
+        | and the available space for the caption.
+        | You need to set a value greater and 0 and lower than 0. The greater the value
+        | is, the more space to the graphic (and smaller width for the caption).
+        | If your chart has larger caption labels, it would be best to set this to a
+        | smaller value
+        */
+        'ratio' => 0.7
     ],
 
     /*

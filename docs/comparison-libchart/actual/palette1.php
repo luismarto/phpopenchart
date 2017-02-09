@@ -5,6 +5,7 @@ $chart = new Phpopenchart\Chart\Pie([
     'chart'   => [
         'width' => 500,
         'height' => 250,
+        'ratio' => 0.5
     ],
     'title'   => [
         'text' => 'Deadly mushrooms'

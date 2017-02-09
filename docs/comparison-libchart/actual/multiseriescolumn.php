@@ -3,9 +3,10 @@ require_once '../common.php';
 
 (new \Phpopenchart\Chart\Column([
     'chart' => [
-        'width'  => 800,
+        'width'  => 600,
         'height' => 300,
         'column-padding' => [5, 30, 30, 30],
+        'ratio' => 0.73
     ],
     'title'  => [
         'text' => 'Monthly values',
