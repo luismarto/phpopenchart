@@ -50,10 +50,10 @@ Require the package in your `composer.json` file and update composer, using the 
 # Roadmap
 
 In a forseable future
-- Minor fixes and improvements (add configurations, apply configurations to all chart types, optimize internal code, add the color specified on the point to the pie chart, ...)
 - Fully document label-axis and value-axis as well as the new "align" configurations. The same for the 'ratio' property
 - Update documentation for the exception created
-- Remove method `getPalette` from `AbstractChart`
+- Update documentation about the `pie-generator` on the point-label
+- Document caption-label
 - Make this easily integrated with Laravel
 
 ## License

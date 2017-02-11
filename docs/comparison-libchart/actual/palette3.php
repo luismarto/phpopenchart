@@ -10,7 +10,7 @@ $chart = new Phpopenchart\Chart\Column([
         'text' => 'Monthly usage for www.example.com'
     ],
     'dataset' => [
-        'labels' => ['Jan 2005', 'Feb 2005', 'March 2005', 'April 2005'],
+        'labels' => ['Jan 2005', 'Feb 2005', 'Mar 2005', 'Apr 2005'],
         'data' => [
             [273, new \Phpopenchart\Color\Color(255, 0, 0)],
             [321, new \Phpopenchart\Color\ColorHex('#2C46B5')],

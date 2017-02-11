@@ -7,6 +7,7 @@ use Phpopenchart\Data\XYSeriesDataSet;
 use Phpopenchart\Element\LabelAxis;
 use Phpopenchart\Element\BasicPadding;
 use Phpopenchart\Element\BasicRectangle;
+use Phpopenchart\Element\Caption;
 use Phpopenchart\Element\Gd;
 use Phpopenchart\Element\Logo;
 use Phpopenchart\Element\PointLabel;
@@ -108,6 +109,11 @@ abstract class AbstractChart
      */
     protected $pointLabel;
 
+    /**
+     * @var Caption
+     */
+    protected $caption;
+
 
     /**
      * Outer area, whose dimension is the same as the PNG returned.
@@ -152,11 +158,6 @@ abstract class AbstractChart
      * Padding of the caption area.
      */
     private $captionPadding;
-
-    /**
-     * Coordinates of the caption area.
-     */
-    private $captionArea;
 
     /**
      * @var Config
@@ -232,10 +233,11 @@ abstract class AbstractChart
         $this->title = new Title($args, $this->text, $this->config);
         $this->labelAxis = new LabelAxis($args, $this->text, $this->config);
         $this->valueAxis = new ValueAxis($args, $this->text, $this->config);
-        $this->pointLabel = new PointLabel($args, $this->text, $this->config);
+        $this->pointLabel = new PointLabel($args, $this->text, $this->config, $type);
         $this->outerPadding = new BasicPadding(5, 5, 5, 5);
         $this->logo = new Logo($args, $this->gd, $this->outerPadding, $this->config);
         $this->palette = new ColorPalette();
+        $this->caption = new Caption($type, $this->gd, $this->text, $this->dataSet, $this->config, $args);
 
         // Immediately draw the chart background
         $this->gd->rectangle(0, 0, $width - 1, $height - 1, new ColorHex('#ffffff'));
@@ -291,6 +293,7 @@ abstract class AbstractChart
      */
     protected function computeLayout()
     {
+        $captionArea = null;
         $this->imageArea = $this->outputArea->getPaddedRectangle($this->outerPadding);
 
         // Compute Title Area
@@ -331,7 +334,7 @@ abstract class AbstractChart
                 $this->imageArea->x2,
                 $this->imageArea->y2
             );
-            $this->captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
+            $captionArea = $captionArea->getPaddedRectangle($this->captionPadding);
         } else {
             $graphArea = new BasicRectangle(
                 $this->imageArea->x1,
@@ -342,22 +345,8 @@ abstract class AbstractChart
         }
 
         $this->graphArea = $graphArea->getPaddedRectangle($this->graphPadding);
-    }
 
-    /**
-     * Renders the caption when there are multiple series
-     */
-    protected function printCaption()
-    {
-        // Create the caption
-        (new Caption(
-            $this->captionArea,
-            $this->type === 'pie' ? $this->palette->getPieColorSet() : $this->palette->getBarColorSet(),
-            $this->gd,
-            $this->palette,
-            $this->text,
-            $this->getDataSet()
-        ))->render();
+        return $captionArea;
     }
 
     /**

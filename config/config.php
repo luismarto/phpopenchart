@@ -317,12 +317,55 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Label Generator Class for Point values
+        | Label Generator Class for Point values (for Bar, Column and Line)
         |--------------------------------------------------------------------------
-        | Determines the class used to generate the labels for Axis
+        | Determines the class used to generate the labels for the points
         | Feel free to implement your own LabelGenerator Class that implements
         | \Phpopenchart\Label\LabelInterface and use that here
         */
         'generator' => '\Phpopenchart\Label\NumberFormatter',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Label Generator Class for Point values on Pie charts
+        |--------------------------------------------------------------------------
+        | Determines the class used to generate the labels for points on pie charts
+        | Feel free to implement your own LabelGenerator Class that implements
+        | \Phpopenchart\Label\LabelInterface and use that here
+        */
+        'pie-generator' => '\Phpopenchart\Label\PercentageFormatter',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Properties for the Caption text (when creating a Pie chart or having
+    | multiple series on Bar, Column or Line charts)
+    |--------------------------------------------------------------------------
+    */
+    'caption-label' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Font
+        |--------------------------------------------------------------------------
+        | Determines the font to be used on the caption text
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Font size
+        |--------------------------------------------------------------------------
+        | Default font size to be used when printing the caption text
+        */
+        'size' => 10,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Color
+        |--------------------------------------------------------------------------
+        | Default color for the caption text. Set this in hex format
+        */
+        'color' => '#666666',
     ],
 ];

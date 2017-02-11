@@ -15,7 +15,7 @@ abstract class AbstractChartBar extends AbstractChart
     /**
      * @var AxisBound
      */
-    protected $bound;
+    private $bound;
 
     /**
      * @var Axis
@@ -156,7 +156,7 @@ abstract class AbstractChartBar extends AbstractChart
 
         $this->bound->computeBound($this->getDataSet());
         $this->computeAxis();
-        $this->computeLayout();
+        $captionArea = $this->computeLayout();
         $this->logo->draw();
         $this->title->draw();
         // @todo: Check the possibility of printing the chart line with only one point (it would look like a point)
@@ -164,7 +164,10 @@ abstract class AbstractChartBar extends AbstractChart
             $this->printAxis();
             $this->{'print' . strtoupper($this->type)}();
             if ($this->hasSeveralSeries) {
-                $this->printCaption();
+                $this->caption->render(
+                    $captionArea,
+                    $this->palette
+                );
             }
         }
 

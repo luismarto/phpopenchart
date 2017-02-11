@@ -1,7 +1,5 @@
 <?php namespace Phpopenchart\Chart;
 
-use Phpopenchart\Color\ColorHex;
-
 /**
  * Class Pie
  * @package Phpopenchart\Chart
@@ -11,12 +9,12 @@ class Pie extends AbstractChart
     /**
      * @var float
      */
-    protected $pieCenterX;
+    private $pieCenterX;
 
     /**
      * @var float
      */
-    protected $pieCenterY;
+    private $pieCenterY;
 
     /**
      * @var int
@@ -77,7 +75,7 @@ class Pie extends AbstractChart
      * @param double $v2 second value
      * @return integer result of the comparison
      */
-    protected function sortPie($v1, $v2)
+    private function sortPie($v1, $v2)
     {
         return $v1[0] == $v2[0]
             ? 0
@@ -90,7 +88,7 @@ class Pie extends AbstractChart
     /**
      * Compute pie values in percentage and sort them.
      */
-    protected function computePercent()
+    private function computePercent()
     {
         $this->total = 0;
         $this->percent = [];
@@ -105,7 +103,7 @@ class Pie extends AbstractChart
                 ? 0
                 : 100 * $point->getValue() / $this->total;
 
-            $this->percent[]= [$percent, $point];
+            $this->percent[] = [$percent, $point];
         }
 
         // Sort data points
@@ -121,7 +119,7 @@ class Pie extends AbstractChart
      * @param array $colorArray Colors for each portion
      * @param int $mode Drawing mode
      */
-    protected function drawDisc($cy, $colorArray, $mode)
+    private function drawDisc($cy, $colorArray, $mode)
     {
         $i = 0;
         $oldAngle = 0;
@@ -176,7 +174,7 @@ class Pie extends AbstractChart
     /**
      * Print the percentage text.
      */
-    protected function drawPercent()
+    private function drawPercent()
     {
         $angle1 = 0;
         $percentTotal = 0;
@@ -193,17 +191,13 @@ class Pie extends AbstractChart
             $angle2 = $percentTotal * 2 * M_PI / 100;
 
             $angle = $angle1 + ($angle2 - $angle1) / 2;
-            $label = number_format($percent) . "%";
 
             $x = cos($angle) * ($this->pieWidth + 35) / 2 + $this->pieCenterX;
             $y = sin($angle) * ($this->pieHeight + 35) / 2 + $this->pieCenterY;
-
-            $this->text->draw(
+            $this->pointLabel->draw(
                 $x,
                 $y,
-                $this->text->getColor(),
-                $label,
-                $this->text->getFont(),
+                $percent,
                 $this->text->getAlignment('horizontal', 'center') | $this->text->getAlignment('vertical', 'middle')
             );
 
@@ -214,7 +208,7 @@ class Pie extends AbstractChart
     /**
      * Print the pie chart.
      */
-    protected function printPie()
+    private function printPie()
     {
         // Get the pie color set
         $pieColorSet = $this->palette->getPieColorSet();
@@ -246,12 +240,15 @@ class Pie extends AbstractChart
     public function render($filename = null)
     {
         $this->computePercent();
-        $this->computeLayout();
+        $captionArea = $this->computeLayout();
         $this->computePieLayout();
         $this->logo->draw();
         $this->title->draw();
         $this->printPie();
-        $this->printCaption();
+        $this->caption->render(
+            $captionArea,
+            $this->palette
+        );
 
         // If there's no filename, then render the chart as an image
         if (is_null($filename)) {

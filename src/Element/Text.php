@@ -36,21 +36,6 @@ class Text extends AbstractElement
     {
         $this->img = $img;
         $this->config = $config;
-
-        // @todo: Update pie charts as this is only being used for piecharts and that's nonsense.
-        // Piecharts should use the font defined on the point-label
-        $this->fontsDirectory = $this->config->get(
-            'fonts.path',
-            dirname(__FILE__)
-            . DIRECTORY_SEPARATOR. '..'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR
-        );
-
-        $this->font = $this->fontsDirectory
-            . $this->config->get('fonts.text', 'SourceSansPro-Light.otf');
-
-        $this->color = new ColorHex('#555555');
     }
 
     /**
