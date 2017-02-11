@@ -28,7 +28,7 @@ class Line extends AbstractChartBar
 
         // Get the graph area
         $graphArea = $this->graphArea;
-        $axisColor0 = $this->palette->axisColor[0];
+        $axisColor0 = $this->palette->getAxisColor()[0];
 
         /**
          * Deal with the Vertical Axis
@@ -40,7 +40,7 @@ class Line extends AbstractChartBar
                 * ($graphArea->y2 - $graphArea->y1)
                 / ($this->axis->displayDelta);
 
-            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
+            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->getBackgroundColor());
 
             $this->valueAxis->draw(
                 $graphArea->x1 - 25,
@@ -57,7 +57,9 @@ class Line extends AbstractChartBar
          */
         $pointCount = count($pointList);
         reset($pointList);
-        $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+        $columnWidth = $pointCount > 0
+            ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+            : 0;
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
@@ -92,7 +94,7 @@ class Line extends AbstractChartBar
         // Get the graph area
         $graphArea = $this->graphArea;
 
-        $lineColorSet = $this->palette->lineColorSet;
+        $lineColorSet = $this->palette->getLineColorSet();
         $lineColorSet->reset();
         for ($j = 0; $j < count($serieList); $j++) {
             $serie = $serieList[$j];
@@ -100,7 +102,9 @@ class Line extends AbstractChartBar
             $pointCount = count($pointList);
             reset($pointList);
 
-            $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+            $columnWidth = $pointCount > 0
+                ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+                : 0;
 
             $lineColor = $lineColorSet->currentColor();
             $lineColorSet->next();

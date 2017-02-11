@@ -56,7 +56,7 @@ abstract class AbstractChart
      * The data set.
      * @var XYDataSet|XYSeriesDataSet
      */
-    protected $dataSet;
+    private $dataSet;
 
     /**
      * GD image of the chart
@@ -151,12 +151,12 @@ abstract class AbstractChart
     /**
      * Padding of the caption area.
      */
-    protected $captionPadding;
+    private $captionPadding;
 
     /**
      * Coordinates of the caption area.
      */
-    protected $captionArea;
+    private $captionArea;
 
     /**
      * @var Config
@@ -180,7 +180,7 @@ abstract class AbstractChart
     protected $sortDataPoint;
 
     /**
-     * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar) or 'line')
+     * Indicates the type of chart to be rendered (either 'bar' (either for Column or Bar), 'line' or 'pie')
      * @var string
      */
     protected $type;
@@ -289,7 +289,7 @@ abstract class AbstractChart
     /**
      * Compute the layout of all areas of the graph.
      */
-    public function computeLayout()
+    protected function computeLayout()
     {
         $this->imageArea = $this->outputArea->getPaddedRectangle($this->outerPadding);
 
@@ -345,11 +345,27 @@ abstract class AbstractChart
     }
 
     /**
+     * Renders the caption when there are multiple series
+     */
+    protected function printCaption()
+    {
+        // Create the caption
+        (new Caption(
+            $this->captionArea,
+            $this->type === 'pie' ? $this->palette->getPieColorSet() : $this->palette->getBarColorSet(),
+            $this->gd,
+            $this->palette,
+            $this->text,
+            $this->getDataSet()
+        ))->render();
+    }
+
+    /**
      * Either store the created image in the specified filepath or
      * output the image to stdout
      * @param null|string $filename
      */
-    public function output($filename = null)
+    protected function output($filename = null)
     {
         if (isset($filename)) {
             imagepng($this->img, $filename);
@@ -362,19 +378,8 @@ abstract class AbstractChart
      * Returns the dataset for this chart
      * @return XYDataSet|XYSeriesDataSet
      */
-    public function getDataSet()
+    protected function getDataSet()
     {
         return $this->dataSet;
-    }
-
-    /**
-     * Returns the ColorPalette instance used on this chart
-     * @todo this is used on comparison-libchart/actual/palette1.php and should be dropped
-     * We should set the pie chart disc colors as we do with the bars/lines/column charts
-     * @return ColorPalette
-     */
-    public function getPalette()
-    {
-        return $this->palette;
     }
 }

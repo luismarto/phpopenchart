@@ -93,9 +93,9 @@ class Pie extends AbstractChart
     protected function computePercent()
     {
         $this->total = 0;
-        $this->percent = array();
+        $this->percent = [];
 
-        $pointList = $this->dataSet->getPointList();
+        $pointList = $this->getDataSet()->getPointList();
         foreach ($pointList as $point) {
             $this->total += $point->getValue() < 0 ? 0 : $point->getValue();
         }
@@ -105,69 +105,13 @@ class Pie extends AbstractChart
                 ? 0
                 : 100 * $point->getValue() / $this->total;
 
-            array_push($this->percent, array($percent, $point));
+            $this->percent[]= [$percent, $point];
         }
 
         // Sort data points
         if ($this->sortDataPoint) {
-            usort($this->percent, array("\\Phpopenchart\\Chart\\Pie", "sortPie"));
+            usort($this->percent, ["\\Phpopenchart\\Chart\\Pie", "sortPie"]);
         }
-    }
-
-    /**
-     * Creates the pie chart image.
-     */
-    protected function createImage()
-    {
-        // Commented the whole thing. No need to display a border
-        // Get the graph area
-//        $graphArea = $this->graphArea;
-
-        // Legend box
-//        $this->gd->outlinedBox(
-//            $graphArea->x1,
-//            $graphArea->y1,
-//            $graphArea->x2,
-//            $graphArea->y2,
-//            $this->palette->axisColor[0],
-//            $this->palette->axisColor[1]
-//        );
-
-        // Aqua-like background
-//        for ($i = $graphArea->y1 + 2; $i < $graphArea->y2 - 1; $i++) {
-//            $this->gd->line($graphArea->x1 + 2, $i, $graphArea->x2 - 2, $i, new ColorHex('#ffffff'));
-//        }
-    }
-
-    /**
-     * Renders the caption.
-     */
-    protected function printCaption()
-    {
-        // Create a list of labels
-        $labelList = array();
-        foreach ($this->percent as $percent) {
-            /**
-             * @var \Phpopenchart\Data\Point $point
-             */
-            list(, $point) = $percent;
-            $label = $point->getLabel();
-
-            array_push($labelList, $label);
-        }
-
-        // Create the caption
-        $caption = new Caption(
-            $this->captionArea,
-            $this->palette->pieColorSet,
-            $this->gd,
-            $this->palette,
-            $this->text
-        );
-        $caption->setLabelList($labelList);
-
-        // Render the caption
-        $caption->render();
     }
 
     /**
@@ -182,9 +126,11 @@ class Pie extends AbstractChart
         $i = 0;
         $oldAngle = 0;
         $percentTotal = 0;
-
         foreach ($this->percent as $a) {
-            list ($percent, ) = $a;
+            /**
+             * @var \Phpopenchart\Data\Point $point
+             */
+            list ($percent, $point) = $a;
 
             // If value is null, don't draw this arc
             if ($percent <= 0) {
@@ -193,6 +139,15 @@ class Pie extends AbstractChart
             }
 
             $color = $colorArray[$i % count($colorArray)];
+
+            // Check if the point has a specific color. If so, this overrides anything else
+            if (!is_null($point->getColor())) {
+                $color = $point->getColor();
+                // IF we're printing the shadow, add the shadow color factor
+                if ($mode === IMG_ARC_EDGED) {
+                    $color = $color->getShadowColor(0.7);
+                }
+            }
 
             $percentTotal += $percent;
             $newAngle = $percentTotal * 360 / 100;
@@ -262,16 +217,20 @@ class Pie extends AbstractChart
     protected function printPie()
     {
         // Get the pie color set
-        $pieColorSet = $this->palette->pieColorSet;
+        $pieColorSet = $this->palette->getPieColorSet();
         $pieColorSet->reset();
 
         // Silhouette
         for ($cy = $this->pieCenterY + $this->pieDepth / 2; $cy >= $this->pieCenterY - $this->pieDepth / 2; $cy--) {
-            $this->drawDisc($cy, $this->palette->pieColorSet->shadowColorList, IMG_ARC_EDGED);
+            $this->drawDisc($cy, $this->palette->getPieColorSet()->shadowColorList, IMG_ARC_EDGED);
         }
 
         // Top
-        $this->drawDisc($this->pieCenterY - $this->pieDepth / 2, $this->palette->pieColorSet->colorList, IMG_ARC_PIE);
+        $this->drawDisc(
+            $this->pieCenterY - $this->pieDepth / 2,
+            $this->palette->getPieColorSet()->colorList,
+            IMG_ARC_PIE
+        );
 
         // Top Outline
         if ($this->pointLabel->show()) {
@@ -289,7 +248,6 @@ class Pie extends AbstractChart
         $this->computePercent();
         $this->computeLayout();
         $this->computePieLayout();
-        $this->createImage();
         $this->logo->draw();
         $this->title->draw();
         $this->printPie();

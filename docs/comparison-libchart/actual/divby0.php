@@ -5,6 +5,7 @@ require_once '../common.php';
     'chart' => [
         'width' => 500,
         'height' => 250,
+        'ratio' => 0.5
     ],
     'title' => [
         'text' => 'User agents for www.example.com'

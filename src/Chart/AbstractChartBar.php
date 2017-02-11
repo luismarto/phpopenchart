@@ -53,13 +53,13 @@ abstract class AbstractChartBar extends AbstractChart
      */
     protected function isEmptyDataSet($minNumberOfPoint)
     {
-        if ($this->dataSet instanceof XYDataSet) {
-            $pointList = $this->dataSet->getPointList();
+        if ($this->getDataAsSerieList() instanceof XYDataSet) {
+            $pointList = $this->getDataSet()->getPointList();
             $pointCount = count($pointList);
 
             return $pointCount < $minNumberOfPoint;
-        } elseif ($this->dataSet instanceof XYSeriesDataSet) {
-            $serieList = $this->dataSet->getSerieList();
+        } elseif ($this->getDataSet() instanceof XYSeriesDataSet) {
+            $serieList = $this->getDataSet()->getSerieList();
             reset($serieList);
             if (count($serieList) > 0) {
                 $serie = current($serieList);
@@ -79,17 +79,17 @@ abstract class AbstractChartBar extends AbstractChart
     protected function checkDataModel()
     {
         // Check if a dataset was defined
-        if (!$this->dataSet) {
+        if (!$this->getDataSet()) {
             throw new DatasetNotDefinedException();
         }
 
         // Bar charts accept both XYDataSet and XYSeriesDataSet
-        if ($this->dataSet instanceof XYDataSet) {
+        if ($this->getDataSet() instanceof XYDataSet) {
             // The dataset contains only one serie
-        } elseif ($this->dataSet instanceof XYSeriesDataSet) {
+        } elseif ($this->getDataSet() instanceof XYSeriesDataSet) {
             // Check if each series has the same number of points
             unset($lastPointCount);
-            $serieList = $this->dataSet->getSerieList();
+            $serieList = $this->getDataSet()->getSerieList();
             for ($i = 0; $i < count($serieList); $i++) {
                 /**
                  * @var $serie \Phpopenchart\Data\XYDataSet
@@ -113,11 +113,11 @@ abstract class AbstractChartBar extends AbstractChart
     {
         // Get the data as a series list
         $serieList = null;
-        if ($this->dataSet instanceof XYSeriesDataSet) {
-            $serieList = $this->dataSet->getSerieList();
-        } elseif ($this->dataSet instanceof XYDataSet) {
+        if ($this->getDataSet() instanceof XYSeriesDataSet) {
+            $serieList = $this->getDataSet()->getSerieList();
+        } elseif ($this->getDataSet() instanceof XYDataSet) {
             $serieList = array();
-            array_push($serieList, $this->dataSet);
+            array_push($serieList, $this->getDataSet());
         }
 
         return $serieList;
@@ -131,39 +131,17 @@ abstract class AbstractChartBar extends AbstractChart
     protected function getFirstSerieOfList()
     {
         $pointList = null;
-        if ($this->dataSet instanceof XYSeriesDataSet) {
+        if ($this->getDataSet() instanceof XYSeriesDataSet) {
             // For a series dataset, print the legend from the first serie
-            $serieList = $this->dataSet->getSerieList();
+            $serieList = $this->getDataSet()->getSerieList();
             reset($serieList);
             $serie = current($serieList);
             $pointList = $serie->getPointList();
-        } elseif ($this->dataSet instanceof XYDataSet) {
-            $pointList = $this->dataSet->getPointList();
+        } elseif ($this->getDataSet() instanceof XYDataSet) {
+            $pointList = $this->getDataSet()->getPointList();
         }
 
         return $pointList;
-    }
-
-    /**
-     * Renders the caption when there are multiple series
-     */
-    protected function printCaption()
-    {
-        // Get the list of labels
-        $labelList = $this->dataSet->getTitleList();
-
-        // Create the caption
-        $caption = new Caption(
-            $this->captionArea,
-            $this->palette->barColorSet,
-            $this->gd,
-            $this->palette,
-            $this->text
-        );
-        $caption->setLabelList($labelList);
-
-        // Render the caption
-        $caption->render();
     }
 
     /**
@@ -176,7 +154,7 @@ abstract class AbstractChartBar extends AbstractChart
         // Check the data model
         $this->checkDataModel();
 
-        $this->bound->computeBound($this->dataSet);
+        $this->bound->computeBound($this->getDataSet());
         $this->computeAxis();
         $this->computeLayout();
         $this->logo->draw();

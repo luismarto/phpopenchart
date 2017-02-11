@@ -35,7 +35,7 @@ class Column extends AbstractChartBar
 
         // Get the graph area
         $graphArea = $this->graphArea;
-        $axisColor0 = $this->palette->axisColor[0];
+        $axisColor0 = $this->palette->getAxisColor()[0];
         /**
          * Deal with the Vertical Axis
          */
@@ -46,7 +46,7 @@ class Column extends AbstractChartBar
                 / ($this->axis->displayDelta);
 
             // For each marker, create the "guiding line"
-            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
+            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->getBackgroundColor());
 
             // Now print the label for the y axis
             $this->valueAxis->draw(
@@ -64,7 +64,9 @@ class Column extends AbstractChartBar
          */
         $pointCount = count($pointList);
         reset($pointList);
-        $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+        $columnWidth = $pointCount > 0
+            ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+            : 0;
         $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
@@ -120,7 +122,7 @@ class Column extends AbstractChartBar
         $graphArea = $this->graphArea;
 
         // Start from the first color for the first serie
-        $barColorSet = $this->palette->barColorSet;
+        $barColorSet = $this->palette->getBarColorSet();
         $barColorSet->reset();
 
         $minValue = $this->axis->getLowerBoundary();
@@ -141,7 +143,9 @@ class Column extends AbstractChartBar
                 $barColorSet->next();
             }
 
-            $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+            $columnWidth = $pointCount > 0
+                ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+                : 0;
             for ($i = 0; $i < $pointCount; $i++) {
                 $x = $graphArea->x1 + $i * $columnWidth;
 

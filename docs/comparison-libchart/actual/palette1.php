@@ -14,20 +14,20 @@ $chart = new Phpopenchart\Chart\Pie([
         'labels' => [
             'Amanita abrupta',
             'Amanita arocheae',
-            'Clitocybe dealbata',
             'Cortinarius rubellus',
+            'Clitocybe dealbata',
             'Gyromitra esculenta',
             'Lepiota castanea'
         ],
-        'data'   => [80, 75, 50, 70, 37, 37]
+        'data'   => [
+            [80, '#FF0000'],
+            [75, '#ffffff'],
+            [70, '#FF0000'],
+            [50, '#ffffff'],
+            [37, '#FF0000'],
+            [36, '#ffffff']
+        ],
     ]
 ]);
-
-// @todo: Beware, this might be removed later on amd colors will be setted directly on the points
-// as in palette2.php or pal
-$chart->getPalette()->setPieColor(array(
-    new Phpopenchart\Color\Color(255, 0, 0),
-    new Phpopenchart\Color\Color(255, 255, 255)
-));
 
 $chart->render();

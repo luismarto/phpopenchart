@@ -1,5 +1,9 @@
 <?php namespace Phpopenchart\Chart;
 
+use Phpopenchart\Data\XYSeriesDataSet;
+use Phpopenchart\Data\XYDataSet;
+use Phpopenchart\Data\Point;
+
 /**
  * Class Caption
  * @package Phpopenchart\Chart
@@ -17,15 +21,13 @@ class Caption
     protected $labelBoxHeight;
 
     /**
-     * @var array
-     */
-    protected $labelList;
-
-    /**
      * @var \Phpopenchart\Color\ColorSet
      */
     private $colorSet;
 
+    /**
+     * @var \Phpopenchart\Element\BasicRectangle
+     */
     private $captionArea;
 
     /**
@@ -44,13 +46,19 @@ class Caption
     private $text;
 
     /**
+     * @var null|XYDataSet|XYSeriesDataSet
+     */
+    private $dataset;
+
+    /**
      * @param $captionArea
      * @param \Phpopenchart\Color\ColorSet $colorSet
      * @param \Phpopenchart\Element\Gd $gd
      * @param \Phpopenchart\Color\ColorPalette $palette
      * @param \Phpopenchart\Element\Text $text
+     * @param XYDataSet|XYSeriesDataSet|null $dataset
      */
-    public function __construct($captionArea, $colorSet, $gd, $palette, $text)
+    public function __construct($captionArea, $colorSet, $gd, $palette, $text, $dataset)
     {
         $this->labelBoxWidth = 15;
         $this->labelBoxHeight = 15;
@@ -59,6 +67,7 @@ class Caption
         $this->gd = $gd;
         $this->palette = $palette;
         $this->text = $text;
+        $this->dataset = $dataset;
     }
 
     /**
@@ -71,10 +80,33 @@ class Caption
         $colorSet->reset();
 
         $i = 0;
-        foreach ($this->labelList as $label) {
-            // Get the next color
-            $color = $colorSet->currentColor();
-            $colorSet->next();
+        $captionList = [];
+        if ($this->dataset instanceof XYSeriesDataSet) {
+            // For a series dataset, print the legend from the first serie
+            $captionList = $this->dataset->getTitleList();
+        } elseif ($this->dataset instanceof XYDataSet) {
+            $captionList = $this->dataset->getPointList();
+        }
+
+        /**
+         * @var \Phpopenchart\Data\Point $point|string
+         */
+        foreach ($captionList as $point) {
+            $color = null;
+             // Get the next color
+            if ($point instanceof Point) {
+                $label = $point->getLabel();
+                if (!is_null($point->getColor())) {
+                    $color = $point->getColor();
+                }
+            } else {
+                $label = $point;
+            }
+
+            if (is_null($color)) {
+                $color = $colorSet->currentColor();
+                $colorSet->next();
+            }
 
             $boxX1 = $this->captionArea->x1;
             $boxX2 = $boxX1 + $this->labelBoxWidth;
@@ -82,7 +114,7 @@ class Caption
             $boxY2 = $boxY1 + $this->labelBoxHeight;
 
             // Print the outline of the square color for the serie
-            $this->gd->rectangle($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->axisColor[1]);
+            $this->gd->rectangle($boxX1, $boxY1, $boxX2, $boxY2, $this->palette->getAxisColor()[1]);
             // Print the square color for the serie
             $this->gd->rectangle($boxX1 + 1, $boxY1 + 1, $boxX2 - 1, $boxY2 - 1, $color);
 
@@ -97,15 +129,5 @@ class Caption
 
             $i++;
         }
-    }
-
-    /**
-     * Sets the label list.
-     *
-     * @param array $labelList label list
-     */
-    public function setLabelList($labelList)
-    {
-        $this->labelList = $labelList;
     }
 }
