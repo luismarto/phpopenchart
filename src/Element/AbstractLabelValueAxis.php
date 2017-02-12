@@ -2,7 +2,7 @@
 
 use Phpopenchart\Color\ColorHex;
 
-class AbstractAxis extends AbstractElement
+class AbstractLabelValueAxis extends AbstractElement
 {
     /**
      * The color of the label

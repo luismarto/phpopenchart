@@ -1,9 +1,6 @@
 <?php namespace Phpopenchart\Chart;
 
-use Phpopenchart\Exception\DatasetNotDefinedException;
-use Phpopenchart\Exception\PointsInSeriesDontMatchException;
-use Phpopenchart\Data\XYDataSet;
-use Phpopenchart\Data\XYSeriesDataSet;
+use Phpopenchart\Element\Axis;
 
 /**
  * Class AbstractChartBar
@@ -12,11 +9,6 @@ use Phpopenchart\Data\XYSeriesDataSet;
  */
 abstract class AbstractChartBar extends AbstractChart
 {
-    /**
-     * @var AxisBound
-     */
-    private $bound;
-
     /**
      * @var Axis
      */
@@ -30,115 +22,7 @@ abstract class AbstractChartBar extends AbstractChart
      */
     protected function __construct($args, $type)
     {
-        // Initialize the bounds
-        $this->bound = new AxisBound();
-        $this->bound->setLowerBound(0);
-
         parent::__construct($args, $type);
-    }
-
-    /**
-     * Compute the axis.
-     */
-    protected function computeAxis()
-    {
-        $this->axis = new Axis($this->bound->getYMinValue(), $this->bound->getYMaxValue());
-        $this->axis->computeBoundaries();
-    }
-
-    /**
-     * Returns true if the data set has some data.
-     * @param int $minNumberOfPoint Minimum number of points (1 for bars, 2 for lines).
-     * @return bool true if data set empty
-     */
-    protected function isEmptyDataSet($minNumberOfPoint)
-    {
-        if ($this->getDataAsSerieList() instanceof XYDataSet) {
-            $pointList = $this->getDataSet()->getPointList();
-            $pointCount = count($pointList);
-
-            return $pointCount < $minNumberOfPoint;
-        } elseif ($this->getDataSet() instanceof XYSeriesDataSet) {
-            $serieList = $this->getDataSet()->getSerieList();
-            reset($serieList);
-            if (count($serieList) > 0) {
-                $serie = current($serieList);
-                $pointList = $serie->getPointList();
-                $pointCount = count($pointList);
-
-                return $pointCount < $minNumberOfPoint;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks the data model before rendering the graph.
-     */
-    protected function checkDataModel()
-    {
-        // Check if a dataset was defined
-        if (!$this->getDataSet()) {
-            throw new DatasetNotDefinedException();
-        }
-
-        // Bar charts accept both XYDataSet and XYSeriesDataSet
-        if ($this->getDataSet() instanceof XYDataSet) {
-            // The dataset contains only one serie
-        } elseif ($this->getDataSet() instanceof XYSeriesDataSet) {
-            // Check if each series has the same number of points
-            unset($lastPointCount);
-            $serieList = $this->getDataSet()->getSerieList();
-            for ($i = 0; $i < count($serieList); $i++) {
-                $serie = $serieList[$i];
-                $pointCount = count($serie->getPointList());
-                if (isset($lastPointCount) && $pointCount != $lastPointCount) {
-                    throw new PointsInSeriesDontMatchException($i, $pointCount, $lastPointCount);
-                }
-                $lastPointCount = $pointCount;
-            }
-        }
-    }
-
-    /**
-     * Return the data as a series list (for consistency).
-     *
-     * @return array|\Phpopenchart\Data\XYDataSet[] List of series
-     */
-    protected function getDataAsSerieList()
-    {
-        // Get the data as a series list
-        $serieList = null;
-        if ($this->getDataSet() instanceof XYSeriesDataSet) {
-            $serieList = $this->getDataSet()->getSerieList();
-        } elseif ($this->getDataSet() instanceof XYDataSet) {
-            $serieList = array();
-            array_push($serieList, $this->getDataSet());
-        }
-
-        return $serieList;
-    }
-
-    /**
-     * Return the first serie of the list, or the dataSet itself if there is no serie.
-     *
-     * @return XYDataSet[]|XYSeriesDataSet[]
-     */
-    protected function getFirstSerieOfList()
-    {
-        $pointList = null;
-        if ($this->getDataSet() instanceof XYSeriesDataSet) {
-            // For a series dataset, print the legend from the first serie
-            $serieList = $this->getDataSet()->getSerieList();
-            reset($serieList);
-            $serie = current($serieList);
-            $pointList = $serie->getPointList();
-        } elseif ($this->getDataSet() instanceof XYDataSet) {
-            $pointList = $this->getDataSet()->getPointList();
-        }
-
-        return $pointList;
     }
 
     /**
@@ -149,15 +33,15 @@ abstract class AbstractChartBar extends AbstractChart
     public function render($filename = null)
     {
         // Check the data model
-        $this->checkDataModel();
+        $this->getDataSet()->validate();
 
-        $this->bound->computeBound($this->getDataSet());
-        $this->computeAxis();
+        $this->axis = new Axis();
+        $this->axis->computeBoundaries($this->getDataSet());
         $captionArea = $this->computeLayout();
         $this->logo->draw();
         $this->title->draw();
         // @todo: Check the possibility of printing the chart line with only one point (it would look like a point)
-        if (!$this->isEmptyDataSet($this->type === 'line' ? 2 : 1)) {
+        if (!$this->getDataSet()->isEmpty($this->type === 'line' ? 2 : 1)) {
             $this->printAxis();
             $this->{'print' . strtoupper($this->type)}();
             if ($this->hasSeveralSeries) {

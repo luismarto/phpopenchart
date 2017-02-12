@@ -22,9 +22,7 @@ class Line extends AbstractChartBar
      */
     protected function printAxis()
     {
-        $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
+        list($minValue, $maxValue, $stepValue) = $this->axis->getValues();
 
         // Get the graph area
         $graphArea = $this->graphArea;
@@ -33,12 +31,11 @@ class Line extends AbstractChartBar
         /**
          * Deal with the Vertical Axis
          */
-        //        $this->gd->line($graphArea->x1, $graphArea->y1, $graphArea->x1, $graphArea->y2, $axisColor0);
         for ($value = $minValue; $value <= $maxValue; $value += $stepValue) {
             $y = $graphArea->y2
                 - ($value - $minValue)
                 * ($graphArea->y2 - $graphArea->y1)
-                / ($this->axis->displayDelta);
+                / ($this->axis->getDisplayDelta());
 
             $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->getBackgroundColor());
 
@@ -50,7 +47,7 @@ class Line extends AbstractChartBar
         }
 
         // Get first serie of a list
-        $pointList = $this->getFirstSerieOfList();
+        $pointList = $this->getDataSet()->getFirstSerieOfList();
 
         /**
          * Deal with the Horizontal Axis
@@ -60,7 +57,7 @@ class Line extends AbstractChartBar
         $columnWidth = $pointCount > 0
             ? ($graphArea->x2 - $graphArea->x1) / $pointCount
             : 0;
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
+        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->getDisplayDelta();
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
@@ -89,7 +86,7 @@ class Line extends AbstractChartBar
         $minValue = $this->axis->getLowerBoundary();
 
         // Get the data as a list of series for consistency
-        $serieList = $this->getDataAsSerieList();
+        $serieList = $this->getDataSet()->asSerieList();
 
         // Get the graph area
         $graphArea = $this->graphArea;
@@ -121,7 +118,7 @@ class Line extends AbstractChartBar
                 $y2 = $graphArea->y2
                     - ($value - $minValue)
                     * ($graphArea->y2 - $graphArea->y1)
-                    / ($this->axis->displayDelta);
+                    / ($this->axis->getDisplayDelta());
 
                 // Don't draw the "start" line, because the first point has $x1 = null
                 // and that would create a line from the top left corner of the image

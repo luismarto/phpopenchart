@@ -1,6 +1,6 @@
 <?php namespace Phpopenchart\Element;
 
-class ValueAxis extends AbstractAxis
+class ValueAxis extends AbstractLabelValueAxis
 {
     /**
      * @param Text $textInstance

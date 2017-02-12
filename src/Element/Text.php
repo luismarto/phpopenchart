@@ -1,33 +1,15 @@
 <?php namespace Phpopenchart\Element;
 
-use Phpopenchart\Color\ColorHex;
-
 /**
  * Class Text
  * @package Phpopenchart\Element
  */
 class Text extends AbstractElement
 {
-
-    /**
-     * @var string
-     */
-    private $fontsDirectory;
-
-    /**
-     * @var string
-     */
-    private $font;
-
     /**
      * @var resource
      */
     private $img;
-
-    /**
-     * @var ColorHex
-     */
-    private $color;
 
     /**
      * Creates a new text drawing helper.
@@ -138,34 +120,6 @@ class Text extends AbstractElement
             $this->getAlignment('horizontal', 'center') | $this->getAlignment('vertical', 'middle'),
             $fontSize
         );
-    }
-
-    /**
-     * Returns the font used for the chart texts
-     * @return string
-     */
-    public function getFont()
-    {
-        return $this->font;
-    }
-
-    /**
-     * Defines the color
-     * @param string $hexColor
-     * @return $this
-     */
-    public function setColorHex($hexColor)
-    {
-        $this->color = new ColorHex($hexColor);
-    }
-
-    /**
-     * Returns the text color
-     * @return ColorHex
-     */
-    public function getColor()
-    {
-        return $this->color;
     }
 
     /**

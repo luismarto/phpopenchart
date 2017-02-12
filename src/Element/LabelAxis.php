@@ -4,7 +4,7 @@
  * Class LabelAxis
  * @package Phpopenchart\Element
  */
-class LabelAxis extends AbstractAxis
+class LabelAxis extends AbstractLabelValueAxis
 {
     /**
      * @param Text $textInstance

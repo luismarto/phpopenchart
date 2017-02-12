@@ -28,9 +28,7 @@ class Bar extends AbstractChartBar
      */
     protected function printAxis()
     {
-        $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
+        list($minValue, $maxValue, $stepValue) = $this->axis->getValues();
 
         // Get the graph area
         $graphArea = $this->graphArea;
@@ -44,7 +42,7 @@ class Bar extends AbstractChartBar
             $x = $graphArea->x1
                 + ($value - $minValue)
                 * ($graphArea->x2 - $graphArea->x1)
-                / ($this->axis->displayDelta);
+                / ($this->axis->getDisplayDelta());
 
             // Draw the guiding line and marker for each step value
             $this->gd->line($x, $graphArea->y1, $x, $graphArea->y2, $this->palette->getBackgroundColor());
@@ -58,7 +56,7 @@ class Bar extends AbstractChartBar
         }
 
         // Get first serie of a list
-        $pointList = $this->getFirstSerieOfList();
+        $pointList = $this->getDataSet()->getFirstSerieOfList();
 
         /**
          * Deal with the Vertical (Y) Axis
@@ -70,7 +68,8 @@ class Bar extends AbstractChartBar
             : 0;
         reset($pointList);
 
-        $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
+        $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1)
+            / ($this->axis->getDisplayDelta());
 
         // Draw the Y axis
         $this->gd->line($verticalOriginX, $graphArea->y1, $verticalOriginX, $graphArea->y2, $axisColor0);
@@ -100,14 +99,15 @@ class Bar extends AbstractChartBar
     protected function printBar()
     {
         // Get the data as a list of series for consistency
-        $serieList = $this->getDataAsSerieList();
+        $serieList = $this->getDataSet()->asSerieList();
 
         // Get the graph area
         $graphArea = $this->graphArea;
 
         $minValue = $this->axis->getLowerBoundary();
 
-        $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1) / ($this->axis->displayDelta);
+        $verticalOriginX = $graphArea->x1 - $minValue * ($graphArea->x2 - $graphArea->x1)
+            / ($this->axis->getDisplayDelta());
 
         // Start from the first color for the first serie
         $barColorSet = $this->palette->getBarColorSet();
@@ -144,7 +144,7 @@ class Bar extends AbstractChartBar
                 $xmax = $graphArea->x1
                     + ($value - $minValue)
                     * ($graphArea->x2 - $graphArea->x1)
-                    / ($this->axis->displayDelta);
+                    / ($this->axis->getDisplayDelta());
 
                 // Bar dimensions
                 $yWithMargin = $y - $rowHeight * $this->emptyToFullRatio;

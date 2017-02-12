@@ -42,7 +42,6 @@ class Caption extends AbstractElement
      */
     private $dataset;
 
-
     /**
      * @var string
      */
