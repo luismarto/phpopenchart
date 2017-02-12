@@ -203,6 +203,14 @@ abstract class AbstractChart
             . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
         $this->config = Config::load($configPath);
 
+
+        $sortDataPoint = $this->config->get('chart.sort-data-point', 0);
+        if (array_key_exists('chart', $args) && is_array($args['chart'])
+            && array_key_exists('sort-data-point', $args['chart'])
+        ) {
+            $sortDataPoint = (int)$args['chart']['sort-data-point'];
+        }
+
         // Check if dataset exists on the arguments and validate it's an array otherwise throw an error
         if (!array_key_exists('dataset', $args) || !is_array($args['dataset'])) {
             throw new DatasetNotDefinedException();
@@ -212,6 +220,18 @@ abstract class AbstractChart
             $this->dataSet = new XYSeriesDataSet($args['dataset']);
             $this->hasSeveralSeries = true;
         } else {
+            // We only need to sort the dataset in Pie charts
+            if (is_int($sortDataPoint) && $sortDataPoint !== 0) {
+                array_multisort(
+                    $args['dataset']['data'],
+                    $sortDataPoint > 0 ? SORT_ASC : SORT_DESC,
+                    SORT_STRING,
+                    $args['dataset']['labels'],
+                    SORT_NUMERIC,
+                    SORT_DESC
+                );
+            }
+
             $this->dataSet = new XYDataSet($args['dataset']);
             $this->hasSeveralSeries = false;
         }
@@ -249,18 +269,12 @@ abstract class AbstractChart
         ) {
             $this->useMultipleColor = (bool)$args['chart']['use-multiple-color'];
         }
-        $this->sortDataPoint = $this->config->get('chart.sort-data-point', true);
-        if (array_key_exists('chart', $args) && is_array($args['chart'])
-            && array_key_exists('sort-data-point', $args['chart'])
-        ) {
-            $this->sortDataPoint = (bool)$args['chart']['sort-data-point'];
-        }
 
         $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])
-            && array_key_exists($type . '-padding', $args['chart']) && is_array($args['chart'][ $type . '-padding'])
+            && array_key_exists($type . '-padding', $args['chart']) && is_array($args['chart'][$type . '-padding'])
         ) {
-            $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart'][ $type . '-padding']);
+            $this->graphPadding = $paddingReflect->newInstanceArgs($args['chart'][$type . '-padding']);
         } else {
             $this->graphPadding = $paddingReflect->newInstanceArgs(
                 $this->config->get('chart.' . $type . '-padding', [0, 0, 0, 0])

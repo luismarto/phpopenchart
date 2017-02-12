@@ -2,6 +2,9 @@
 require_once '../common.php';
 
 (new Phpopenchart\Chart\Pie([
+    'chart' => [
+        'sort-data-point' => -1
+    ],
     'title' => [
         'text' => 'This is a pie'
     ],

@@ -5,8 +5,11 @@ require_once '../common.php';
     'title' => [
         'text' => 'Monthly usage for www.example.com'
     ],
-    'label-axis' => [
+    'value-axis' => [
         'generator' => '\Phpopenchart\Label\DefaultLabel',
+        'align' => [
+            'horizontal' => 'left'
+        ]
     ],
     'point-label' => [
         'generator' => '\Phpopenchart\Label\DefaultLabel',

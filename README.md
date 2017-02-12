@@ -54,6 +54,7 @@ In a forseable future
 - Update documentation for the exception created
 - Update documentation about the `pie-generator` on the point-label
 - Document caption-label
+- Update sort-data-point documentation
 - Make this easily integrated with Laravel
 
 ## License

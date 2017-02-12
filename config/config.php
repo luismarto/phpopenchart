@@ -46,13 +46,14 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Sort points (Pie charts only)
+        | Sort points - used on a pie charts and single series bar, column and line charts
         |--------------------------------------------------------------------------
-        | By default, the discs of pie charts are drawn in a descending order
-        | by it's values.
-        | If you want to display them in the order defined on the dataset, set this to false
+        | By default the chart is drawn in the order you add the points, which
+        | corresponds to the value 0.
+        | If you want to display the chart with an ascending order, set this value to
+        | 1 or -1 in case of a descending order
         */
-        'sort-data-point' => true,
+        'sort-data-point' => 0,
 
         /*
         |--------------------------------------------------------------------------

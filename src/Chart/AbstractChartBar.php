@@ -91,9 +91,6 @@ abstract class AbstractChartBar extends AbstractChart
             unset($lastPointCount);
             $serieList = $this->getDataSet()->getSerieList();
             for ($i = 0; $i < count($serieList); $i++) {
-                /**
-                 * @var $serie \Phpopenchart\Data\XYDataSet
-                 */
                 $serie = $serieList[$i];
                 $pointCount = count($serie->getPointList());
                 if (isset($lastPointCount) && $pointCount != $lastPointCount) {

@@ -69,23 +69,6 @@ class Pie extends AbstractChart
     }
 
     /**
-     * Compare two sampling point values, order from biggest to lowest value.
-     *
-     * @param double $v1 first value
-     * @param double $v2 second value
-     * @return integer result of the comparison
-     */
-    private function sortPie($v1, $v2)
-    {
-        return $v1[0] == $v2[0]
-            ? 0
-            : ($v1[0] > $v2[0]
-                ? -1
-                : 1
-            );
-    }
-
-    /**
      * Compute pie values in percentage and sort them.
      */
     private function computePercent()
@@ -104,11 +87,6 @@ class Pie extends AbstractChart
                 : 100 * $point->getValue() / $this->total;
 
             $this->percent[] = [$percent, $point];
-        }
-
-        // Sort data points
-        if ($this->sortDataPoint) {
-            usort($this->percent, ["\\Phpopenchart\\Chart\\Pie", "sortPie"]);
         }
     }
 
