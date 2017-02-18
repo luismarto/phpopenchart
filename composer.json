@@ -1,41 +1,7 @@
 {
-  "name": "luismarto/phpopenchart",
+  "name": "docs",
   "type": "library",
-  "description": "PHP library to draw Column, Bar, Line and Pie Charts",
-  "keywords": [
-    "chart",
-    "charts",
-    "bar charts",
-    "line charts",
-    "pie charts"
-  ],
-  "homepage": "https://luismarto.github.io/docs/index.html",
-  "license": "GPL-3.0",
-  "authors": [
-    {
-      "name": "Luis Cruz",
-      "homepage": "https://geekalicious.pt/blog/en",
-      "role": "Developer"
-    },
-    {
-      "name": "Alexander Stehlik",
-      "role": "Developer"
-    },
-    {
-      "name": "Jean-Marc Trémeaux",
-      "homepage": "http://naku.dohcrew.com/",
-      "role": "Developer"
-    }
-  ],
-  "version": "3.0.0",
   "require": {
-    "hassankhan/config": "0.10.*",
-    "php": ">=5.5",
-    "ext-gd": "*"
-  },
-  "autoload": {
-    "psr-0": {
-      "Phpopenchart\\": "src"
-    }
+    "luismarto/phpopenchart": "3.*"
   }
 }

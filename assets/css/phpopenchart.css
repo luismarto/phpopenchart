@@ -1,0 +1,63 @@
+.color-white {
+	color: #ffffff;
+}
+
+.branding .logo {
+	font-size: 20px;
+	float: left;
+}
+
+.branding .pb {
+	float: left;
+}
+
+.breadcrumb {
+	clear: both;
+}
+
+.option-key {
+	color: #DD4A68;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.option-type {
+	font-size: 11px;
+	font-style: italic;
+	color: #444444;
+	vertical-align: middle !important;
+}
+
+.table-options tr td:first-child,
+.table-options tr td:nth-child(2),
+.option-default-value,
+.table-labels tr td:first-child,
+.table-labels tr td:nth-child(3),
+.table-exceptions tr td:first-child {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.table-labels tr td:first-child,
+.table-exceptions tr td:first-child {
+	text-align: left;
+}
+
+.callout-warning {
+	background: #fcf8e3;
+	color: #8a6d3b;
+	border: 1px solid #faebcc;
+}
+.callout-block.callouut-warning .callout-title, .callout-block .icon-holder {
+	color: rgba(138, 109, 59, 0.65);
+}
+
+.callout-info {
+	background: #d9edf7;
+	color: #31708f;
+	border: 1px solid #bce8f1;
+}
+
+.callout-block.callout-info .icon-holder {
+	color: rgba(49, 112, 143, 0.65);
+}
