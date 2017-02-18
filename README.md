@@ -33,9 +33,11 @@ $chart->render();
 
 # Documentation & examples
 
-There's an extensive documentation [here](https://luismarto.github.com/docs/index.html) with all the available options, methods and datasets.
+There's an extensive documentation [here](https://geekalicious.pt/phpopenchart/docs/index.html) with all the available options, methods and datasets.
 
-If you're looking for examples check the [examples](https://luismarto.github.com/docs/examples.html) page for all the available options
+If you're looking for examples check the [examples](https://geekalicious.pt/phpopenchart/docs/examples.html) page for all the available options
+@@TODO
+
 or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/master/test/actual). 
 
 # Installation
