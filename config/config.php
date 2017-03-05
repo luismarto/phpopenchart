@@ -46,13 +46,14 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Sort points (Pie charts only)
+        | Sort points - used on a pie charts and single series bar, column and line charts
         |--------------------------------------------------------------------------
-        | By default, the discs of pie charts are drawn in a descending order
-        | by it's values.
-        | If you want to display them in the order defined on the dataset, set this to false
+        | By default the chart is drawn in the order you add the points, which
+        | corresponds to the value 0.
+        | If you want to display the chart with an ascending order, set this value to
+        | 1 or -1 in case of a descending order
         */
-        'sort-data-point' => true,
+        'sort-data-point' => 0,
 
         /*
         |--------------------------------------------------------------------------
@@ -68,6 +69,19 @@ return [
         'line-padding'   => [5, 30, 50, 50],
         'pie-padding'    => [15, 10, 30, 30],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Graphic area ratio in relation to caption. Used whenever the chart has a
+        | caption, such as all Pie Charts (default) and multi series Column / Bar / Line
+        |--------------------------------------------------------------------------
+        | This value is used to calculate the available width to place the chart
+        | and the available space for the caption.
+        | You need to set a value greater and 0 and lower than 1. The greater the value
+        | is, the more space to the graphic (and smaller width for the caption).
+        | If your chart has larger caption labels, it would be best to set this to a
+        | smaller value
+        */
+        'ratio' => 0.7
     ],
 
     /*
@@ -304,12 +318,55 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Label Generator Class for Point values
+        | Label Generator Class for Point values (for Bar, Column and Line)
         |--------------------------------------------------------------------------
-        | Determines the class used to generate the labels for Axis
+        | Determines the class used to generate the labels for the points
         | Feel free to implement your own LabelGenerator Class that implements
         | \Phpopenchart\Label\LabelInterface and use that here
         */
         'generator' => '\Phpopenchart\Label\NumberFormatter',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Label Generator Class for Point values on Pie charts
+        |--------------------------------------------------------------------------
+        | Determines the class used to generate the labels for points on pie charts
+        | Feel free to implement your own LabelGenerator Class that implements
+        | \Phpopenchart\Label\LabelInterface and use that here
+        */
+        'pie-generator' => '\Phpopenchart\Label\PercentageFormatter',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Properties for the Caption text (when creating a Pie chart or having
+    | multiple series on Bar, Column or Line charts)
+    |--------------------------------------------------------------------------
+    */
+    'caption-label' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Font
+        |--------------------------------------------------------------------------
+        | Determines the font to be used on the caption text
+        */
+        'font' => __DIR__. DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Font size
+        |--------------------------------------------------------------------------
+        | Default font size to be used when printing the caption text
+        */
+        'size' => 10,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Color
+        |--------------------------------------------------------------------------
+        | Default color for the caption text. Set this in hex format
+        */
+        'color' => '#666666',
     ],
 ];

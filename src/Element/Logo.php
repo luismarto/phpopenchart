@@ -65,14 +65,4 @@ class Logo
 
         return true;
     }
-
-    /**
-     * Sets the logo image file name.
-     *
-     * @param string $filename New logo image file name
-     */
-    public function setLogoFilename($filename)
-    {
-        $this->filename = $filename;
-    }
 }

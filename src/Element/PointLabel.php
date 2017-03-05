@@ -51,8 +51,9 @@ class PointLabel extends AbstractElement
      * @param Text $textInstance
      * @param array $args
      * @param \Noodlehaus\Config $config
+     * @param string $type Type of the chart
      */
-    public function __construct($args, $textInstance, $config)
+    public function __construct($args, $textInstance, $config, $type)
     {
         $this->config = $config;
         $this->textInstance = $textInstance;
@@ -102,10 +103,19 @@ class PointLabel extends AbstractElement
             $this->angle = (int)$this->config->get('point-label.angle', 0);
         }
         if (is_null($this->labelGenerator)) {
-            $labelGeneratorClass = $this->config->get(
-                'point-label.generator',
-                '\Phpopenchart\Label\NumberFormatter'
-            );
+            if ($type !== 'pie') {
+                // If the chart is any other than pie, use the default
+                $labelGeneratorClass = $this->config->get(
+                    'point-label.generator',
+                    '\Phpopenchart\Label\NumberFormatter'
+                );
+            } else {
+                // Otherwise, use the settings from config or the PercentageFormatter by default
+                $labelGeneratorClass = $this->config->get(
+                    'point-label.pie-generator',
+                    '\Phpopenchart\Label\PercentageFormatter'
+                );
+            }
             $this->labelGenerator = new $labelGeneratorClass;
         }
     }

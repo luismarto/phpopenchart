@@ -3,7 +3,7 @@
 Phpopenchart was based on Libchart and allows you to create charts using PHP. It's specially useful when you need to create charts on the server-side 
 and so you can't use a front-end library such as Highcharts.
 
-<img src="https://geekalicious.pt/github/libchart/libchart-sample-2.png"/>
+<img src="https://geekalicious.pt/phpopenchart/assets/images/phpopenchart-sample-2.png"/>
 
 ````php
 use Phpopenchart\Chart\Column;
@@ -33,10 +33,10 @@ $chart->render();
 
 # Documentation & examples
 
-There's an extensive documentation [here](https://luismarto.github.com/docs/index.html) with all the available options, methods and datasets.
+There's an extensive documentation [here](https://geekalicious.pt/phpopenchart/) with all the available options, methods and datasets.
 
-If you're looking for examples check the [examples](https://luismarto.github.com/docs/examples.html) page for all the available options
-or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/master/test/actual). 
+If you're looking for examples check the [examples](https://geekalicious.pt/phpopenchart/examples.php) page for all the available options
+or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/geekalicious-docs/comparison-libchart/actual). 
 
 # Installation
 
@@ -50,8 +50,7 @@ Require the package in your `composer.json` file and update composer, using the 
 # Roadmap
 
 In a forseable future
-- Minor fixes and improvements (add configurations, apply configurations to all chart types, optimize internal code, add the color specified on the point to the pie chart, ...)
-- Fully document label-axis and value-axis as well as the new "align" configurations
+- Improve demo/examples section (display comparison between libchart and phpopenchart)
 - Make this easily integrated with Laravel
 
 ## License

@@ -29,13 +29,11 @@ class Column extends AbstractChartBar
      */
     protected function printAxis()
     {
-        $minValue = $this->axis->getLowerBoundary();
-        $maxValue = $this->axis->getUpperBoundary();
-        $stepValue = $this->axis->getTics();
+        list($minValue, $maxValue, $stepValue) = $this->axis->getValues();
 
         // Get the graph area
         $graphArea = $this->graphArea;
-        $axisColor0 = $this->palette->axisColor[0];
+        $axisColor0 = $this->palette->getAxisColor()[0];
         /**
          * Deal with the Vertical Axis
          */
@@ -43,10 +41,10 @@ class Column extends AbstractChartBar
             $y = $graphArea->y2
                 - ($value - $minValue)
                 * ($graphArea->y2 - $graphArea->y1)
-                / ($this->axis->displayDelta);
+                / ($this->axis->getDisplayDelta());
 
             // For each marker, create the "guiding line"
-            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->backgroundColor);
+            $this->gd->line($graphArea->x1, $y, $graphArea->x2, $y, $this->palette->getBackgroundColor());
 
             // Now print the label for the y axis
             $this->valueAxis->draw(
@@ -57,25 +55,30 @@ class Column extends AbstractChartBar
         }
 
         // Get first serie of a list
-        $pointList = $this->getFirstSerieOfList();
+        $pointList = $this->getDataSet()->getFirstSerieOfList();
 
         /**
          * Deal with the Horizontal Axis
          */
         $pointCount = count($pointList);
         reset($pointList);
-        $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->displayDelta;
+        $columnWidth = $pointCount > 0
+            ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+            : 0;
+        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / $this->axis->getDisplayDelta();
 
         $this->gd->line($graphArea->x1, $horizOriginY, $graphArea->x2, $horizOriginY, $axisColor0);
 
         // Get the max height for the text of all the labels.
         // This way all the labels will get aligned
-        $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
-            $this->labelAxis->getFontSize(),
-            $this->labelAxis->getTextAngle(),
-            $this->labelAxis->getFont()
-        );
+        $maxTextHeight = false;
+        if (!$this->hasSeveralSeries) {
+            $maxTextHeight = $this->getDataSet()->getMaxLabelHeight(
+                $this->labelAxis->getFontSize(),
+                $this->labelAxis->getTextAngle(),
+                $this->labelAxis->getFont()
+            );
+        }
 
         for ($i = 0; $i <= $pointCount; $i++) {
             // The starting X for this point is the sum of the $x1 of the chart (minding the padding)
@@ -111,18 +114,19 @@ class Column extends AbstractChartBar
     protected function printColumn()
     {
         // Get the data as a list of series for consistency
-        $serieList = $this->getDataAsSerieList();
+        $serieList = $this->getDataSet()->asSerieList();
 
         // Get the graph area
         $graphArea = $this->graphArea;
 
         // Start from the first color for the first serie
-        $barColorSet = $this->palette->barColorSet;
+        $barColorSet = $this->palette->getBarColorSet();
         $barColorSet->reset();
 
         $minValue = $this->axis->getLowerBoundary();
 
-        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1) / ($this->axis->displayDelta);
+        $horizOriginY = $graphArea->y2 + $minValue * ($graphArea->y2 - $graphArea->y1)
+            / ($this->axis->getDisplayDelta());
 
         $serieCount = count($serieList);
         for ($j = 0; $j < $serieCount; $j++) {
@@ -138,7 +142,9 @@ class Column extends AbstractChartBar
                 $barColorSet->next();
             }
 
-            $columnWidth = ($graphArea->x2 - $graphArea->x1) / $pointCount;
+            $columnWidth = $pointCount > 0
+                ? ($graphArea->x2 - $graphArea->x1) / $pointCount
+                : 0;
             for ($i = 0; $i < $pointCount; $i++) {
                 $x = $graphArea->x1 + $i * $columnWidth;
 
@@ -153,7 +159,7 @@ class Column extends AbstractChartBar
                 $ymin = $graphArea->y2
                     - ($value - $minValue)
                     * ($graphArea->y2 - $graphArea->y1)
-                    / ($this->axis->displayDelta);
+                    / ($this->axis->getDisplayDelta());
 
                 // Bar dimensions
                 $xWithMargin = $x + $columnWidth * $this->emptyToFullRatio;
