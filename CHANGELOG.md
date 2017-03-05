@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+
+## [3.0.2] - 2017-03-05
+### Changed
+- Updated documentation
+
 ## [3.0.1] - 2017-02-07
 ### Added
 - Added specific configurations for Label Axis and Value Axis
