@@ -408,7 +408,6 @@ select {
 }
 /* ======= Doc Styling ======= */
 .doc-wrapper {
-  padding: 45px 0;
   background: #f9f9fb;
 }
 .doc-body {
@@ -421,6 +420,7 @@ select {
   color: #40babd;
   margin-top: 0;
   font-size: 36px;
+  padding-top: 45px;
 }
 .body-green .doc-header .doc-title {
   color: #75c181;

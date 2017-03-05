@@ -26,15 +26,15 @@
 	font-style: italic;
 	color: #444444;
 	vertical-align: middle !important;
+	text-align: center;
 }
 
 .table-options tr td:first-child,
-.table-options tr td:nth-child(2),
 .option-default-value,
 .table-labels tr td:first-child,
 .table-labels tr td:nth-child(3),
 .table-exceptions tr td:first-child {
-	vertical-align: middle;
+	vertical-align: middle !important;
 	text-align: center;
 }
 
@@ -60,4 +60,21 @@
 
 .callout-block.callout-info .icon-holder {
 	color: rgba(49, 112, 143, 0.65);
+}
+
+.table-responsive {
+	padding-top: 15px;
+}
+
+.doc-menu .doc-sub-menu{
+	display:none;
+}
+
+.doc-menu li.active > .doc-sub-menu{
+	display:block;
+}
+
+
+.clear-both {
+	clear: both;
 }
