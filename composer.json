@@ -27,7 +27,7 @@
       "role": "Developer"
     }
   ],
-  "version": "3.0.0",
+  "version": "3.0.2",
   "require": {
     "hassankhan/config": "0.10.*",
     "php": ">=5.5",
