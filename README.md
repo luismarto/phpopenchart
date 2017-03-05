@@ -3,7 +3,7 @@
 Phpopenchart was based on Libchart and allows you to create charts using PHP. It's specially useful when you need to create charts on the server-side 
 and so you can't use a front-end library such as Highcharts.
 
-<img src="https://geekalicious.pt/github/libchart/libchart-sample-2.png"/>
+<img src="https://geekalicious.pt/phpopenchart/assets/images/phpopenchart-sample-2.png"/>
 
 ````php
 use Phpopenchart\Chart\Column;
@@ -33,12 +33,12 @@ $chart->render();
 
 # Documentation & examples
 
-There's an extensive documentation [here](https://geekalicious.pt/phpopenchart/docs/index.html) with all the available options, methods and datasets.
+There's an extensive documentation [here](https://geekalicious.pt/phpopenchart/) with all the available options, methods and datasets.
 
-If you're looking for examples check the [examples](https://geekalicious.pt/phpopenchart/docs/examples.html) page for all the available options
+If you're looking for examples check the [examples](https://geekalicious.pt/phpopenchart/examples.php) page for all the available options
 @@TODO
 
-or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/master/test/actual). 
+or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/geekalicious-docs/comparison-libchart/actual). 
 
 # Installation
 
@@ -52,11 +52,7 @@ Require the package in your `composer.json` file and update composer, using the 
 # Roadmap
 
 In a forseable future
-- Fully document label-axis and value-axis as well as the new "align" configurations. The same for the 'ratio' property
-- Update documentation for the exception created
-- Update documentation about the `pie-generator` on the point-label
-- Document caption-label
-- Update sort-data-point documentation
+- Improve demo/examples section (display comparison between libchart and phpopenchart)
 - Make this easily integrated with Laravel
 
 ## License
