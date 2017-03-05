@@ -36,8 +36,6 @@ $chart->render();
 There's an extensive documentation [here](https://geekalicious.pt/phpopenchart/) with all the available options, methods and datasets.
 
 If you're looking for examples check the [examples](https://geekalicious.pt/phpopenchart/examples.php) page for all the available options
-@@TODO
-
 or the [/tests/actual](https://github.com/luismarto/phpopenchart/tree/geekalicious-docs/comparison-libchart/actual). 
 
 # Installation
