@@ -7,7 +7,7 @@
             the <code class="language-php">point-label</code> key.</p>
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/55-point-label-options.png" alt="PHPOpenChart Point label options" />
+        <img src="assets/images/55-point-label-options.png" alt="PHPOpenChart Point label options" />
     </div>
     <div class="table-responsive clear-both">
         <table class="table table-bordered table-options">

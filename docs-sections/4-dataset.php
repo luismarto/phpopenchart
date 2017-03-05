@@ -75,10 +75,10 @@
                         ],
                     ]
                 ]
-            ]))->render('images/dataset-multiple-series.png');  ?>
+            ]))->render('assets/images/generated/dataset-multiple-series.png');  ?>
 
             <p>
-                <img src="../images/dataset-multiple-series.png" alt="Dataset multiple series"
+                <img src="assets/images/generated/dataset-multiple-series.png" alt="Dataset multiple series"
                      class="img-responsive center-block" style="max-width: 500px;"/>
             </p>
             <div class="callout-block callout-info">

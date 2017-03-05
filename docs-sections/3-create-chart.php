@@ -27,8 +27,9 @@ $chart->render();</code></pre>
                     'labels' => ['Jan', 'Feb', 'Mar'],
                     'data'   => [3296, 1546, 5015]
                 ]
-            ]))->render('images/sample-column-chart.png'); ?>
-            <img src="../images/sample-column-chart.png" alt="Sample demo" class="img-responsive center-block"  />
+            ]))->render('assets/images/generated/sample-column-chart.png'); ?>
+            <img src="assets/images/generated/sample-column-chart.png" alt="Sample demo"
+                 class="img-responsive center-block" />
         </p>
     </div>
 </section><!--//doc-section-->

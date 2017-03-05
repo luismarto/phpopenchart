@@ -7,7 +7,7 @@
         <p>All the options are nested within the parent <code class="language-php">value-axis</code> key on the configuration file.</p>
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/54-value-axis-options.png" alt="PHPOpenChart Value axis options" />
+        <img src="assets/images/54-value-axis-options.png" alt="PHPOpenChart Value axis options" />
     </div>
     <div class="table-responsive clear-both">
         <table class="table table-bordered table-options">

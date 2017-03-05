@@ -6,7 +6,7 @@
             the <code class="language-php">caption-label</code> key.</p>
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/56-caption-label-options.png" alt="PHPOpenChart Caption label options" />
+        <img src="assets/images/56-caption-label-options.png" alt="PHPOpenChart Caption label options" />
     </div>
 
     <div class="table-responsive clear-both">

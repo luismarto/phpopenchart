@@ -8,7 +8,7 @@
 
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/53-label-axis-options.png" alt="PHPOpenChart Label axis options" />
+        <img src="assets/images/53-label-axis-options.png" alt="PHPOpenChart Label axis options" />
     </div>
 
     <div class="table-responsive clear-both">

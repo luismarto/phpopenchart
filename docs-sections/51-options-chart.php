@@ -5,7 +5,7 @@
             <code class="language-php">chart</code> key on the configuration file.</p>
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/51-chart-options.png" alt="PHPOpenChart Chart options" />
+        <img src="assets/images/51-chart-options.png" alt="PHPOpenChart Chart options" />
     </div>
 
     <div class="table-responsive clear-both">

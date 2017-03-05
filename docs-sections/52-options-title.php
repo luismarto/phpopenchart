@@ -5,7 +5,7 @@
             <code class="language-php">title</code> key on the configuration file.</p>
     </div>
     <div class="col-xs-4">
-        <img src="../assets/images/52-tile-options.png" alt="PHPOpenChart Title options" />
+        <img src="assets/images/52-tile-options.png" alt="PHPOpenChart Title options" />
     </div>
 
     <div class="table-responsive clear-both">
