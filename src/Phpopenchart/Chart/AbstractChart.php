@@ -1,14 +1,15 @@
 <?php namespace Phpopenchart\Chart;
 
-use Phpopenchart\Color\ColorPalette;
+use Noodlehaus\Config;
 use Phpopenchart\Color\ColorHex;
+use Phpopenchart\Color\ColorPalette;
 use Phpopenchart\Data\XYDataSet;
 use Phpopenchart\Data\XYSeriesDataSet;
-use Phpopenchart\Element\LabelAxis;
 use Phpopenchart\Element\BasicPadding;
 use Phpopenchart\Element\BasicRectangle;
 use Phpopenchart\Element\Caption;
 use Phpopenchart\Element\Gd;
+use Phpopenchart\Element\LabelAxis;
 use Phpopenchart\Element\Logo;
 use Phpopenchart\Element\PointLabel;
 use Phpopenchart\Element\Text;
@@ -16,8 +17,6 @@ use Phpopenchart\Element\Title;
 use Phpopenchart\Element\ValueAxis;
 use Phpopenchart\Exception\ChartRatioOutOfBoundariesException;
 use Phpopenchart\Exception\DatasetNotDefinedException;
-
-use Noodlehaus\Config;
 use ReflectionClass;
 
 /**
@@ -270,7 +269,7 @@ abstract class AbstractChart
             $this->useMultipleColor = (bool)$args['chart']['use-multiple-color'];
         }
 
-        $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
+        $paddingReflect = new ReflectionClass('\Phpopenchart\Element\BasicPadding');
         if (array_key_exists('chart', $args) && is_array($args['chart'])
             && array_key_exists($type . '-padding', $args['chart']) && is_array($args['chart'][$type . '-padding'])
         ) {

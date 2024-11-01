@@ -1,10 +1,10 @@
 <?php namespace Phpopenchart\Element;
 
 use Noodlehaus\Config;
-use Phpopenchart\Data\XYSeriesDataSet;
-use Phpopenchart\Data\XYDataSet;
-use Phpopenchart\Data\Point;
 use Phpopenchart\Color\ColorHex;
+use Phpopenchart\Data\Point;
+use Phpopenchart\Data\XYDataSet;
+use Phpopenchart\Data\XYSeriesDataSet;
 
 /**
  * Class Caption
@@ -105,7 +105,7 @@ class Caption extends AbstractElement
 
     /**
      * Render the caption.
-     * @var \Phpopenchart\Element\BasicRectangle $captionArea
+     * @param \Phpopenchart\Element\BasicRectangle $captionArea
      * @param \Phpopenchart\Color\ColorPalette $palette
      */
     public function render($captionArea, $palette)

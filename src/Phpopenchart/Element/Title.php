@@ -66,7 +66,7 @@ class Title extends AbstractElement
     {
         $this->textInstance = $textInstance;
         $this->config = $config;
-        $paddingReflect = new ReflectionClass('\Phpopenchart\\Element\\BasicPadding');
+        $paddingReflect = new ReflectionClass('\Phpopenchart\Element\BasicPadding');
 
         // Check if the options were defined on the chart's constructor
         if (array_key_exists('title', $args) && is_array($args['title'])) {
