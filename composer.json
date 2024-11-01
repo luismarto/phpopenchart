@@ -10,7 +10,7 @@
     "pie charts"
   ],
   "homepage": "https://geekalicious.pt/phpopenchart/",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "authors": [
     {
       "name": "Luis Cruz",
@@ -27,7 +27,6 @@
       "role": "Developer"
     }
   ],
-  "version": "3.0.2",
   "require": {
     "hassankhan/config": "3.1.*",
     "php": ">=5.5",
