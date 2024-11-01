@@ -26,6 +26,7 @@ abstract class AbstractElement
             $font =  dirname(__FILE__)
                 . DIRECTORY_SEPARATOR. '..'
                 . DIRECTORY_SEPARATOR . '..'
+                . DIRECTORY_SEPARATOR . '..'
                 . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . $fontName;
         } else {
             $font = $fontName;
