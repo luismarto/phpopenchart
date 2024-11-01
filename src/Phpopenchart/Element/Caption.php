@@ -90,8 +90,9 @@ class Caption extends AbstractElement
             $this->font = $this->setFont(
                 $config->get(
                     'caption-label.font',
-                    __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
-                    . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+                    __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+                    . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fonts'
+                    . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
                 )
             );
         }

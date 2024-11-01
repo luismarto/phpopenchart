@@ -199,6 +199,7 @@ abstract class AbstractChart
         $configPath = __DIR__
             . DIRECTORY_SEPARATOR . '..'
             . DIRECTORY_SEPARATOR . '..'
+            . DIRECTORY_SEPARATOR . '..'
             . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
         $this->config = Config::load($configPath);
 

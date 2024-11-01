@@ -119,7 +119,8 @@ class AbstractLabelValueAxis extends AbstractElement
                 $this->config->get(
                     'label-axis.font',
                     __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
-                    . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+                    . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fonts'
+                    . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
                 )
             );
         }

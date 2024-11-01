@@ -95,8 +95,9 @@ class Title extends AbstractElement
             $this->font = $this->setFont(
                 $this->config->get(
                     'title.fonts',
-                    __DIR__ . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..'
-                    . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
+                    __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+                    . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fonts'
+                    . DIRECTORY_SEPARATOR . 'SourceSansPro-Regular.otf'
                 )
             );
         }
